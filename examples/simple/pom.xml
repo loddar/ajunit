@@ -10,9 +10,9 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>simple</artifactId>
-    <name>Simple usage of AJUnit</name>
-    <description>AJUnit Example</description>
+    <artifactId>ajunit-examples-simple</artifactId>
+    <name>ajUnit (First Example)</name>
+    <description>This Example demonstrates ... ??</description>
 
 
 </project>

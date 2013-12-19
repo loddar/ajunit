@@ -5,8 +5,8 @@
     <groupId>org.failearly.ajunit.examples</groupId>
     <artifactId>examples</artifactId>
     <packaging>pom</packaging>
-    <name>AJUnit Examples</name>
-    <description>AJUnit - Unit Testing for AspectJ pointcut definitions. (Examples parent POM)</description>
+    <name>ajUnit (Examples Parent POM)</name>
+    <description>ajUnit - Unit Testing for AspectJ pointcut definitions.( Examples parent POM)</description>
     <version>1.0-SNAPSHOT</version>
 
     <parent>

@@ -1,7 +1,7 @@
 /*
- * AJUnit - Unit Testing AspectJ pointcuts definitions.
+ * ajUnit - Unit Testing AspectJ pointcut definitions.
  *
- * Copyright (C) 2013  Marko Umek (ajunit.contact(at)gmail.com)
+ * Copyright (C) 2013-2013  Marko Umek (ajunit.contact(at)gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,13 +27,12 @@ import java.lang.reflect.Method;
 /**
  * UniverseBuilder is responsible for ...
  */
-public interface UniverseBuilder {
+final class UniverseBuilder {
+    private final UniverseImpl universe;
 
-    /**
-     * Builds a universe.
-     * @return
-     */
-    Universe build();
+    UniverseBuilder(final UniverseImpl universe) {
+        this.universe = universe;
+    }
 
     /**
      * Adds classes to the universe. Only leaf classes are necessary. The super classes will be added
@@ -46,16 +45,22 @@ public interface UniverseBuilder {
     /**
      * Adds a MethodJoinPoint of {@code method} and {@code joinPointType} to the current universe.
      */
-    void addMethodJoinpoint(Method method, AjJoinPointType joinPointType);
+    void addMethodJoinpoint(final Method method, final JoinPointType joinPointType) {
+        universe.addJoinpoint(method, joinPointType);
+    }
 
     /**
      * Adds a FieldJoinPoint of {@code field} and {@code joinPointType} to the current universe.
      */
-    void addFieldJoinpoint(Field field, AjJoinPointType joinPointType);
+    void addFieldJoinpoint(final Field field, final JoinPointType joinPointType) {
+        universe.addJoinpoint(field, joinPointType);
+    }
 
     /**
      * Adds a ConstructorJoinPoint of  {@code constructor}  and {@code joinPointType} to the current universe.
      */
-    void addConstructorJoinpoint(Constructor constructor, AjJoinPointType joinPointType);
+    void addConstructorJoinpoint(final Constructor constructor, final JoinPointType joinPointType) {
+        universe.addJoinpoint(constructor, joinPointType);
+    }
 
 }

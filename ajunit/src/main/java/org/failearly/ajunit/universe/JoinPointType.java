@@ -1,7 +1,7 @@
 /*
- * AJUnit - Unit Testing AspectJ pointcuts definitions.
+ * ajUnit - Unit Testing AspectJ pointcut definitions.
  *
- * Copyright (C) 2013  Marko Umek (ajunit.contact(at)gmail.com)
+ * Copyright (C) 2013-2013  Marko Umek (ajunit.contact(at)gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,11 +27,11 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 /**
- * AjJoinPointType defines the supported join points of AJUnit and bind them to the JoinPoints of AspectJ.
+ * JoinPointType defines the supported join points of AJUnit and bind them to the JoinPoints of AspectJ.
  *
  * @see org.aspectj.lang.JoinPoint#getKind()
  */
-public enum AjJoinPointType {
+public enum JoinPointType {
     /**
      * @see org.aspectj.lang.JoinPoint#METHOD_EXECUTION
      */
@@ -118,66 +118,66 @@ public enum AjJoinPointType {
      * Unknown join point.
      */
     _UNKNOWN(null);
-    private static final Map<String, AjJoinPointType> SUPPORTED_JOIN_POINT_TYPES;
+    private static final Map<String, JoinPointType> SUPPORTED_JOIN_POINT_TYPES;
     private final String joinPointKind;
 
     static {
         SUPPORTED_JOIN_POINT_TYPES = EnumUtils.resolveValidEnums(
-                            AjJoinPointType.class,
-                            new EnumUtils.EnumKeyResolver<String, AjJoinPointType>() {
+                            JoinPointType.class,
+                            new EnumUtils.EnumKeyResolver<String, JoinPointType>() {
                                 @Override
-                                public String resolveKey(final AjJoinPointType enumValue) {
+                                public String resolveKey(final JoinPointType enumValue) {
                                     return enumValue.joinPointKind;
                                 }
                             }
                         );
     }
 
-    private AjJoinPointType(final String joinPointKind) {
+    private JoinPointType(final String joinPointKind) {
         this.joinPointKind = joinPointKind;
     }
 
     /**
      * resolve enum value from AspectJ join point.
      */
-    public static AjJoinPointType resolveFromJoinPoint(final JoinPoint joinPoint) {
+    static JoinPointType resolveFromJoinPoint(final JoinPoint joinPoint) {
         return EnumUtils.defaultIfNotFound(SUPPORTED_JOIN_POINT_TYPES, joinPoint.getKind(), _UNKNOWN);
     }
 
     /**
      * Creates MethodJoinPoint for all accepting join point types by calling {@link
-     * UniverseBuilder#addMethodJoinpoint(java.lang.reflect.Method, AjJoinPointType)}.
+     * UniverseBuilder#addMethodJoinpoint(java.lang.reflect.Method, JoinPointType)}.
      */
-    public void buildUniverse(final Method method, final UniverseBuilder universeBuilder) {
-        for (AjJoinPointType joinPointType : SUPPORTED_JOIN_POINT_TYPES.values()) {
-            accept(method, universeBuilder);
+    static void buildUniverse(final Method method, final UniverseBuilder universeBuilder) {
+        for (JoinPointType joinPointType : SUPPORTED_JOIN_POINT_TYPES.values()) {
+            joinPointType.accept(method, universeBuilder);
         }
     }
 
     /**
      * Creates FieldJoinPoint for all accepting join point types by calling
-     * {@link UniverseBuilder#addFieldJoinpoint(java.lang.reflect.Field,AjJoinPointType)}.
+     * {@link UniverseBuilder#addFieldJoinpoint(java.lang.reflect.Field, JoinPointType)}.
      */
-    public void buildUniverse(final Field field, final UniverseBuilder universeBuilder) {
-        for (AjJoinPointType joinPointType : SUPPORTED_JOIN_POINT_TYPES.values()) {
-            accept(field, universeBuilder);
+    static void buildUniverse(final Field field, final UniverseBuilder universeBuilder) {
+        for (JoinPointType joinPointType : SUPPORTED_JOIN_POINT_TYPES.values()) {
+            joinPointType.accept(field, universeBuilder);
         }
     }
 
     /**
      * Creates ConstructorJoinPoint for all accepting join point types by calling {@link
-     * UniverseBuilder#addConstructorJoinpoint(java.lang.reflect.Constructor, AjJoinPointType)}.
+     * UniverseBuilder#addConstructorJoinpoint(java.lang.reflect.Constructor, JoinPointType)}.
      */
-    public void buildUniverse(final Constructor constructor, final UniverseBuilder universeBuilder) {
-        for (AjJoinPointType joinPointType : SUPPORTED_JOIN_POINT_TYPES.values()) {
-            accept(constructor, universeBuilder);
+    static void buildUniverse(final Constructor constructor, final UniverseBuilder universeBuilder) {
+        for (JoinPointType joinPointType : SUPPORTED_JOIN_POINT_TYPES.values()) {
+            joinPointType.accept(constructor, universeBuilder);
         }
     }
 
     /**
      * Overridden if the join point joinPointKind accepts {@link java.lang.reflect.Field}.
      *
-     * @see UniverseBuilder#addFieldJoinpoint(java.lang.reflect.Field, AjJoinPointType)
+     * @see UniverseBuilder#addFieldJoinpoint(java.lang.reflect.Field, JoinPointType)
      */
     protected void accept(final Field field, final UniverseBuilder universeBuilder) {
         // does not accept fields.
@@ -186,7 +186,7 @@ public enum AjJoinPointType {
     /**
      * Overridden if the join point joinPointKind accepts {@link java.lang.reflect.Constructor}.
      *
-     * @see UniverseBuilder#addConstructorJoinpoint(java.lang.reflect.Constructor, AjJoinPointType)
+     * @see UniverseBuilder#addConstructorJoinpoint(java.lang.reflect.Constructor, JoinPointType)
      */
     protected void accept(final Constructor constructor, final UniverseBuilder universeBuilder) {
         // does not accept constructors.
@@ -195,7 +195,7 @@ public enum AjJoinPointType {
     /**
      * Overridden if the join point joinPointKind accepts {@link java.lang.reflect.Method}.
      *
-     * @see UniverseBuilder#addMethodJoinpoint(java.lang.reflect.Method, AjJoinPointType)
+     * @see UniverseBuilder#addMethodJoinpoint(java.lang.reflect.Method, JoinPointType)
      */
     protected void accept(final Method method, final UniverseBuilder universeBuilder) {
         // does not accept method.
