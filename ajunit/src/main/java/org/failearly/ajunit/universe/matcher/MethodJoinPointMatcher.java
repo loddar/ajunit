@@ -16,29 +16,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.universe;
+package org.failearly.ajunit.universe.matcher;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.failearly.ajunit.universe.AjJoinPoint;
+import org.failearly.ajunit.universe.impl.AjJoinPointType;
 
 /**
- * UniverseImpl is responsible for ...
+ * MethodJoinPointMatcher compares {@link java.lang.reflect.Method} objects.
  */
-class UniverseImpl implements Universe {
+public class MethodJoinPointMatcher extends AjJoinPointMatcherBase<MethodSignature> {
 
-    private final String universeName;
-
-    UniverseImpl(final String universeName) {
-        this.universeName = universeName;
+    public MethodJoinPointMatcher(AjJoinPointType joinPointType) {
+        super(joinPointType, MethodSignature.class);
     }
 
-    void addJoinpoint(final Method method, final JoinPointType joinPointType) {
-    }
-
-    void addJoinpoint(final Field field, final JoinPointType joinPointType) {
-    }
-
-    void addJoinpoint(final Constructor constructor, final JoinPointType joinPointType) {
+    @Override
+    protected boolean doMatchSignature(MethodSignature signature, AjJoinPoint ajUnitJoinPoint) {
+        return signature.getMethod().equals(ajUnitJoinPoint.getMethod());
     }
 }

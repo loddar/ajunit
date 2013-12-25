@@ -16,10 +16,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit;
+package org.failearly.ajunit.universe;
+
+import org.aspectj.lang.JoinPoint;
 
 /**
- * AjUnitTest is responsible for ...
+ * AjJoinPointMatcher matches an {@link org.aspectj.lang.JoinPoint} and {@link org.failearly.ajunit.universe.AjJoinPoint}.
  */
-public abstract class AjUnitTest extends AjUnitBase {
+public interface AjJoinPointMatcher {
+
+    /**
+     * Returns {@code true} if {@code aspectJoinPoint} matches {@code ajUnitJoinPoint}.
+     */
+    boolean match(final JoinPoint aspectJoinPoint, final AjJoinPoint ajUnitJoinPoint);
 }

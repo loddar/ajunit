@@ -16,10 +16,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit;
+package org.failearly.ajunit.universe;
+
+import org.failearly.ajunit.universe.impl.AjJoinPointType;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
- * AjUnitTest is responsible for ...
+ * AjJoinPoint is responsible for ...
  */
-public abstract class AjUnitTest extends AjUnitBase {
+public interface AjJoinPoint {
+    AjJoinPointType getJoinPointType();
+
+    int getNumApplications();
+    Method getMethod();
+    Field  getField();
+    Constructor getConstructor();
+
+    void apply();
+
+    String toString();
+    String toShortString();
 }

@@ -18,12 +18,19 @@
  */
 package org.failearly.ajunit.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Arrays;
 import java.util.Collection;
 
 /**
  * Utility class for class related operations.
  */
 public final class ClassUtils {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ClassUtils.class);
+
 
     private ClassUtils() {
     }
@@ -32,6 +39,13 @@ public final class ClassUtils {
      * Collect all classes and interfaces for given classes.
      */
     public static Collection<Class<?>> getClassesAndInterfaces(Class<?>... classes) {
+        return getClassesAndInterfaces(Arrays.asList(classes));
+    }
+
+    /**
+     * Collect all classes and interfaces for given classes.
+     */
+    public static Collection<Class<?>> getClassesAndInterfaces(Collection<Class<?>> classes) {
         final DefaultClassCollector classCollector = new DefaultClassCollector();
         for (Class<?> aClass : classes) {
             collectClassesAndInterfaces(aClass, classCollector);
@@ -108,4 +122,12 @@ public final class ClassUtils {
         }
     }
 
+    public static Class<?> loadClass(String className, boolean initialize) throws ClassNotFoundException {
+        try {
+            return Class.forName(className, initialize, Thread.currentThread().getContextClassLoader());
+        } catch (ClassNotFoundException e) {
+            LOGGER.error("Class {} could not be found", className);
+            throw e;
+        }
+    }
 }

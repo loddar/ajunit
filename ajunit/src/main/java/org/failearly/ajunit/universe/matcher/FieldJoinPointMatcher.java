@@ -16,10 +16,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.universe;
+package org.failearly.ajunit.universe.matcher;
+
+import org.aspectj.lang.reflect.FieldSignature;
+import org.failearly.ajunit.universe.AjJoinPoint;
+import org.failearly.ajunit.universe.impl.AjJoinPointType;
 
 /**
- * Universe is responsible for ...
+ * FieldJoinPointMatcher compares {@link java.lang.reflect.Field} objects.
  */
-public interface Universe {
+public class FieldJoinPointMatcher extends AjJoinPointMatcherBase<FieldSignature> {
+
+    public FieldJoinPointMatcher(AjJoinPointType joinPointType) {
+        super(joinPointType, FieldSignature.class);
+    }
+
+    @Override
+    protected boolean doMatchSignature(FieldSignature signature, AjJoinPoint ajUnitJoinPoint) {
+        return signature.getField().equals(ajUnitJoinPoint.getField());
+    }
 }

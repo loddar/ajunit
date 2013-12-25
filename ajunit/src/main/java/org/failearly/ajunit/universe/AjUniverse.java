@@ -16,10 +16,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit;
+package org.failearly.ajunit.universe;
 
 /**
- * AjUnitTest is responsible for ...
+ * AjUniverse builds the <i>Test Fixture</i> for the actually tests.
  */
-public abstract class AjUnitTest extends AjUnitBase {
+public interface AjUniverse {
+    /**
+     * @return {@code true} if the universe has been initialized.
+     */
+    boolean isInitialized();
+
+    /**
+     * Visit all {@link org.failearly.ajunit.universe.AjJoinPoint} associated with the universe.
+     *
+     * @param joinPointVisitor the join point visitor.
+     *
+     */
+    void visitJoinPoints(AjJoinPointVisitor joinPointVisitor);
 }

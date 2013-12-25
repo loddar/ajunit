@@ -27,6 +27,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 
@@ -35,12 +36,14 @@ import static org.junit.Assert.assertThat;
  */
 public class ReflectionUtilsTest {
     // The test subjects.
-    private static class EmptyClass {}
+    private static class EmptyClass {
+    }
+
     private static class CommonClass {
-        private static final int MY_CONST=1;
+        private static final int MY_CONST = 1;
         public int publicField;
         protected int protectedField;
-        /*default*/int defaultField;
+        /*default*/ int defaultField;
         private int privateField;
 
         private CommonClass(int publicField) {
@@ -54,54 +57,79 @@ public class ReflectionUtilsTest {
             this.privateField = privateField;
         }
 
-        public void publicMethod() {}
-        protected void protectedMethod() {}
-        /*default*/ void defaultMethod() {}
-        private void privateMethod() {}
-        public static void publicStaticMethod() {}
+        public void publicMethod() {
+        }
+
+        protected void protectedMethod() {
+        }
+
+        /*default*/ void defaultMethod() {
+        }
+
+        private void privateMethod() {
+        }
+
+        public static void publicStaticMethod() {
+        }
     }
+
     private static abstract class AbstractClass {
-        private static final int MY_CONST=1;
+        private static final int MY_CONST = 1;
         public int publicField;
         protected int protectedField;
-        /*default*/int defaultField;
+        /*default*/ int defaultField;
         private int privateField;
 
-        public void publicMethod() {}
-        protected void protectedMethod() {}
-        /*default*/ void defaultMethod() {}
-        private void privateMethod() {}
+        public void publicMethod() {
+        }
+
+        protected void protectedMethod() {
+        }
+
+        /*default*/ void defaultMethod() {
+        }
+
+        private void privateMethod() {
+        }
+
         public abstract void abstractMethod();
     }
-    private static interface MarkerInterface {}
+
+    private static interface MarkerInterface {
+    }
+
     private static interface CommonInterface {
-        int MY_CONST=7;
+        int MY_CONST = 7;
+
         void anyMethod();
     }
 
 
-    private final List<Constructor> constructors=new ArrayList<>();
-    private final List<Method> methods=new ArrayList<>();
-    private final List<Field> fields=new ArrayList<>();
+    private final List<String> constructors = new ArrayList<>();
+    private final List<String> methods = new ArrayList<>();
+    private final List<String> fields = new ArrayList<>();
     private ClassVisitor classVisitor;
 
     @Before
     public void setUp() throws Exception {
+        this.constructors.clear();
+        this.methods.clear();
+        this.fields.clear();
         this.classVisitor = new AbstractClassVisitor() {
 
             @Override
             public void visit(final Method method) {
-                methods.add(method);
+                methods.add(method.toGenericString());
             }
 
             @Override
             public void visit(final Constructor<?> constructor) {
-                constructors.add(constructor);
+                constructors.add(constructor.toGenericString());
             }
 
             @Override
             public void visit(final Field field) {
-                fields.add(field);
+                fields.add(field.toGenericString());
             }
         };
     }
@@ -123,9 +151,24 @@ public class ReflectionUtilsTest {
         ReflectionUtils.visit(CommonClass.class, this.classVisitor);
 
         // assert / then
-        assertThat("#Constructors?", constructors, hasSize(2));
-        assertThat("#Methods?", methods, hasSize(5));
-        assertThat("#Fields?", fields, hasSize(5));
+        assertThat("Constructors?", constructors, containsInAnyOrder(
+                "private org.failearly.ajunit.util.ReflectionUtilsTest$CommonClass(int)",
+                "org.failearly.ajunit.util.ReflectionUtilsTest$CommonClass(int,int,int,int)"
+        ));
+        assertThat("Methods?", methods, containsInAnyOrder(
+                "public static void org.failearly.ajunit.util.ReflectionUtilsTest$CommonClass.publicStaticMethod()",
+                "public void org.failearly.ajunit.util.ReflectionUtilsTest$CommonClass.publicMethod()",
+                "protected void org.failearly.ajunit.util.ReflectionUtilsTest$CommonClass.protectedMethod()",
+                "void org.failearly.ajunit.util.ReflectionUtilsTest$CommonClass.defaultMethod()",
+                "private void org.failearly.ajunit.util.ReflectionUtilsTest$CommonClass.privateMethod()"
+        ));
+        assertThat("Fields?", fields, containsInAnyOrder(
+                "private static final int org.failearly.ajunit.util.ReflectionUtilsTest$CommonClass.MY_CONST",
+                "public int org.failearly.ajunit.util.ReflectionUtilsTest$CommonClass.publicField",
+                "protected int org.failearly.ajunit.util.ReflectionUtilsTest$CommonClass.protectedField",
+                "int org.failearly.ajunit.util.ReflectionUtilsTest$CommonClass.defaultField",
+                "private int org.failearly.ajunit.util.ReflectionUtilsTest$CommonClass.privateField"
+        ));
     }
 
     @Test
@@ -134,9 +177,23 @@ public class ReflectionUtilsTest {
         ReflectionUtils.visit(AbstractClass.class, this.classVisitor);
 
         // assert / then
-        assertThat("#Constructors?", constructors, hasSize(1));
-        assertThat("#Methods?", methods, hasSize(5));
-        assertThat("#Fields?", fields, hasSize(5));
+        assertThat("Constructors?", constructors, containsInAnyOrder(
+                "private org.failearly.ajunit.util.ReflectionUtilsTest$AbstractClass()"
+        ));
+        assertThat("Methods?", methods, containsInAnyOrder(
+                "public void org.failearly.ajunit.util.ReflectionUtilsTest$AbstractClass.publicMethod()",
+                "protected void org.failearly.ajunit.util.ReflectionUtilsTest$AbstractClass.protectedMethod()",
+                "void org.failearly.ajunit.util.ReflectionUtilsTest$AbstractClass.defaultMethod()",
+                "private void org.failearly.ajunit.util.ReflectionUtilsTest$AbstractClass.privateMethod()",
+                "public abstract void org.failearly.ajunit.util.ReflectionUtilsTest$AbstractClass.abstractMethod()"
+        ));
+        assertThat("Fields?", fields, containsInAnyOrder(
+                "private static final int org.failearly.ajunit.util.ReflectionUtilsTest$AbstractClass.MY_CONST",
+                "public int org.failearly.ajunit.util.ReflectionUtilsTest$AbstractClass.publicField",
+                "protected int org.failearly.ajunit.util.ReflectionUtilsTest$AbstractClass.protectedField",
+                "int org.failearly.ajunit.util.ReflectionUtilsTest$AbstractClass.defaultField",
+                "private int org.failearly.ajunit.util.ReflectionUtilsTest$AbstractClass.privateField"
+        ));
     }
 
     @Test
@@ -157,7 +214,11 @@ public class ReflectionUtilsTest {
 
         // assert / then
         assertThat("#Constructors?", constructors, hasSize(0));
-        assertThat("#Methods?", methods, hasSize(1));
-        assertThat("#Fields?", fields, hasSize(1));
+        assertThat("Methods?", methods, containsInAnyOrder(
+                "public abstract void org.failearly.ajunit.util.ReflectionUtilsTest$CommonInterface.anyMethod()"
+        ));
+        assertThat("Fields?", fields, containsInAnyOrder(
+                "public static final int org.failearly.ajunit.util.ReflectionUtilsTest$CommonInterface.MY_CONST"
+        ));
     }
 }

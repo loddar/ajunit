@@ -37,7 +37,7 @@ public final class EnumUtils {
     }
 
     /**
-     * Default implementation using toString.
+     * Default implementation using toLongString.
      */
     public static final EnumKeyResolver DEFAULT_ENUM_KEY_RESOLVER =new EnumKeyResolver<String,Enum<?>>() {
         @Override

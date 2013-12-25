@@ -16,10 +16,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit;
+package org.failearly.ajunit.universe.matcher;
+
+import org.aspectj.lang.reflect.ConstructorSignature;
+import org.failearly.ajunit.universe.AjJoinPoint;
+import org.failearly.ajunit.universe.impl.AjJoinPointType;
 
 /**
- * AjUnitObject marks ajUnit instances.
+ * ConstructorJoinPointMatcher compares {@link java.lang.reflect.Constructor} objects.
  */
-public interface AjUnitObject {
+public class ConstructorJoinPointMatcher extends AjJoinPointMatcherBase<ConstructorSignature> {
+
+    public ConstructorJoinPointMatcher(AjJoinPointType joinPointType) {
+        super(joinPointType, ConstructorSignature.class);
+    }
+
+    @Override
+    protected boolean doMatchSignature(ConstructorSignature signature, AjJoinPoint ajUnitJoinPoint) {
+        return signature.getConstructor().equals(ajUnitJoinPoint.getConstructor());
+    }
 }

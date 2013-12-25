@@ -16,10 +16,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit;
+package org.failearly.ajunit.universe;
 
 /**
- * AjUnitTest is responsible for ...
+ * AjJoinPointVisitor is the callback function for visiting the {@link org.failearly.ajunit.universe.AjJoinPoint} of an
+ * {@link org.failearly.ajunit.universe.AjUniverse}.
+ *
+ * @see AjUniverse#visitJoinPoints(AjJoinPointVisitor)
  */
-public abstract class AjUnitTest extends AjUnitBase {
+public interface AjJoinPointVisitor {
+
+    /**
+     * Called by {@link AjUniverse#visitJoinPoints(AjJoinPointVisitor)}.
+     * @param joinPoint the join point.
+     */
+    void visit(AjJoinPoint joinPoint);
 }
