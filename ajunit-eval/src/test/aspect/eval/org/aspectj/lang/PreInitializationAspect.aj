@@ -22,5 +22,5 @@ package eval.org.aspectj.lang;
  * InitializationAspect picks pre initialisation join point.
  */
 public aspect PreInitializationAspect extends AbstractJoinpointAfterAdviceTestAspect {
-    pointcut testPointcut() : preinitialization(eval.org.aspectj.lang.subject.PreInitializationTestSubject.new(..));
+    pointcut testPointcut() : preinitialization(eval.org.aspectj.lang.fixture.PreInitializationTestFixture.new(..));
 }

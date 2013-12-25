@@ -36,7 +36,7 @@ public class StaticInitializationTest extends AbstractAspectTest {
     @Test
     public void accessClass() throws Exception {
         // act / when
-        Class<?> myClass = this.getClass().forName("eval.org.aspectj.lang.subject.StaticInitializationTestSubject");
+        Class<?> myClass =Class.forName("eval.org.aspectj.lang.fixture.StaticInitializationTestFixture");
         assertThat(myClass, notNullValue());
 
         // assert / then
@@ -46,6 +46,25 @@ public class StaticInitializationTest extends AbstractAspectTest {
                 assertThat("This?", joinPoint.getThis(), nullValue());
                 assertThat("Target?", joinPoint.getTarget(), nullValue());
                 assertThat("#Arguments?", joinPoint.getArgs().length, is(0));
+                assertThat("Constructor?", ((InitializerSignature)joinPoint.getSignature()).getInitializer().toString(),
+                        is("public eval.org.aspectj.lang.fixture.StaticInitializationTestFixture()"));
+            }
+        });
+    }
+    @Test
+    public void accessInterface() throws Exception {
+        // act / when
+        Class<?> myClass =Class.forName("eval.org.aspectj.lang.fixture.StaticInitializationInterfaceTestFixture");
+        assertThat(myClass, notNullValue());
+
+        // assert / then
+        assertJoinPoint(new AdditionalAssert() {
+            @Override
+            public void additionalAssert(final JoinPoint joinPoint, final String thisContext, final String targetContext) {
+                assertThat("This?", joinPoint.getThis(), nullValue());
+                assertThat("Target?", joinPoint.getTarget(), nullValue());
+                assertThat("#Arguments?", joinPoint.getArgs().length, is(0));
+                assertThat("No Constructor?", ((InitializerSignature)joinPoint.getSignature()).getInitializer(), nullValue());
             }
         });
     }

@@ -16,11 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package eval.org.aspectj.lang;
+package eval.org.aspectj.lang.fixture;
 
-/**
- * MethodCallAspect picks method call join point.
- */
-public aspect MethodCallAspect extends AbstractJoinpointAfterAdviceTestAspect {
-    pointcut testPointcut() : call(void eval.org.aspectj.lang.fixture.MethodCallTestFixture.toBeCalled(..));
+public interface StaticInitializationInterfaceTestFixture {
+
+    Object ANY_CONSTANT = null;
 }

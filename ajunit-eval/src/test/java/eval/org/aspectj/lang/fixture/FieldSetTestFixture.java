@@ -16,13 +16,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package eval.org.aspectj.lang.subject;
+package eval.org.aspectj.lang.fixture;
 
 /**
- * ConstructorCallTestSubject is responsible for ...
+ * FieldSetTestFixture is a test fixture for {@link eval.org.aspectj.lang.FieldSetTest}.
  */
-public class ConstructorCallTestSubject {
+public class FieldSetTestFixture {
+    public int field;
 
-    public ConstructorCallTestSubject() {
+    public void setField(final int field) {
+        this.field = field;
+    }
+
+    public int getField() {
+        return field;
     }
 }

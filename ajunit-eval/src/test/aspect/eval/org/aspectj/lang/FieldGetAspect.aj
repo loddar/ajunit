@@ -22,5 +22,5 @@ package eval.org.aspectj.lang;
  * FieldGetAspect picks field get or field access join point.
  */
 public aspect FieldGetAspect extends AbstractJoinpointAfterAdviceTestAspect {
-    pointcut testPointcut() : get(* eval.org.aspectj.lang.subject.FieldGetTestSubject.*);
+    pointcut testPointcut() : get(* eval.org.aspectj.lang.fixture.FieldGetTestFixture.*);
 }

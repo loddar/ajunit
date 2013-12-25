@@ -18,30 +18,30 @@
  */
 package eval.org.aspectj.lang;
 
-import eval.org.aspectj.lang.subject.ConstructorCallTestSubject;
-import eval.org.aspectj.lang.subject.FieldSetTestSubject;
-import eval.org.aspectj.lang.subject.MethodCallTestSubject;
+import eval.org.aspectj.lang.fixture.ConstructorCallTestFixture;
+import eval.org.aspectj.lang.fixture.FieldSetTestFixture;
+import eval.org.aspectj.lang.fixture.MethodCallTestFixture;
 
 /**
  * Caller is responsible for executing an object in different this context.
  */
 public final class Caller {
-    public void call(MethodCallTestSubject methodCallTestSubject) {
-        methodCallTestSubject.toBeCalled();
+    public void call(MethodCallTestFixture methodCallTestFixture) {
+        methodCallTestFixture.toBeCalled();
     }
-    public static void staticCall(MethodCallTestSubject methodCallTestSubject) {
-        methodCallTestSubject.toBeCalled();
-    }
-
-    public void callStatic(MethodCallTestSubject methodCallTestSubject) {
-        methodCallTestSubject.toBeCalled("any value");
+    public static void staticCall(MethodCallTestFixture methodCallTestFixture) {
+        methodCallTestFixture.toBeCalled();
     }
 
-    public void setField(final FieldSetTestSubject testSubject, final int newFieldValue) {
-        testSubject.field = newFieldValue;
+    public void callStatic(MethodCallTestFixture methodCallTestFixture) {
+        methodCallTestFixture.toBeCalled("any value");
     }
 
-    public ConstructorCallTestSubject createConstructorCallTestSubject() {
-        return new ConstructorCallTestSubject();
+    public void setField(final FieldSetTestFixture testFixture, final int newFieldValue) {
+        testFixture.field = newFieldValue;
+    }
+
+    public ConstructorCallTestFixture createConstructorCallTestFixture() {
+        return new ConstructorCallTestFixture();
     }
 }

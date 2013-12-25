@@ -18,7 +18,7 @@
  */
 package eval.org.aspectj.lang;
 
-import eval.org.aspectj.lang.subject.ExceptionHandlerTestSubject;
+import eval.org.aspectj.lang.fixture.ExceptionHandlerTestFixture;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.CatchClauseSignature;
 import org.junit.Before;
@@ -32,7 +32,7 @@ import static org.junit.Assert.assertThat;
  */
 public class ExceptionHandlerTest extends AbstractAspectTest {
 
-    private ExceptionHandlerTestSubject testSubject;
+    private ExceptionHandlerTestFixture testFixture;
 
     public ExceptionHandlerTest() {
         super("eval.org.aspectj.lang.ExceptionHandlerAspect", JoinPoint.EXCEPTION_HANDLER, CatchClauseSignature.class);
@@ -40,19 +40,19 @@ public class ExceptionHandlerTest extends AbstractAspectTest {
 
     @Before
     public void setUp() throws Exception {
-        testSubject = new ExceptionHandlerTestSubject();
+        testFixture = new ExceptionHandlerTestFixture();
     }
 
     @Test
     public void causeException() throws Exception {
         // act / when
-        testSubject.divideBy(0);
+        testFixture.divideBy(0);
 
         // assert / then
         assertJoinPoint(new AdditionalAssert() {
             @Override
             public void additionalAssert(final JoinPoint joinPoint, final String thisContext, final String targetContext) {
-                assertThat("This?", joinPoint.getThis(), sameInstance((Object) testSubject));
+                assertThat("This?", joinPoint.getThis(), sameInstance((Object) testFixture));
                 assertThat("Target?", joinPoint.getTarget(), nullValue());
                 assertThat("#Arguments?", joinPoint.getArgs().length, is(1));
             }
@@ -62,7 +62,7 @@ public class ExceptionHandlerTest extends AbstractAspectTest {
     @Test
     public void causeNoException() throws Exception {
         // act / when
-        testSubject.divideBy(7);
+        testFixture.divideBy(7);
 
         // assert / then
         assertJoinPointNotExecuted();

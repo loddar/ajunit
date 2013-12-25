@@ -16,20 +16,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package eval.org.aspectj.lang.subject;
+package eval.org.aspectj.lang.fixture;
 
 /**
- * MethodCallTestSubject is the test subject for call Test subject.
- *
- * @see eval.org.aspectj.lang.AbstractJoinpointAfterAdviceTestAspect
+ * Test fixture for {@link eval.org.aspectj.lang.PreInitializationTest}.
  */
-public class MethodCallTestSubject {
+public class PreInitializationTestFixture {
+    public static final String DEFAULT = "default";
+    public static final String UNKNOWN = "unknown";
+    private String anyValue=UNKNOWN;
 
-    public MethodCallTestSubject() {
+    public PreInitializationTestFixture() {
+        this(DEFAULT);
     }
 
-    public static void toBeCalled(final String str) {
+    public PreInitializationTestFixture(final String anyValue) {
+        this.anyValue = anyValue;
     }
 
-    public void toBeCalled() {}
+    public String getAnyValue() {
+        return anyValue;
+    }
+
+    @Override
+    public String toString() {
+        return "PreInitializationTestFixture{" +
+                "anyValue='" + anyValue + '\'' +
+                '}';
+    }
 }

@@ -16,21 +16,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package eval.org.aspectj.lang.subject;
+package eval.org.aspectj.lang.fixture;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * StaticInitializationTestSubject is responsible for ...
+ * ExceptionHandlerTestFixture is responsible for ...
  */
-public class StaticInitializationTestSubject {
+public class ExceptionHandlerTestFixture {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionHandlerTestFixture.class);
+    
+    private int value=100;
 
-    public static final Logger LOGGER= LoggerFactory.getLogger(StaticInitializationTestSubject.class);
-
-    public static final  Object ANY_CONSTANT = null;
-
-    static {
-        LOGGER.debug("Class StaticInitializationTestSubject static block executed");
+    public void divideBy(int divisor) {
+        try {
+            value /= divisor;
+        }
+        catch (Exception ex) {
+            LOGGER.info("Exception caught {}", ex.getMessage());
+        }
     }
 }

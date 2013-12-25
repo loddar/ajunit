@@ -16,22 +16,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package eval.org.aspectj.lang.subject;
+package eval.org.aspectj.lang.fixture;
 
 /**
- * FieldGetTestSubject is responsible for ...
+ * ConstructorExecutionTestFixture
  */
-public class FieldGetTestSubject {
+public class ConstructorExecutionTestFixture {
+    private String value;
 
-    private static Integer staticField = 42;
-    public int field2 = 41;
-    private int field = 1;
-
-    public static Integer getStaticField() {
-        return staticField;
+    public ConstructorExecutionTestFixture(final String value) {
+        this.value = value;
     }
 
-    public int getField() {
-        return field;
+    public ConstructorExecutionTestFixture() {
+        this.value="default";
     }
 }

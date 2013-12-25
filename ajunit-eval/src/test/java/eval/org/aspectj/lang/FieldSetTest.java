@@ -18,7 +18,7 @@
  */
 package eval.org.aspectj.lang;
 
-import eval.org.aspectj.lang.subject.FieldSetTestSubject;
+import eval.org.aspectj.lang.fixture.FieldSetTestFixture;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.FieldSignature;
 import org.junit.Before;
@@ -34,8 +34,8 @@ import static org.junit.Assert.assertThat;
 public class FieldSetTest extends AbstractAspectTest {
 
     public static final int NEW_FIELD_VALUE = 26;
-    private Caller caller=new Caller();
-    private FieldSetTestSubject testSubject;
+    private Caller caller = new Caller();
+    private FieldSetTestFixture testFixture;
 
     public FieldSetTest() {
         super("eval.org.aspectj.lang.FieldSetAspect", JoinPoint.FIELD_SET, FieldSignature.class);
@@ -43,22 +43,22 @@ public class FieldSetTest extends AbstractAspectTest {
 
     @Before
     public void setUp() throws Exception {
-        testSubject = new FieldSetTestSubject();
+        testFixture = new FieldSetTestFixture();
     }
 
     @Test
     public void setFieldViaSetter() throws Exception {
         // act / when
-        testSubject.setField(NEW_FIELD_VALUE);
+        testFixture.setField(NEW_FIELD_VALUE);
 
         // assert / then
         assertJoinPoint(new AdditionalAssert() {
             @Override
             public void additionalAssert(final JoinPoint joinPoint, final String thisContext, final String targetContext) {
-                assertThat("This?", joinPoint.getThis(), sameInstance((Object) testSubject));
-                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testSubject));
-                assertThat("#Arguments==1?", joinPoint.getArgs().length,   is(1));
-                assertThat("Argument value?",(Integer)joinPoint.getArgs()[0],   is(NEW_FIELD_VALUE));
+                assertThat("This?", joinPoint.getThis(), sameInstance((Object) testFixture));
+                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testFixture));
+                assertThat("#Arguments==1?", joinPoint.getArgs().length, is(1));
+                assertThat("Argument value?", (Integer) joinPoint.getArgs()[0], is(NEW_FIELD_VALUE));
             }
         });
     }
@@ -66,16 +66,16 @@ public class FieldSetTest extends AbstractAspectTest {
     @Test
     public void setPublicField() throws Exception {
         // act / when
-        caller.setField(testSubject, NEW_FIELD_VALUE);
+        caller.setField(testFixture, NEW_FIELD_VALUE);
 
         // assert / then
         assertJoinPoint(new AdditionalAssert() {
             @Override
             public void additionalAssert(final JoinPoint joinPoint, final String thisContext, final String targetContext) {
                 assertThat("This?", joinPoint.getThis(), sameInstance((Object) caller));
-                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testSubject));
-                assertThat("#Arguments==1?", joinPoint.getArgs().length,   is(1));
-                assertThat("Argument value?", (Integer)joinPoint.getArgs()[0],   is(NEW_FIELD_VALUE));
+                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testFixture));
+                assertThat("#Arguments==1?", joinPoint.getArgs().length, is(1));
+                assertThat("Argument value?", (Integer) joinPoint.getArgs()[0], is(NEW_FIELD_VALUE));
             }
         });
     }

@@ -18,7 +18,7 @@
  */
 package eval.org.aspectj.lang;
 
-import eval.org.aspectj.lang.subject.ConstructorExecutionTestSubject;
+import eval.org.aspectj.lang.fixture.ConstructorExecutionTestFixture;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.ConstructorSignature;
 import org.junit.Test;
@@ -39,14 +39,14 @@ public class ConstructorExecutionTest extends AbstractAspectTest {
     @Test
     public void createByDefaultConstructor() throws Exception {
         // act / when
-        final ConstructorExecutionTestSubject testSubject=new ConstructorExecutionTestSubject();
+        final ConstructorExecutionTestFixture testFixture = new ConstructorExecutionTestFixture();
 
         // assert / then
         assertJoinPoint(new AdditionalAssert() {
             @Override
             public void additionalAssert(final JoinPoint joinPoint, final String thisContext, final String targetContext) {
-                assertThat("This?", joinPoint.getThis(), sameInstance((Object) testSubject));
-                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testSubject));
+                assertThat("This?", joinPoint.getThis(), sameInstance((Object) testFixture));
+                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testFixture));
                 assertThat("#Arguments?", joinPoint.getArgs().length, is(0));
             }
         });
@@ -56,14 +56,14 @@ public class ConstructorExecutionTest extends AbstractAspectTest {
     @Test
     public void createByConstructorWithParameter() throws Exception {
         // act / when
-        final ConstructorExecutionTestSubject testSubject=new ConstructorExecutionTestSubject("anyParameter");
+        final ConstructorExecutionTestFixture testFixture = new ConstructorExecutionTestFixture("anyParameter");
 
         // assert / then
         assertJoinPoint(new AdditionalAssert() {
             @Override
             public void additionalAssert(final JoinPoint joinPoint, final String thisContext, final String targetContext) {
-                assertThat("This?", joinPoint.getThis(), sameInstance((Object) testSubject));
-                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testSubject));
+                assertThat("This?", joinPoint.getThis(), sameInstance((Object) testFixture));
+                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testFixture));
                 assertThat("#Arguments?", joinPoint.getArgs().length, is(1));
             }
         });

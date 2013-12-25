@@ -18,7 +18,7 @@
  */
 package eval.org.aspectj.lang;
 
-import eval.org.aspectj.lang.subject.ConstructorCallTestSubject;
+import eval.org.aspectj.lang.fixture.ConstructorCallTestFixture;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.ConstructorSignature;
 import org.junit.Test;
@@ -40,7 +40,7 @@ public class ConstructorCallTest extends AbstractAspectTest {
     @Test
     public void createByDefaultConstructor() throws Exception {
         // act / when
-        final ConstructorCallTestSubject testSubject = caller.createConstructorCallTestSubject();
+        final ConstructorCallTestFixture testFixture = caller.createConstructorCallTestFixture();
 
         // assert / then
         assertJoinPoint(new AdditionalAssert() {

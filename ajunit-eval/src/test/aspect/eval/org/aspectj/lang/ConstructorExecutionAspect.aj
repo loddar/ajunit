@@ -22,5 +22,5 @@ package eval.org.aspectj.lang;
  * ConstructorExecutionAspect picks constructor execution join point.
  */
 public aspect ConstructorExecutionAspect extends AbstractJoinpointAfterAdviceTestAspect {
-    pointcut testPointcut() : execution(eval.org.aspectj.lang.subject.ConstructorExecutionTestSubject.new(..));
+    pointcut testPointcut() : execution(eval.org.aspectj.lang.fixture.ConstructorExecutionTestFixture.new(..));
 }

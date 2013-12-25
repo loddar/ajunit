@@ -22,5 +22,5 @@ package eval.org.aspectj.lang;
  * ExceptionHandlerAspect picks exception handler join point.
  */
 public aspect ExceptionHandlerAspect extends AbstractJoinpointBeforeAdviceTestAspect {
-    pointcut testPointcut() : handler(java.lang.Exception) && within(eval.org.aspectj.lang.subject.ExceptionHandlerTestSubject);
+    pointcut testPointcut() : handler(java.lang.Exception) && within(eval.org.aspectj.lang.fixture.ExceptionHandlerTestFixture);
 }

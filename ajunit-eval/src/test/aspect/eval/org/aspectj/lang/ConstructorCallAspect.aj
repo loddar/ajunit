@@ -22,5 +22,5 @@ package eval.org.aspectj.lang;
  * ConstructorCallAspect picks constructor call join point.
  */
 public aspect ConstructorCallAspect extends AbstractJoinpointAfterAdviceTestAspect {
-    pointcut testPointcut() : call(eval.org.aspectj.lang.subject.ConstructorCallTestSubject.new(..));
+    pointcut testPointcut() : call(eval.org.aspectj.lang.fixture.ConstructorCallTestFixture.new(..));
 }

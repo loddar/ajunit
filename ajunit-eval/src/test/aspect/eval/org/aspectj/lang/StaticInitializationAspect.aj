@@ -22,5 +22,6 @@ package eval.org.aspectj.lang;
  * InitializationAspect picks static initialisation join point.
  */
 public aspect StaticInitializationAspect extends AbstractJoinpointAfterAdviceTestAspect {
-    pointcut testPointcut() : staticinitialization(eval.org.aspectj.lang.subject.StaticInitializationTestSubject);
+    pointcut testPointcut() : staticinitialization(eval.org.aspectj.lang.fixture.StaticInitializationTestFixture) ||
+                              staticinitialization(eval.org.aspectj.lang.fixture.StaticInitializationInterfaceTestFixture);
 }

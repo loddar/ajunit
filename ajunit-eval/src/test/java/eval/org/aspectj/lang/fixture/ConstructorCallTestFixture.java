@@ -16,25 +16,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package eval.org.aspectj.lang.subject;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package eval.org.aspectj.lang.fixture;
 
 /**
- * ExceptionHandlerTestSubject is responsible for ...
+ * ConstructorCallTestFixture is responsible for ...
  */
-public class ExceptionHandlerTestSubject {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionHandlerTestSubject.class);
-    
-    private int value=100;
+public class ConstructorCallTestFixture {
 
-    public void divideBy(int divisor) {
-        try {
-            value /= divisor;
-        }
-        catch (Exception ex) {
-            LOGGER.info("Exception caught {}", ex.getMessage());
-        }
+    public ConstructorCallTestFixture() {
     }
 }

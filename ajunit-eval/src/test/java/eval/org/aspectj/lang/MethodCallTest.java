@@ -18,7 +18,7 @@
  */
 package eval.org.aspectj.lang;
 
-import eval.org.aspectj.lang.subject.MethodCallTestSubject;
+import eval.org.aspectj.lang.fixture.MethodCallTestFixture;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.junit.Before;
@@ -32,7 +32,7 @@ import static org.junit.Assert.assertThat;
  */
 public class MethodCallTest extends AbstractAspectTest {
 
-    private MethodCallTestSubject testSubject;
+    private MethodCallTestFixture testFixture;
     private Caller caller;
 
     public MethodCallTest() {
@@ -41,21 +41,21 @@ public class MethodCallTest extends AbstractAspectTest {
 
     @Before
     public void setUp() throws Exception {
-        testSubject = new MethodCallTestSubject();
+        testFixture = new MethodCallTestFixture();
         caller = new Caller();
     }
 
     @Test
     public void methodCall() throws Exception {
         // act / when
-        caller.call(testSubject);
+        caller.call(testFixture);
 
         // assert / then
         assertJoinPoint(new AdditionalAssert() {
             @Override
             public void additionalAssert(final JoinPoint joinPoint, final String thisContext, final String targetContext) {
                 assertThat("This?", joinPoint.getThis(), sameInstance((Object) caller));
-                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testSubject));
+                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testFixture));
                 assertThat("#Arguments?", joinPoint.getArgs().length, is(0));
             }
         });
@@ -64,7 +64,7 @@ public class MethodCallTest extends AbstractAspectTest {
     @Test
     public void staticMethodCall() throws Exception {
         // act / when
-        caller.callStatic(testSubject);
+        caller.callStatic(testFixture);
 
         // assert / then
         assertJoinPoint(new AdditionalAssert() {
@@ -72,7 +72,7 @@ public class MethodCallTest extends AbstractAspectTest {
             public void additionalAssert(final JoinPoint joinPoint, final String thisContext, final String targetContext) {
                 assertThat("This?", joinPoint.getThis(), sameInstance((Object) caller));
                 assertThat("Target?", joinPoint.getTarget(), nullValue());
-                assertThat("#Arguments?", joinPoint.getArgs().length,   is(1));
+                assertThat("#Arguments?", joinPoint.getArgs().length, is(1));
             }
         });
     }
@@ -80,15 +80,15 @@ public class MethodCallTest extends AbstractAspectTest {
     @Test
     public void methodCallFromStatic() throws Exception {
         // arrange / given
-        Caller.staticCall(testSubject);
+        Caller.staticCall(testFixture);
 
         // assert / then
         assertJoinPoint(new AdditionalAssert() {
             @Override
             public void additionalAssert(final JoinPoint joinPoint, final String thisContext, final String targetContext) {
                 assertThat("This?", joinPoint.getThis(), nullValue());
-                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testSubject));
-                assertThat("#Arguments?", joinPoint.getArgs().length,   is(0));
+                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testFixture));
+                assertThat("#Arguments?", joinPoint.getArgs().length, is(0));
             }
         });
     }

@@ -16,19 +16,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package eval.org.aspectj.lang.subject;
+package eval.org.aspectj.lang.fixture;
 
 /**
- * ConstructorExecutionTestSubject is responsible for ...
+ * Test Subject for {@link eval.org.aspectj.lang.MethodExecutionTest}.
+ *
+ * @see eval.org.aspectj.lang.AbstractJoinpointAfterAdviceTestAspect
  */
-public class ConstructorExecutionTestSubject {
-    private String value;
+public class MethodExecutionTestFixture {
 
-    public ConstructorExecutionTestSubject(final String value) {
-        this.value = value;
+    public MethodExecutionTestFixture() {
     }
 
-    public ConstructorExecutionTestSubject() {
-        this.value="default";
+    public void executeMe(final int i, final int i1, final int i2) {
+    }
+
+    public static void executeMe() {
     }
 }

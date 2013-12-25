@@ -18,7 +18,7 @@
  */
 package eval.org.aspectj.lang;
 
-import eval.org.aspectj.lang.subject.MethodExecutionTestSubject;
+import eval.org.aspectj.lang.fixture.MethodExecutionTestFixture;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.junit.Before;
@@ -32,7 +32,7 @@ import static org.junit.Assert.assertThat;
  */
 public class MethodExecutionTest extends AbstractAspectTest {
 
-    private MethodExecutionTestSubject testSubject;
+    private MethodExecutionTestFixture testFixture;
 
     public MethodExecutionTest() {
         super("eval.org.aspectj.lang.MethodExecutionAspect", JoinPoint.METHOD_EXECUTION, MethodSignature.class);
@@ -40,21 +40,21 @@ public class MethodExecutionTest extends AbstractAspectTest {
 
     @Before
     public void setUp() throws Exception {
-        testSubject = new MethodExecutionTestSubject();
+        testFixture = new MethodExecutionTestFixture();
     }
 
     @Test
     public void methodExecute() throws Exception {
         // act / when
-       testSubject.executeMe(1, 2, 3);
+        testFixture.executeMe(1, 2, 3);
 
         // assert / then
         assertJoinPoint(new AdditionalAssert() {
             @Override
             public void additionalAssert(final JoinPoint joinPoint, final String thisContext, final String targetContext) {
-                assertThat("This?", joinPoint.getThis(), sameInstance((Object) testSubject));
-                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testSubject));
-                assertThat("#Arguments?", joinPoint.getArgs().length,   is(3));
+                assertThat("This?", joinPoint.getThis(), sameInstance((Object) testFixture));
+                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testFixture));
+                assertThat("#Arguments?", joinPoint.getArgs().length, is(3));
             }
         });
     }
@@ -62,7 +62,7 @@ public class MethodExecutionTest extends AbstractAspectTest {
     @Test
     public void staticMethodExecute() throws Exception {
         // act / when
-       MethodExecutionTestSubject.executeMe();
+        MethodExecutionTestFixture.executeMe();
 
         // assert / then
         assertJoinPoint(new AdditionalAssert() {

@@ -16,32 +16,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package eval.org.aspectj.lang.subject;
+package eval.org.aspectj.lang.fixture;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * Test subject for {@link eval.org.aspectj.lang.PreInitializationTest}.
+ * StaticInitializationTestFixture is responsible for ...
  */
-public class PreInitializationTestSubject {
-    public static final String DEFAULT = "default";
-    public static final String UNKNOWN = "unknown";
-    private String anyValue=UNKNOWN;
+public class StaticInitializationTestFixture {
 
-    public PreInitializationTestSubject() {
-        this(DEFAULT);
-    }
+    public static final Logger LOGGER= LoggerFactory.getLogger(StaticInitializationTestFixture.class);
 
-    public PreInitializationTestSubject(final String anyValue) {
-        this.anyValue = anyValue;
-    }
+    public static final  Object ANY_CONSTANT = null;
 
-    public String getAnyValue() {
-        return anyValue;
-    }
-
-    @Override
-    public String toString() {
-        return "PreInitializationTestSubject{" +
-                "anyValue='" + anyValue + '\'' +
-                '}';
+    static {
+        LOGGER.debug("Class StaticInitializationTestFixture static block executed");
     }
 }

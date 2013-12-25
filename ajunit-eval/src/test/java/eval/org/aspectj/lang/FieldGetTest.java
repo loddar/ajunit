@@ -18,7 +18,7 @@
  */
 package eval.org.aspectj.lang;
 
-import eval.org.aspectj.lang.subject.FieldGetTestSubject;
+import eval.org.aspectj.lang.fixture.FieldGetTestFixture;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.FieldSignature;
 import org.junit.Before;
@@ -32,7 +32,7 @@ import static org.junit.Assert.assertThat;
  */
 public class FieldGetTest extends AbstractAspectTest {
 
-    private FieldGetTestSubject testSubject;
+    private FieldGetTestFixture testFixture;
 
     public FieldGetTest() {
         super("eval.org.aspectj.lang.FieldGetAspect", JoinPoint.FIELD_GET, FieldSignature.class);
@@ -40,21 +40,21 @@ public class FieldGetTest extends AbstractAspectTest {
 
     @Before
     public void setUp() throws Exception {
-        testSubject = new FieldGetTestSubject();
+        testFixture = new FieldGetTestFixture();
     }
 
     @Test
     public void accessFieldViaGetter() throws Exception {
         // act / when
-        testSubject.getField();
+        testFixture.getField();
 
         // assert / then
         assertJoinPoint(new AdditionalAssert() {
             @Override
             public void additionalAssert(final JoinPoint joinPoint, final String thisContext, final String targetContext) {
-                assertThat("This?", joinPoint.getThis(), sameInstance((Object) testSubject));
-                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testSubject));
-                assertThat("#Arguments?", joinPoint.getArgs().length,   is(0));
+                assertThat("This?", joinPoint.getThis(), sameInstance((Object) testFixture));
+                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testFixture));
+                assertThat("#Arguments?", joinPoint.getArgs().length, is(0));
             }
         });
     }
@@ -62,14 +62,14 @@ public class FieldGetTest extends AbstractAspectTest {
     @Test
     public void directAccessField() throws Exception {
         // act / when
-        final int val= testSubject.field2;
+        final int val = testFixture.field2;
 
         // assert / then
         assertJoinPoint(new AdditionalAssert() {
             @Override
             public void additionalAssert(final JoinPoint joinPoint, final String thisContext, final String targetContext) {
                 assertThat("This?", joinPoint.getThis(), sameInstance((Object) FieldGetTest.this));
-                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testSubject));
+                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testFixture));
                 assertThat("#Arguments?", joinPoint.getArgs().length, is(0));
             }
         });
@@ -78,7 +78,7 @@ public class FieldGetTest extends AbstractAspectTest {
     @Test
     public void accessStaticFieldViaGetter() throws Exception {
         // act / when
-        testSubject.getStaticField();
+        testFixture.getStaticField();
 
         // assert / then
         assertJoinPoint(new AdditionalAssert() {
@@ -86,7 +86,7 @@ public class FieldGetTest extends AbstractAspectTest {
             public void additionalAssert(final JoinPoint joinPoint, final String thisContext, final String targetContext) {
                 assertThat("This?", joinPoint.getThis(), nullValue());
                 assertThat("Target?", joinPoint.getTarget(), nullValue());
-                assertThat("#Arguments?", joinPoint.getArgs().length,   is(0));
+                assertThat("#Arguments?", joinPoint.getArgs().length, is(0));
             }
         });
     }

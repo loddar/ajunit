@@ -18,7 +18,7 @@
  */
 package eval.org.aspectj.lang;
 
-import eval.org.aspectj.lang.subject.PreInitializationTestSubject;
+import eval.org.aspectj.lang.fixture.PreInitializationTestFixture;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.ConstructorSignature;
 import org.junit.Test;
@@ -39,7 +39,7 @@ public class PreInitializationTest extends AbstractAspectTest {
     @Test
     public void createByDefaultConstructor() throws Exception {
         // act / when
-        final PreInitializationTestSubject testSubject=new PreInitializationTestSubject();
+        final PreInitializationTestFixture testFixture=new PreInitializationTestFixture();
 
         // assert / then
         assertJoinPoint(new AdditionalAssert() {
@@ -48,6 +48,8 @@ public class PreInitializationTest extends AbstractAspectTest {
                 assertThat("This?", joinPoint.getThis(), nullValue());
                 assertThat("Target?", joinPoint.getTarget(), nullValue());
                 assertThat("#Arguments?", joinPoint.getArgs().length, is(0));
+                assertThat("Constructor?", ((ConstructorSignature)joinPoint.getSignature()).getConstructor().toString(),
+                        is("public eval.org.aspectj.lang.fixture.PreInitializationTestFixture()"));
             }
         });
     }
@@ -56,7 +58,7 @@ public class PreInitializationTest extends AbstractAspectTest {
     @Test
     public void createByConstructorWithParameter() throws Exception {
         // act / when
-        final PreInitializationTestSubject testSubject=new PreInitializationTestSubject("MY_VALUE");
+        final PreInitializationTestFixture testFixture=new PreInitializationTestFixture("MY_VALUE");
 
         // assert / then
         assertJoinPoint(new AdditionalAssert() {
@@ -66,6 +68,8 @@ public class PreInitializationTest extends AbstractAspectTest {
                 assertThat("Target?", joinPoint.getTarget(), nullValue());
                 assertThat("#Arguments?", joinPoint.getArgs().length, is(1));
                 assertThat("Argument value?", joinPoint.getArgs()[0], is((Object) "MY_VALUE"));
+                assertThat("Constructor?", ((ConstructorSignature)joinPoint.getSignature()).getConstructor().toString(),
+                        is("public eval.org.aspectj.lang.fixture.PreInitializationTestFixture(java.lang.String)"));
             }
         });
     }

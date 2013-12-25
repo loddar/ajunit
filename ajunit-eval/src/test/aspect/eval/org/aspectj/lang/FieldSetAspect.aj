@@ -22,5 +22,5 @@ package eval.org.aspectj.lang;
  * FieldSetAspect picks field set join point.
  */
 public aspect FieldSetAspect extends AbstractJoinpointAfterAdviceTestAspect {
-    pointcut testPointcut() : set(* eval.org.aspectj.lang.subject.FieldSetTestSubject.*);
+    pointcut testPointcut() : set(* eval.org.aspectj.lang.fixture.FieldSetTestFixture.*);
 }

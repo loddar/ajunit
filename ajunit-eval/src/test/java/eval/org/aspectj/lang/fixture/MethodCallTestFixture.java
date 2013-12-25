@@ -16,19 +16,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package eval.org.aspectj.lang.subject;
+package eval.org.aspectj.lang.fixture;
 
 /**
- * FieldSetTestSubject is a test subject for {@link eval.org.aspectj.lang.FieldSetTest}.
+ * MethodCallTestFixture is the test fixture for call Test fixture.
+ *
+ * @see eval.org.aspectj.lang.AbstractJoinpointAfterAdviceTestAspect
  */
-public class FieldSetTestSubject {
-    public int field;
+public class MethodCallTestFixture {
 
-    public void setField(final int field) {
-        this.field = field;
+    public MethodCallTestFixture() {
     }
 
-    public int getField() {
-        return field;
+    public static void toBeCalled(final String str) {
     }
+
+    public void toBeCalled() {}
 }

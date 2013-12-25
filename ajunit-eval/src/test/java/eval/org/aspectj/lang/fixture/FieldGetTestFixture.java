@@ -16,21 +16,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package eval.org.aspectj.lang.subject;
+package eval.org.aspectj.lang.fixture;
 
 /**
- * Test Subject for {@link eval.org.aspectj.lang.MethodExecutionTest}.
- *
- * @see eval.org.aspectj.lang.AbstractJoinpointAfterAdviceTestAspect
+ * FieldGetTestFixture is responsible for ...
  */
-public class MethodExecutionTestSubject {
+public class FieldGetTestFixture {
 
-    public MethodExecutionTestSubject() {
+    private static Integer staticField = 42;
+    public int field2 = 41;
+    private int field = 1;
+
+    public static Integer getStaticField() {
+        return staticField;
     }
 
-    public void executeMe(final int i, final int i1, final int i2) {
-    }
-
-    public static void executeMe() {
+    public int getField() {
+        return field;
     }
 }

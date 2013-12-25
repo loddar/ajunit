@@ -16,21 +16,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package eval.org.aspectj.lang.subject;
+package eval.org.aspectj.lang.fixture;
 
 /**
- * InitializationTestSubject is responsible for ...
+ * InitializationTestFixture is responsible for ...
  */
-public class InitializationTestSubject {
+public class InitializationTestFixture {
     public static final String DEFAULT = "default";
     public static final String UNKNOWN = "unknown";
     private String anyValue=UNKNOWN;
 
-    public InitializationTestSubject() {
+    public InitializationTestFixture() {
         this(DEFAULT);
     }
 
-    public InitializationTestSubject(final String anyValue) {
+    public InitializationTestFixture(final String anyValue) {
         this.anyValue = anyValue;
     }
 
@@ -40,7 +40,7 @@ public class InitializationTestSubject {
 
     @Override
     public String toString() {
-        return "InitializationTestSubject{" +
+        return "InitializationTestFixture{" +
                 "anyValue='" + anyValue + '\'' +
                 '}';
     }

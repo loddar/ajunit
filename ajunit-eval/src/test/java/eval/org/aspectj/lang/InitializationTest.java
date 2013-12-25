@@ -18,7 +18,7 @@
  */
 package eval.org.aspectj.lang;
 
-import eval.org.aspectj.lang.subject.InitializationTestSubject;
+import eval.org.aspectj.lang.fixture.InitializationTestFixture;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.ConstructorSignature;
 import org.junit.Test;
@@ -39,17 +39,19 @@ public class InitializationTest extends AbstractAspectTest {
     @Test
     public void createByDefaultConstructor() throws Exception {
         // act / when
-        final InitializationTestSubject testSubject=new InitializationTestSubject();
+        final InitializationTestFixture testFixture = new InitializationTestFixture();
 
         // assert / then
         assertJoinPoint(new AdditionalAssert() {
             @Override
             public void additionalAssert(final JoinPoint joinPoint, final String thisContext, final String targetContext) {
-                assertThat("This?", joinPoint.getThis(), sameInstance((Object) testSubject));
-                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testSubject));
+                assertThat("This?", joinPoint.getThis(), sameInstance((Object) testFixture));
+                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testFixture));
                 assertThat("#Arguments?", joinPoint.getArgs().length, is(0));
-                assertThat("This context?", thisContext, is("InitializationTestSubject{anyValue='default'}"));
-                assertThat("Target context?", targetContext, is("InitializationTestSubject{anyValue='default'}"));
+                assertThat("This context?", thisContext, is("InitializationTestFixture{anyValue='default'}"));
+                assertThat("Target context?", targetContext, is("InitializationTestFixture{anyValue='default'}"));
+                assertThat("Constructor?", ((ConstructorSignature)joinPoint.getSignature()).getConstructor().toString(),
+                        is("public eval.org.aspectj.lang.fixture.InitializationTestFixture()"));
             }
         });
     }
@@ -58,18 +60,20 @@ public class InitializationTest extends AbstractAspectTest {
     @Test
     public void createByConstructorWithParameter() throws Exception {
         // act / when
-        final InitializationTestSubject testSubject=new InitializationTestSubject("MY_VALUE");
+        final InitializationTestFixture testFixture = new InitializationTestFixture("MY_VALUE");
 
         // assert / then
         assertJoinPoint(new AdditionalAssert() {
             @Override
             public void additionalAssert(final JoinPoint joinPoint, final String thisContext, final String targetContext) {
-                assertThat("This?", joinPoint.getThis(), sameInstance((Object) testSubject));
-                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testSubject));
+                assertThat("This?", joinPoint.getThis(), sameInstance((Object) testFixture));
+                assertThat("Target?", joinPoint.getTarget(), sameInstance((Object) testFixture));
                 assertThat("#Arguments?", joinPoint.getArgs().length, is(1));
                 assertThat("Argument value?", joinPoint.getArgs()[0], is((Object)"MY_VALUE"));
-                assertThat("This context?", thisContext, is("InitializationTestSubject{anyValue='MY_VALUE'}"));
-                assertThat("Target context?", targetContext, is("InitializationTestSubject{anyValue='MY_VALUE'}"));
+                assertThat("This context?", thisContext, is("InitializationTestFixture{anyValue='MY_VALUE'}"));
+                assertThat("Target context?", targetContext, is("InitializationTestFixture{anyValue='MY_VALUE'}"));
+                assertThat("Constructor?", ((ConstructorSignature)joinPoint.getSignature()).getConstructor().toString(),
+                        is("public eval.org.aspectj.lang.fixture.InitializationTestFixture(java.lang.String)"));
             }
         });
     }
