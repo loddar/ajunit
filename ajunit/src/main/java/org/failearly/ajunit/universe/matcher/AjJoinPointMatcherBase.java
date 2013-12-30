@@ -22,7 +22,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.failearly.ajunit.universe.AjJoinPoint;
 import org.failearly.ajunit.universe.AjJoinPointMatcher;
-import org.failearly.ajunit.universe.impl.AjJoinPointType;
+import org.failearly.ajunit.universe.AjJoinPointType;
 import org.failearly.ajunit.util.AjAssert;
 
 /**

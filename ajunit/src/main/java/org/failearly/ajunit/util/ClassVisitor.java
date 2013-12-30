@@ -26,7 +26,8 @@ import java.lang.reflect.Method;
  * Visitor interface for {@link org.failearly.ajunit.util.ReflectionUtils}.
  */
 public interface ClassVisitor {
-    void visit(final Method method);
+    void visit(final Class<?> declaringClass);
     void visit(final Constructor<?> constructor);
+    void visit(final Method method);
     void visit(final Field field);
 }

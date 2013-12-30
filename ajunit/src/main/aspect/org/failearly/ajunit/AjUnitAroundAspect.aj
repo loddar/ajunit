@@ -19,7 +19,12 @@
 package org.failearly.ajunit;
 
 /**
- * AjUnitAspect is responsible for ...
+ * AjUnitAroundAspect applies an around advice on pointcut {@code pointcutUnderTest}, mimic a before advice.
  */
-public abstract aspect AjUnitAspect implements AjUnitObject {
+public abstract aspect AjUnitAroundAspect extends AjUnitAspect {
+
+    Object around() : pointcutUnderTest() {
+        doApply(thisJoinPoint);
+        return proceed();
+    }
 }

@@ -18,8 +18,46 @@
  */
 package org.failearly.ajunit;
 
+import org.failearly.ajunit.builder.AjJoinPointPredicateBuilder;
+import org.failearly.ajunit.builder.AjJoinPointPredicateBuilderImpl;
+
 /**
- * AjUnitTest is responsible for ...
+ * AjUnitTest the base class for all ajUnit test classes.
  */
 public abstract class AjUnitTest extends AjUnitBase {
+
+    protected AjUnitTest(Class<?>... testFixtureClasses) {
+        super(testFixtureClasses);
+    }
+
+    protected AjUnitTest(String... classNames) throws ClassNotFoundException {
+        super(classNames);
+    }
+
+    public abstract void setup();
+
+
+    protected final void executePointcutTest() {
+        // arrange / given
+        final AjJoinPointPredicateBuilder joinPointBuilder=new AjJoinPointPredicateBuilderImpl();
+        setupJoinPointSelectorBuilder(joinPointBuilder);
+
+        // act / when
+        executeTestFixture();
+
+        // assert / then
+
+    }
+
+    /**
+     * Setup the pointcut predicate.
+     * @param joinPointBuilder
+     */
+    protected abstract void setupJoinPointSelectorBuilder(AjJoinPointPredicateBuilder joinPointBuilder);
+
+
+    /**
+     * Execute the test fixture classes, to apply the
+     */
+    protected abstract void executeTestFixture();
 }

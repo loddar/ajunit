@@ -19,6 +19,7 @@
 package org.failearly.ajunit.universe.impl;
 
 import org.failearly.ajunit.universe.AjJoinPoint;
+import org.failearly.ajunit.universe.AjJoinPointType;
 import org.failearly.ajunit.universe.AjJoinPointVisitor;
 import org.failearly.ajunit.universe.AjUniverse;
 import org.hamcrest.Matchers;
@@ -146,10 +147,10 @@ public class AjUniverseInitializerTest {
         );
         totalExpectedJoinPoints -= assertJoinPointsByType(joinPoints, AjJoinPointType.CONSTRUCTOR_EXECUTION,
                 "AjJoinPoint{type=CONSTRUCTOR_EXECUTION, #apply=0, constructor=public java.lang.Object()}",
-                "AjJoinPoint{type=CONSTRUCTOR_EXECUTION, #apply=0, constructor=private org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$EmptyClass()}");
+                "AjJoinPoint{type=CONSTRUCTOR_EXECUTION, #apply=0, constructor=private org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$EmptyClass()}");
         totalExpectedJoinPoints -= assertJoinPointsByType(joinPoints, AjJoinPointType.CONSTRUCTOR_CALL,
                 "AjJoinPoint{type=CONSTRUCTOR_CALL, #apply=0, constructor=public java.lang.Object()}",
-                "AjJoinPoint{type=CONSTRUCTOR_CALL, #apply=0, constructor=private org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$EmptyClass()}");
+                "AjJoinPoint{type=CONSTRUCTOR_CALL, #apply=0, constructor=private org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$EmptyClass()}");
         assertThat("All Join Points asserted?", totalExpectedJoinPoints, is(0));
     }
 
@@ -180,10 +181,10 @@ public class AjUniverseInitializerTest {
         int totalExpectedJoinPoints = 30;
         assertThat("#Total Join Points?", joinPoints, Matchers.hasSize(totalExpectedJoinPoints));
         totalExpectedJoinPoints -= assertJoinPointsByType(joinPoints, AjJoinPointType.FIELD_GET,
-                "AjJoinPoint{type=FIELD_GET, #apply=0, field=final org.failearly.ajunit.universe.impl.AjUniverseInitializerTest org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$EmptyInnerClass.this$0}"
+                "AjJoinPoint{type=FIELD_GET, #apply=0, field=final org.failearly.ajunit.universe.standard.AjUniverseInitializerTest org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$EmptyInnerClass.this$0}"
         );
         totalExpectedJoinPoints -= assertJoinPointsByType(joinPoints, AjJoinPointType.FIELD_SET,
-                "AjJoinPoint{type=FIELD_SET, #apply=0, field=final org.failearly.ajunit.universe.impl.AjUniverseInitializerTest org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$EmptyInnerClass.this$0}"
+                "AjJoinPoint{type=FIELD_SET, #apply=0, field=final org.failearly.ajunit.universe.standard.AjUniverseInitializerTest org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$EmptyInnerClass.this$0}"
         );
         totalExpectedJoinPoints -= assertJoinPointsByType(joinPoints, AjJoinPointType.METHOD_EXECUTION,
                 "AjJoinPoint{type=METHOD_EXECUTION, #apply=0, method=protected void java.lang.Object.finalize() throws java.lang.Throwable}",
@@ -215,11 +216,11 @@ public class AjUniverseInitializerTest {
         );
         totalExpectedJoinPoints -= assertJoinPointsByType(joinPoints, AjJoinPointType.CONSTRUCTOR_EXECUTION,
                 "AjJoinPoint{type=CONSTRUCTOR_EXECUTION, #apply=0, constructor=public java.lang.Object()}",
-                "AjJoinPoint{type=CONSTRUCTOR_EXECUTION, #apply=0, constructor=private org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$EmptyInnerClass(org.failearly.ajunit.universe.impl.AjUniverseInitializerTest)}"
+                "AjJoinPoint{type=CONSTRUCTOR_EXECUTION, #apply=0, constructor=private org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$EmptyInnerClass(org.failearly.ajunit.universe.standard.AjUniverseInitializerTest)}"
         );
         totalExpectedJoinPoints -= assertJoinPointsByType(joinPoints, AjJoinPointType.CONSTRUCTOR_CALL,
                 "AjJoinPoint{type=CONSTRUCTOR_CALL, #apply=0, constructor=public java.lang.Object()}",
-                "AjJoinPoint{type=CONSTRUCTOR_CALL, #apply=0, constructor=private org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$EmptyInnerClass(org.failearly.ajunit.universe.impl.AjUniverseInitializerTest)}");
+                "AjJoinPoint{type=CONSTRUCTOR_CALL, #apply=0, constructor=private org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$EmptyInnerClass(org.failearly.ajunit.universe.standard.AjUniverseInitializerTest)}");
         assertThat("All Join Points asserted?", totalExpectedJoinPoints, is(0));
     }
 
@@ -232,10 +233,10 @@ public class AjUniverseInitializerTest {
         int totalExpectedJoinPoints = 38;
         assertThat("#Total Join Points?", joinPoints, Matchers.hasSize(totalExpectedJoinPoints));
         totalExpectedJoinPoints -= assertJoinPointsByType(joinPoints, AjJoinPointType.FIELD_GET,
-                "AjJoinPoint{type=FIELD_GET, #apply=0, field=private int org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$Inherited.intField}"
+                "AjJoinPoint{type=FIELD_GET, #apply=0, field=private int org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$Inherited.intField}"
         );
         totalExpectedJoinPoints -= assertJoinPointsByType(joinPoints, AjJoinPointType.FIELD_SET,
-                "AjJoinPoint{type=FIELD_SET, #apply=0, field=private int org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$Inherited.intField}"
+                "AjJoinPoint{type=FIELD_SET, #apply=0, field=private int org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$Inherited.intField}"
         );
         totalExpectedJoinPoints -= assertJoinPointsByType(joinPoints, AjJoinPointType.METHOD_EXECUTION,
                 "AjJoinPoint{type=METHOD_EXECUTION, #apply=0, method=protected void java.lang.Object.finalize() throws java.lang.Throwable}",
@@ -250,8 +251,8 @@ public class AjUniverseInitializerTest {
                 "AjJoinPoint{type=METHOD_EXECUTION, #apply=0, method=public final native java.lang.Class java.lang.Object.getClass()}",
                 "AjJoinPoint{type=METHOD_EXECUTION, #apply=0, method=protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException}",
                 "AjJoinPoint{type=METHOD_EXECUTION, #apply=0, method=public final native void java.lang.Object.notifyAll()}",
-                "AjJoinPoint{type=METHOD_EXECUTION, #apply=0, method=public int org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$Inherited.getIntField()}",
-                "AjJoinPoint{type=METHOD_EXECUTION, #apply=0, method=public void org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$Inherited.setIntField(int)}"
+                "AjJoinPoint{type=METHOD_EXECUTION, #apply=0, method=public int org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$Inherited.getIntField()}",
+                "AjJoinPoint{type=METHOD_EXECUTION, #apply=0, method=public void org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$Inherited.setIntField(int)}"
         );
         totalExpectedJoinPoints -= assertJoinPointsByType(joinPoints, AjJoinPointType.METHOD_CALL,
                 "AjJoinPoint{type=METHOD_CALL, #apply=0, method=protected void java.lang.Object.finalize() throws java.lang.Throwable}",
@@ -266,20 +267,20 @@ public class AjUniverseInitializerTest {
                 "AjJoinPoint{type=METHOD_CALL, #apply=0, method=public final native java.lang.Class java.lang.Object.getClass()}",
                 "AjJoinPoint{type=METHOD_CALL, #apply=0, method=protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException}",
                 "AjJoinPoint{type=METHOD_CALL, #apply=0, method=public final native void java.lang.Object.notifyAll()}",
-                "AjJoinPoint{type=METHOD_CALL, #apply=0, method=public int org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$Inherited.getIntField()}",
-                "AjJoinPoint{type=METHOD_CALL, #apply=0, method=public void org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$Inherited.setIntField(int)}"
+                "AjJoinPoint{type=METHOD_CALL, #apply=0, method=public int org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$Inherited.getIntField()}",
+                "AjJoinPoint{type=METHOD_CALL, #apply=0, method=public void org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$Inherited.setIntField(int)}"
         );
         totalExpectedJoinPoints -= assertJoinPointsByType(joinPoints, AjJoinPointType.CONSTRUCTOR_EXECUTION,
                 "AjJoinPoint{type=CONSTRUCTOR_EXECUTION, #apply=0, constructor=public java.lang.Object()}",
-                "AjJoinPoint{type=CONSTRUCTOR_EXECUTION, #apply=0, constructor=private org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$OtherClass()}",
-                "AjJoinPoint{type=CONSTRUCTOR_EXECUTION, #apply=0, constructor=org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$OtherClass(org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$OtherClass)}",
-                "AjJoinPoint{type=CONSTRUCTOR_EXECUTION, #apply=0, constructor=org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$Inherited(int)}"
+                "AjJoinPoint{type=CONSTRUCTOR_EXECUTION, #apply=0, constructor=private org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$OtherClass()}",
+                "AjJoinPoint{type=CONSTRUCTOR_EXECUTION, #apply=0, constructor=org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$OtherClass(org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$OtherClass)}",
+                "AjJoinPoint{type=CONSTRUCTOR_EXECUTION, #apply=0, constructor=org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$Inherited(int)}"
         );
         totalExpectedJoinPoints -= assertJoinPointsByType(joinPoints, AjJoinPointType.CONSTRUCTOR_CALL,
                 "AjJoinPoint{type=CONSTRUCTOR_CALL, #apply=0, constructor=public java.lang.Object()}",
-                "AjJoinPoint{type=CONSTRUCTOR_CALL, #apply=0, constructor=private org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$OtherClass()}",
-                "AjJoinPoint{type=CONSTRUCTOR_CALL, #apply=0, constructor=org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$OtherClass(org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$OtherClass)}",
-                "AjJoinPoint{type=CONSTRUCTOR_CALL, #apply=0, constructor=org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$Inherited(int)}"
+                "AjJoinPoint{type=CONSTRUCTOR_CALL, #apply=0, constructor=private org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$OtherClass()}",
+                "AjJoinPoint{type=CONSTRUCTOR_CALL, #apply=0, constructor=org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$OtherClass(org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$OtherClass)}",
+                "AjJoinPoint{type=CONSTRUCTOR_CALL, #apply=0, constructor=org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$Inherited(int)}"
         );
         assertThat("All Join Points asserted?", totalExpectedJoinPoints, is(0));
     }
@@ -324,13 +325,13 @@ public class AjUniverseInitializerTest {
         );
         totalExpectedJoinPoints -= assertJoinPointsByType(joinPoints, AjJoinPointType.CONSTRUCTOR_EXECUTION,
                 "AjJoinPoint{type=CONSTRUCTOR_EXECUTION, #apply=0, constructor=public java.lang.Object()}",
-                "AjJoinPoint{type=CONSTRUCTOR_EXECUTION, #apply=0, constructor=private org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$EmptyClass()}",
-                "AjJoinPoint{type=CONSTRUCTOR_EXECUTION, #apply=0, constructor=private org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$SecondClass()}"
+                "AjJoinPoint{type=CONSTRUCTOR_EXECUTION, #apply=0, constructor=private org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$EmptyClass()}",
+                "AjJoinPoint{type=CONSTRUCTOR_EXECUTION, #apply=0, constructor=private org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$SecondClass()}"
         );
         totalExpectedJoinPoints -= assertJoinPointsByType(joinPoints, AjJoinPointType.CONSTRUCTOR_CALL,
                 "AjJoinPoint{type=CONSTRUCTOR_CALL, #apply=0, constructor=public java.lang.Object()}",
-                "AjJoinPoint{type=CONSTRUCTOR_CALL, #apply=0, constructor=private org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$EmptyClass()}",
-                "AjJoinPoint{type=CONSTRUCTOR_CALL, #apply=0, constructor=private org.failearly.ajunit.universe.impl.AjUniverseInitializerTest$SecondClass()}"
+                "AjJoinPoint{type=CONSTRUCTOR_CALL, #apply=0, constructor=private org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$EmptyClass()}",
+                "AjJoinPoint{type=CONSTRUCTOR_CALL, #apply=0, constructor=private org.failearly.ajunit.universe.standard.AjUniverseInitializerTest$SecondClass()}"
         );
         assertThat("All Join Points asserted?", totalExpectedJoinPoints, is(0));
     }

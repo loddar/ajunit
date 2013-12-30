@@ -16,37 +16,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.util;
+package org.failearly.ajunit.predicate.standard;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+import org.failearly.ajunit.predicate.Predicate;
 
 /**
- * AbstractClassVisitor is a abstract base implementation for ClassVisitor. Only override those visit methods you are
- * interested in.
+ * ConstantPredicate is responsible for ...
  */
-public abstract class AbstractClassVisitor implements ClassVisitor {
-    protected AbstractClassVisitor() {
+final class ConstantPredicate implements Predicate {
+    private final boolean constant;
+
+    public ConstantPredicate(boolean constant) {
+        this.constant = constant;
     }
 
     @Override
-    public void visit(Class<?> declaringClass) {
-        // not interested in declaring class
-    }
-
-    @Override
-    public void visit(final Method method) {
-        // not interested in methods.
-    }
-
-    @Override
-    public void visit(final Constructor<?> constructor) {
-        // not interested in constructors.
-    }
-
-    @Override
-    public void visit(final Field field) {
-        // not interested in fields.
+    public boolean evaluate(Object object) {
+        return constant;
     }
 }

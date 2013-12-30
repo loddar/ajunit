@@ -19,6 +19,7 @@
 package org.failearly.ajunit.universe.impl;
 
 
+import org.failearly.ajunit.universe.AjJoinPointType;
 import org.failearly.ajunit.universe.AjUniverse;
 import org.failearly.ajunit.util.AbstractClassVisitor;
 import org.failearly.ajunit.util.ClassUtils;

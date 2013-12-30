@@ -18,14 +18,29 @@
  */
 package org.failearly.ajunit.universe;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 /**
  * AjUniverse builds the <i>Test Fixture</i> for the actually tests.
  */
 public interface AjUniverse {
     /**
+     * The universe name.
+     */
+    String getUniverseName();
+
+    /**
      * @return {@code true} if the universe has been initialized.
      */
     boolean isInitialized();
+
+    void addJoinpoint(AjJoinPointType joinPointType, Method method);
+
+    void addJoinpoint(AjJoinPointType joinPointType, Field field);
+
+    void addJoinpoint(AjJoinPointType joinPointType, Constructor constructor);
 
     /**
      * Visit all {@link org.failearly.ajunit.universe.AjJoinPoint} associated with the universe.
@@ -34,4 +49,14 @@ public interface AjUniverse {
      *
      */
     void visitJoinPoints(AjJoinPointVisitor joinPointVisitor);
+
+    /**
+     * Increases the aspect instance counter.
+     */
+    void increaseAspectInstances();
+
+    /**
+     * @return the number of created Aspect instances.
+     */
+    int getAspectInstanceCounter();
 }

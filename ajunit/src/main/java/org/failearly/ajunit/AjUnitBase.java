@@ -26,7 +26,7 @@ import org.failearly.ajunit.util.AnnotationUtils;
 import java.util.Arrays;
 
 /**
- * AjUnitBase is responsible for ...
+ * AjUnitBase the base class for {@link org.failearly.ajunit.AjUnitAspect} and  {@link org.failearly.ajunit.AjUnitTest}.
  */
 public abstract class AjUnitBase {
 
@@ -42,6 +42,14 @@ public abstract class AjUnitBase {
 
     protected AjUnitBase(final String... classNames) throws ClassNotFoundException {
         ajUniverse = AjUniversesHolder.createUniverseByClassNames(resolveUniverseName(this), Arrays.asList(classNames));
+    }
+
+    protected final void increaseAspectInstances() {
+        ajUniverse.increaseAspectInstances();
+    }
+
+    protected final void dropUniverse() {
+        AjUniversesHolder.dropUniverse(ajUniverse.getUniverseName());
     }
 
     protected final void visitJoinPoints(AjJoinPointVisitor joinPointVisitor) {

@@ -35,14 +35,14 @@ public abstract class AjAssert {
     public static void parameterNotNull(final Object parameter, final String parameterName) {
         if(parameter==null) {
             LOGGER.error("ajUnit - Parameter {} is null.", parameterName);
-            throw new IllegalArgumentException("ajUnit - Parameter " + parameterName + " is null");
+            throw new IllegalArgumentException("ajUnit - Parameter '" + parameterName + "' is null");
         }
     }
 
     public static void attributeIsNull(final Object object, final String attributeName) {
         if(object!=null) {
             LOGGER.error("ajUnit - Attribute {} is not null.", attributeName);
-            throw new IllegalArgumentException("ajUnit - Attribute " + attributeName + " is not null");
+            throw new IllegalArgumentException("ajUnit - Attribute '" + attributeName + "' is not null");
         }
     }
 
@@ -57,7 +57,7 @@ public abstract class AjAssert {
         parameterNotNull(collection, parameterName);
         if(collection.isEmpty()) {
             LOGGER.error("ajUnit - Parameter {} is empty.", parameterName);
-            throw new IllegalArgumentException("ajUnit - Parameter " + parameterName + " is empty.");
+            throw new IllegalArgumentException("ajUnit - Parameter '" + parameterName + "' is empty.");
         }
     }
 }

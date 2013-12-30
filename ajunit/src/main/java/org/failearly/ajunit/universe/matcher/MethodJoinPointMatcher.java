@@ -20,7 +20,7 @@ package org.failearly.ajunit.universe.matcher;
 
 import org.aspectj.lang.reflect.MethodSignature;
 import org.failearly.ajunit.universe.AjJoinPoint;
-import org.failearly.ajunit.universe.impl.AjJoinPointType;
+import org.failearly.ajunit.universe.AjJoinPointType;
 
 /**
  * MethodJoinPointMatcher compares {@link java.lang.reflect.Method} objects.

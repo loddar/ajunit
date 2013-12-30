@@ -36,11 +36,12 @@ public class ClassUtilsTest {
     private static interface MyInterface {}
     private static interface MySecondInterface extends MyInterface {}
 
-    private static class MyBaseClass implements MyInterface {};
-    private static class MyClass extends MyBaseClass implements MySecondInterface {};
-    private static class SimpleClassWithoutInterfaces {};
+    private static class MyBaseClass implements MyInterface {}
+    private static class MyClass extends MyBaseClass implements MySecondInterface {}
+    private static class SimpleClassWithoutInterfaces {}
 
     @Test
+    @SuppressWarnings("unchecked")
     public void classWithoutInheritanceAndInterfaces() throws Exception {
         // act / when
         final Collection<Class<?>> classes = ClassUtils.getClassesAndInterfaces(SimpleClassWithoutInterfaces.class);
@@ -52,6 +53,7 @@ public class ClassUtilsTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void classWithoutInheritance() throws Exception {
         // act / when
         final Collection<Class<?>> classes = ClassUtils.getClassesAndInterfaces(MyBaseClass.class);
@@ -63,6 +65,7 @@ public class ClassUtilsTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void classWithInheritance() throws Exception {
         // act / when
         final Collection<Class<?>> classes = ClassUtils.getClassesAndInterfaces(MyClass.class);

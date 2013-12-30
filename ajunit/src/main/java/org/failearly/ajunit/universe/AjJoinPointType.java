@@ -16,10 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.universe.impl;
+package org.failearly.ajunit.universe;
 
 import org.aspectj.lang.JoinPoint;
-import org.failearly.ajunit.universe.AjJoinPointMatcher;
 import org.failearly.ajunit.universe.matcher.ConstructorJoinPointMatcher;
 import org.failearly.ajunit.universe.matcher.FieldJoinPointMatcher;
 import org.failearly.ajunit.universe.matcher.MethodJoinPointMatcher;
@@ -42,7 +41,7 @@ public enum AjJoinPointType {
      */
     METHOD_EXECUTION(JoinPoint.METHOD_EXECUTION) {
         @Override
-        void accept(final Method method, final AjUniverseImpl universe) {
+        public void accept(final Method method, final AjUniverse universe) {
             universe.addJoinpoint(this, method);
         }
 
@@ -56,7 +55,7 @@ public enum AjJoinPointType {
      */
     METHOD_CALL(JoinPoint.METHOD_CALL) {
         @Override
-        void accept(final Method method, final AjUniverseImpl universe) {
+        public void accept(final Method method, final AjUniverse universe) {
             universe.addJoinpoint(this, method);
         }
 
@@ -70,7 +69,7 @@ public enum AjJoinPointType {
      */
     CONSTRUCTOR_EXECUTION(JoinPoint.CONSTRUCTOR_EXECUTION) {
         @Override
-        void accept(final Constructor constructor, final AjUniverseImpl universe) {
+        public void accept(final Constructor constructor, final AjUniverse universe) {
             universe.addJoinpoint(this, constructor);
         }
 
@@ -84,7 +83,7 @@ public enum AjJoinPointType {
      */
     CONSTRUCTOR_CALL(JoinPoint.CONSTRUCTOR_CALL) {
         @Override
-        void accept(final Constructor constructor, final AjUniverseImpl universe) {
+        public void accept(final Constructor constructor, final AjUniverse universe) {
             universe.addJoinpoint(this, constructor);
         }
 
@@ -98,7 +97,7 @@ public enum AjJoinPointType {
      */
     FIELD_GET(JoinPoint.FIELD_GET) {
         @Override
-        void accept(final Field field, final AjUniverseImpl universe) {
+        public void accept(final Field field, final AjUniverse universe) {
             universe.addJoinpoint(this, field);
         }
 
@@ -112,7 +111,7 @@ public enum AjJoinPointType {
      */
     FIELD_SET(JoinPoint.FIELD_SET) {
         @Override
-        void accept(final Field field, final AjUniverseImpl universe) {
+        public void accept(final Field field, final AjUniverse universe) {
             universe.addJoinpoint(this, field);
         }
 
@@ -125,30 +124,37 @@ public enum AjJoinPointType {
     /**
      * @see JoinPoint#PREINITIALIZATION
      */
+    @SuppressWarnings("unused")
     _PREINITIALIZATION(JoinPoint.PREINITIALIZATION),
     /**
      * @see JoinPoint#INITIALIZATION
      */
+    @SuppressWarnings("unused")
     _INITIALIZATION(JoinPoint.INITIALIZATION),
     /**
      * @see JoinPoint#EXCEPTION_HANDLER
      */
+    @SuppressWarnings("unused")
     _EXCEPTION_HANDLER(JoinPoint.EXCEPTION_HANDLER),
     /**
      * @see JoinPoint#STATICINITIALIZATION
      */
+    @SuppressWarnings("unused")
     _STATICINITIALIZATION(JoinPoint.STATICINITIALIZATION),
     /**
      * @see JoinPoint#ADVICE_EXECUTION
      */
+    @SuppressWarnings("unused")
     _ADVICE_EXECUTION(JoinPoint.ADVICE_EXECUTION),
     /**
      * @see JoinPoint#SYNCHRONIZATION_LOCK
      */
+    @SuppressWarnings("unused")
     _SYNCHRONIZATION_LOCK(JoinPoint.SYNCHRONIZATION_LOCK),
     /**
      * @see JoinPoint#SYNCHRONIZATION_UNLOCK
      */
+    @SuppressWarnings("unused")
     _SYNCHRONIZATION_UNLOCK(JoinPoint.SYNCHRONIZATION_UNLOCK),
     /**
      * Unknown join point.
@@ -183,21 +189,21 @@ public enum AjJoinPointType {
     /**
      * Overridden if the join point joinPointKind accepts {@link java.lang.reflect.Field}.
      */
-    void accept(final Field field, final AjUniverseImpl universe) {
+    public void accept(final Field field, final AjUniverse universe) {
         // does not accept fields.
     }
 
     /**
      * Overridden if the join point joinPointKind accepts {@link java.lang.reflect.Constructor}.
      */
-    void accept(final Constructor constructor, final AjUniverseImpl universe) {
+    public void accept(final Constructor constructor, final AjUniverse universe) {
         // does not accept constructors.
     }
 
     /**
      * Overridden if the join point joinPointKind accepts {@link java.lang.reflect.Method}.
      */
-    void accept(final Method method, final AjUniverseImpl universe) {
+    public void accept(final Method method, final AjUniverse universe) {
         // does not accept method.
     }
 
@@ -216,6 +222,14 @@ public enum AjJoinPointType {
      */
     public boolean isSameKind(JoinPoint joinPoint) {
         return this.joinPointKind.equals(joinPoint.getKind());
+    }
+
+    /**
+     * Returns AspectJs Join Point Kind.
+     * @see org.aspectj.lang.JoinPoint#getKind()
+     */
+    public String getJoinPointKind() {
+        return this.joinPointKind;
     }
 }
 

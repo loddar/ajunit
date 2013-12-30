@@ -16,37 +16,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.util;
+package org.failearly.ajunit;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
- * AbstractClassVisitor is a abstract base implementation for ClassVisitor. Only override those visit methods you are
- * interested in.
+ * JUnit4Test is the base class for JUnit4 based test of ajUnit tests.
  */
-public abstract class AbstractClassVisitor implements ClassVisitor {
-    protected AbstractClassVisitor() {
+public abstract class JUnit4Test extends AjUnitTest {
+
+    protected JUnit4Test(Class<?>... testFixtureClasses) {
+        super(testFixtureClasses);
     }
 
-    @Override
-    public void visit(Class<?> declaringClass) {
-        // not interested in declaring class
+    protected JUnit4Test(String... classNames) throws ClassNotFoundException {
+        super(classNames);
     }
 
-    @Override
-    public void visit(final Method method) {
-        // not interested in methods.
+    @Before @Override
+    public void setup() {
+        super.dropUniverse();
     }
 
-    @Override
-    public void visit(final Constructor<?> constructor) {
-        // not interested in constructors.
+    @Test
+    public final void pointcutTest() {
+        super.executePointcutTest();
     }
 
-    @Override
-    public void visit(final Field field) {
-        // not interested in fields.
-    }
 }

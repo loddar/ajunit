@@ -42,6 +42,7 @@ public class EnumUtilsTest {
                 return "valid2";
             }
         },
+        @SuppressWarnings("unused")
         _INVALID,
         _UNKNOWN
     }

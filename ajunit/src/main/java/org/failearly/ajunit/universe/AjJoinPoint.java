@@ -18,8 +18,6 @@
  */
 package org.failearly.ajunit.universe;
 
-import org.failearly.ajunit.universe.impl.AjJoinPointType;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

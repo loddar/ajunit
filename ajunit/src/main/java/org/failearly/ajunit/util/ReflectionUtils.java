@@ -30,27 +30,28 @@ public final class ReflectionUtils {
     }
 
     /**
-     * Visit all methods, fields and constructors of specified class.
-     * @param aClass the class to be inspect.
+     * Visit all methods, fields, constructors and the class itself.
+     * @param declaringClass the class to be inspect.
      * @param visitor the visitor.
      */
-    public static void visit(final Class<?> aClass, final ClassVisitor visitor) {
-        visitMethods(aClass, visitor);
-        visitFields(aClass, visitor);
-        visitConstructors(aClass, visitor);
+    public static void visit(final Class<?> declaringClass, final ClassVisitor visitor) {
+        visitor.visit(declaringClass);
+        visitMethods(declaringClass, visitor);
+        visitFields(declaringClass, visitor);
+        visitConstructors(declaringClass, visitor);
     }
 
 
     /**
      * Visit all methods of specified class.
      *
-     * @param aClass the class to be inspect.
+     * @param declaringClass the class to be inspect.
      * @param visitor the visitor.
      *
      * @see ClassVisitor#visit(java.lang.reflect.Method)
      */
-    public static void visitMethods(final Class<?> aClass, final ClassVisitor visitor)  {
-        for (Method method : aClass.getDeclaredMethods()) {
+    public static void visitMethods(final Class<?> declaringClass, final ClassVisitor visitor)  {
+        for (Method method : declaringClass.getDeclaredMethods()) {
             visitor.visit(method);
         }
     }
@@ -58,13 +59,13 @@ public final class ReflectionUtils {
     /**
      * Visit all fields of specified class.
      *
-     * @param aClass the class to be inspect.
+     * @param declaringClass the class to be inspect.
      * @param visitor the visitor.
      *
      * @see ClassVisitor#visit(java.lang.reflect.Field)
      */
-    public static void visitFields(final Class<?> aClass, final ClassVisitor visitor)  {
-        for (Field field : aClass.getDeclaredFields()) {
+    public static void visitFields(final Class<?> declaringClass, final ClassVisitor visitor)  {
+        for (Field field : declaringClass.getDeclaredFields()) {
             visitor.visit(field);
         }
     }
@@ -72,13 +73,13 @@ public final class ReflectionUtils {
     /**
      * Visit all constructors of specified class.
      *
-     * @param aClass the class to be inspect.
+     * @param declaringClass the class to be inspect.
      * @param visitor the visitor.
      *
      * @see ClassVisitor#visit(java.lang.reflect.Constructor)
      */
-    public static void visitConstructors(final Class<?> aClass, final ClassVisitor visitor)  {
-        for (Constructor<?> constructor : aClass.getDeclaredConstructors()) {
+    public static void visitConstructors(final Class<?> declaringClass, final ClassVisitor visitor)  {
+        for (Constructor<?> constructor : declaringClass.getDeclaredConstructors()) {
             visitor.visit(constructor);
         }
     }

@@ -19,10 +19,12 @@
 package org.failearly.ajunit.universe.impl;
 
 import org.failearly.ajunit.universe.AjJoinPoint;
+import org.failearly.ajunit.universe.AjJoinPointType;
 import org.failearly.ajunit.util.AjAssert;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 
 /**
@@ -107,12 +109,39 @@ final class AjJoinPointImpl implements AjJoinPoint {
 
     @Override
     public String toString() {
-        return AjJoinPointToStringBuilder.toLongString(this);
+        final StringBuilder stringBuilder=new StringBuilder("AjJoinPoint{");
+        stringBuilder.append("type=").append(getJoinPointType());
+        addProperty(stringBuilder, " #apply", getNumApplications());
+        addProperty(stringBuilder, " method", getMethod());
+        addProperty(stringBuilder, " field", getField());
+        addProperty(stringBuilder, " constructor", getConstructor());
+        return stringBuilder.append("}").toString();
     }
 
     @Override
     public String toShortString() {
-        return AjJoinPointToStringBuilder.toShortString(this);
+        final StringBuilder stringBuilder=new StringBuilder("AJP{");
+        stringBuilder.append("t=").append(getJoinPointType());
+        addProperty(stringBuilder, "#", getNumApplications());
+        addShortProperty(stringBuilder, "m", getMethod());
+        addShortProperty(stringBuilder, "f", getField());
+        addShortProperty(stringBuilder, "c", getConstructor());
+        return stringBuilder.append("}").toString();
+    }
+
+    private static void addProperty(final StringBuilder stringBuilder, String type, Object object) {
+        if( object!=null ) {
+            stringBuilder.append(",").append(type).append("=").append(object.toString());
+        }
+    }
+
+    private static void addShortProperty(final StringBuilder stringBuilder, String type, Member member) {
+        if( member!=null ) {
+            stringBuilder.append(",").append(type).append("=")
+                    .append(member.getDeclaringClass())
+                    .append(".")
+                    .append(member.getName());
+        }
     }
 
 

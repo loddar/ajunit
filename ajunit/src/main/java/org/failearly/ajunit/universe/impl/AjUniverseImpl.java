@@ -19,6 +19,7 @@
 package org.failearly.ajunit.universe.impl;
 
 import org.failearly.ajunit.universe.AjJoinPoint;
+import org.failearly.ajunit.universe.AjJoinPointType;
 import org.failearly.ajunit.universe.AjJoinPointVisitor;
 import org.failearly.ajunit.universe.AjUniverse;
 import org.slf4j.Logger;
@@ -40,6 +41,7 @@ final class AjUniverseImpl implements AjUniverse {
     private final String universeName;
     private final List<AjJoinPoint> joinPoints;
     private boolean initialized = false;
+    private int aspectInstanceCounter=0;
 
     AjUniverseImpl(final String universeName) {
         this(universeName, new LinkedList<AjJoinPoint>());
@@ -63,19 +65,22 @@ final class AjUniverseImpl implements AjUniverse {
         this.initialized = true;
     }
 
-    void addJoinpoint(final AjJoinPointType joinPointType, final Method method) {
+    @Override
+    public void addJoinpoint(final AjJoinPointType joinPointType, final Method method) {
         final AjJoinPointImpl ajJoinPoint = createAjJoinPoint(joinPointType);
         ajJoinPoint.setMethod(method);
         LOGGER.info("Add method join point: {}", ajJoinPoint);
     }
 
-    void addJoinpoint(final AjJoinPointType joinPointType, final Field field) {
+    @Override
+    public void addJoinpoint(final AjJoinPointType joinPointType, final Field field) {
         final AjJoinPointImpl ajJoinPoint = createAjJoinPoint(joinPointType);
         ajJoinPoint.setField(field);
         LOGGER.info("Add field join point: {}", ajJoinPoint);
     }
 
-    void addJoinpoint(final AjJoinPointType joinPointType, final Constructor constructor) {
+    @Override
+    public void addJoinpoint(final AjJoinPointType joinPointType, final Constructor constructor) {
         final AjJoinPointImpl ajJoinPoint = createAjJoinPoint(joinPointType);
         ajJoinPoint.setConstructor(constructor);
         LOGGER.info("Add constructor join point: {}", ajJoinPoint);
@@ -95,5 +100,13 @@ final class AjUniverseImpl implements AjUniverse {
         }
     }
 
+    @Override
+    public void increaseAspectInstances() {
+        this.aspectInstanceCounter++;
+    }
 
+    @Override
+    public int getAspectInstanceCounter() {
+        return aspectInstanceCounter;
+    }
 }

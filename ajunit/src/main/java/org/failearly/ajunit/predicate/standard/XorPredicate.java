@@ -16,23 +16,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.universe.matcher;
+package org.failearly.ajunit.predicate.standard;
 
-import org.aspectj.lang.reflect.ConstructorSignature;
-import org.failearly.ajunit.universe.AjJoinPoint;
-import org.failearly.ajunit.universe.AjJoinPointType;
+import org.failearly.ajunit.predicate.Predicate;
+
+import java.util.Collection;
 
 /**
- * ConstructorJoinPointMatcher compares {@link java.lang.reflect.Constructor} objects.
+ * XorPredicate implements XOR(P1(o),..,Pn(o)). Returns {@code true} if <i>only one</i> predicate evaluates
+ * to {@code true} otherwise {@code false}.
  */
-public class ConstructorJoinPointMatcher extends AjJoinPointMatcherBase<ConstructorSignature> {
-
-    public ConstructorJoinPointMatcher(AjJoinPointType joinPointType) {
-        super(joinPointType, ConstructorSignature.class);
-    }
-
+final class XorPredicate extends CompoundPredicateBase {
     @Override
-    protected boolean doMatchSignature(ConstructorSignature signature, AjJoinPoint ajUnitJoinPoint) {
-        return signature.getConstructor().equals(ajUnitJoinPoint.getConstructor());
+    protected boolean doEvaluate(Collection<Predicate> predicates, Object object) {
+        int countTrues=0;
+        for (final Predicate predicate : predicates) {
+            if( predicate.evaluate(object) ) {
+                countTrues += 1;
+            }
+            if( countTrues>1 ) {
+                break;
+            }
+        }
+        return 1==countTrues;
     }
 }

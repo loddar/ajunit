@@ -39,6 +39,7 @@ public class ReflectionUtilsTest {
     private static class EmptyClass {
     }
 
+    @SuppressWarnings("unused")
     private static class CommonClass {
         private static final int MY_CONST = 1;
         public int publicField;
@@ -73,6 +74,7 @@ public class ReflectionUtilsTest {
         }
     }
 
+    @SuppressWarnings("unused")
     private static abstract class AbstractClass {
         private static final int MY_CONST = 1;
         public int publicField;
@@ -98,6 +100,7 @@ public class ReflectionUtilsTest {
     private static interface MarkerInterface {
     }
 
+    @SuppressWarnings("unused")
     private static interface CommonInterface {
         int MY_CONST = 7;
 
@@ -108,6 +111,7 @@ public class ReflectionUtilsTest {
     private final List<String> constructors = new ArrayList<>();
     private final List<String> methods = new ArrayList<>();
     private final List<String> fields = new ArrayList<>();
+    private final List<String> classes=new ArrayList<>();
     private ClassVisitor classVisitor;
 
     @Before
@@ -115,7 +119,13 @@ public class ReflectionUtilsTest {
         this.constructors.clear();
         this.methods.clear();
         this.fields.clear();
+        this.classes.clear();
         this.classVisitor = new AbstractClassVisitor() {
+
+            @Override
+            public void visit(Class<?> declaringClass) {
+                classes.add(declaringClass.getName());
+            }
 
             @Override
             public void visit(final Method method) {
@@ -140,6 +150,7 @@ public class ReflectionUtilsTest {
         ReflectionUtils.visit(EmptyClass.class, this.classVisitor);
 
         // assert / then
+        assertThat("Classes?",classes,containsInAnyOrder("org.failearly.ajunit.util.ReflectionUtilsTest$EmptyClass"));
         assertThat("Only default constructor?", constructors, hasSize(1));
         assertThat("#Methods?", methods, hasSize(0));
         assertThat("#Fields?", fields, hasSize(0));
@@ -151,6 +162,7 @@ public class ReflectionUtilsTest {
         ReflectionUtils.visit(CommonClass.class, this.classVisitor);
 
         // assert / then
+        assertThat("Classes?",classes,containsInAnyOrder("org.failearly.ajunit.util.ReflectionUtilsTest$CommonClass"));
         assertThat("Constructors?", constructors, containsInAnyOrder(
                 "private org.failearly.ajunit.util.ReflectionUtilsTest$CommonClass(int)",
                 "org.failearly.ajunit.util.ReflectionUtilsTest$CommonClass(int,int,int,int)"
@@ -177,6 +189,7 @@ public class ReflectionUtilsTest {
         ReflectionUtils.visit(AbstractClass.class, this.classVisitor);
 
         // assert / then
+        assertThat("Classes?",classes,containsInAnyOrder("org.failearly.ajunit.util.ReflectionUtilsTest$AbstractClass"));
         assertThat("Constructors?", constructors, containsInAnyOrder(
                 "private org.failearly.ajunit.util.ReflectionUtilsTest$AbstractClass()"
         ));
@@ -202,6 +215,7 @@ public class ReflectionUtilsTest {
         ReflectionUtils.visit(MarkerInterface.class, this.classVisitor);
 
         // assert / then
+        assertThat("Classes?",classes,containsInAnyOrder("org.failearly.ajunit.util.ReflectionUtilsTest$MarkerInterface"));
         assertThat("#Constructors?", constructors, hasSize(0));
         assertThat("#Methods?", methods, hasSize(0));
         assertThat("#Fields?", fields, hasSize(0));
@@ -213,6 +227,7 @@ public class ReflectionUtilsTest {
         ReflectionUtils.visit(CommonInterface.class, this.classVisitor);
 
         // assert / then
+        assertThat("Classes?",classes,containsInAnyOrder("org.failearly.ajunit.util.ReflectionUtilsTest$CommonInterface"));
         assertThat("#Constructors?", constructors, hasSize(0));
         assertThat("Methods?", methods, containsInAnyOrder(
                 "public abstract void org.failearly.ajunit.util.ReflectionUtilsTest$CommonInterface.anyMethod()"

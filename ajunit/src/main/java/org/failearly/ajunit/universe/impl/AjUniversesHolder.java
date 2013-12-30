@@ -70,6 +70,24 @@ public final class AjUniversesHolder {
         return INSTANCE.doCreateUniverse(universeName, testFixtureClasses);
     }
 
+    /**
+     * Fetch the universe by universe name.
+     */
+    public static AjUniverse findUniverse(String universeName) {
+        return INSTANCE.doFindUniverse(universeName);
+    }
+
+    /**
+     * Drop the universe.
+     */
+    public static void dropUniverse(String universeName) {
+        INSTANCE.doDropUniverse(universeName);
+    }
+
+    private void doDropUniverse(String universeName) {
+        universes.remove(universeName);
+    }
+
     private static Collection<Class<?>> loadClassesWithoutInit(Collection<String> testFixtureClassNames) throws ClassNotFoundException {
         final Collection<Class<?>> classes=new HashSet<>();
         for (String className : testFixtureClassNames) {
@@ -80,28 +98,35 @@ public final class AjUniversesHolder {
 
     private AjUniverse doCreateUniverse(final String universeName, final Collection<Class<?>> testFixtureClasses) {
         AjAssert.parameterNotEmpty(testFixtureClasses, "testFixturesClasses");
-        final AjUniverseImpl universe=universes.putIfAbsent(universeName, new AjUniverseImpl(universeName));
-        return initializeUniverse(universe, testFixtureClasses);
+        final AjUniverseImpl newUniverse = new AjUniverseImpl(universeName);
+        final AjUniverseImpl existingUniverse=universes.putIfAbsent(universeName, newUniverse);
+        if( existingUniverse==null ) {
+            return initializeUniverse(newUniverse, testFixtureClasses);
+        }
+
+        return existingUniverse;
     }
 
     private AjUniverse initializeUniverse(final AjUniverseImpl universe, final Collection<Class<?>> testFixtureClasses) {
-        if( ! universe.isInitialized() ) {
-            final AjUniverseInitializer universeInitializer = new AjUniverseInitializer(universe);
-            universeInitializer.initialize(testFixtureClasses);
-        }
+        AjAssert.state(! universe.isInitialized(), "Universe " + universe.getUniverseName() +" has already been initialized.");
+        final AjUniverseInitializer universeInitializer = new AjUniverseInitializer(universe);
+        universeInitializer.initialize(testFixtureClasses);
 
         AjAssert.state(universe.isInitialized(), "Universe " + universe.getUniverseName() +" must be in state initialized.");
 
         return universe;
     }
 
-    public static AjUniverse findUniverse(String universeName) {
-        return INSTANCE.doFindUniverse(universeName);
-    }
-
     private AjUniverse doFindUniverse(String universeName) {
         final AjUniverse ajUniverse = universes.get(universeName);
         AjAssert.state(ajUniverse != null, "Could not find universe by name '" + universeName + "'");
         return ajUniverse;
+    }
+
+    /**
+     * Drop all universes. Currently used only for test class.
+     */
+    static void dropUniverses() {
+        INSTANCE.universes.clear();
     }
 }

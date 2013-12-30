@@ -122,11 +122,18 @@ public final class ClassUtils {
         }
     }
 
-    public static Class<?> loadClass(String className, boolean initialize) throws ClassNotFoundException {
+    /**
+     * Load a class by full qualified class name.
+     * @param fqcn  full qualified class name.
+     * @param initialize {@code true} if the class should be initialized, otherwise {@code false}.
+     * @return the class object.
+     * @throws ClassNotFoundException
+     */
+    public static Class<?> loadClass(String fqcn, boolean initialize) throws ClassNotFoundException {
         try {
-            return Class.forName(className, initialize, Thread.currentThread().getContextClassLoader());
+            return Class.forName(fqcn, initialize, Thread.currentThread().getContextClassLoader());
         } catch (ClassNotFoundException e) {
-            LOGGER.error("Class {} could not be found", className);
+            LOGGER.error("Class '{}' could not be found", fqcn);
             throw e;
         }
     }

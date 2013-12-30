@@ -20,7 +20,7 @@ package org.failearly.ajunit.universe.matcher;
 
 import org.aspectj.lang.reflect.FieldSignature;
 import org.failearly.ajunit.universe.AjJoinPoint;
-import org.failearly.ajunit.universe.impl.AjJoinPointType;
+import org.failearly.ajunit.universe.AjJoinPointType;
 
 /**
  * FieldJoinPointMatcher compares {@link java.lang.reflect.Field} objects.

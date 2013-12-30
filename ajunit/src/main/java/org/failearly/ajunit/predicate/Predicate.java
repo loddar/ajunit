@@ -16,23 +16,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.universe.matcher;
-
-import org.aspectj.lang.reflect.ConstructorSignature;
-import org.failearly.ajunit.universe.AjJoinPoint;
-import org.failearly.ajunit.universe.AjJoinPointType;
+package org.failearly.ajunit.predicate;
 
 /**
- * ConstructorJoinPointMatcher compares {@link java.lang.reflect.Constructor} objects.
+ * Predicate is highly inspired by Predicate implementation in Jakarta commons collection.
  */
-public class ConstructorJoinPointMatcher extends AjJoinPointMatcherBase<ConstructorSignature> {
-
-    public ConstructorJoinPointMatcher(AjJoinPointType joinPointType) {
-        super(joinPointType, ConstructorSignature.class);
-    }
-
-    @Override
-    protected boolean doMatchSignature(ConstructorSignature signature, AjJoinPoint ajUnitJoinPoint) {
-        return signature.getConstructor().equals(ajUnitJoinPoint.getConstructor());
-    }
+public interface Predicate {
+    /**
+     * Use the specified parameter ({@code object}) to perform a test that returns true or false.
+     *
+     * @param object any object {@code not null}.
+     *
+     * @return {@code true} or {@code false}.
+     *
+     * @throws java.lang.ClassCastException if the input is the wrong class.
+     * @throws java.lang.IllegalArgumentException if the input is invalid.
+     */
+    boolean evaluate(final Object object);
 }

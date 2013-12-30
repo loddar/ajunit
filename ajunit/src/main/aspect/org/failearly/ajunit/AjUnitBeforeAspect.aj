@@ -16,23 +16,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.universe.matcher;
-
-import org.aspectj.lang.reflect.ConstructorSignature;
-import org.failearly.ajunit.universe.AjJoinPoint;
-import org.failearly.ajunit.universe.AjJoinPointType;
+package org.failearly.ajunit;
 
 /**
- * ConstructorJoinPointMatcher compares {@link java.lang.reflect.Constructor} objects.
+ * AjUnitBeforeAspect applies an before advice on pointcut {@code pointcutUnderTest}.
  */
-public class ConstructorJoinPointMatcher extends AjJoinPointMatcherBase<ConstructorSignature> {
+public abstract aspect AjUnitBeforeAspect extends AjUnitAspect {
 
-    public ConstructorJoinPointMatcher(AjJoinPointType joinPointType) {
-        super(joinPointType, ConstructorSignature.class);
-    }
-
-    @Override
-    protected boolean doMatchSignature(ConstructorSignature signature, AjJoinPoint ajUnitJoinPoint) {
-        return signature.getConstructor().equals(ajUnitJoinPoint.getConstructor());
+    before() : pointcutUnderTest() {
+        doApply(thisJoinPoint);
     }
 }
