@@ -28,7 +28,7 @@ import java.util.Collection;
  */
 final class XorPredicate extends CompoundPredicateBase {
     @Override
-    protected boolean doEvaluate(Collection<Predicate> predicates, Object object) {
+    protected boolean doApplyPredicates(Collection<Predicate> predicates, Object object) {
         int countTrues=0;
         for (final Predicate predicate : predicates) {
             if( predicate.evaluate(object) ) {

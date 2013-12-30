@@ -18,12 +18,12 @@
  */
 package org.failearly.ajunit.predicate.standard;
 
-import org.failearly.ajunit.predicate.Predicate;
+import org.failearly.ajunit.predicate.PredicateBase;
 
 /**
- * ConstantPredicate is responsible for ...
+ * ConstantPredicate does not evaluate anything. Used in TEST context only.
  */
-final class ConstantPredicate implements Predicate {
+final class ConstantPredicate extends PredicateBase {
     private final boolean constant;
 
     public ConstantPredicate(boolean constant) {
@@ -31,7 +31,7 @@ final class ConstantPredicate implements Predicate {
     }
 
     @Override
-    public boolean evaluate(Object object) {
+    protected boolean doEvaluate(Object object) {
         return constant;
     }
 }

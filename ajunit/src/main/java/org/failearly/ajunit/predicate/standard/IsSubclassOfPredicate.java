@@ -18,21 +18,22 @@
  */
 package org.failearly.ajunit.predicate.standard;
 
-import org.failearly.ajunit.predicate.Predicate;
-
-import java.util.Collection;
+import org.failearly.ajunit.predicate.TypedPredicate;
 
 /**
- * AndPredicate is responsible for ...
+ * IsSubclassOfPredicate evaluates to {@code true} if the object is a subclass of current class/interface.
  */
-final class AndPredicate extends CompoundPredicateBase {
+final class IsSubclassOfPredicate extends TypedPredicate<Class<?>> {
+    private final Class<?> clazz;
+
+    @SuppressWarnings("unchecked")
+    IsSubclassOfPredicate(Class<?> clazz) {
+        super((Class<Class<?>>) clazz.getClass());
+        this.clazz = clazz;
+    }
+
     @Override
-    protected boolean doApplyPredicates(Collection<Predicate> predicates, Object object) {
-        for (final Predicate predicate : predicates) {
-            if( ! predicate.evaluate(object) ) {
-                return false;
-            }
-        }
-        return true;
+    protected boolean doTypedEvaluate(final Class<?> clazz) {
+        return this.clazz.isAssignableFrom(clazz);
     }
 }

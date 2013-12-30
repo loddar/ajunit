@@ -19,20 +19,26 @@
 package org.failearly.ajunit.predicate.standard;
 
 import org.failearly.ajunit.predicate.Predicate;
+import org.junit.Test;
 
-import java.util.Collection;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * AndPredicate is responsible for ...
+ * Tests for {@link org.failearly.ajunit.predicate.standard.EqualsPredicate}.
  */
-final class AndPredicate extends CompoundPredicateBase {
-    @Override
-    protected boolean doApplyPredicates(Collection<Predicate> predicates, Object object) {
-        for (final Predicate predicate : predicates) {
-            if( ! predicate.evaluate(object) ) {
-                return false;
-            }
-        }
-        return true;
+public class EqualsPredicateTest {
+    private final Predicate equalsPredicate=StandardPredicates.predicateEquals("VALUE");
+
+    @Test
+    public void equals() throws Exception {
+        // assert / then
+        assertThat("Equals evaluate to?", equalsPredicate.evaluate("VALUE"), is(true));
+    }
+
+    @Test
+    public void notEquals() throws Exception {
+        // assert / then
+        assertThat("Equals evaluate to?", equalsPredicate.evaluate("ANY-OTHER-VALUE"), is(false));
     }
 }

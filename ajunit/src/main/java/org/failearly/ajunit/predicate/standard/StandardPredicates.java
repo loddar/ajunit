@@ -31,39 +31,53 @@ public final class StandardPredicates {
 
     private StandardPredicates() {}
 
-    public static final CompositePredicate predicateAnd() {
+    public static CompositePredicate predicateAnd() {
         return new AndPredicate();
     }
 
-    public static final CompositePredicate predicateOr() {
+    public static CompositePredicate predicateOr() {
         return new OrPredicate();
     }
 
-    public static final CompositePredicate predicateXor() {
+    public static CompositePredicate predicateXor() {
         return new XorPredicate();
     }
 
-    public static final CompositePredicate predicateNand() {
+    public static CompositePredicate predicateNand() {
         return predicateNot(predicateAnd());
     }
 
-    public static final CompositePredicate predicateNor() {
+    public static CompositePredicate predicateNor() {
         return predicateNot(predicateOr());
     }
 
-    public static final Predicate predicateNot(Predicate predicate) {
+    public static Predicate predicateNot(Predicate predicate) {
         return new NotPredicate(predicate);
     }
 
-    public static final CompositePredicate predicateNot(CompositePredicate predicate) {
+    public static CompositePredicate predicateNot(CompositePredicate predicate) {
         return new NotCompoundPredicate(predicate);
     }
 
-    public static final Predicate predicateTrue() {
+    public static Predicate predicateTrue() {
         return P_TRUE;
     }
 
-    public static final Predicate predicateFalse() {
+    public static Predicate predicateFalse() {
         return P_FALSE;
     }
+
+    public static <T> Predicate predicateEquals(final T object) {
+        return new EqualsPredicate<>(object);
+    }
+
+    public static <T> Predicate predicateNotEquals(final T object) {
+        return predicateNot(predicateEquals(object));
+    }
+
+    public static Predicate predicateIsSubclass(final Class<?> clazz) {
+        return new IsSubclassOfPredicate(clazz);
+    }
+
+
 }

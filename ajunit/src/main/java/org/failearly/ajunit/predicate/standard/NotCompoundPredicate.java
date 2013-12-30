@@ -20,16 +20,16 @@ package org.failearly.ajunit.predicate.standard;
 
 import org.failearly.ajunit.predicate.CompositePredicate;
 import org.failearly.ajunit.predicate.Predicate;
-import org.failearly.ajunit.util.AjAssert;
+import org.failearly.ajunit.predicate.PredicateBase;
 
 /**
- * NotCompoundPredicate implements {@code NOT(cp(P1(o), ...,Pn(o)))}.
+ * NotCompoundPredicate implements <code>NOT(cp(P1(o), ...,Pn(o)))</code>.
  * <ul>
  *     <li>cp := any implementation of {@link org.failearly.ajunit.predicate.CompositePredicate}. </li>
  *     <li>P1, ..., Pn := any {@link org.failearly.ajunit.predicate.Predicate} </li>
  * </ul>
  */
-final class NotCompoundPredicate implements CompositePredicate {
+final class NotCompoundPredicate extends PredicateBase implements CompositePredicate {
 
     private final CompositePredicate compositePredicate;
 
@@ -49,11 +49,8 @@ final class NotCompoundPredicate implements CompositePredicate {
     }
 
     @Override
-    public boolean evaluate(Object object) {
-        AjAssert.parameterNotNull(object,"object");
-        if( noPredicates() ) {
-            return true;
-        }
-        return ! compositePredicate.evaluate(object);
+    protected boolean doEvaluate(Object object) {
+        return noPredicates() || ! compositePredicate.evaluate(object);
     }
+
 }

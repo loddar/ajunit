@@ -16,23 +16,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.predicate.standard;
+package org.failearly.ajunit.predicate;
 
-import org.failearly.ajunit.predicate.Predicate;
-
-import java.util.Collection;
+import org.failearly.ajunit.util.AjAssert;
 
 /**
- * AndPredicate is responsible for ...
+ * PredicateBase is the base implementation for all predicates. Checking that the given parameter {@code object} is {@code not null}.
  */
-final class AndPredicate extends CompoundPredicateBase {
+public abstract class PredicateBase implements Predicate {
+
     @Override
-    protected boolean doApplyPredicates(Collection<Predicate> predicates, Object object) {
-        for (final Predicate predicate : predicates) {
-            if( ! predicate.evaluate(object) ) {
-                return false;
-            }
-        }
-        return true;
+    public final boolean evaluate(Object object) {
+        AjAssert.parameterNotNull(object,"object");
+        return doEvaluate(object);
     }
+
+    /**
+     * Does the actually evaluation. The object could be considered {@code not null}.
+     * @param object {@code not null}
+     * @return {@code true} or {@code false}.
+     */
+    protected abstract boolean doEvaluate(final Object object);
 }

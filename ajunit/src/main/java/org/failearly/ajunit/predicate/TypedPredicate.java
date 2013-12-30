@@ -18,22 +18,20 @@
  */
 package org.failearly.ajunit.predicate;
 
-import org.failearly.ajunit.util.AjAssert;
-
 /**
  * TypedPredicate is a type safe version base class for {@link org.failearly.ajunit.predicate.Predicate}.
  */
-public abstract class TypedPredicate<T> implements Predicate {
+public abstract class TypedPredicate<T> extends PredicateBase {
     private final Class<T> parameterClass;
 
     protected TypedPredicate(final Class<T> parameterClass) {
         this.parameterClass = parameterClass;
     }
 
+
     @Override
-    public final boolean evaluate(final Object object) {
-        AjAssert.parameterNotNull(object, "object");
-        return doEvaluate(doCast(object));
+    protected final boolean doEvaluate(Object object) {
+        return doTypedEvaluate(doCast(object));
     }
 
     /**
@@ -41,7 +39,7 @@ public abstract class TypedPredicate<T> implements Predicate {
      * @param typedObject object already cast to T.
      * @see org.failearly.ajunit.predicate.Predicate#evaluate(Object).
      */
-    protected abstract boolean doEvaluate(final T typedObject);
+    protected abstract boolean doTypedEvaluate(final T typedObject);
 
     private T doCast(Object object) {
         return parameterClass.cast(object);

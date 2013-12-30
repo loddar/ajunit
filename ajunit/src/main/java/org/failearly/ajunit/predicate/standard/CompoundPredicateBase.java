@@ -20,7 +20,7 @@ package org.failearly.ajunit.predicate.standard;
 
 import org.failearly.ajunit.predicate.CompositePredicate;
 import org.failearly.ajunit.predicate.Predicate;
-import org.failearly.ajunit.util.AjAssert;
+import org.failearly.ajunit.predicate.PredicateBase;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -29,19 +29,15 @@ import java.util.LinkedList;
 /**
  * CompoundPredicateBase is the base class for {@link org.failearly.ajunit.predicate.CompositePredicate} implementations.
  */
-abstract class CompoundPredicateBase implements CompositePredicate {
+abstract class CompoundPredicateBase extends PredicateBase implements CompositePredicate {
     private final Collection<Predicate> predicates=new LinkedList<>();
 
     protected CompoundPredicateBase() {
     }
 
     @Override
-    public boolean evaluate(final Object object) {
-        AjAssert.parameterNotNull(object, "object");
-        if( noPredicates() ) {
-            return true;
-        }
-        return doEvaluate(predicates, object);
+    protected final boolean doEvaluate(final Object object) {
+        return noPredicates() || doApplyPredicates(predicates, object);
     }
 
     @Override
@@ -55,6 +51,12 @@ abstract class CompoundPredicateBase implements CompositePredicate {
         return predicates.isEmpty();
     }
 
-    protected abstract boolean doEvaluate(final Collection<Predicate> predicates, final Object object);
+    /**
+     * Apply the added predicates on the given parameter {@code object}.
+     * @param predicates the added predicates.
+     * @param object the parameter of {@link #evaluate(Object)}.
+     * @return {@code true} or {@code false}.
+     */
+    protected abstract boolean doApplyPredicates(final Collection<Predicate> predicates, final Object object);
 
 }

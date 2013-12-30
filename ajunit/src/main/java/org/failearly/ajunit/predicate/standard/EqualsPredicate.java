@@ -18,21 +18,22 @@
  */
 package org.failearly.ajunit.predicate.standard;
 
-import org.failearly.ajunit.predicate.Predicate;
-
-import java.util.Collection;
+import org.failearly.ajunit.predicate.TypedPredicate;
 
 /**
- * AndPredicate is responsible for ...
+ * EqualsPredicate evaluates to {@code true} if
  */
-final class AndPredicate extends CompoundPredicateBase {
+final class EqualsPredicate<T> extends TypedPredicate<T> {
+    private final T object;
+
+    @SuppressWarnings("unchecked")
+    EqualsPredicate(final T object) {
+        super((Class<T>)object.getClass());
+        this.object = object;
+    }
+
     @Override
-    protected boolean doApplyPredicates(Collection<Predicate> predicates, Object object) {
-        for (final Predicate predicate : predicates) {
-            if( ! predicate.evaluate(object) ) {
-                return false;
-            }
-        }
-        return true;
+    protected boolean doTypedEvaluate(final T typedObject) {
+        return this.object.equals(typedObject);
     }
 }

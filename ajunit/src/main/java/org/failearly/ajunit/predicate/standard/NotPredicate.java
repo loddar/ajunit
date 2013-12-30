@@ -19,11 +19,12 @@
 package org.failearly.ajunit.predicate.standard;
 
 import org.failearly.ajunit.predicate.Predicate;
+import org.failearly.ajunit.predicate.PredicateBase;
 
 /**
- * NotPredicate implements {@code NOT(P(o))}.
+ * NotPredicate implements <code>NOT(P(o))</code>.
  */
-final class NotPredicate implements Predicate {
+final class NotPredicate extends PredicateBase {
     private final Predicate predicate;
 
     public NotPredicate(Predicate predicate) {
@@ -31,7 +32,7 @@ final class NotPredicate implements Predicate {
     }
 
     @Override
-    public boolean evaluate(Object object) {
-        return ! this.predicate.evaluate(object);
+    protected boolean doEvaluate(Object object) {
+        return ! predicate.evaluate(object);
     }
 }

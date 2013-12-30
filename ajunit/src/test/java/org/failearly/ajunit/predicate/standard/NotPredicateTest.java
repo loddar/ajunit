@@ -55,4 +55,14 @@ public class NotPredicateTest {
         // assert / then
         assertThat("Not predicate evaluates to?", notPredicate.evaluate(ANY_PARAMETER), is(true));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void invalidInput() throws Exception {
+        // arrange / given
+        final Predicate notPredicate=StandardPredicates.predicateNot(TRUE);
+
+        // act / when
+        notPredicate.evaluate(null);
+    }
+
 }

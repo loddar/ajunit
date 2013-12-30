@@ -61,4 +61,10 @@ public abstract class CompositePredicatesTest {
         // assert / then
         assertCompositePredicateEvaluatesTo(true);
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void invalidInput() throws Exception {
+        // act / when
+        compositePredicate.evaluate(null);
+    }
 }
