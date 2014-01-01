@@ -16,25 +16,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.internal.predicate;
 
-import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.util.AjAssert;
 
 /**
- * AjJoinPointPredicateBuilderImpl - The implementation of AjJoinPointPredicateBuilder.
+ * PredicateBase is the base implementation for all predicates. Checking that the given parameter {@code object} is {@code not null}.
  */
-public final class AjJoinPointPredicateBuilderImpl implements AjJoinPointPredicateBuilder {
-    @Override
-    public MethodJoinPointPredicateBuilder methodExecute() {
-        return null;
-    }
+public abstract class PredicateBase implements Predicate {
 
     @Override
-    public MethodJoinPointPredicateBuilder methodCall() {
-        return null;
+    public final boolean evaluate(Object object) {
+        AjAssert.parameterNotNull(object,"object");
+        return doEvaluate(object);
     }
 
-    public Predicate build() {
-        return null;
-    }
+    /**
+     * Does the actually evaluation. The object could be considered {@code not null}.
+     * @param object {@code not null}
+     * @return {@code true} or {@code false}.
+     */
+    protected abstract boolean doEvaluate(final Object object);
 }

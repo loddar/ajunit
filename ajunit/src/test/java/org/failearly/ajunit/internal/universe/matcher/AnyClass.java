@@ -16,25 +16,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
-
-import org.failearly.ajunit.internal.predicate.Predicate;
+package org.failearly.ajunit.internal.universe.matcher;
 
 /**
- * AjJoinPointPredicateBuilderImpl - The implementation of AjJoinPointPredicateBuilder.
+ * Only for {@link org.failearly.ajunit.internal.universe.AjJoinPointMatcher} Tests.
  */
-public final class AjJoinPointPredicateBuilderImpl implements AjJoinPointPredicateBuilder {
-    @Override
-    public MethodJoinPointPredicateBuilder methodExecute() {
-        return null;
+@SuppressWarnings("unused")
+public class AnyClass {
+
+    public int field=0;
+    public String otherField="";
+
+    public AnyClass() {
     }
 
-    @Override
-    public MethodJoinPointPredicateBuilder methodCall() {
-        return null;
+    public AnyClass(int field) {
+        this.field = field;
     }
 
-    public Predicate build() {
-        return null;
+    public void anyMethod() {
+    }
+
+    public void otherMethod() {
     }
 }

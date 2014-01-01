@@ -16,25 +16,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.internal.predicate.standard;
 
 import org.failearly.ajunit.internal.predicate.Predicate;
 
+import java.util.Collection;
+
 /**
- * AjJoinPointPredicateBuilderImpl - The implementation of AjJoinPointPredicateBuilder.
+ * XorPredicate implements XOR(P1(o),..,Pn(o)). Returns {@code true} if <i>only one</i> predicate evaluates
+ * to {@code true} otherwise {@code false}.
  */
-public final class AjJoinPointPredicateBuilderImpl implements AjJoinPointPredicateBuilder {
+final class XorPredicate extends CompoundPredicateBase {
     @Override
-    public MethodJoinPointPredicateBuilder methodExecute() {
-        return null;
-    }
-
-    @Override
-    public MethodJoinPointPredicateBuilder methodCall() {
-        return null;
-    }
-
-    public Predicate build() {
-        return null;
+    protected boolean doApplyPredicates(Collection<Predicate> predicates, Object object) {
+        int countTrues=0;
+        for (final Predicate predicate : predicates) {
+            if( predicate.evaluate(object) ) {
+                countTrues += 1;
+            }
+            if( countTrues>1 ) {
+                break;
+            }
+        }
+        return 1==countTrues;
     }
 }

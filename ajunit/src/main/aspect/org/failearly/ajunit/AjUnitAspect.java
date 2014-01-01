@@ -1,7 +1,7 @@
 /*
  * ajUnit - Unit Testing AspectJ pointcut definitions.
  *
- * Copyright (C) 2013-2013  Marko Umek (ajunit.contact(at)gmail.com)
+ * Copyright (C) 2013-2014  Marko Umek (ajunit.contact(at)gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,11 +21,11 @@ package org.failearly.ajunit;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.failearly.ajunit.universe.AjJoinPoint;
-import org.failearly.ajunit.universe.AjJoinPointMatcher;
-import org.failearly.ajunit.universe.AjJoinPointType;
-import org.failearly.ajunit.universe.AjJoinPointVisitor;
-import org.failearly.ajunit.util.AjAssert;
+import org.failearly.ajunit.internal.universe.AjJoinPoint;
+import org.failearly.ajunit.internal.universe.AjJoinPointMatcher;
+import org.failearly.ajunit.internal.universe.AjJoinPointType;
+import org.failearly.ajunit.internal.universe.AjJoinPointVisitor;
+import org.failearly.ajunit.internal.util.AjAssert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

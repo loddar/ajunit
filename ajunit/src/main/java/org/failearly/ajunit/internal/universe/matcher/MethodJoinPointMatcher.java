@@ -16,25 +16,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.internal.universe.matcher;
 
-import org.failearly.ajunit.internal.predicate.Predicate;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.failearly.ajunit.internal.universe.AjJoinPoint;
+import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
- * AjJoinPointPredicateBuilderImpl - The implementation of AjJoinPointPredicateBuilder.
+ * MethodJoinPointMatcher compares {@link java.lang.reflect.Method} objects.
  */
-public final class AjJoinPointPredicateBuilderImpl implements AjJoinPointPredicateBuilder {
-    @Override
-    public MethodJoinPointPredicateBuilder methodExecute() {
-        return null;
+public class MethodJoinPointMatcher extends AjJoinPointMatcherBase<MethodSignature> {
+
+    public MethodJoinPointMatcher(AjJoinPointType joinPointType) {
+        super(joinPointType, MethodSignature.class);
     }
 
     @Override
-    public MethodJoinPointPredicateBuilder methodCall() {
-        return null;
-    }
-
-    public Predicate build() {
-        return null;
+    protected boolean doMatchSignature(MethodSignature signature, AjJoinPoint ajUnitJoinPoint) {
+        return signature.getMethod().equals(ajUnitJoinPoint.getMethod());
     }
 }

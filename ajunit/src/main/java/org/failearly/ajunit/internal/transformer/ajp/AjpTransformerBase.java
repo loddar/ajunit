@@ -16,25 +16,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.internal.transformer.ajp;
 
-import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.transformer.TypedTransformer;
+import org.failearly.ajunit.internal.universe.AjJoinPoint;
 
 /**
- * AjJoinPointPredicateBuilderImpl - The implementation of AjJoinPointPredicateBuilder.
+ * AjpTransformerBase is the base class for {@link org.failearly.ajunit.internal.universe.AjJoinPoint} based transformers.
  */
-public final class AjJoinPointPredicateBuilderImpl implements AjJoinPointPredicateBuilder {
-    @Override
-    public MethodJoinPointPredicateBuilder methodExecute() {
-        return null;
+abstract class AjpTransformerBase<T> extends TypedTransformer<AjJoinPoint,T> {
+    protected AjpTransformerBase() {
+        super(AjJoinPoint.class);
     }
 
-    @Override
-    public MethodJoinPointPredicateBuilder methodCall() {
-        return null;
-    }
-
-    public Predicate build() {
-        return null;
-    }
 }

@@ -16,25 +16,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
-
-import org.failearly.ajunit.internal.predicate.Predicate;
+package org.failearly.ajunit.internal.transformer;
 
 /**
- * AjJoinPointPredicateBuilderImpl - The implementation of AjJoinPointPredicateBuilder.
+ * TransformerBase is the base class for all transformer which handles {@code null} input value.
  */
-public final class AjJoinPointPredicateBuilderImpl implements AjJoinPointPredicateBuilder {
+public abstract class TransformerBase implements Transformer {
     @Override
-    public MethodJoinPointPredicateBuilder methodExecute() {
-        return null;
+    public final Object transform(Object input) {
+        if( input==null ) {
+            return null;
+        }
+        return doTransform(input);
     }
 
-    @Override
-    public MethodJoinPointPredicateBuilder methodCall() {
-        return null;
-    }
-
-    public Predicate build() {
-        return null;
-    }
+    /**
+     * The actually implementation.
+     * @param input
+     * @return
+     */
+    protected abstract Object doTransform(final Object input);
 }

@@ -16,25 +16,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.internal.transformer.ajp;
 
-import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.universe.AjJoinPoint;
+
+import java.lang.reflect.Method;
 
 /**
- * AjJoinPointPredicateBuilderImpl - The implementation of AjJoinPointPredicateBuilder.
+ * AjpMethodTransformer transforms {@link org.failearly.ajunit.internal.universe.AjJoinPointType} to {@link java.lang.reflect.Method}.
+ *
+ * @see org.failearly.ajunit.internal.universe.AjJoinPoint#getMethod()
  */
-public final class AjJoinPointPredicateBuilderImpl implements AjJoinPointPredicateBuilder {
+final class AjpMethodTransformer extends AjpTransformerBase<Method> {
     @Override
-    public MethodJoinPointPredicateBuilder methodExecute() {
-        return null;
-    }
-
-    @Override
-    public MethodJoinPointPredicateBuilder methodCall() {
-        return null;
-    }
-
-    public Predicate build() {
-        return null;
+    protected Method doTypedTransform(final AjJoinPoint input) {
+        return input.getMethod();
     }
 }

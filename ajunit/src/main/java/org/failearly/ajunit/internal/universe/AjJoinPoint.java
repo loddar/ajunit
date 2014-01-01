@@ -16,25 +16,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.internal.universe;
 
-import org.failearly.ajunit.internal.predicate.Predicate;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
- * AjJoinPointPredicateBuilderImpl - The implementation of AjJoinPointPredicateBuilder.
+ * The ajUnit join point definition. Will be collected by {@link AjUniverse}.
  */
-public final class AjJoinPointPredicateBuilderImpl implements AjJoinPointPredicateBuilder {
-    @Override
-    public MethodJoinPointPredicateBuilder methodExecute() {
-        return null;
-    }
+public interface AjJoinPoint {
+    AjJoinPointType getJoinPointType();
 
-    @Override
-    public MethodJoinPointPredicateBuilder methodCall() {
-        return null;
-    }
+    Class<?> getDeclaringClass();
 
-    public Predicate build() {
-        return null;
-    }
+    Method getMethod();
+    Field  getField();
+    Constructor getConstructor();
+
+    int getNumApplications();
+    void apply();
 }

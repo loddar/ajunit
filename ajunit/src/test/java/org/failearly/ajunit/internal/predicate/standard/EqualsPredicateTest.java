@@ -16,25 +16,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.internal.predicate.standard;
 
 import org.failearly.ajunit.internal.predicate.Predicate;
+import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * AjJoinPointPredicateBuilderImpl - The implementation of AjJoinPointPredicateBuilder.
+ * Tests for {@link org.failearly.ajunit.internal.predicate.standard.EqualsPredicate}.
  */
-public final class AjJoinPointPredicateBuilderImpl implements AjJoinPointPredicateBuilder {
-    @Override
-    public MethodJoinPointPredicateBuilder methodExecute() {
-        return null;
+public class EqualsPredicateTest {
+    private final Predicate equalsPredicate=StandardPredicates.predicateEquals("VALUE");
+
+    @Test
+    public void equals() throws Exception {
+        // assert / then
+        assertThat("Equals evaluate to?", equalsPredicate.evaluate("VALUE"), is(true));
     }
 
-    @Override
-    public MethodJoinPointPredicateBuilder methodCall() {
-        return null;
-    }
-
-    public Predicate build() {
-        return null;
+    @Test
+    public void notEquals() throws Exception {
+        // assert / then
+        assertThat("Equals evaluate to?", equalsPredicate.evaluate("ANY-OTHER-VALUE"), is(false));
     }
 }

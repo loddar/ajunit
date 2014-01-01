@@ -16,25 +16,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.internal.predicate.standard;
 
-import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.predicate.TypedPredicate;
 
 /**
- * AjJoinPointPredicateBuilderImpl - The implementation of AjJoinPointPredicateBuilder.
+ * EqualsPredicate evaluates to {@code true} if
  */
-public final class AjJoinPointPredicateBuilderImpl implements AjJoinPointPredicateBuilder {
-    @Override
-    public MethodJoinPointPredicateBuilder methodExecute() {
-        return null;
+final class EqualsPredicate<T> extends TypedPredicate<T> {
+    private final T object;
+
+    @SuppressWarnings("unchecked")
+    EqualsPredicate(final T object) {
+        super((Class<T>)object.getClass());
+        this.object = object;
     }
 
     @Override
-    public MethodJoinPointPredicateBuilder methodCall() {
-        return null;
-    }
-
-    public Predicate build() {
-        return null;
+    protected boolean doTypedEvaluate(final T typedObject) {
+        return this.object.equals(typedObject);
     }
 }

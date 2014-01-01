@@ -16,25 +16,37 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.internal.util;
 
-import org.failearly.ajunit.internal.predicate.Predicate;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
- * AjJoinPointPredicateBuilderImpl - The implementation of AjJoinPointPredicateBuilder.
+ * AbstractClassVisitor is a abstract base implementation for ClassVisitor. Only override those visit methods you are
+ * interested in.
  */
-public final class AjJoinPointPredicateBuilderImpl implements AjJoinPointPredicateBuilder {
-    @Override
-    public MethodJoinPointPredicateBuilder methodExecute() {
-        return null;
+public abstract class AbstractClassVisitor implements ClassVisitor {
+    protected AbstractClassVisitor() {
     }
 
     @Override
-    public MethodJoinPointPredicateBuilder methodCall() {
-        return null;
+    public void visit(Class<?> declaringClass) {
+        // not interested in declaring class
     }
 
-    public Predicate build() {
-        return null;
+    @Override
+    public void visit(final Method method) {
+        // not interested in methods.
+    }
+
+    @Override
+    public void visit(final Constructor<?> constructor) {
+        // not interested in constructors.
+    }
+
+    @Override
+    public void visit(final Field field) {
+        // not interested in fields.
     }
 }

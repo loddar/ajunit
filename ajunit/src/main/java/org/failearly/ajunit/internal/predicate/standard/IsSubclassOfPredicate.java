@@ -16,25 +16,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.internal.predicate.standard;
 
-import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.predicate.TypedPredicate;
 
 /**
- * AjJoinPointPredicateBuilderImpl - The implementation of AjJoinPointPredicateBuilder.
+ * IsSubclassOfPredicate evaluates to {@code true} if the object is a subclass of current class/interface.
  */
-public final class AjJoinPointPredicateBuilderImpl implements AjJoinPointPredicateBuilder {
-    @Override
-    public MethodJoinPointPredicateBuilder methodExecute() {
-        return null;
+final class IsSubclassOfPredicate extends TypedPredicate<Class<?>> {
+    private final Class<?> clazz;
+
+    @SuppressWarnings("unchecked")
+    IsSubclassOfPredicate(Class<?> clazz) {
+        super((Class<Class<?>>) clazz.getClass());
+        this.clazz = clazz;
     }
 
     @Override
-    public MethodJoinPointPredicateBuilder methodCall() {
-        return null;
-    }
-
-    public Predicate build() {
-        return null;
+    protected boolean doTypedEvaluate(final Class<?> clazz) {
+        return this.clazz.isAssignableFrom(clazz);
     }
 }

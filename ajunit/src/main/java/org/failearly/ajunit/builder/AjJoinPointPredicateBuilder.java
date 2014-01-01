@@ -1,7 +1,7 @@
 /*
  * ajUnit - Unit Testing AspectJ pointcut definitions.
  *
- * Copyright (C) 2013-2013  Marko Umek (ajunit.contact(at)gmail.com)
+ * Copyright (C) 2013-2014  Marko Umek (ajunit.contact(at)gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,13 +18,10 @@
  */
 package org.failearly.ajunit.builder;
 
-import org.failearly.ajunit.predicate.Predicate;
-
 /**
  * AjJoinPointPredicateBuilder is responsible for ...
  */
 public interface AjJoinPointPredicateBuilder {
     MethodJoinPointPredicateBuilder methodExecute();
     MethodJoinPointPredicateBuilder methodCall();
-    Predicate build();
 }

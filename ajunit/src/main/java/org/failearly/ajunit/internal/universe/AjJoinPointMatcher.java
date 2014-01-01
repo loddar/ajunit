@@ -16,25 +16,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.internal.universe;
 
-import org.failearly.ajunit.internal.predicate.Predicate;
+import org.aspectj.lang.JoinPoint;
 
 /**
- * AjJoinPointPredicateBuilderImpl - The implementation of AjJoinPointPredicateBuilder.
+ * AjJoinPointMatcher matches an {@link org.aspectj.lang.JoinPoint} and {@link AjJoinPoint}.
  */
-public final class AjJoinPointPredicateBuilderImpl implements AjJoinPointPredicateBuilder {
-    @Override
-    public MethodJoinPointPredicateBuilder methodExecute() {
-        return null;
-    }
+public interface AjJoinPointMatcher {
 
-    @Override
-    public MethodJoinPointPredicateBuilder methodCall() {
-        return null;
-    }
-
-    public Predicate build() {
-        return null;
-    }
+    /**
+     * Returns {@code true} if {@code aspectJoinPoint} matches {@code ajUnitJoinPoint}.
+     */
+    boolean match(final JoinPoint aspectJoinPoint, final AjJoinPoint ajUnitJoinPoint);
 }

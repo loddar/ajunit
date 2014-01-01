@@ -16,25 +16,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
-
-import org.failearly.ajunit.internal.predicate.Predicate;
+package org.failearly.ajunit.internal.universe;
 
 /**
- * AjJoinPointPredicateBuilderImpl - The implementation of AjJoinPointPredicateBuilder.
+ * AjJoinPointVisitor is the callback function for visiting the {@link AjJoinPoint} of an
+ * {@link AjUniverse}.
+ *
+ * @see AjUniverse#visitJoinPoints(AjJoinPointVisitor)
  */
-public final class AjJoinPointPredicateBuilderImpl implements AjJoinPointPredicateBuilder {
-    @Override
-    public MethodJoinPointPredicateBuilder methodExecute() {
-        return null;
-    }
+public interface AjJoinPointVisitor {
 
-    @Override
-    public MethodJoinPointPredicateBuilder methodCall() {
-        return null;
-    }
-
-    public Predicate build() {
-        return null;
-    }
+    /**
+     * Called by {@link AjUniverse#visitJoinPoints(AjJoinPointVisitor)}.
+     * @param joinPoint the join point.
+     */
+    void visit(AjJoinPoint joinPoint);
 }

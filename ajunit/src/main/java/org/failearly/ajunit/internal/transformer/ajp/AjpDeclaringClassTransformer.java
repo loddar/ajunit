@@ -16,25 +16,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.internal.transformer.ajp;
 
-import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.universe.AjJoinPoint;
 
 /**
- * AjJoinPointPredicateBuilderImpl - The implementation of AjJoinPointPredicateBuilder.
+ * AjpDeclaringClassTransformer transforms {@link org.failearly.ajunit.internal.universe.AjJoinPointType} to declaring class {@link java.lang.Class}.
+ *
+ * @see org.failearly.ajunit.internal.universe.AjJoinPoint#getDeclaringClass()
  */
-public final class AjJoinPointPredicateBuilderImpl implements AjJoinPointPredicateBuilder {
+final class AjpDeclaringClassTransformer extends AjpTransformerBase<Class<?>> {
     @Override
-    public MethodJoinPointPredicateBuilder methodExecute() {
-        return null;
-    }
-
-    @Override
-    public MethodJoinPointPredicateBuilder methodCall() {
-        return null;
-    }
-
-    public Predicate build() {
-        return null;
+    protected Class<?> doTypedTransform(AjJoinPoint input) {
+        return input.getDeclaringClass();
     }
 }

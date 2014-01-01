@@ -16,25 +16,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
-
-import org.failearly.ajunit.internal.predicate.Predicate;
+package org.failearly.ajunit.internal.util;
 
 /**
- * AjJoinPointPredicateBuilderImpl - The implementation of AjJoinPointPredicateBuilder.
+ * ObjectUtils provides some useful utility methods.
  */
-public final class AjJoinPointPredicateBuilderImpl implements AjJoinPointPredicateBuilder {
-    @Override
-    public MethodJoinPointPredicateBuilder methodExecute() {
-        return null;
+public final class ObjectUtils {
+    private ObjectUtils() {
     }
 
-    @Override
-    public MethodJoinPointPredicateBuilder methodCall() {
-        return null;
+    /**
+     * Returns {@code value} if not {@code null}, otherwise  {@code defaultValue}.
+     */
+    public static <T> T defaultIfNull(final T value, final T defaultValue) {
+        if( value != null ) {
+            return value;
+        }
+        return defaultValue;
     }
 
-    public Predicate build() {
-        return null;
-    }
+
 }

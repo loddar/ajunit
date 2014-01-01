@@ -16,25 +16,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.internal.predicate.standard;
 
 import org.failearly.ajunit.internal.predicate.Predicate;
 
+import java.util.Collection;
+
 /**
- * AjJoinPointPredicateBuilderImpl - The implementation of AjJoinPointPredicateBuilder.
+ * AndPredicate is responsible for ...
  */
-public final class AjJoinPointPredicateBuilderImpl implements AjJoinPointPredicateBuilder {
+final class AndPredicate extends CompoundPredicateBase {
     @Override
-    public MethodJoinPointPredicateBuilder methodExecute() {
-        return null;
-    }
-
-    @Override
-    public MethodJoinPointPredicateBuilder methodCall() {
-        return null;
-    }
-
-    public Predicate build() {
-        return null;
+    protected boolean doApplyPredicates(Collection<Predicate> predicates, Object object) {
+        for (final Predicate predicate : predicates) {
+            if( ! predicate.evaluate(object) ) {
+                return false;
+            }
+        }
+        return true;
     }
 }

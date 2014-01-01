@@ -16,25 +16,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
-
-import org.failearly.ajunit.internal.predicate.Predicate;
+package org.failearly.ajunit.internal.predicate;
 
 /**
- * AjJoinPointPredicateBuilderImpl - The implementation of AjJoinPointPredicateBuilder.
+ * Predicate is highly inspired by Predicate implementation in Jakarta commons collection.
  */
-public final class AjJoinPointPredicateBuilderImpl implements AjJoinPointPredicateBuilder {
-    @Override
-    public MethodJoinPointPredicateBuilder methodExecute() {
-        return null;
-    }
-
-    @Override
-    public MethodJoinPointPredicateBuilder methodCall() {
-        return null;
-    }
-
-    public Predicate build() {
-        return null;
-    }
+public interface Predicate {
+    /**
+     * Use the specified parameter ({@code object}) to perform a test that returns true or false.
+     *
+     * @param object any object {@code not null}.
+     *
+     * @return {@code true} or {@code false}.
+     *
+     * @throws java.lang.ClassCastException if the input is the wrong class.
+     * @throws java.lang.IllegalArgumentException if the input is invalid.
+     */
+    boolean evaluate(final Object object);
 }
