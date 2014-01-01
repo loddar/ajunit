@@ -19,18 +19,19 @@
 package org.failearly.ajunit.internal.transformer.ajp;
 
 import org.failearly.ajunit.internal.transformer.Transformer;
+import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
- * AjJoinPointTransformers is a utility class which provides factory methods for {@link org.failearly.ajunit.internal.universe.AjJoinPoint} transformers.
+ * AjpTransformers is a utility class which provides factory methods for {@link org.failearly.ajunit.internal.universe.AjJoinPoint} transformers.
  */
-public final class AjJoinPointTransformers {
+public final class AjpTransformers {
 
     private static final AjpMethodTransformer AJP_METHOD_TRANSFORMER = new AjpMethodTransformer();
     private static final AjpFieldTransformer AJP_FIELD_TRANSFORMER = new AjpFieldTransformer();
     private static final AjpConstructorTransformer AJP_CONSTRUCTOR_TRANSFORMER = new AjpConstructorTransformer();
     private static final AjpDeclaringClassTransformer AJP_DECLARING_CLASS_TRANSFORMER = new AjpDeclaringClassTransformer();
 
-    private AjJoinPointTransformers() {
+    private AjpTransformers() {
     }
 
     public static Transformer methodTransformer() {
@@ -47,5 +48,9 @@ public final class AjJoinPointTransformers {
 
     public static Transformer declaringClassTransformer() {
         return AJP_DECLARING_CLASS_TRANSFORMER;
+    }
+
+    public static Transformer ajpJoinPointFilterTransformer(AjJoinPointType joinPointType) {
+        return new AjpJoinPointTypeFilter(joinPointType);
     }
 }

@@ -27,24 +27,24 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
- * Tests for {@link org.failearly.ajunit.internal.transformer.ajp.AjpMethodTransformer}.
+ * Tests for {@link org.failearly.ajunit.internal.transformer.ajp.AjpTransformers}.
  */
-public class AjJoinPointTransformersTest {
+public class AjpTransformersTest {
 
     @Test
     public void ajpToMethod() throws Exception {
         // arrange / given
         final AjJoinPoint joinPoint = prepareAjJoinPoint(AjJoinPointType.METHOD_EXECUTION);
-        final Transformer methodTransformer = AjJoinPointTransformers.methodTransformer();
+        final Transformer methodTransformer = AjpTransformers.methodTransformer();
 
         // act / when
-        final Object output= methodTransformer.transform(joinPoint);
+        final Object output = methodTransformer.transform(joinPoint);
 
         // assert / then
         assertThat("Transformation result?", output, is((Object) resolveMethod()));
@@ -54,10 +54,10 @@ public class AjJoinPointTransformersTest {
     public void ajpToField() throws Exception {
         // arrange / given
         final AjJoinPoint joinPoint = prepareAjJoinPoint(AjJoinPointType.FIELD_GET);
-        final Transformer fieldTransformer = AjJoinPointTransformers.fieldTransformer();
+        final Transformer fieldTransformer = AjpTransformers.fieldTransformer();
 
         // act / when
-        final Object output= fieldTransformer.transform(joinPoint);
+        final Object output = fieldTransformer.transform(joinPoint);
 
         // assert / then
         assertThat("Transformation result?", output, is((Object) resolveField()));
@@ -67,10 +67,10 @@ public class AjJoinPointTransformersTest {
     public void ajpToConstructor() throws Exception {
         // arrange / given
         final AjJoinPoint joinPoint = prepareAjJoinPoint(AjJoinPointType.CONSTRUCTOR_CALL);
-        final Transformer fieldTransformer = AjJoinPointTransformers.constructorTransformer();
+        final Transformer fieldTransformer = AjpTransformers.constructorTransformer();
 
         // act / when
-        final Object output= fieldTransformer.transform(joinPoint);
+        final Object output = fieldTransformer.transform(joinPoint);
 
         // assert / then
         assertThat("Transformation result?", output, is((Object) resolveConstructor()));
@@ -80,16 +80,41 @@ public class AjJoinPointTransformersTest {
     public void ajpToDeclaringClass() throws Exception {
         // arrange / given
         final AjJoinPoint joinPoint = prepareAjJoinPoint(AjJoinPointType.CONSTRUCTOR_EXECUTION);
-        final Transformer fieldTransformer = AjJoinPointTransformers.declaringClassTransformer();
+        final Transformer fieldTransformer = AjpTransformers.declaringClassTransformer();
 
         // act / when
-        final Object output= fieldTransformer.transform(joinPoint);
+        final Object output = fieldTransformer.transform(joinPoint);
 
         // assert / then
         assertThat("Transformation result?", output, is((Object) resolveClass()));
     }
 
 
+    @Test
+    public void ajpJoinPointTypePassesFilter() throws Exception {
+        // arrange / given
+        final AjJoinPoint joinPoint = prepareAjJoinPoint(AjJoinPointType.METHOD_EXECUTION);
+        final Transformer transformer = AjpTransformers.ajpJoinPointFilterTransformer(AjJoinPointType.METHOD_EXECUTION);
+
+        // act / when
+        final Object output = transformer.transform(joinPoint);
+
+        // assert / then
+        assertThat("Transformation result?", output, sameInstance((Object) joinPoint));
+    }
+
+    @Test
+    public void ajpJoinPointTypeDoesNotPassFilter() throws Exception {
+        // arrange / given
+        final AjJoinPoint joinPoint = prepareAjJoinPoint(AjJoinPointType.METHOD_EXECUTION);
+        final Transformer transformer = AjpTransformers.ajpJoinPointFilterTransformer(AjJoinPointType.METHOD_CALL);
+
+        // act / when
+        final Object output = transformer.transform(joinPoint);
+
+        // assert / then
+        assertThat("Transformation result?", output, nullValue());
+    }
 
     @SuppressWarnings("unchecked")
     private AjJoinPoint prepareAjJoinPoint(AjJoinPointType joinPointType) throws NoSuchMethodException, NoSuchFieldException {
@@ -122,7 +147,6 @@ public class AjJoinPointTransformersTest {
     }
 
 
-
     @SuppressWarnings("unused")
     private static class MyClass {
         private int anyField;
@@ -131,6 +155,7 @@ public class AjJoinPointTransformersTest {
             this.anyField = anyField;
         }
 
-        public void anyMethod() {}
+        public void anyMethod() {
+        }
     }
 }
