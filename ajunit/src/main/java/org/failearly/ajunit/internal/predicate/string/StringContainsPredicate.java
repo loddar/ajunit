@@ -16,25 +16,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.internal.predicate;
-
-import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
+package org.failearly.ajunit.internal.predicate.string;
 
 /**
- * AjPredicateUtils is responsible for ...
+ * Executes {@link String#contains(CharSequence)}.
  */
-public final class AjPredicateUtils {
+final class StringContainsPredicate extends StringPredicateBase {
+    private final String infix;
 
-    private AjPredicateUtils() {
+    public StringContainsPredicate(String infix) {
+        this.infix = infix;
     }
 
-    public static final CompositePredicate predicateAnd() {
-        return StandardPredicates.predicateAnd();
+    @Override
+    protected boolean doTypedEvaluate(String value) {
+        return value.contains(infix);
     }
-
-    public static final CompositePredicate predicateOr() {
-        return StandardPredicates.predicateOr();
-    }
-
-
 }

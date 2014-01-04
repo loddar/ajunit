@@ -21,7 +21,7 @@ package org.failearly.ajunit.internal.transformer.ajp;
 import org.failearly.ajunit.internal.universe.AjJoinPoint;
 
 /**
- * AjpDeclaringClassTransformer transforms {@link org.failearly.ajunit.internal.universe.AjJoinPointType} to declaring class {@link java.lang.Class}.
+ * AjpDeclaringClassTransformer transforms {@link org.failearly.ajunit.internal.universe.AjJoinPoint} to declaring class {@link java.lang.Class}.
  *
  * @see org.failearly.ajunit.internal.universe.AjJoinPoint#getDeclaringClass()
  */

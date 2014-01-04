@@ -19,10 +19,7 @@
 package org.failearly.ajunit.internal.universe;
 
 import org.aspectj.lang.JoinPoint;
-import org.failearly.ajunit.internal.universe.matcher.ConstructorJoinPointMatcher;
-import org.failearly.ajunit.internal.universe.matcher.FieldJoinPointMatcher;
-import org.failearly.ajunit.internal.universe.matcher.MethodJoinPointMatcher;
-import org.failearly.ajunit.internal.universe.matcher.NullMatcher;
+import org.failearly.ajunit.internal.universe.matcher.JoinPointMatchers;
 import org.failearly.ajunit.internal.util.EnumUtils;
 
 import java.lang.reflect.Constructor;
@@ -47,7 +44,7 @@ public enum AjJoinPointType {
 
         @Override
         public AjJoinPointMatcher getJoinPointMatcher() {
-            return new MethodJoinPointMatcher(this);
+            return JoinPointMatchers.methodMatcher(this);
         }
     },
     /**
@@ -61,7 +58,7 @@ public enum AjJoinPointType {
 
         @Override
         public AjJoinPointMatcher getJoinPointMatcher() {
-            return new MethodJoinPointMatcher(this);
+            return JoinPointMatchers.methodMatcher(this);
         }
     },
     /**
@@ -75,7 +72,7 @@ public enum AjJoinPointType {
 
         @Override
         public AjJoinPointMatcher getJoinPointMatcher() {
-            return new ConstructorJoinPointMatcher(this);
+            return JoinPointMatchers.constructorMatcher(this);
         }
     },
     /**
@@ -89,7 +86,7 @@ public enum AjJoinPointType {
 
         @Override
         public AjJoinPointMatcher getJoinPointMatcher() {
-            return new ConstructorJoinPointMatcher(this);
+            return JoinPointMatchers.constructorMatcher(this);
         }
     },
     /**
@@ -103,7 +100,7 @@ public enum AjJoinPointType {
 
         @Override
         public AjJoinPointMatcher getJoinPointMatcher() {
-            return new FieldJoinPointMatcher(this);
+            return JoinPointMatchers.fieldMatcher(this);
         }
     },
     /**
@@ -117,7 +114,7 @@ public enum AjJoinPointType {
 
         @Override
         public AjJoinPointMatcher getJoinPointMatcher() {
-            return new FieldJoinPointMatcher(this);
+            return JoinPointMatchers.fieldMatcher(this);
         }
     },
 // NOT YET IMPLEMENTED JOIN POINT TYPES.
@@ -214,7 +211,7 @@ public enum AjJoinPointType {
      * @see org.failearly.ajunit.AjUnitAspect
      */
     public AjJoinPointMatcher getJoinPointMatcher() {
-        return NullMatcher.INSTANCE;
+        return JoinPointMatchers.nullMatcher();
     }
 
     /**

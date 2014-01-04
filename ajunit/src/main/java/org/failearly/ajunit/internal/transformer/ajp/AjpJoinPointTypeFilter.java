@@ -22,7 +22,8 @@ import org.failearly.ajunit.internal.universe.AjJoinPoint;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
- * AjpJoinPointTypeFilter is a filter of AjJoinPoint, which uses the AjJoinPointType as filter criteria.
+ * AjpJoinPointTypeFilter is a filter of {@link org.failearly.ajunit.internal.universe.AjJoinPoint},
+ * which uses the {@link org.failearly.ajunit.internal.universe.AjJoinPointType} as filter criteria.
  */
 final class AjpJoinPointTypeFilter extends AjpTransformerBase<AjJoinPoint> {
     private final AjJoinPointType joinPointType;

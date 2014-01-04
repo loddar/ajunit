@@ -42,7 +42,7 @@ public class MethodJoinPointMatcherTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodJoinPointMatcherTest.class);
 
-    private final AjJoinPointMatcher matcher = new MethodJoinPointMatcher(AjJoinPointType.METHOD_EXECUTION);
+    private final AjJoinPointMatcher matcher = JoinPointMatchers.methodMatcher(AjJoinPointType.METHOD_EXECUTION);
 
     @Test
     public void sameMethodAndJoinPointTypes() throws Exception {

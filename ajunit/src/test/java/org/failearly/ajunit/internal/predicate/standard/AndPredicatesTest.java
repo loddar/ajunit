@@ -20,15 +20,13 @@ package org.failearly.ajunit.internal.predicate.standard;
 
 import org.junit.Test;
 
-import static org.failearly.ajunit.internal.predicate.standard.StandardPredicates.predicateAnd;
-
 /**
  * Tests for {@link org.failearly.ajunit.internal.predicate.standard.AndPredicate}.
  */
-public class AndPredicatesTest extends CompositePredicatesTest {
+public class AndPredicatesTest extends LogicalPredicatesTest {
 
     public AndPredicatesTest() {
-        super("AND", predicateAnd());
+        super("AND", LogicalPredicates.and());
     }
 
     @Test

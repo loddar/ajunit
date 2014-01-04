@@ -33,28 +33,28 @@ public class IsSubclassOfPredicateTest {
     private static class Derived extends Base implements IFace {}
 
     @Test
-    public void baseToItself() throws Exception {
+    public void baseToItself() {
         doTest(Base.class, Base.class, true);
     }
 
     @Test
-    public void derivedFromBase() throws Exception {
+    public void derivedFromBase() {
         doTest(Base.class, Derived.class, true);
     }
 
     @Test
-    public void derivedFromIFace() throws Exception {
+    public void derivedFromIFace() {
         doTest(IFace.class, Derived.class, true);
     }
 
     @Test
-    public void unrelated() throws Exception {
+    public void unrelated() {
         doTest(IFace.class, Base.class, false);
         doTest(Base.class, IFace.class, false);
     }
 
     @Test
-    public void derivedAndBaseExchanged() throws Exception {
+    public void derivedAndBaseExchanged() {
         doTest(Derived.class, Base.class, false);
     }
 

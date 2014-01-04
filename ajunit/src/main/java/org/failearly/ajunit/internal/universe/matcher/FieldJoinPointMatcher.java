@@ -25,9 +25,9 @@ import org.failearly.ajunit.internal.universe.AjJoinPointType;
 /**
  * FieldJoinPointMatcher compares {@link java.lang.reflect.Field} objects.
  */
-public class FieldJoinPointMatcher extends AjJoinPointMatcherBase<FieldSignature> {
+final class FieldJoinPointMatcher extends AjJoinPointMatcherBase<FieldSignature> {
 
-    public FieldJoinPointMatcher(AjJoinPointType joinPointType) {
+    FieldJoinPointMatcher(AjJoinPointType joinPointType) {
         super(joinPointType, FieldSignature.class);
     }
 

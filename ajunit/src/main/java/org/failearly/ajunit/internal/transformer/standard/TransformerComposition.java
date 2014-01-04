@@ -25,12 +25,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * TransformerChain provides chaining functionality: <code>Tn(...T2(T1(input)))</code>.
+ * TransformerComposition provides chaining functionality: <code>Tn(...T2(T1(input)))</code>.
  */
-final class TransformerChain extends TransformerBase {
+final class TransformerComposition extends TransformerBase {
     private final List<Transformer> transformers=new LinkedList<>();
 
-    TransformerChain(final List<Transformer> transformers) {
+    TransformerComposition(final List<Transformer> transformers) {
         this.transformers.addAll(transformers);
     }
 

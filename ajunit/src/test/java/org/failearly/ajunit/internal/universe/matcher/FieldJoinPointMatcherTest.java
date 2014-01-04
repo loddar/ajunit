@@ -42,7 +42,7 @@ public class FieldJoinPointMatcherTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FieldJoinPointMatcherTest.class);
 
-    private final AjJoinPointMatcher matcher = new FieldJoinPointMatcher(AjJoinPointType.FIELD_GET);
+    private final AjJoinPointMatcher matcher = JoinPointMatchers.fieldMatcher(AjJoinPointType.FIELD_GET);
 
     @Test
     public void sameFieldAndJoinPointTypes() throws Exception {

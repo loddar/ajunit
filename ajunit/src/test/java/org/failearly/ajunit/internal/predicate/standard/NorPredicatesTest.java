@@ -20,15 +20,13 @@ package org.failearly.ajunit.internal.predicate.standard;
 
 import org.junit.Test;
 
-import static org.failearly.ajunit.internal.predicate.standard.StandardPredicates.predicateNor;
-
 /**
- * Tests for {@link StandardPredicates#predicateNor()}.
+ * Tests for {@link LogicalPredicates#nor()}.
  */
-public class NorPredicatesTest extends CompositePredicatesTest {
+public class NorPredicatesTest extends LogicalPredicatesTest {
 
     public NorPredicatesTest() {
-        super("NOR", predicateNor());
+        super("NOR", LogicalPredicates.nor());
     }
 
     @Test

@@ -19,26 +19,44 @@
 package org.failearly.ajunit.internal.transformer.standard;
 
 import org.failearly.ajunit.internal.transformer.Transformer;
-import org.failearly.ajunit.internal.transformer.TypedTransformer;
 
 import java.util.Arrays;
 
 /**
- * StandardTransformers is a utility class which provides factory methods for standard transformers.
+ * StandardTransformers provides factory methods for standard transformers.
  */
 public final class StandardTransformers {
+
+    public static final Transformer NULL_TRANSFORMER = new NullTransformer();
+
     private StandardTransformers() {}
 
-    public static Transformer transformerChain(final Transformer... transformers) {
-        return new TransformerChain(Arrays.asList(transformers));
+    /**
+     * Provides function composition of transformers: <code>(Tn ... T2&sdot;T1)(input)</code>.
+     *
+     * @param transformers the transformer to be compose.
+     * @return the composition transformer.
+     */
+    public static Transformer transformerComposition(final Transformer... transformers) {
+        return new TransformerComposition(Arrays.asList(transformers));
     }
 
+
+
+    /**
+     * Returns the (type safe) Transformer which returns the input.
+     * FOR TESTING PURPOSES ONLY.
+     */
     public static <T> Transformer identityTransformer(Class<T> clazz) {
-        return new TypedTransformer<T,T>(clazz) {
-            @Override
-            protected T doTypedTransform(T input) {
-                return input;
-            }
-        };
+        return new IdentityTransformer<>(clazz);
     }
+
+    /**
+     * Returns a Transformer, which returns always {@code null} on any {@code input}.
+     * FOR TESTING PURPOSES ONLY.
+     */
+    public static Transformer nullTransformer() {
+        return NULL_TRANSFORMER;
+    }
+
 }

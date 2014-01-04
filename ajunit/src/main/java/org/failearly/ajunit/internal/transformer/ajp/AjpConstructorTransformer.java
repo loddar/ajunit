@@ -23,7 +23,7 @@ import org.failearly.ajunit.internal.universe.AjJoinPoint;
 import java.lang.reflect.Constructor;
 
 /**
- * AjpConstructorTransformer transforms {@link org.failearly.ajunit.internal.universe.AjJoinPointType} to {@link java.lang.reflect.Constructor}.
+ * AjpConstructorTransformer transforms {@link org.failearly.ajunit.internal.universe.AjJoinPoint} to {@link java.lang.reflect.Constructor}.
  *
  *  @see org.failearly.ajunit.internal.universe.AjJoinPoint#getConstructor()
  */

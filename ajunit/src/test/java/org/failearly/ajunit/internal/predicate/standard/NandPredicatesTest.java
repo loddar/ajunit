@@ -20,15 +20,13 @@ package org.failearly.ajunit.internal.predicate.standard;
 
 import org.junit.Test;
 
-import static org.failearly.ajunit.internal.predicate.standard.StandardPredicates.predicateNand;
-
 /**
- * Tests for {@link StandardPredicates#predicateNand()}.
+ * Tests for {@link LogicalPredicates#nand()}.
  */
-public class NandPredicatesTest extends CompositePredicatesTest {
+public class NandPredicatesTest extends LogicalPredicatesTest {
 
     public NandPredicatesTest() {
-        super("NAND", predicateNand());
+        super("NAND", LogicalPredicates.nand());
     }
 
     @Test

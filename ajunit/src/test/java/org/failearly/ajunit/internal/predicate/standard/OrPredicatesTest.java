@@ -20,15 +20,13 @@ package org.failearly.ajunit.internal.predicate.standard;
 
 import org.junit.Test;
 
-import static org.failearly.ajunit.internal.predicate.standard.StandardPredicates.predicateOr;
-
 /**
  * Tests for {@link org.failearly.ajunit.internal.predicate.standard.OrPredicate}.
  */
-public class OrPredicatesTest extends CompositePredicatesTest {
+public class OrPredicatesTest extends LogicalPredicatesTest {
 
     public OrPredicatesTest() {
-        super("OR", predicateOr());
+        super("OR", LogicalPredicates.or());
     }
 
     @Test

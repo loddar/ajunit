@@ -23,7 +23,7 @@ import org.failearly.ajunit.internal.universe.AjJoinPoint;
 import java.lang.reflect.Method;
 
 /**
- * AjpMethodTransformer transforms {@link org.failearly.ajunit.internal.universe.AjJoinPointType} to {@link java.lang.reflect.Method}.
+ * AjpMethodTransformer transforms {@link org.failearly.ajunit.internal.universe.AjJoinPoint} to {@link java.lang.reflect.Method}.
  *
  * @see org.failearly.ajunit.internal.universe.AjJoinPoint#getMethod()
  */

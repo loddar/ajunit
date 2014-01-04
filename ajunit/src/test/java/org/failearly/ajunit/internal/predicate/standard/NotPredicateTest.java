@@ -21,8 +21,8 @@ package org.failearly.ajunit.internal.predicate.standard;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.junit.Test;
 
-import static org.failearly.ajunit.internal.predicate.standard.StandardPredicates.predicateFalse;
-import static org.failearly.ajunit.internal.predicate.standard.StandardPredicates.predicateTrue;
+import static org.failearly.ajunit.internal.predicate.standard.StandardPredicates.alwaysFalse;
+import static org.failearly.ajunit.internal.predicate.standard.StandardPredicates.alwaysTrue;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -30,14 +30,14 @@ import static org.junit.Assert.assertThat;
  * Tests for {@link org.failearly.ajunit.internal.predicate.standard.NotPredicate}.
  */
 public class NotPredicateTest {
-    private static final Predicate TRUE=predicateTrue();
-    private static final Predicate FALSE=predicateFalse();
-    private static final Object ANY_PARAMETER=Boolean.FALSE;
+    private static final Predicate TRUE = alwaysTrue();
+    private static final Predicate FALSE = alwaysFalse();
+    private static final Object ANY_PARAMETER = Boolean.FALSE;
 
     @Test
     public void evaluateTrue() throws Exception {
         // arrange / given
-        final Predicate notPredicate=StandardPredicates.predicateNot(TRUE);
+        final Predicate notPredicate = LogicalPredicates.not(TRUE);
 
         // act / when
 
@@ -48,7 +48,7 @@ public class NotPredicateTest {
     @Test
     public void evaluateFalse() throws Exception {
         // arrange / given
-        final Predicate notPredicate=StandardPredicates.predicateNot(FALSE);
+        final Predicate notPredicate = LogicalPredicates.not(FALSE);
 
         // act / when
 
@@ -59,7 +59,7 @@ public class NotPredicateTest {
     @Test(expected = IllegalArgumentException.class)
     public void invalidInput() throws Exception {
         // arrange / given
-        final Predicate notPredicate=StandardPredicates.predicateNot(TRUE);
+        final Predicate notPredicate = LogicalPredicates.not(TRUE);
 
         // act / when
         notPredicate.evaluate(null);

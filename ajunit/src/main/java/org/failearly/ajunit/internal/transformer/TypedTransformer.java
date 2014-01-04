@@ -19,7 +19,7 @@
 package org.failearly.ajunit.internal.transformer;
 
 /**
- * TypedTransformer does a type safe transformation.
+ * TypedTransformer is base class for type safe transformation.
  */
 public abstract class TypedTransformer<I, O> extends TransformerBase {
 
@@ -39,5 +39,10 @@ public abstract class TypedTransformer<I, O> extends TransformerBase {
         return this.inputClass.cast(input);
     }
 
+    /**
+     * Does the actually (type safe) transformation.
+     * @param input {@code not null} value.
+     * @return {@code null} or output of type {@code O}.
+     */
     protected abstract O doTypedTransform(final I input);
 }

@@ -19,15 +19,13 @@
 package org.failearly.ajunit.internal.transformer.ajp;
 
 import org.failearly.ajunit.internal.transformer.Transformer;
+import org.failearly.ajunit.internal.transformer.TransformersBaseTest;
 import org.failearly.ajunit.internal.universe.AjJoinPoint;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -35,7 +33,7 @@ import static org.mockito.Mockito.when;
 /**
  * Tests for {@link org.failearly.ajunit.internal.transformer.ajp.AjpTransformers}.
  */
-public class AjpTransformersTest {
+public class AjpTransformersTest extends TransformersBaseTest {
 
     @Test
     public void ajpToMethod() throws Exception {
@@ -47,7 +45,7 @@ public class AjpTransformersTest {
         final Object output = methodTransformer.transform(joinPoint);
 
         // assert / then
-        assertThat("Transformation result?", output, is((Object) resolveMethod()));
+        assertTransformationResult(output, resolveMethod());
     }
 
     @Test
@@ -60,7 +58,7 @@ public class AjpTransformersTest {
         final Object output = fieldTransformer.transform(joinPoint);
 
         // assert / then
-        assertThat("Transformation result?", output, is((Object) resolveField()));
+        assertTransformationResult(output, resolveField());
     }
 
     @Test
@@ -73,7 +71,7 @@ public class AjpTransformersTest {
         final Object output = fieldTransformer.transform(joinPoint);
 
         // assert / then
-        assertThat("Transformation result?", output, is((Object) resolveConstructor()));
+        assertTransformationResult(output, resolveConstructor());
     }
 
     @Test
@@ -86,7 +84,7 @@ public class AjpTransformersTest {
         final Object output = fieldTransformer.transform(joinPoint);
 
         // assert / then
-        assertThat("Transformation result?", output, is((Object) resolveClass()));
+        assertTransformationResult(output, resolveClass());
     }
 
 
@@ -130,32 +128,5 @@ public class AjpTransformersTest {
         return joinPoint;
     }
 
-    private static Class resolveClass() {
-        return MyClass.class;
-    }
 
-    private static Method resolveMethod() throws NoSuchMethodException {
-        return MyClass.class.getDeclaredMethod("anyMethod");
-    }
-
-    private static Constructor<?> resolveConstructor() throws NoSuchMethodException {
-        return MyClass.class.getDeclaredConstructor(int.class);
-    }
-
-    private static Field resolveField() throws NoSuchFieldException {
-        return MyClass.class.getDeclaredField("anyField");
-    }
-
-
-    @SuppressWarnings("unused")
-    private static class MyClass {
-        private int anyField;
-
-        private MyClass(int anyField) {
-            this.anyField = anyField;
-        }
-
-        public void anyMethod() {
-        }
-    }
 }

@@ -25,7 +25,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Tests for {@link org.failearly.ajunit.internal.transformer.standard.StandardTransformers#transformerChain(org.failearly.ajunit.internal.transformer.Transformer...)}.
+ * Tests for {@link org.failearly.ajunit.internal.transformer.standard.StandardTransformers#transformerComposition(org.failearly.ajunit.internal.transformer.Transformer...)}.
  */
 public class TypedTransformerTest {
 

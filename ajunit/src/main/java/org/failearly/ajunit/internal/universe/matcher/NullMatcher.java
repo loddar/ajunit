@@ -25,12 +25,7 @@ import org.failearly.ajunit.internal.universe.AjJoinPointMatcher;
 /**
  * NullMatcher never matches.
  */
-public class NullMatcher implements AjJoinPointMatcher {
-
-    public static final AjJoinPointMatcher INSTANCE = new NullMatcher();
-
-    private NullMatcher() {
-    }
+final class NullMatcher implements AjJoinPointMatcher {
 
     @Override
     public boolean match(JoinPoint aspectJoinPoint, AjJoinPoint ajUnitJoinPoint) {

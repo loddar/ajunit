@@ -32,8 +32,8 @@ public abstract class TransformerBase implements Transformer {
 
     /**
      * The actually implementation.
-     * @param input
-     * @return
+     * @param input not null input.
+     * @return {@code null} or the transformed {@code input}.
      */
     protected abstract Object doTransform(final Object input);
 }

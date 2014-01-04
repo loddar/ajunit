@@ -28,7 +28,7 @@ import org.failearly.ajunit.internal.util.AjAssert;
 /**
  * AjJoinPointMatcherBase is responsible for ...
  */
-public abstract class AjJoinPointMatcherBase<T extends Signature> implements AjJoinPointMatcher {
+abstract class AjJoinPointMatcherBase<T extends Signature> implements AjJoinPointMatcher {
 
     private final AjJoinPointType joinPointType;
     private final Class<T> signatureClass;

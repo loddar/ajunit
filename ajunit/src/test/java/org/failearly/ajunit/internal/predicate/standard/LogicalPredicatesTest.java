@@ -22,23 +22,23 @@ import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.junit.Test;
 
-import static org.failearly.ajunit.internal.predicate.standard.StandardPredicates.predicateFalse;
-import static org.failearly.ajunit.internal.predicate.standard.StandardPredicates.predicateTrue;
+import static org.failearly.ajunit.internal.predicate.standard.StandardPredicates.alwaysFalse;
+import static org.failearly.ajunit.internal.predicate.standard.StandardPredicates.alwaysTrue;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Base class for {@link org.failearly.ajunit.internal.predicate.CompositePredicate} tests.
+ * Base class for Logical {@link org.failearly.ajunit.internal.predicate.Predicate} tests.
  */
-public abstract class CompositePredicatesTest {
-    protected static final Predicate TRUE=predicateTrue();
-    protected static final Predicate FALSE=predicateFalse();
+public abstract class LogicalPredicatesTest {
+    protected static final Predicate TRUE= alwaysTrue();
+    protected static final Predicate FALSE= alwaysFalse();
     private static final Object ANY_PARAMETER=Boolean.FALSE;
 
     private final CompositePredicate compositePredicate;
     private final String predicateName;
 
-    public CompositePredicatesTest(String predicateName, CompositePredicate compositePredicate) {
+    public LogicalPredicatesTest(String predicateName, CompositePredicate compositePredicate) {
         this.compositePredicate = compositePredicate;
         this.predicateName = predicateName;
     }
@@ -50,7 +50,7 @@ public abstract class CompositePredicatesTest {
     }
 
     protected final void assertCompositePredicateEvaluatesTo(boolean expectedValue) {
-        assertThat("Composite predicate '" + predicateName + "' evaluates to?", compositePredicate.evaluate(ANY_PARAMETER), is(expectedValue));
+        assertThat("Logical predicate '" + predicateName + "' evaluates to?", compositePredicate.evaluate(ANY_PARAMETER), is(expectedValue));
     }
 
     @Test

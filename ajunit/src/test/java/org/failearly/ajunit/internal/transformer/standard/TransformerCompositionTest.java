@@ -16,18 +16,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.internal.transformer;
+package org.failearly.ajunit.internal.transformer.standard;
 
-import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
+import org.failearly.ajunit.internal.transformer.Transformer;
+import org.failearly.ajunit.internal.transformer.TypedTransformer;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 /**
- * Tests for {@link org.failearly.ajunit.internal.transformer.standard.StandardTransformers#transformerChain(Transformer...)}.
+ * Tests for {@link org.failearly.ajunit.internal.transformer.standard.StandardTransformers#transformerComposition(org.failearly.ajunit.internal.transformer.Transformer...)}.
  */
-public class TransformerChainTest {
+public class TransformerCompositionTest {
 
     private static class MyClass {
         private int value;
@@ -58,7 +59,7 @@ public class TransformerChainTest {
     public void noTransformers() throws Exception {
         // arrange / given
         final Object input=new Object();
-        final Transformer transformer=StandardTransformers.transformerChain();
+        final Transformer transformer=StandardTransformers.transformerComposition();
 
         // act / when
         final Object output = transformer.transform(input);
@@ -70,7 +71,7 @@ public class TransformerChainTest {
     @Test
     public void singleTransformer() throws Exception {
         // arrange / given
-        final Transformer transformer=StandardTransformers.transformerChain(createMyClassTransformer());
+        final Transformer transformer=StandardTransformers.transformerComposition(createMyClassTransformer());
         final Integer expectedOutput = 100;
         final Object input=new MyClass(expectedOutput);
 
@@ -78,13 +79,13 @@ public class TransformerChainTest {
         final Object output = transformer.transform(input);
 
         // assert / then
-        assertThat("Chained transformation result?", output, is((Object) expectedOutput));
+        assertThat("Composition transformation result?", output, is((Object) expectedOutput));
     }
 
     @Test
     public void chainedTransformers() throws Exception {
         // arrange / given
-        final Transformer transformer=StandardTransformers.transformerChain(createOtherClassTransformer(), createMyClassTransformer());
+        final Transformer transformer=StandardTransformers.transformerComposition(createOtherClassTransformer(), createMyClassTransformer());
         final Integer expectedOutput = 200;
         final Object input=new OtherClass(new MyClass(expectedOutput));
 
@@ -92,46 +93,52 @@ public class TransformerChainTest {
         final Object output = transformer.transform(input);
 
         // assert / then
-        assertThat("Chained transformation result?", output, is((Object)expectedOutput));
+        assertThat("Composition transformation result?", output, is((Object)expectedOutput));
     }
 
     @Test
     public void chainedTransformersWithNull() throws Exception {
         // arrange / given
-        final Transformer transformer=StandardTransformers.transformerChain(createOtherClassTransformer(), createMyClassTransformer());
+        final Transformer transformer=StandardTransformers.transformerComposition(createOtherClassTransformer(), createMyClassTransformer());
         final Object input=new OtherClass(null);
 
         // act / when
         final Object output = transformer.transform(input);
 
         // assert / then
-        assertThat("Chained transformation result?", output, nullValue());
+        assertThat("Composition transformation result?", output, nullValue());
     }
 
     @Test(expected = ClassCastException.class)
     public void inputTypeMismatch() throws Exception {
         // arrange / given
         final Transformer wrongTransformer = createOtherClassTransformer();
-        final Transformer transformer=StandardTransformers.transformerChain(wrongTransformer);
+        final Transformer transformer=StandardTransformers.transformerComposition(wrongTransformer);
 
         // act / when
         transformer.transform(new MyClass(0));
     }
 
 
+    /**
+     * @return Transformer executing {@link org.failearly.ajunit.internal.transformer.standard.TransformerCompositionTest.OtherClass#getMyClass()}
+     */
     private static Transformer createOtherClassTransformer() {
         return new TypedTransformer<OtherClass,MyClass>(OtherClass.class) {
             @Override
-            protected MyClass doTypedTransform(OtherClass input) {
+            protected MyClass doTypedTransform(final OtherClass input) {
                 return input.getMyClass();
             }
         };
     }
 
+    /**
+     * @return Transformer executing {@link org.failearly.ajunit.internal.transformer.standard.TransformerCompositionTest.MyClass#getValue()}
+     */
     private static Transformer createMyClassTransformer() {
         return new TypedTransformer<MyClass,Integer>(MyClass.class) {
             @Override
-            protected Integer doTypedTransform(MyClass input) {
+            protected Integer doTypedTransform(final MyClass input) {
                 return input.getValue();
             }
         };

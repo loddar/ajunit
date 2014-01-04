@@ -18,66 +18,60 @@
  */
 package org.failearly.ajunit.internal.predicate.standard;
 
-import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.transformer.Transformer;
 
 /**
- * StandardPredicates is the factory utility class for standard Predicate implementations.
+ * StandardPredicates provides factory methods for some standard {@link Predicate}s.
  */
-public final class StandardPredicates {
+public abstract class StandardPredicates {
 
-    public static final ConstantPredicate P_TRUE = new ConstantPredicate(true);
-    public static final ConstantPredicate P_FALSE = new ConstantPredicate(false);
+    private static final Predicate P_TRUE = new ConstantPredicate(true);
+    private static final Predicate P_FALSE = new ConstantPredicate(false);
 
     private StandardPredicates() {}
 
-    public static CompositePredicate predicateAnd() {
-        return new AndPredicate();
-    }
 
-    public static CompositePredicate predicateOr() {
-        return new OrPredicate();
-    }
-
-    public static CompositePredicate predicateXor() {
-        return new XorPredicate();
-    }
-
-    public static CompositePredicate predicateNand() {
-        return predicateNot(predicateAnd());
-    }
-
-    public static CompositePredicate predicateNor() {
-        return predicateNot(predicateOr());
-    }
-
-    public static Predicate predicateNot(Predicate predicate) {
-        return new NotPredicate(predicate);
-    }
-
-    public static CompositePredicate predicateNot(CompositePredicate predicate) {
-        return new NotCompoundPredicate(predicate);
-    }
-
-    public static Predicate predicateTrue() {
+    /**
+     * Predicate evaluates always to {@code true}.
+     * FOR TESTING PURPOSES ONLY.
+     */
+    public static Predicate alwaysTrue() {
         return P_TRUE;
     }
 
-    public static Predicate predicateFalse() {
+    /**
+     * Predicate evaluates always to {@code false}.
+     * FOR TESTING PURPOSES ONLY.
+     */
+    public static Predicate alwaysFalse() {
         return P_FALSE;
     }
 
+    /**
+     * Predicate applies {@link java.lang.Object#equals(Object)}.
+     */
     public static <T> Predicate predicateEquals(final T object) {
         return new EqualsPredicate<>(object);
     }
 
-    public static <T> Predicate predicateNotEquals(final T object) {
-        return predicateNot(predicateEquals(object));
-    }
-
+    /**
+     * Predicate applies {@link java.lang.Class#isAssignableFrom(Class)}.
+     */
     public static Predicate predicateIsSubclass(final Class<?> clazz) {
         return new IsSubclassOfPredicate(clazz);
     }
 
+    /**
+     * The created predicate, applies first the {@code transformer} and if the transformed object is {@code not null}, the
+     * {@code predicate} will be applied. Briefly:  <code>P(T(input))</code>.
+     *
+     * @param transformer the transformer
+     * @param predicate the predicate
+     * @return {@code false} if the transformer returns {@code null} or applies the {@code predicate} on the transformed object.
+     */
+    public static Predicate transformerPredicate(final Transformer transformer, final Predicate predicate) {
+        return new TransformerPredicate(transformer, predicate);
+    }
 
 }

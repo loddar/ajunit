@@ -42,7 +42,7 @@ public class ConstructorJoinPointMatcherTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ConstructorJoinPointMatcherTest.class);
 
-    private final AjJoinPointMatcher matcher = new ConstructorJoinPointMatcher(AjJoinPointType.CONSTRUCTOR_EXECUTION);
+    private final AjJoinPointMatcher matcher = JoinPointMatchers.constructorMatcher(AjJoinPointType.CONSTRUCTOR_EXECUTION);
 
     @Test
     public void sameConstructorAndJoinPointTypes() throws Exception {

@@ -25,9 +25,9 @@ import org.failearly.ajunit.internal.universe.AjJoinPointType;
 /**
  * ConstructorJoinPointMatcher compares {@link java.lang.reflect.Constructor} objects.
  */
-public class ConstructorJoinPointMatcher extends AjJoinPointMatcherBase<ConstructorSignature> {
+final class ConstructorJoinPointMatcher extends AjJoinPointMatcherBase<ConstructorSignature> {
 
-    public ConstructorJoinPointMatcher(AjJoinPointType joinPointType) {
+    ConstructorJoinPointMatcher(AjJoinPointType joinPointType) {
         super(joinPointType, ConstructorSignature.class);
     }
 

@@ -20,15 +20,13 @@ package org.failearly.ajunit.internal.predicate.standard;
 
 import org.junit.Test;
 
-import static org.failearly.ajunit.internal.predicate.standard.StandardPredicates.predicateXor;
-
 /**
  * Tests for {@link OrPredicate}.
  */
-public class XorPredicatesTest extends CompositePredicatesTest {
+public class XorPredicatesTest extends LogicalPredicatesTest {
 
     public XorPredicatesTest() {
-        super("XOR", predicateXor());
+        super("XOR", LogicalPredicates.xor());
     }
 
     @Test

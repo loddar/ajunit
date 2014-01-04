@@ -25,9 +25,9 @@ import org.failearly.ajunit.internal.universe.AjJoinPointType;
 /**
  * MethodJoinPointMatcher compares {@link java.lang.reflect.Method} objects.
  */
-public class MethodJoinPointMatcher extends AjJoinPointMatcherBase<MethodSignature> {
+final class MethodJoinPointMatcher extends AjJoinPointMatcherBase<MethodSignature> {
 
-    public MethodJoinPointMatcher(AjJoinPointType joinPointType) {
+    MethodJoinPointMatcher(AjJoinPointType joinPointType) {
         super(joinPointType, MethodSignature.class);
     }
 

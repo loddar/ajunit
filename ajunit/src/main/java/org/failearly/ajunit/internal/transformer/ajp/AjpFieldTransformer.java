@@ -23,7 +23,7 @@ import org.failearly.ajunit.internal.universe.AjJoinPoint;
 import java.lang.reflect.Field;
 
 /**
- * AjpFieldTransformer transforms {@link org.failearly.ajunit.internal.universe.AjJoinPointType} to {@link java.lang.reflect.Field}.
+ * AjpFieldTransformer transforms {@link org.failearly.ajunit.internal.universe.AjJoinPoint} to {@link java.lang.reflect.Field}.
  *
  * @see org.failearly.ajunit.internal.universe.AjJoinPoint#getField()
  */
