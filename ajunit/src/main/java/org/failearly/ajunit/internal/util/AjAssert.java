@@ -60,4 +60,12 @@ public abstract class AjAssert {
             throw new IllegalArgumentException("ajUnit - Parameter '" + parameterName + "' is empty.");
         }
     }
+
+    public static void parameter(boolean condition, String msg) {
+        if( ! condition ) {
+            LOGGER.error("ajUnit - Illegal argument condition: {}", msg);
+            throw new IllegalArgumentException("ajUnit - Illegal argument condition: " + msg);
+        }
+
+    }
 }

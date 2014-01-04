@@ -18,10 +18,44 @@
  */
 package org.failearly.ajunit.internal.transformer.list;
 
+import org.failearly.ajunit.internal.transformer.Transformer;
+import org.failearly.ajunit.internal.util.AjAssert;
+
 /**
  * ListTransformers provides factory methods for {@link java.util.List} related transformations.
  */
-public final class ListTransformers {
+public abstract class ListTransformers {
+
+    private static final ListSizeTransformer LIST_SIZE_TRANSFORMER = new ListSizeTransformer();
+
     private ListTransformers() {
+    }
+
+    /**
+     * The returned Transformer executes {@link java.util.List#size()}.
+     */
+    public static Transformer sizeTransformer() {
+        return LIST_SIZE_TRANSFORMER;
+    }
+
+
+    /**
+     * The returned transformer returns the element from list at {@code position}.
+     *
+     * @param position the position (from the first element) ({@code >=0}).
+     */
+    public static Transformer getElementListTransformer(final int position) {
+        AjAssert.parameter(position>=0, "position >= 0");
+        return new GetListElementTransformer(position);
+    }
+
+    /**
+     * The returned transformer returns the element from list at {@code position} from the end of list.
+     *
+     * @param position the position (from the first element) ({@code >=0}).
+     */
+    public static Transformer getElementListFromEndTransformer(final int position) {
+        AjAssert.parameter(position>=0, "position >= 0");
+        return new GetListElementFromEndTransformer(position);
     }
 }

@@ -35,7 +35,7 @@ public final class StandardTransformers {
      * Provides function composition of transformers: <code>(Tn ... T2&sdot;T1)(input)</code>.
      *
      * @param transformers the transformer to be compose.
-     * @return the composition transformer.
+     * @return the composed transformer.
      */
     public static Transformer transformerComposition(final Transformer... transformers) {
         return new TransformerComposition(Arrays.asList(transformers));
@@ -44,7 +44,7 @@ public final class StandardTransformers {
 
 
     /**
-     * Returns the (type safe) Transformer which returns the input.
+     * Returns the (type safe) Transformer which returns the {@code input}.
      * FOR TESTING PURPOSES ONLY.
      */
     public static <T> Transformer identityTransformer(Class<T> clazz) {
