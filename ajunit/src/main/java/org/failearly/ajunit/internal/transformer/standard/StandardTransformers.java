@@ -25,7 +25,7 @@ import java.util.Arrays;
 /**
  * StandardTransformers provides factory methods for standard transformers.
  */
-public final class StandardTransformers {
+public abstract class StandardTransformers {
 
     public static final Transformer NULL_TRANSFORMER = new NullTransformer();
 
@@ -40,8 +40,6 @@ public final class StandardTransformers {
     public static Transformer transformerComposition(final Transformer... transformers) {
         return new TransformerComposition(Arrays.asList(transformers));
     }
-
-
 
     /**
      * Returns the (type safe) Transformer which returns the {@code input}.

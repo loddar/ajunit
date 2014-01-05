@@ -21,17 +21,37 @@ package org.failearly.ajunit.modifier;
 import org.failearly.ajunit.internal.predicate.modifier.AjModifier;
 
 /**
- * MethodModifier contains the modifier available for methods.
+ * MethodModifier contains the modifier available for methods excluding the access modifiers.
  *
  * @see java.lang.reflect.Modifier#METHOD_MODIFIERS
+ * @see java.lang.reflect.Modifier#methodModifiers()
+ * @see org.failearly.ajunit.modifier.AccessModifier
  */
 public enum MethodModifier implements ModifierMatcher {
+    /**
+     * @see java.lang.reflect.Modifier#STATIC
+     */
     STATIC(AjModifier.STATIC),
+    /**
+     * @see java.lang.reflect.Modifier#FINAL
+     */
     FINAL(AjModifier.FINAL),
-    SYNCHRONIZED(AjModifier.SYNCHRONIZED),
-    NATIVE(AjModifier.NATIVE),
+    /**
+     * @see java.lang.reflect.Modifier#ABSTRACT
+     */
     ABSTRACT(AjModifier.ABSTRACT),
-    STRICT(AjModifier.STRICT);
+    /**
+     * @see java.lang.reflect.Modifier#STRICT
+     */
+    STRICT(AjModifier.STRICT),
+    /**
+     * @see java.lang.reflect.Modifier#SYNCHRONIZED
+     */
+    SYNCHRONIZED(AjModifier.SYNCHRONIZED),
+    /**
+     * @see java.lang.reflect.Modifier#NATIVE
+     */
+    NATIVE(AjModifier.NATIVE);
 
     private final ModifierMatcher modifierMatcher;
     MethodModifier(ModifierMatcher modifierMatcher) {

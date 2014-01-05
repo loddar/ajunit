@@ -27,7 +27,7 @@ import java.util.Collection;
 /**
  * Utility class for class related operations.
  */
-public final class ClassUtils {
+public abstract class ClassUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ClassUtils.class);
 

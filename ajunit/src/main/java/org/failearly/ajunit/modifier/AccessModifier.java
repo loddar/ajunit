@@ -21,12 +21,13 @@ package org.failearly.ajunit.modifier;
 import org.failearly.ajunit.internal.predicate.modifier.AjModifier;
 
 /**
- * VisibilityModifier contains the visibility modifiers.
+ * AccessModifier defines the available access modifiers.
+ * <br/>
+ * Remark: It also include a explicit PACKAGE modifier, even though no keyword is defined.
  *
  * @see java.lang.reflect.Modifier
  */
-public enum VisibilityModifier implements ModifierMatcher {
-
+public enum AccessModifier implements ModifierMatcher {
     /**
      * @see java.lang.reflect.Modifier#PUBLIC
      */
@@ -45,7 +46,7 @@ public enum VisibilityModifier implements ModifierMatcher {
     PRIVATE(AjModifier.PRIVATE);
 
     private final ModifierMatcher modifierMatcher;
-    VisibilityModifier(ModifierMatcher modifierMatcher) {
+    AccessModifier(ModifierMatcher modifierMatcher) {
         this.modifierMatcher = modifierMatcher;
     }
 

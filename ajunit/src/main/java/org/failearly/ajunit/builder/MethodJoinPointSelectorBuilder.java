@@ -18,23 +18,24 @@
  */
 package org.failearly.ajunit.builder;
 
-import org.failearly.ajunit.internal.predicate.Predicate;
-
 /**
- * AjJoinPointPredicateBuilderImpl - The implementation of AjJoinPointPredicateBuilder.
+ * MethodJoinPointSelectorBuilder is responsible for ...
  */
-public final class AjJoinPointPredicateBuilderImpl implements AjJoinPointPredicateBuilder {
-    @Override
-    public MethodJoinPointPredicateBuilder methodExecute() {
-        return null;
-    }
+public interface MethodJoinPointSelectorBuilder {
 
-    @Override
-    public MethodJoinPointPredicateBuilder methodCall() {
-        return null;
-    }
+    MethodJoinPointSelectorBuilder or();
+    MethodJoinPointSelectorBuilder union();
+    MethodJoinPointSelectorBuilder anyOf();
 
-    public Predicate build() {
-        return null;
-    }
+    MethodJoinPointSelectorBuilder and();
+    MethodJoinPointSelectorBuilder intersect();
+    MethodJoinPointSelectorBuilder allOf();
+
+    JoinPointSelectorBuilder end();
+
+
+    MethodJoinPointSelectorBuilder byMethodName(String methodName);
+    MethodJoinPointSelectorBuilder byClass(Class<?> clazz);
+    MethodJoinPointSelectorBuilder byClassName(String className);
+
 }

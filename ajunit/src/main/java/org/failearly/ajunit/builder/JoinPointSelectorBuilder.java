@@ -1,7 +1,7 @@
 /*
  * ajUnit - Unit Testing AspectJ pointcut definitions.
  *
- * Copyright (C) 2013-2013  Marko Umek (ajunit.contact(at)gmail.com)
+ * Copyright (C) 2013-2014  Marko Umek (ajunit.contact(at)gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,23 +19,9 @@
 package org.failearly.ajunit.builder;
 
 /**
- * MethodJoinPointPredicateBuilder is responsible for ...
+ * JoinPointSelectorBuilder is responsible for ...
  */
-public interface MethodJoinPointPredicateBuilder {
-
-    MethodJoinPointPredicateBuilder not();
-
-    MethodJoinPointPredicateBuilder union();
-    MethodJoinPointPredicateBuilder anyOf();
-
-    MethodJoinPointPredicateBuilder intersect();
-    MethodJoinPointPredicateBuilder allOf();
-
-
-
-    MethodJoinPointPredicateBuilder byMethodName(String methodName);
-    MethodJoinPointPredicateBuilder byClass(Class<?> clazz);
-    MethodJoinPointPredicateBuilder byClassName(String className);
-
-    AjJoinPointPredicateBuilder done();
+public interface JoinPointSelectorBuilder {
+    MethodJoinPointSelectorBuilder methodExecute();
+    MethodJoinPointSelectorBuilder methodCall();
 }

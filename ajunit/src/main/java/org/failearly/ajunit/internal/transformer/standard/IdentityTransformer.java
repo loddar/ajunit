@@ -23,7 +23,7 @@ import org.failearly.ajunit.internal.transformer.TypedTransformer;
 /**
 * IdentityTransformer returns the input.
 */
-class IdentityTransformer<T> extends TypedTransformer<T,T> {
+final class IdentityTransformer<T> extends TypedTransformer<T,T> {
     public IdentityTransformer(Class<T> clazz) {
         super(clazz);
     }

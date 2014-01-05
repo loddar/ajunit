@@ -16,12 +16,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.modifier;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
- * AjJoinPointPredicateBuilder is responsible for ...
+ * ModifierBaseTest is responsible for ...
  */
-public interface AjJoinPointPredicateBuilder {
-    MethodJoinPointPredicateBuilder methodExecute();
-    MethodJoinPointPredicateBuilder methodCall();
+public class ModifierBaseTest {
+    protected static final int NO_MODIFIERS = 0;
+
+    protected static void assertModifierMatcher(ModifierMatcher matcher, int matchingBitMap, int notMatchingBitMap) {
+        assertThat(matcher+" does match?", matcher.match(matchingBitMap), is(true));
+        assertThat(matcher+" does not match?", matcher.match(notMatchingBitMap), is(false));
+    }
 }

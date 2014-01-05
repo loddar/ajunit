@@ -23,7 +23,7 @@ import java.lang.annotation.Annotation;
 /**
  * Utility class for inspecting annotations.
  */
-public final class AnnotationUtils {
+public abstract class AnnotationUtils {
     private AnnotationUtils() {
     }
 

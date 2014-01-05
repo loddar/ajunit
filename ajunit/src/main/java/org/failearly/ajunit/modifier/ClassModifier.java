@@ -21,15 +21,31 @@ package org.failearly.ajunit.modifier;
 import org.failearly.ajunit.internal.predicate.modifier.AjModifier;
 
 /**
- * ClassModifier contains the modifier available for classes.
+ * ClassModifier contains the modifier available for classes and interfaces excluding the access modifiers.
  *
  * @see java.lang.reflect.Modifier#CLASS_MODIFIERS
  * @see java.lang.reflect.Modifier#INTERFACE_MODIFIERS
+ * @see java.lang.reflect.Modifier#classModifiers()
+ * @see java.lang.reflect.Modifier#interfaceModifiers()
+ * @see org.failearly.ajunit.modifier.AccessModifier
  */
 public enum ClassModifier implements ModifierMatcher {
+    /**
+     * @see java.lang.reflect.Modifier#STATIC
+     */
     STATIC(AjModifier.STATIC),
+    /**
+     * Not available for interfaces.
+     * @see java.lang.reflect.Modifier#FINAL
+     */
     FINAL(AjModifier.FINAL),
+    /**
+     * @see java.lang.reflect.Modifier#ABSTRACT
+     */
     ABSTRACT(AjModifier.ABSTRACT),
+    /**
+     * @see java.lang.reflect.Modifier#STRICT
+     */
     STRICT(AjModifier.STRICT);
 
     private final ModifierMatcher modifierMatcher;

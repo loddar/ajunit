@@ -21,7 +21,7 @@ package org.failearly.ajunit.internal.util;
 /**
  * ObjectUtils provides some useful utility methods.
  */
-public final class ObjectUtils {
+public abstract class ObjectUtils {
     private ObjectUtils() {
     }
 

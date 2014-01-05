@@ -21,14 +21,28 @@ package org.failearly.ajunit.modifier;
 import org.failearly.ajunit.internal.predicate.modifier.AjModifier;
 
 /**
- * FieldModifier contains the modifier available for fields.
+ * FieldModifier contains the modifier available for fields excluding the access modifiers.
  *
  * @see java.lang.reflect.Modifier#FIELD_MODIFIERS
+ * @see java.lang.reflect.Modifier#fieldModifiers()
+ * @see org.failearly.ajunit.modifier.AccessModifier
  */
 public enum FieldModifier implements ModifierMatcher {
+    /**
+     * @see java.lang.reflect.Modifier#STATIC
+     */
     STATIC(AjModifier.STATIC),
+    /**
+     * @see java.lang.reflect.Modifier#FINAL
+     */
     FINAL(AjModifier.FINAL),
+    /**
+     * @see java.lang.reflect.Modifier#VOLATILE
+     */
     VOLATILE(AjModifier.VOLATILE),
+    /**
+     * @see java.lang.reflect.Modifier#TRANSIENT
+     */
     TRANSIENT(AjModifier.TRANSIENT);
 
     private final ModifierMatcher modifierMatcher;

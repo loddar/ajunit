@@ -1,7 +1,7 @@
 /*
  * ajUnit - Unit Testing AspectJ pointcut definitions.
  *
- * Copyright (C) 2013-2013  Marko Umek (ajunit.contact(at)gmail.com)
+ * Copyright (C) 2013-2014  Marko Umek (ajunit.contact(at)gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,7 @@
  */
 package org.failearly.ajunit;
 
-import org.failearly.ajunit.builder.AjJoinPointPredicateBuilder;
-import org.failearly.ajunit.builder.AjJoinPointPredicateBuilderImpl;
+import org.failearly.ajunit.builder.JoinPointSelectorBuilder;
 
 /**
  * AjUnitTest the base class for all ajUnit test classes.
@@ -39,7 +38,7 @@ public abstract class AjUnitTest extends AjUnitBase {
 
     protected final void executePointcutTest() {
         // arrange / given
-        final AjJoinPointPredicateBuilder joinPointBuilder=new AjJoinPointPredicateBuilderImpl();
+        final JoinPointSelectorBuilder joinPointBuilder=null /* TODO: Implementation */;
         setupJoinPointSelectorBuilder(joinPointBuilder);
 
         // act / when
@@ -53,7 +52,7 @@ public abstract class AjUnitTest extends AjUnitBase {
      * Setup the pointcut predicate.
      * @param joinPointBuilder
      */
-    protected abstract void setupJoinPointSelectorBuilder(AjJoinPointPredicateBuilder joinPointBuilder);
+    protected abstract void setupJoinPointSelectorBuilder(JoinPointSelectorBuilder joinPointBuilder);
 
 
     /**

@@ -24,7 +24,7 @@ import java.util.Map;
 /**
  * Utility class for enum related operations.
  */
-public final class EnumUtils {
+public abstract class EnumUtils {
 
     /**
      * Prefix for invalid/internal(not public) enum values.
