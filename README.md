@@ -1,4 +1,4 @@
 ajunit
 ======
 
-ajUnit - Unit testing of AspectJ pointcuts.
+ajUnit - Unit Testing AspectJ pointcut definitions.
