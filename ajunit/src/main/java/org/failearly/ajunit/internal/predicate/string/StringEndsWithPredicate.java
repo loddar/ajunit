@@ -28,6 +28,7 @@ final class StringEndsWithPredicate extends StringPredicateBase {
     private final String suffix;
 
     public StringEndsWithPredicate(String suffix) {
+        super("EndsWith("+suffix+")");
         this.suffix = suffix;
     }
 

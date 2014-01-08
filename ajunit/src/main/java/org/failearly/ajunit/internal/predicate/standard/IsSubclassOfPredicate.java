@@ -31,7 +31,7 @@ final class IsSubclassOfPredicate extends TypedPredicate<Class<?>> {
 
     @SuppressWarnings("unchecked")
     IsSubclassOfPredicate(Class<?> clazz) {
-        super((Class<Class<?>>) clazz.getClass());
+        super((Class<Class<?>>) clazz.getClass(),"IsSubclassOf("+clazz.getName()+")");
         this.clazz = clazz;
     }
 

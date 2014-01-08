@@ -21,21 +21,11 @@
  */
 package org.failearly.ajunit.internal.predicate.standard;
 
-import org.failearly.ajunit.internal.predicate.PredicateBase;
-
 /**
- * ConstantPredicate does not evaluate anything. Used in TEST context only.
+ * LogicalPredicateBase the base class for logical predicates.
  */
-final class ConstantPredicate extends PredicateBase {
-    private final boolean constant;
-
-    public ConstantPredicate(boolean constant) {
-        super(Boolean.toString(constant).toUpperCase());
-        this.constant = constant;
-    }
-
-    @Override
-    protected boolean doEvaluate(Object object) {
-        return constant;
+abstract class LogicalPredicateBase extends CompositePredicateBase {
+    protected LogicalPredicateBase(String type) {
+        super(type);
     }
 }

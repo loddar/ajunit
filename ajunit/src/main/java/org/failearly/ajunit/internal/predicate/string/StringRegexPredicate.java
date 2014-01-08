@@ -29,6 +29,7 @@ import java.util.regex.Pattern;
 final class StringRegexPredicate extends StringPredicateBase {
     private final Pattern pattern;
     public StringRegexPredicate(String regex) {
+        super("Regex("+regex+")");
         pattern = Pattern.compile(regex);
     }
 

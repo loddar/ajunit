@@ -28,6 +28,7 @@ final class StringContainsPredicate extends StringPredicateBase {
     private final String infix;
 
     public StringContainsPredicate(String infix) {
+        super("Contains("+infix+")");
         this.infix = infix;
     }
 

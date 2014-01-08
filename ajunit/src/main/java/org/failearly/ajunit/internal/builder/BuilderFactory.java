@@ -19,23 +19,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.internal.predicate.standard;
+package org.failearly.ajunit.internal.builder;
 
-import org.failearly.ajunit.internal.predicate.PredicateBase;
+import org.failearly.ajunit.internal.predicate.CompositePredicate;
 
 /**
- * ConstantPredicate does not evaluate anything. Used in TEST context only.
+ * Creates a builder of type T.
+ * @param <P> next parent (current Builder Node).
+ * @param <T> next Builder (which becomes the the builder on top).
+ *
+ * @see org.failearly.ajunit.internal.builder.LogicalStructureBuilder#and(BuilderFactory)
+ * @see org.failearly.ajunit.internal.builder.LogicalStructureBuilder#or(BuilderFactory)
+ * @see org.failearly.ajunit.internal.builder.LogicalStructureBuilder#nand(BuilderFactory)
+ * @see org.failearly.ajunit.internal.builder.LogicalStructureBuilder#nor(BuilderFactory)
+ * @see org.failearly.ajunit.internal.builder.LogicalStructureBuilder#xor(BuilderFactory)
  */
-final class ConstantPredicate extends PredicateBase {
-    private final boolean constant;
-
-    public ConstantPredicate(boolean constant) {
-        super(Boolean.toString(constant).toUpperCase());
-        this.constant = constant;
-    }
-
-    @Override
-    protected boolean doEvaluate(Object object) {
-        return constant;
-    }
+public interface BuilderFactory<R extends Builder, P extends Builder, T extends Builder> {
+    T createBuilder(R root, P parent, CompositePredicate compositePredicate);
 }

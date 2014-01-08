@@ -36,4 +36,14 @@ public interface Predicate {
      * @throws java.lang.IllegalArgumentException if the input is invalid.
      */
     boolean evaluate(final Object object);
+
+    /**
+     * @return String representation (TYPE)
+     */
+    String toString();
+
+    /**
+     * @return  Type or name of the predicate.
+     */
+    String getType();
 }

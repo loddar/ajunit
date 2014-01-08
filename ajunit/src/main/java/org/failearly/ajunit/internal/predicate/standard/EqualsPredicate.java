@@ -31,7 +31,7 @@ final class EqualsPredicate<T> extends TypedPredicate<T> {
 
     @SuppressWarnings("unchecked")
     EqualsPredicate(final T object) {
-        super((Class<T>)object.getClass());
+        super((Class<T>)object.getClass(),"Equals("+object+")");
         this.object = object;
     }
 

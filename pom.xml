@@ -34,7 +34,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <aspectj.maven.plugin.version>1.5</aspectj.maven.plugin.version>
         <java.version>1.7</java.version>
-        <aspectj.version>1.7.3</aspectj.version>
+        <aspectj.version>1.7.4</aspectj.version>
         <junit.version>4.11</junit.version>
         <hamcrest.version>1.3</hamcrest.version>
         <slf4j.version>1.7.5</slf4j.version>
@@ -44,14 +44,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Module dependencies-->
-            <dependency>
-                <groupId>org.failearly.ajunit</groupId>
-                <artifactId>ajunit-eval</artifactId>
-                <version>${pom.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
             <!-- External dependencies-->
             <dependency>
                 <groupId>junit</groupId>

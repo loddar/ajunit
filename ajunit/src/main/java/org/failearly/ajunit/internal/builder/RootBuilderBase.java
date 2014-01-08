@@ -19,23 +19,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.internal.predicate.standard;
+package org.failearly.ajunit.internal.builder;
 
-import org.failearly.ajunit.internal.predicate.PredicateBase;
+import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.util.AjAssert;
 
 /**
- * ConstantPredicate does not evaluate anything. Used in TEST context only.
+ * RootBuilderBase is responsible for ...
  */
-final class ConstantPredicate extends PredicateBase {
-    private final boolean constant;
-
-    public ConstantPredicate(boolean constant) {
-        super(Boolean.toString(constant).toUpperCase());
-        this.constant = constant;
+abstract class RootBuilderBase<R extends RootBuilder> extends BuilderBase<R,R> implements RootBuilder {
+    private Builder onTop;
+    protected RootBuilderBase() {
     }
 
     @Override
-    protected boolean doEvaluate(Object object) {
-        return constant;
+    public final void onTop(Builder builder) {
+        this.onTop=builder;
+    }
+
+    public final Predicate build() {
+        AjAssert.state(onTop!=null,"build() has been called twice.");
+        onTop.done();
+        this.onTop = null;
+        return doBuild();
     }
 }

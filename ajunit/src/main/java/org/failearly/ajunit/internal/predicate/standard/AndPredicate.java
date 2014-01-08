@@ -28,7 +28,11 @@ import java.util.Collection;
 /**
  * AndPredicate is responsible for ...
  */
-final class AndPredicate extends CompoundPredicateBase {
+final class AndPredicate extends LogicalPredicateBase {
+    AndPredicate() {
+        super("And");
+    }
+
     @Override
     protected boolean doApplyPredicates(Collection<Predicate> predicates, Object object) {
         for (final Predicate predicate : predicates) {

@@ -33,6 +33,7 @@ final class TransformerPredicate extends PredicateBase {
     private final Predicate predicate;
 
     public TransformerPredicate(Transformer transformer, Predicate predicate) {
+        super("TransformerPredicate("+predicate+")");
         this.transformer = transformer;
         this.predicate = predicate;
     }

@@ -27,7 +27,7 @@ import org.failearly.ajunit.internal.predicate.TypedPredicate;
  * StringPredicateBase is the base class for all {@link String} related predicates.
  */
 abstract class StringPredicateBase extends TypedPredicate<String> {
-    public StringPredicateBase() {
-        super(String.class);
+    protected StringPredicateBase(String type) {
+        super(String.class, type);
     }
 }

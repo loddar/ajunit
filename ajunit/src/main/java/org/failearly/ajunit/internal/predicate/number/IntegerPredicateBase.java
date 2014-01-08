@@ -29,8 +29,8 @@ import org.failearly.ajunit.internal.predicate.TypedPredicate;
 abstract class IntegerPredicateBase extends TypedPredicate<Integer> {
     protected final int baseValue;
 
-    IntegerPredicateBase(int baseValue) {
-        super(Integer.class);
+    IntegerPredicateBase(int baseValue, String type) {
+        super(Integer.class,type);
         this.baseValue = baseValue;
     }
 }

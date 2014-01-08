@@ -28,7 +28,11 @@ import java.util.Collection;
 /**
  * OrPredicate is responsible for ...
  */
-final class OrPredicate extends CompoundPredicateBase {
+final class OrPredicate extends LogicalPredicateBase {
+    OrPredicate() {
+        super("Or");
+    }
+
     @Override
     protected boolean doApplyPredicates(Collection<Predicate> predicates, Object object) {
         for (final Predicate predicate : predicates) {

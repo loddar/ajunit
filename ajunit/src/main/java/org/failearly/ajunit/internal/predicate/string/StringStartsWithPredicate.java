@@ -27,6 +27,7 @@ package org.failearly.ajunit.internal.predicate.string;
 final class StringStartsWithPredicate extends StringPredicateBase {
     private final String prefix;
     public StringStartsWithPredicate(String prefix) {
+        super("StartsWith("+prefix+")");
         this.prefix = prefix;
     }
 

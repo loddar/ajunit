@@ -26,17 +26,18 @@ import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.PredicateBase;
 
 /**
- * NotCompoundPredicate implements <code>NOT(cp(P1(o), ...,Pn(o)))</code>.
+ * NotCompositePredicate implements <code>NOT(cp(P1(o), ...,Pn(o)))</code>.
  * <ul>
  *     <li>cp := any implementation of {@link org.failearly.ajunit.internal.predicate.CompositePredicate}. </li>
  *     <li>P1, ..., Pn := any {@link org.failearly.ajunit.internal.predicate.Predicate} </li>
  * </ul>
  */
-final class NotCompoundPredicate extends PredicateBase implements CompositePredicate {
+final class NotCompositePredicate extends PredicateBase implements CompositePredicate {
 
     private final CompositePredicate compositePredicate;
 
-    public NotCompoundPredicate(CompositePredicate compositePredicate) {
+    public NotCompositePredicate(CompositePredicate compositePredicate) {
+        super("Not("+compositePredicate.toString()+")");
         this.compositePredicate = compositePredicate;
     }
 

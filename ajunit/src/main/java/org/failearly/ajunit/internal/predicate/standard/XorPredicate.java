@@ -29,7 +29,11 @@ import java.util.Collection;
  * XorPredicate implements XOR(P1(o),..,Pn(o)). Returns {@code true} if <i>only one</i> predicate evaluates
  * to {@code true} otherwise {@code false}.
  */
-final class XorPredicate extends CompoundPredicateBase {
+final class XorPredicate extends LogicalPredicateBase {
+    XorPredicate() {
+        super("Xor");
+    }
+
     @Override
     protected boolean doApplyPredicates(Collection<Predicate> predicates, Object object) {
         int countTrues=0;

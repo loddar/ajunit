@@ -35,7 +35,7 @@ public final class ModifierPredicate extends TypedPredicate<Integer> {
     private final ModifierMatcher modifierMatcher;
 
     private ModifierPredicate(ModifierMatcher modifierMatcher) {
-        super(Integer.class);
+        super(Integer.class,"Modifier("+modifierMatcher+")");
         this.modifierMatcher = modifierMatcher;
     }
 

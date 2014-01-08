@@ -28,29 +28,51 @@ import org.failearly.ajunit.internal.predicate.Predicate;
  * LogicalPredicates provides factory methods for logical operations.
  */
 public final class LogicalPredicates {
+    /**
+     * Creates an (empty) logical AND predicate.
+     */
     public static CompositePredicate and() {
         return new AndPredicate();
     }
 
+    /**
+     * Creates an (empty) logical OR predicate.
+     */
     public static CompositePredicate or() {
         return new OrPredicate();
     }
 
+    /**
+     * Creates an (empty) logical XOR predicate.
+     */
     public static CompositePredicate xor() {
         return new XorPredicate();
     }
 
+    /**
+     * Negates the predicate.
+     */
     public static Predicate not(Predicate predicate) {
         return new NotPredicate(predicate);
     }
 
+    /**
+     * Negates the result of the composite predicate.
+     */
     public static CompositePredicate not(CompositePredicate predicate) {
-        return new NotCompoundPredicate(predicate);
+        return new NotCompositePredicate(predicate);
     }
+
+    /**
+     * Creates an (empty) logical NAND predicate.
+     */
     public static CompositePredicate nand() {
         return not(and());
     }
 
+    /**
+     * Creates an (empty) logical NOR predicate.
+     */
     public static CompositePredicate nor() {
         return not(or());
     }

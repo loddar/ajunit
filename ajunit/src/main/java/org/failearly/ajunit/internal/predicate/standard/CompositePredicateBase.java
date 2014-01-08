@@ -30,12 +30,13 @@ import java.util.LinkedList;
 
 
 /**
- * CompoundPredicateBase is the base class for {@link org.failearly.ajunit.internal.predicate.CompositePredicate} implementations.
+ * CompositePredicateBase is the base class for {@link org.failearly.ajunit.internal.predicate.CompositePredicate} implementations.
  */
-abstract class CompoundPredicateBase extends PredicateBase implements CompositePredicate {
+abstract class CompositePredicateBase extends PredicateBase implements CompositePredicate {
     private final Collection<Predicate> predicates=new LinkedList<>();
 
-    protected CompoundPredicateBase() {
+    protected CompositePredicateBase(String type) {
+        super(type);
     }
 
     @Override
@@ -62,4 +63,20 @@ abstract class CompoundPredicateBase extends PredicateBase implements CompositeP
      */
     protected abstract boolean doApplyPredicates(final Collection<Predicate> predicates, final Object object);
 
+
+    @Override
+    public String toString() {
+        final StringBuilder stringBuilder=new StringBuilder(getType());
+        boolean first=true;
+        stringBuilder.append("(");
+        for (Predicate predicate : predicates) {
+            if(!first) {
+                stringBuilder.append(",");
+            }
+            stringBuilder.append(predicate.toString());
+            first=false;
+        }
+        stringBuilder.append(")");
+        return stringBuilder.toString();
+    }
 }

@@ -31,6 +31,7 @@ final class NotPredicate extends PredicateBase {
     private final Predicate predicate;
 
     public NotPredicate(Predicate predicate) {
+        super("NOT("+predicate.getType()+")");
         this.predicate = predicate;
     }
 

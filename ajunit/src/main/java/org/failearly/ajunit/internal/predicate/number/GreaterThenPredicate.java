@@ -27,7 +27,7 @@ package org.failearly.ajunit.internal.predicate.number;
 final class GreaterThenPredicate extends IntegerPredicateBase {
 
     GreaterThenPredicate(int baseValue) {
-        super(baseValue);
+        super(baseValue,"GreaterThen("+baseValue+")");
     }
 
     @Override

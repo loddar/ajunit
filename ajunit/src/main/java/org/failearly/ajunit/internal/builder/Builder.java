@@ -19,23 +19,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.internal.predicate.standard;
+package org.failearly.ajunit.internal.builder;
 
-import org.failearly.ajunit.internal.predicate.PredicateBase;
+import org.failearly.ajunit.internal.predicate.Predicate;
 
 /**
- * ConstantPredicate does not evaluate anything. Used in TEST context only.
+ * The predicate builder <b>internal</b>> interface for {@link org.failearly.ajunit.internal.builder.LogicalStructureBuilder}
+ * and {@link org.failearly.ajunit.internal.builder.BuilderFactory}.
+ *
+ * @see org.failearly.ajunit.internal.builder.LogicalStructureBuilder
  */
-final class ConstantPredicate extends PredicateBase {
-    private final boolean constant;
+interface Builder {
+    /**
+     * Adds a predicate to the builder.
+     * @param predicate
+     */
+    void addPredicate(Predicate predicate);
 
-    public ConstantPredicate(boolean constant) {
-        super(Boolean.toString(constant).toUpperCase());
-        this.constant = constant;
-    }
+    /**
+     * Clean up the builder.
+     * @return the parent builder.
+     */
+    Builder cleanup();
 
-    @Override
-    protected boolean doEvaluate(Object object) {
-        return constant;
-    }
+    /**
+     * The build has been finsihed.
+     */
+    RootBuilder done();
 }

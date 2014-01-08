@@ -28,6 +28,12 @@ import org.failearly.ajunit.internal.util.AjAssert;
  */
 public abstract class PredicateBase implements Predicate {
 
+    private final String type;
+
+    protected PredicateBase(String type) {
+        this.type = type;
+    }
+
     @Override
     public final boolean evaluate(Object object) {
         AjAssert.parameterNotNull(object,"object");
@@ -40,4 +46,14 @@ public abstract class PredicateBase implements Predicate {
      * @return {@code true} or {@code false}.
      */
     protected abstract boolean doEvaluate(final Object object);
+
+    @Override
+    public String toString() {
+        return type;
+    }
+
+    @Override
+    public final String getType() {
+        return type;
+    }
 }
