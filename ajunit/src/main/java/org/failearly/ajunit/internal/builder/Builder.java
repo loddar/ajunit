@@ -37,13 +37,12 @@ interface Builder {
     void addPredicate(Predicate predicate);
 
     /**
-     * Clean up the builder.
-     * @return the parent builder.
-     */
-    Builder cleanup();
-
-    /**
-     * The build has been finsihed.
+     * Done building (or partly creating).
      */
     RootBuilder done();
+
+    /**
+     * Clean up the builder.
+     */
+    void cleanup();
 }

@@ -28,12 +28,8 @@ import org.failearly.ajunit.internal.predicate.CompositePredicate;
  */
 public class YBuilder extends BuilderBase<TopBuilder,YBuilder> {
 
-    YBuilder(TopBuilder root, CompositePredicate compositePredicate) {
-        init(LogicalStructureBuilder.createFirstLevelBuilder(root, this, compositePredicate));
-    }
-
-    private YBuilder(TopBuilder root, YBuilder parent, CompositePredicate compositePredicate) {
-        init(LogicalStructureBuilder.createBelowFirstLevelBuilder(root, parent, this, compositePredicate));
+    YBuilder(TopBuilder root, Builder parent, CompositePredicate compositePredicate) {
+        init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
     }
 
     public YBuilder and() {
@@ -53,10 +49,6 @@ public class YBuilder extends BuilderBase<TopBuilder,YBuilder> {
         };
     }
 
-    public XBuilder orX() {
-        return super.or(getXBuilderFactory());
-    }
-
     public XBuilder andX() {
         return super.and(getXBuilderFactory());
     }
@@ -72,5 +64,9 @@ public class YBuilder extends BuilderBase<TopBuilder,YBuilder> {
 
     public YBuilder end() {
         return super.end(YBuilder.class);
+    }
+
+    public TopBuilder endTop() {
+        return super.end(TopBuilder.class);
     }
 }

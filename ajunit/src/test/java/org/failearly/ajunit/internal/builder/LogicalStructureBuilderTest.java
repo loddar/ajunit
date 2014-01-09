@@ -25,6 +25,7 @@ import org.failearly.ajunit.internal.predicate.Predicate;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
@@ -35,12 +36,12 @@ public class LogicalStructureBuilderTest {
     private static final Object ANY_VALUE=Boolean.TRUE;
 
     @Test
-    public void rootOnly() throws Exception {
+    public void topOnly() throws Exception {
         assertPredicateBuild(new TopBuilder(), true, "Or()");
     }
 
     @Test
-    public void rootOnlyWithTrue() throws Exception {
+    public void topOnlyWithTrue() throws Exception {
         // arrange / given
         final TopBuilder topBuilder=new TopBuilder();
 
@@ -52,7 +53,7 @@ public class LogicalStructureBuilderTest {
     }
 
     @Test
-    public void rootOnlyWithTrueFalse() throws Exception {
+    public void topOnlyWithTrueFalse() throws Exception {
         // arrange / given
         final TopBuilder topBuilder=new TopBuilder();
 
@@ -65,7 +66,36 @@ public class LogicalStructureBuilderTest {
     }
 
     @Test
-    public void rootX() throws Exception {
+    public void complexExpressionAndEndingAll() throws Exception {
+        // arrange / given
+        final TopBuilder topBuilder=new TopBuilder();
+
+        // act / when
+        final TopBuilder builder=topBuilder      // Or
+                       .and()                    //    And
+                            .alwaysTrue()        //       TRUE
+                            .alwaysFalse()       //       FALSE
+                       .end()
+                       .or()                     //    Or
+                            .xBuilder()          //       And
+                                .alwaysFalse()   //           FALSE
+                                .alwaysTrue()    //           TRUE
+                            .endTop()
+                            .yBuilder()          //       Or
+                                .and()           //           And
+                                    .alwaysTrue() //             FALSE
+                                    .alwaysFalse()//             TRUE
+                                .end()
+                            .endTop()
+                       .end();
+
+        // assert / then
+        assertThat("Correctly closed?", builder, sameInstance(topBuilder));
+        assertPredicateBuild(topBuilder, false, "Or(And(TRUE,FALSE),Or(And(FALSE,TRUE),Or(And(TRUE,FALSE))))");
+    }
+
+    @Test
+    public void topX() throws Exception {
         // arrange / given
         final TopBuilder topBuilder=new TopBuilder();
 
@@ -77,7 +107,7 @@ public class LogicalStructureBuilderTest {
     }
 
     @Test
-    public void rootXorX() throws Exception {
+    public void topXorX() throws Exception {
         // arrange / given
         final TopBuilder topBuilder=new TopBuilder();
 
@@ -93,7 +123,7 @@ public class LogicalStructureBuilderTest {
 
 
     @Test
-    public void rootXorXAndFalse() throws Exception {
+    public void topXorXAndFalse() throws Exception {
         // arrange / given
         final TopBuilder topBuilder=new TopBuilder();
 
@@ -111,13 +141,13 @@ public class LogicalStructureBuilderTest {
 
 
     @Test
-    public void rootYAndX() throws Exception {
+    public void topYAndX() throws Exception {
         // arrange / given
         final TopBuilder topBuilder=new TopBuilder();
 
         // act / when
         topBuilder.yBuilder()
-                    .andX()
+                      .andX()
                         .alwaysTrue()
                         .alwaysFalse();
 
@@ -126,33 +156,33 @@ public class LogicalStructureBuilderTest {
     }
 
     @Test
-    public void rootYAndXOrX() throws Exception {
+    public void topYAndXOrX() throws Exception {
         // arrange / given
         final TopBuilder topBuilder=new TopBuilder();
 
         // act / when
         topBuilder.yBuilder()
-                .andX()
-                .alwaysTrue()
-                .alwaysFalse()
-                .endX()
-                .or()
-                .alwaysTrue()
-                .end();
+                    .andX()
+                        .alwaysTrue()
+                        .alwaysFalse()
+                    .endY()
+                    .or()
+                        .alwaysTrue()
+                    .end();
 
         // assert / then
         assertPredicateBuild(topBuilder, true, "Or(Or(And(TRUE,FALSE),Or(TRUE)))");
     }
 
     @Test
-    public void rootXOrXdoneYdone() throws Exception {
+    public void multipleDone() throws Exception {
         // arrange / given
         final TopBuilder topBuilder=new TopBuilder();
 
         // act / when
         topBuilder.xBuilder()
-                      .or()
-                        .alwaysFalse()
+                        .or()
+                            .alwaysFalse()
                    .done()
                    .yBuilder()
                         .alwaysFalse()
@@ -162,9 +192,28 @@ public class LogicalStructureBuilderTest {
         assertPredicateBuild(topBuilder, false, "Or(And(Or(FALSE)),Or(FALSE))");
     }
 
-    private static void assertPredicateBuild(TopBuilder topBuilder, boolean expectedPredicateResult, String expectedExpression) {
+    @Test(expected = IllegalStateException.class)
+    public void multipleBuild() throws Exception {
+        // arrange / given
+        final TopBuilder topBuilder=new TopBuilder();
+
+        // act / when
+        topBuilder.build();
+        topBuilder.build();
+    }
+
+
+
+    private static void assertPredicateBuild(
+                final TopBuilder topBuilder,
+                final boolean expectedPredicateResult,
+                final String expectedExpression) {
+
+        final TopBuilder   builder=topBuilder.done();
+        assertThat("Done returns ROOT builder?", builder, sameInstance(topBuilder));
+
         final Predicate predicate=topBuilder.build();
-        assertThat("Predicate build evaluates to?", predicate.evaluate(ANY_VALUE), is(expectedPredicateResult));
         assertThat("Expression build?", predicate.toString(), is(expectedExpression));
+        assertThat("Predicate build evaluates to?", predicate.evaluate(ANY_VALUE), is(expectedPredicateResult));
     }
 }

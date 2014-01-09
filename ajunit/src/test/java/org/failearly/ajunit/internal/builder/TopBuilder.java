@@ -26,14 +26,18 @@ import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
 
 /**
  * <pre>
- * top->X*->L
- * top->Y*->X*->L
+ * top*->X*
+ * top*->Y*->X*
  * </pre>
  */
 public final class TopBuilder extends RootBuilderBase<TopBuilder> {
 
     public TopBuilder() {
-        init(LogicalStructureBuilder.rootBuilder(this, LogicalPredicates.or()));
+        init(LogicalStructureBuilder.createRootBuilder(this, LogicalPredicates.or()));
+    }
+
+    private TopBuilder(TopBuilder root, TopBuilder parent, CompositePredicate compositePredicate) {
+        init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
     }
 
     public XBuilder xBuilder() {
@@ -44,7 +48,7 @@ public final class TopBuilder extends RootBuilderBase<TopBuilder> {
         return new BuilderFactory<TopBuilder, TopBuilder, XBuilder>() {
             @Override
             public XBuilder createBuilder(TopBuilder root, TopBuilder parent, CompositePredicate compositePredicate) {
-                return new XBuilder(root, compositePredicate);
+                return new XBuilder(root, parent, compositePredicate);
             }
         };
     }
@@ -57,8 +61,29 @@ public final class TopBuilder extends RootBuilderBase<TopBuilder> {
         return new BuilderFactory<TopBuilder, TopBuilder, YBuilder>() {
             @Override
             public YBuilder createBuilder(TopBuilder root, TopBuilder parent, CompositePredicate compositePredicate) {
-                return new YBuilder(root, compositePredicate);
+                return new YBuilder(root, parent, compositePredicate);
             }
         };
+    }
+
+    public TopBuilder and() {
+        return super.and(getRootBuilderFactory());
+    }
+
+    public TopBuilder or() {
+        return super.or(getRootBuilderFactory());
+    }
+
+    private BuilderFactory<TopBuilder, TopBuilder, TopBuilder> getRootBuilderFactory() {
+        return new BuilderFactory<TopBuilder, TopBuilder, TopBuilder>() {
+            @Override
+            public TopBuilder createBuilder(TopBuilder root, TopBuilder parent, CompositePredicate compositePredicate) {
+                return new TopBuilder(root, parent, compositePredicate);
+            }
+        };
+    }
+
+    public TopBuilder end() {
+        return super.end(TopBuilder.class);
     }
 }

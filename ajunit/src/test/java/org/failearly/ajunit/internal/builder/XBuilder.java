@@ -28,16 +28,8 @@ import org.failearly.ajunit.internal.predicate.CompositePredicate;
  */
 public class XBuilder extends BuilderBase<TopBuilder,XBuilder> {
 
-    XBuilder(TopBuilder root, CompositePredicate compositePredicate) {
-        init(LogicalStructureBuilder.createFirstLevelBuilder(root, this, compositePredicate));
-    }
-
-    XBuilder(TopBuilder root, YBuilder parent, CompositePredicate compositePredicate) {
-        init(LogicalStructureBuilder.createBelowFirstLevelBuilder(root, parent, this, compositePredicate));
-    }
-
-    private XBuilder(TopBuilder root, XBuilder parent, CompositePredicate compositePredicate) {
-        init(LogicalStructureBuilder.createBelowFirstLevelBuilder(root, parent, this, compositePredicate));
+    XBuilder(TopBuilder root, Builder parent, CompositePredicate compositePredicate) {
+        init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
     }
 
     public XBuilder and() {
@@ -57,29 +49,15 @@ public class XBuilder extends BuilderBase<TopBuilder,XBuilder> {
         };
     }
 
-    public LeafBuilder andLeaf() {
-        return super.and(getLeafBuilderFactory());
-    }
-
-    public LeafBuilder orLeaf() {
-        return super.or(getLeafBuilderFactory());
-    }
-
-
-    private BuilderFactory<TopBuilder, XBuilder, LeafBuilder> getLeafBuilderFactory() {
-        return new BuilderFactory<TopBuilder, XBuilder, LeafBuilder>() {
-            @Override
-            public LeafBuilder createBuilder(TopBuilder root, XBuilder parent, CompositePredicate compositePredicate) {
-                return new LeafBuilder(root, parent, compositePredicate);
-            }
-        };
-    }
-
     public XBuilder end() {
         return super.end(XBuilder.class);
     }
 
-    public YBuilder endX() {
+    public YBuilder endY() {
         return super.end(YBuilder.class);
+    }
+
+    public TopBuilder endTop() {
+        return super.end(TopBuilder.class);
     }
 }

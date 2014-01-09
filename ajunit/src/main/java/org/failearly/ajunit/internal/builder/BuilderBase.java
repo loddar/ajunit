@@ -128,7 +128,7 @@ public abstract class BuilderBase<R extends RootBuilder, C extends Builder> impl
     }
 
     @Override
-    public Builder cleanup() {
-        return this.logicalStructureBuilder.cleanup();
+    public void cleanup() {
+        this.logicalStructureBuilder.cleanup();
     }
 }

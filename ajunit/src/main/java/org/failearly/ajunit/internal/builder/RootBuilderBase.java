@@ -24,23 +24,37 @@ package org.failearly.ajunit.internal.builder;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.util.AjAssert;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * RootBuilderBase is responsible for ...
  */
 abstract class RootBuilderBase<R extends RootBuilder> extends BuilderBase<R,R> implements RootBuilder {
-    private Builder onTop;
+    private final List<Builder> builderStack=new LinkedList<>();
     protected RootBuilderBase() {
     }
 
     @Override
-    public final void onTop(Builder builder) {
-        this.onTop=builder;
+    public final void addBuilder(Builder builder) {
+        this.builderStack.add(0, builder);
     }
 
+    @Override
     public final Predicate build() {
-        AjAssert.state(onTop!=null,"build() has been called twice.");
-        onTop.done();
-        this.onTop = null;
+        AjAssert.state(! builderStack.isEmpty(),"build() has been called twice.");
+        cleanupAll();
         return doBuild();
+    }
+
+    private void cleanupAll() {
+        Builder last=null;
+        for (Builder builder : builderStack) {
+            builder.cleanup();
+            last=builder;
+        }
+
+        AjAssert.state(last == this, "The last builder must be the ROOT object.");
+        builderStack.clear();
     }
 }

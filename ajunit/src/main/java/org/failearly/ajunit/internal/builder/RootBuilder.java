@@ -21,15 +21,20 @@
  */
 package org.failearly.ajunit.internal.builder;
 
+import org.failearly.ajunit.internal.predicate.Predicate;
+
 /**
- * RootBuilder is responsible for ...
+ * RootBuilder extends the Builder with the build method.
  */
 interface RootBuilder extends Builder {
 
     /**
-     * Mark the instance on top.
-     * @param builder
+     * Adds a new builder (to the builder stack).
      */
-    void onTop(Builder builder);
+    void addBuilder(Builder builder);
 
+    /**
+     * Finally fetch the result of the entire building. Must be called only once.
+     */
+    Predicate build();
 }

@@ -42,7 +42,7 @@ public final class LogicalStructureBuilder<R extends RootBuilder, C extends Buil
         this.parent = parent;
         this.current = current;
         this.compositePredicate = compositePredicate;
-        this.root.onTop(current);
+        this.root.addBuilder(current);
     }
 
     /**
@@ -52,28 +52,13 @@ public final class LogicalStructureBuilder<R extends RootBuilder, C extends Buil
      * @param <R> the ROOT builder type.
      * @return the logical structure builder.
      */
-    public static <R extends RootBuilder> LogicalStructureBuilder<R, R> rootBuilder(R root, CompositePredicate compositePredicate) {
+    public static <R extends RootBuilder> LogicalStructureBuilder<R, R> createRootBuilder(R root, CompositePredicate compositePredicate) {
         return new LogicalStructureBuilder<>(root, root, root, compositePredicate);
     }
 
 
     /**
-     * Factory method for creating first level builder instances.
-     * @param root the ROOT builder instance
-     * @param current the current builder.
-     * @param compositePredicate the associated logical predicate.
-     * @param <R> the ROOT builder type.
-     * @param <C> the CURRENT builder type.
-     * @return the logical structure builder.
-     */
-    public static <R extends RootBuilder, C extends Builder> LogicalStructureBuilder<R, C>
-            createFirstLevelBuilder(R root, C current, CompositePredicate compositePredicate) {
-        root.addPredicate(compositePredicate);
-        return new LogicalStructureBuilder<>(root, current, current, compositePredicate);
-    }
-
-    /**
-     * Factory method for creating builder instances below the ROOT and first level, where all builder nodes could be heterogeneous.
+     * Factory method for creating builder instances except the ROOT instance, where all builder nodes could be heterogeneous.
      * @param root the ROOT builder instance
      * @param parent the parent builder instance.
      * @param current the current builder.
@@ -83,7 +68,7 @@ public final class LogicalStructureBuilder<R extends RootBuilder, C extends Buil
      * @return  the logical structure builder.
      */
     public static <R extends RootBuilder, C extends Builder> LogicalStructureBuilder<R, C>
-            createBelowFirstLevelBuilder(R root, Builder parent, C current, CompositePredicate compositePredicate) {
+        createBuilder(R root, Builder parent, C current, CompositePredicate compositePredicate) {
         parent.addPredicate(compositePredicate);
         return new LogicalStructureBuilder<>(root, parent, current, compositePredicate);
     }
@@ -138,23 +123,9 @@ public final class LogicalStructureBuilder<R extends RootBuilder, C extends Buil
      * @return the parent builder node.
      */
     Builder end() {
-        this.root.onTop(this.parent);
-        return cleanup();
+        return this.parent;
     }
 
-    /**
-     * Cleanup builder. Otherwise there will be memory leaks.
-     *
-     * @return parent builder.
-     * @see Builder#cleanup()
-     */
-    Builder cleanup() {
-        final Builder parent = this.parent;
-        this.root = null;
-        this.parent = null;
-        this.current = null;
-        return parent;
-    }
 
     /**
      * Jumps to the root builder node.
@@ -163,16 +134,19 @@ public final class LogicalStructureBuilder<R extends RootBuilder, C extends Buil
      * @see
      */
     R done() {
-        final R root = this.root;
-        cleanupAllWithoutRoot(root);
-        return root;
+        return this.root;
     }
 
-    private void cleanupAllWithoutRoot(final R root) {
-        Builder parent = this.current;
-        while (parent != root && parent != null) {
-            parent = parent.cleanup();
-        }
+    /**
+     * Cleanup builder. Otherwise there will be memory leaks.
+     *
+     * @return parent builder.
+     * @see Builder#cleanup()
+     */
+    void cleanup() {
+        this.root = null;
+        this.parent = null;
+        this.current = null;
     }
 
     /**
@@ -181,8 +155,7 @@ public final class LogicalStructureBuilder<R extends RootBuilder, C extends Buil
      * @return the predicate build.
      */
     Predicate build() {
-        AjAssert.state(this.parent==this.root,"This method should be called by the ROOT builder.");
-        cleanup();
+        AjAssert.state(this.parent == this.root, "This method should be called by the ROOT builder.");
         return compositePredicate;
     }
 }
