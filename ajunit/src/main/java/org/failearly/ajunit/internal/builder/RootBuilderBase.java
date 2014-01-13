@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * RootBuilderBase is responsible for ...
  */
-abstract class RootBuilderBase<R extends RootBuilder> extends BuilderBase<R,R> implements RootBuilder {
+public abstract class RootBuilderBase<R extends RootBuilder> extends BuilderBase<R,R> implements RootBuilder {
     private final List<Builder> builderStack=new LinkedList<>();
     protected RootBuilderBase() {
     }
@@ -42,6 +42,19 @@ abstract class RootBuilderBase<R extends RootBuilder> extends BuilderBase<R,R> i
         AjAssert.state(! builderStack.isEmpty(),"build() has been called twice.");
         cleanupAll();
         return doBuild();
+    }
+
+    @Override
+    public boolean anyPredicateDefined() {
+        for (Builder builder : builderStack) {
+            if (builder!=this && builder instanceof BuilderBase) {
+                final BuilderBase builderBase = (BuilderBase) builder;
+                if( builderBase.anyPredicateDefined() ) {
+                    return true;
+                }
+            }
+        }
+        return super.anyPredicateDefined();
     }
 
     private void cleanupAll() {

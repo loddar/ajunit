@@ -19,6 +19,7 @@
 package any.company.aspect;
 
 import org.failearly.ajunit.AjUniverseSetup;
+import org.failearly.ajunit.builder.JoinPointSelectorBuilder;
 import org.failearly.ajunit.internal.util.MessageBuilderUtils;
 import org.junit.Test;
 
@@ -122,8 +123,59 @@ public class AjUnitSetupTest {
     }
 
     @Test
-    public void overrideInitializeTestCorrectImplementation() throws Exception {
-        // assignAspect("any.company.aspect.CorrectAjUnitClassicAspect")
+    public void missingSetupJoinPointSelector() throws Exception {
+       assertAssertError(
+               new AnyAjUnitTest() {
+                   @Override
+                   protected String getAssociatedAspect() {
+                       return "any.company.aspect.CorrectAjUnitClassicAspect";
+                   }
+
+                   @Override
+                   protected void initializeTest(AjUniverseSetup ajUniverseSetup) {
+                       ajUniverseSetup.addTestFixtureClass(MyTestFixture.class);
+                   }
+
+                   @Override
+                   protected void executeTestFixtures() {
+                       new MyTestFixture().anyMethod();
+                   }
+               },
+               "ajUnit - Missing setupJoinPointSelector.\n" +
+                       "- Please override setupJoinPointSelector(JoinPointSelectorBuilder)"
+       );
+    }
+
+    @Test
+    public void missingValidJoinPointSelector() throws Exception {
+        assertAssertError(
+                new AnyAjUnitTest() {
+                    @Override
+                    protected String getAssociatedAspect() {
+                        return "any.company.aspect.CorrectAjUnitClassicAspect";
+                    }
+
+                    @Override
+                    protected void initializeTest(AjUniverseSetup ajUniverseSetup) {
+                        ajUniverseSetup.addTestFixtureClass(MyTestFixture.class);
+                    }
+
+                    @Override
+                    protected void executeTestFixtures() {
+                        new MyTestFixture().anyMethod();
+                    }
+
+                    @Override
+                    protected void setupJoinPointSelector(JoinPointSelectorBuilder joinPointSelectorBuilder) {
+                       // Missing implementation.
+                    }
+                },
+                "ajUnit - Missing valid implementation of setupJoinPointSelector(JoinPointSelectorBuilder)."
+        );
+    }
+
+    @Test
+    public void notYetSpecified() throws Exception {
         new AnyAjUnitTest() {
             @Override
             protected String getAssociatedAspect() {
@@ -139,14 +191,19 @@ public class AjUnitSetupTest {
             protected void executeTestFixtures() {
                 new MyTestFixture().anyMethod();
             }
+
+            @Override
+            protected void setupJoinPointSelector(JoinPointSelectorBuilder joinPointSelectorBuilder) {
+                joinPointSelectorBuilder.notYetSpecified();
+            }
         }.testPointcut();
     }
-
 
     private static void assertException(AbstractAjUnitTest testClass, Class<? extends Throwable> expectedException, String expectedMessage) {
         try {
             testClass.testPointcut();
         } catch (Throwable ex) {
+            ex.printStackTrace();
             assertThat("Expected exception type", ex, instanceOf(expectedException));
             assertThat("Excepted message?", ex.getMessage(), is(expectedMessage));
             return;

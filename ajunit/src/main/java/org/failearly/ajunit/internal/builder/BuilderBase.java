@@ -32,7 +32,7 @@ public abstract class BuilderBase<R extends RootBuilder, C extends Builder> impl
     protected BuilderBase() {
     }
 
-    protected <P extends Builder> void init(LogicalStructureBuilder<R, C> logicalStructureBuilder) {
+    protected final <P extends Builder> void init(LogicalStructureBuilder<R, C> logicalStructureBuilder) {
         AjAssert.attributeIsNull(this.logicalStructureBuilder,"logicalStructureBuilder");
         this.logicalStructureBuilder = logicalStructureBuilder;
     }
@@ -120,6 +120,13 @@ public abstract class BuilderBase<R extends RootBuilder, C extends Builder> impl
         logicalStructureBuilder.addPredicate(predicate);
     }
 
+    /**
+     * Returns {@code true} if any predicate has been defined (which is not logical predicate).
+     */
+    public boolean anyPredicateDefined() {
+        return logicalStructureBuilder.anyPredicateDefined();
+    }
+
     protected final Predicate doBuild() {
         return this.logicalStructureBuilder.build();
     }
@@ -128,4 +135,5 @@ public abstract class BuilderBase<R extends RootBuilder, C extends Builder> impl
     public void cleanup() {
         this.logicalStructureBuilder.cleanup();
     }
+
 }

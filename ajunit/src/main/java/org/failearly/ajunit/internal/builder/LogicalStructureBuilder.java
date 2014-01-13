@@ -33,6 +33,7 @@ public final class LogicalStructureBuilder<R extends RootBuilder, C extends Buil
     private Builder parent;
     private C current;
     private R root;
+    private boolean anyPredicateDefined=false;
 
     private LogicalStructureBuilder(R root, Builder parent, C current, CompositePredicate compositePredicate) {
         this.root = root;
@@ -113,6 +114,9 @@ public final class LogicalStructureBuilder<R extends RootBuilder, C extends Buil
      * Adds a {@code predicate} to current predicate composite.
      */
     void addPredicate(Predicate predicate) {
+        if( ! (predicate instanceof CompositePredicate) ) {
+            this.anyPredicateDefined = true;
+        }
         compositePredicate.addPredicate(predicate);
     }
 
@@ -154,5 +158,9 @@ public final class LogicalStructureBuilder<R extends RootBuilder, C extends Buil
     Predicate build() {
         AjAssert.state(this.parent == this.root, "This method should be called by the ROOT builder.");
         return compositePredicate;
+    }
+
+    boolean anyPredicateDefined() {
+        return anyPredicateDefined;
     }
 }

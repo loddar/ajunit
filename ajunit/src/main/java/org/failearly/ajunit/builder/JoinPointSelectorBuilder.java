@@ -21,7 +21,8 @@ package org.failearly.ajunit.builder;
 /**
  * JoinPointSelectorBuilder is responsible for ...
  */
-public interface JoinPointSelectorBuilder {
+public interface JoinPointSelectorBuilder  {
     MethodJoinPointSelectorBuilder methodExecute();
     MethodJoinPointSelectorBuilder methodCall();
+    void notYetSpecified();
 }
