@@ -15,9 +15,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package org.failearly.ajunit.internal.universe;
 
@@ -52,14 +49,4 @@ public interface AjUniverse {
      *
      */
     void visitJoinPoints(AjJoinPointVisitor joinPointVisitor);
-
-    /**
-     * Increases the aspect instance counter.
-     */
-    void increaseAspectInstances();
-
-    /**
-     * @return the number of created Aspect instances.
-     */
-    int getAspectInstanceCounter();
 }

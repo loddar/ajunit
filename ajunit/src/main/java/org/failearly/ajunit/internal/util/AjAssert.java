@@ -15,9 +15,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package org.failearly.ajunit.internal.util;
 
@@ -37,38 +34,62 @@ public abstract class AjAssert {
 
     public static void parameterNotNull(final Object parameter, final String parameterName) {
         if(parameter==null) {
-            LOGGER.error("ajUnit - Parameter {} is null.", parameterName);
-            throw new IllegalArgumentException("ajUnit - Parameter '" + parameterName + "' is null");
+            throwIllegalArgumentException(MessageBuilderUtils.message("Parameter").arg(parameterName).part("is null"));
         }
     }
 
     public static void attributeIsNull(final Object object, final String attributeName) {
         if(object!=null) {
-            LOGGER.error("ajUnit - Attribute {} is not null.", attributeName);
-            throw new IllegalArgumentException("ajUnit - Attribute '" + attributeName + "' is not null");
+            throwIllegalArgumentException(MessageBuilderUtils.message("Attribute").arg(attributeName).part("is not null"));
         }
     }
 
     public static void state(boolean state, String msg) {
         if( ! state ) {
-            LOGGER.error("ajUnit - Illegal state: {}", msg);
-            throw new IllegalStateException("ajUnit - Illegal state: " + msg);
+            throwIllegalStateException(MessageBuilderUtils.message("Illegal state:").part(msg));
         }
     }
 
     public static void parameterNotEmpty(Collection<?> collection, String parameterName) {
         parameterNotNull(collection, parameterName);
         if(collection.isEmpty()) {
-            LOGGER.error("ajUnit - Parameter {} is empty.", parameterName);
-            throw new IllegalArgumentException("ajUnit - Parameter '" + parameterName + "' is empty.");
+            throwIllegalArgumentException(MessageBuilderUtils.message("Parameter").arg(parameterName).part("is empty"));
         }
     }
 
     public static void parameter(boolean condition, String msg) {
         if( ! condition ) {
-            LOGGER.error("ajUnit - Illegal argument condition: {}", msg);
-            throw new IllegalArgumentException("ajUnit - Illegal argument condition: " + msg);
+            throwIllegalArgumentException(MessageBuilderUtils.message("Illegal argument condition:").part(msg));
         }
+    }
 
+    public static void assertCondition(boolean condition, String msg) {
+        if( ! condition ) {
+            throwAssertionError(MessageBuilderUtils.message("Assertion failed:").part(msg));
+        }
+    }
+
+    public static void assertCondition(boolean condition, MessageBuilder messageBuilder) {
+        if( ! condition ) {
+            throwAssertionError(messageBuilder);
+        }
+    }
+
+    public static void throwIllegalArgumentException(MessageBuilder messageBuilder) throws IllegalArgumentException {
+        final String message=messageBuilder.build();
+        LOGGER.error(message);
+        throw new IllegalArgumentException(message);
+    }
+
+    public static void throwIllegalStateException(MessageBuilder messageBuilder) throws IllegalStateException {
+        final String message=messageBuilder.build();
+        LOGGER.error(message);
+        throw new IllegalStateException(message);
+    }
+
+    public static void throwAssertionError(MessageBuilder messageBuilder) {
+        final String message=messageBuilder.build();
+        LOGGER.error(message);
+        throw new AssertionError(message);
     }
 }

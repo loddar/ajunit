@@ -15,9 +15,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package org.failearly.ajunit.internal.universe;
 
@@ -211,7 +208,7 @@ public enum AjJoinPointType {
      * Returns the associated {@link AjJoinPointMatcher}.
      * The default implementation returns the {@link org.failearly.ajunit.internal.universe.matcher.NullMatcher}.
      *
-     * @see org.failearly.ajunit.AjUnitAspect
+     * @see org.failearly.ajunit.AjUnitClassicAspect
      */
     public AjJoinPointMatcher getJoinPointMatcher() {
         return JoinPointMatchers.nullMatcher();

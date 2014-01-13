@@ -15,18 +15,13 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit;
+package any.company.aspect;
 
 /**
- * AjUnitAfterAspect applies an after advice on pointcut {@code pointcutUnderTest}.
+ * MyTestFixture is responsible for ...
  */
-public abstract aspect AjUnitAfterAspect extends AjUnitAspect {
+public class MyTestFixture {
 
-    after() : pointcutUnderTest() {
-        doApply(thisJoinPoint);
-    }
+    public void anyMethod() {}
 }

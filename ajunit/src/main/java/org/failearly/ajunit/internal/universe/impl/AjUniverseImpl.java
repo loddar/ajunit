@@ -15,9 +15,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package org.failearly.ajunit.internal.universe.impl;
 
@@ -44,7 +41,6 @@ final class AjUniverseImpl implements AjUniverse {
     private final String universeName;
     private final List<AjJoinPoint> joinPoints;
     private boolean initialized = false;
-    private int aspectInstanceCounter=0;
 
     AjUniverseImpl(final String universeName) {
         this(universeName, new LinkedList<AjJoinPoint>());
@@ -101,15 +97,5 @@ final class AjUniverseImpl implements AjUniverse {
         for (AjJoinPoint joinPoint : joinPoints) {
             joinPointVisitor.visit(joinPoint);
         }
-    }
-
-    @Override
-    public void increaseAspectInstances() {
-        this.aspectInstanceCounter++;
-    }
-
-    @Override
-    public int getAspectInstanceCounter() {
-        return aspectInstanceCounter;
     }
 }

@@ -15,19 +15,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit;
+package any.company.aspect;
+
+import org.failearly.ajunit.AjUnitBeforeClassicAspect;
+import org.failearly.ajunit.AjUniverseName;
 
 /**
- * AjUnitAroundAspect applies an around advice on pointcut {@code pointcutUnderTest}, mimic a before advice.
+ * MissingBaseAspectAspect is responsible for ...
  */
-public abstract aspect AjUnitAroundAspect extends AjUnitAspect {
+@AjUniverseName("testUniverse")
+public aspect CorrectAjUnitClassicAspect extends AjUnitBeforeClassicAspect {
 
-    Object around() : pointcutUnderTest() {
-        doApply(thisJoinPoint);
-        return proceed();
-    }
+    protected pointcut pointcutUnderTest() : allMethodExecution();
 }

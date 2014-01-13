@@ -15,36 +15,20 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit;
+package org.failearly.ajunit.junit4;
 
-import org.junit.Before;
+import org.failearly.ajunit.AjUnitTest;
 import org.junit.Test;
 
 /**
- * JUnit4Test is the base class for JUnit4 based test of ajUnit tests.
+ * AjUnit4Test is the base class for JUnit4 based test of ajUnit tests.
  */
-public abstract class JUnit4Test extends AjUnitTest {
-
-    protected JUnit4Test(Class<?>... testFixtureClasses) {
-        super(testFixtureClasses);
-    }
-
-    protected JUnit4Test(String... classNames) throws ClassNotFoundException {
-        super(classNames);
-    }
-
-    @Before @Override
-    public void setup() {
-        super.dropUniverse();
-    }
+public abstract class AjUnit4Test extends AjUnitTest {
 
     @Test
     public final void pointcutTest() {
-        super.executePointcutTest();
+        super.doPointcutTest();
     }
 
 }

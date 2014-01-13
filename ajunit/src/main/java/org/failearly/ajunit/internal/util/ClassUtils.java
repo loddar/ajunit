@@ -15,9 +15,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package org.failearly.ajunit.internal.util;
 
@@ -130,14 +127,21 @@ public abstract class ClassUtils {
      * @param fqcn  full qualified class name.
      * @param initialize {@code true} if the class should be initialized, otherwise {@code false}.
      * @return the class object.
-     * @throws ClassNotFoundException
+     * @throws IllegalArgumentException if the class could not be found.
      */
-    public static Class<?> loadClass(String fqcn, boolean initialize) throws ClassNotFoundException {
+    public static Class<?> loadClass(String fqcn, boolean initialize) {
         try {
             return Class.forName(fqcn, initialize, Thread.currentThread().getContextClassLoader());
         } catch (ClassNotFoundException e) {
-            LOGGER.error("Class '{}' could not be found", fqcn);
-            throw e;
+            AjAssert.throwIllegalArgumentException(
+                    MessageBuilderUtils.message("Class")
+                            .arg(fqcn)
+                            .part("could not be found.")
+                            .line("The class name must be full qualified.")
+                   );
         }
+
+        // Never reached
+        return null;
     }
 }

@@ -15,30 +15,32 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package org.failearly.ajunit.builder;
 
+import org.failearly.ajunit.modifier.AccessModifier;
+
 /**
- * MethodJoinPointSelectorBuilder is responsible for ...
+ * MethodJoinPointSelectorBuilder is the builder for method join point selector expression.
+ * <br/><br/>
+ * AspectJ pointcut definitions:
+ * <code>
+ *     call(method signature)
+ *     execution(method signature)
+ * </code>
+ *
+ * @see
  */
-public interface MethodJoinPointSelectorBuilder {
+public interface MethodJoinPointSelectorBuilder extends LogicalSelectorBuilder<MethodJoinPointSelectorBuilder> {
 
-    MethodJoinPointSelectorBuilder or();
-    MethodJoinPointSelectorBuilder union();
-    MethodJoinPointSelectorBuilder anyOf();
+    JoinPointSelectorBuilder endMethod();
 
-    MethodJoinPointSelectorBuilder and();
-    MethodJoinPointSelectorBuilder intersect();
-    MethodJoinPointSelectorBuilder allOf();
+    MethodJoinPointSelectorBuilder byAnyOfAccessModifiers(AccessModifier... accessModifier);
+    MethodJoinPointSelectorBuilder byNoneOfAccessModifiers(AccessModifier... accessModifier);
+    MethodJoinPointSelectorBuilder byName(String methodName);
+    MethodJoinPointSelectorBuilder byDeclaringClass(Class<?> clazz);
+    MethodJoinPointSelectorBuilder byDeclaringClassName(String className);
 
-    JoinPointSelectorBuilder end();
-
-
-    MethodJoinPointSelectorBuilder byMethodName(String methodName);
-    MethodJoinPointSelectorBuilder byClass(Class<?> clazz);
-    MethodJoinPointSelectorBuilder byClassName(String className);
-
+    MethodJoinPointSelectorBuilder byReturnType(Class<?> clazz);
+    MethodJoinPointSelectorBuilder byReturnType(String className);
 }

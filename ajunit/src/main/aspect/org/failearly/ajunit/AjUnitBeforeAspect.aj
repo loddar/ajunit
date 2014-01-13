@@ -15,18 +15,21 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package org.failearly.ajunit;
 
-/**
- * AjUnitBeforeAspect applies an before advice on pointcut {@code pointcutUnderTest}.
- */
-public abstract aspect AjUnitBeforeAspect extends AjUnitAspect {
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 
-    before() : pointcutUnderTest() {
-        doApply(thisJoinPoint);
+/**
+ * AjUnitBeforeAspect applies an before advice on pointcut {@link #pointcutUnderTest}.
+ */
+@Aspect
+public abstract class AjUnitBeforeAspect extends AjUnitAspect {
+
+    @Before("pointcutDefinition()")
+    public void beforeSelectedJoinPoint(JoinPoint thisJoinPoint) {
+        super.doApply(thisJoinPoint);
     }
 }
