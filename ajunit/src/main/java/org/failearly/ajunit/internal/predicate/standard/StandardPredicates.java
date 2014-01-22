@@ -28,6 +28,7 @@ public abstract class StandardPredicates {
 
     private static final Predicate P_TRUE = new ConstantPredicate(true);
     private static final Predicate P_FALSE = new ConstantPredicate(false);
+    public static final NotNullPredicate P_NOT_NULL = new NotNullPredicate();
 
     private StandardPredicates() {}
 
@@ -72,6 +73,10 @@ public abstract class StandardPredicates {
      */
     public static Predicate transformerPredicate(final Transformer transformer, final Predicate predicate) {
         return new TransformerPredicate(transformer, predicate);
+    }
+
+    public static Predicate predicateNotNull() {
+        return P_NOT_NULL;
     }
 
 }

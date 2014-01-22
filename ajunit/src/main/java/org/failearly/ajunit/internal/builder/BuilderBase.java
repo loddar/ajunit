@@ -19,7 +19,6 @@
 package org.failearly.ajunit.internal.builder;
 
 import org.failearly.ajunit.internal.predicate.Predicate;
-import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.failearly.ajunit.internal.util.AjAssert;
 
@@ -106,13 +105,6 @@ public abstract class BuilderBase<R extends RootBuilder, C extends Builder> impl
     @Override
     public R done() {
         return this.logicalStructureBuilder.done();
-    }
-
-    /**
-     * Add a predicate and negate it.
-     */
-    protected final void addNotPredicate(Predicate predicate) {
-        logicalStructureBuilder.addPredicate(LogicalPredicates.not(predicate));
     }
 
     @Override

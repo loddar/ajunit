@@ -43,4 +43,16 @@ public interface MethodJoinPointSelectorBuilder extends LogicalSelectorBuilder<M
 
     MethodJoinPointSelectorBuilder byReturnType(Class<?> clazz);
     MethodJoinPointSelectorBuilder byReturnType(String className);
+
+    /**
+     * Accepts any method signature.<br/>
+     * </br>
+     * AspectJ pointcut definitions:
+     * <ul>
+     *     <li><code>execution(* *(..))</code></li>
+     *     <li><code>call(* *(..))</code></li>
+     * </ul>
+     * @return itself
+     */
+    MethodJoinPointSelectorBuilder anyMethod();
 }

@@ -38,7 +38,7 @@ public abstract class AjUnitUtils {
      * @see org.failearly.ajunit.AjUnitClassicAspect
      * @see org.failearly.ajunit.AjUnitTest
      */
-    public static final String resolveUniverseName(final Object ajUnitObject) {
+    public static String resolveUniverseName(final Object ajUnitObject) {
         return resolveUniverseName(ajUnitObject.getClass());
     }
 
@@ -55,12 +55,12 @@ public abstract class AjUnitUtils {
     public static String resolveUniverseName(Class<?> ajUnitObjectClass) {
         final AjUniverseName universeName = AnnotationUtils.findClassAnnotation(ajUnitObjectClass, AjUniverseName.class);
         if (universeName == null) {
-            AjAssert.throwAssertionError(
-                    MessageBuilderUtils.message("Missing annotation @AjUniverseName for class/aspect")
+            AjAssert.throwSetupError(
+                    MessageUtils.setupError("Missing annotation @AjUniverseName for class/aspect")
                             .arg(ajUnitObjectClass.getSimpleName())
             );
             // Just for keeping it green.
-            return "unknown universe name";
+            return "<unknown universe name>";
         }
         return universeName.value();
     }

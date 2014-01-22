@@ -16,10 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package any.company.aspect;
+package org.failearly.ajunit;
 
 /**
- * MissingBaseAspectAspect does not extends correct base aspect.
+ * Setup the ajUnit Test by adding test fixture classes and TODO.
  */
-public aspect MissingBaseAspectAspect {
+public interface AjUnitSetup {
+    AjUnitSetup addTestFixtureClass(Class<?> clazz);
+    AjUnitSetup addTestFixtureClass(String className);
 }

@@ -18,6 +18,7 @@
  */
 package org.failearly.ajunit.internal.util;
 
+import org.failearly.ajunit.AjUnitSetupError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,44 +35,38 @@ public abstract class AjAssert {
 
     public static void parameterNotNull(final Object parameter, final String parameterName) {
         if(parameter==null) {
-            throwIllegalArgumentException(MessageBuilderUtils.message("Parameter").arg(parameterName).part("is null"));
+            throwIllegalArgumentException(MessageUtils.message("Parameter").arg(parameterName).part("is null"));
         }
     }
 
     public static void attributeIsNull(final Object object, final String attributeName) {
         if(object!=null) {
-            throwIllegalArgumentException(MessageBuilderUtils.message("Attribute").arg(attributeName).part("is not null"));
+            throwIllegalArgumentException(MessageUtils.message("Attribute").arg(attributeName).part("is not null"));
         }
     }
 
     public static void state(boolean state, String msg) {
         if( ! state ) {
-            throwIllegalStateException(MessageBuilderUtils.message("Illegal state:").part(msg));
+            throwIllegalStateException(MessageUtils.message("Illegal state:").part(msg));
         }
     }
 
     public static void parameterNotEmpty(Collection<?> collection, String parameterName) {
         parameterNotNull(collection, parameterName);
         if(collection.isEmpty()) {
-            throwIllegalArgumentException(MessageBuilderUtils.message("Parameter").arg(parameterName).part("is empty"));
+            throwIllegalArgumentException(MessageUtils.message("Parameter").arg(parameterName).part("is empty"));
         }
     }
 
     public static void parameter(boolean condition, String msg) {
         if( ! condition ) {
-            throwIllegalArgumentException(MessageBuilderUtils.message("Illegal argument condition:").part(msg));
-        }
-    }
-
-    public static void assertCondition(boolean condition, String msg) {
-        if( ! condition ) {
-            throwAssertionError(MessageBuilderUtils.message("Assertion failed:").part(msg));
+            throwIllegalArgumentException(MessageUtils.message("Illegal argument condition:").part(msg));
         }
     }
 
     public static void assertCondition(boolean condition, MessageBuilder messageBuilder) {
         if( ! condition ) {
-            throwAssertionError(messageBuilder);
+            throwIllegalStateException(messageBuilder);
         }
     }
 
@@ -87,9 +82,9 @@ public abstract class AjAssert {
         throw new IllegalStateException(message);
     }
 
-    public static void throwAssertionError(MessageBuilder messageBuilder) {
+    public static void throwSetupError(MessageBuilder messageBuilder) {
         final String message=messageBuilder.build();
         LOGGER.error(message);
-        throw new AssertionError(message);
+        throw new AjUnitSetupError(message);
     }
 }

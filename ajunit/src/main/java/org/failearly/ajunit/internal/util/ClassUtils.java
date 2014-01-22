@@ -133,12 +133,12 @@ public abstract class ClassUtils {
         try {
             return Class.forName(fqcn, initialize, Thread.currentThread().getContextClassLoader());
         } catch (ClassNotFoundException e) {
-            AjAssert.throwIllegalArgumentException(
-                    MessageBuilderUtils.message("Class")
+            AjAssert.throwSetupError(
+                    MessageUtils.setupError("Class")
                             .arg(fqcn)
                             .part("could not be found.")
                             .line("The class name must be full qualified.")
-                   );
+            );
         }
 
         // Never reached

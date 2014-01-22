@@ -16,10 +16,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package any.company.aspect;
+package org.failearly.ajunit;
+
+import org.failearly.ajunit.internal.predicate.Predicate;
 
 /**
- * MissingBaseAspectAspect does not extends correct base aspect.
+ * IgnoredMethod ...
+ * @see IgnoredMethods
  */
-public aspect MissingBaseAspectAspect {
+public interface IgnoredMethod {
+    /**
+     * ONLY INTERNAL USE.
+     */
+    Predicate predicate();
 }

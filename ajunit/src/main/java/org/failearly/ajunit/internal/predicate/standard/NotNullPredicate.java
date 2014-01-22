@@ -16,12 +16,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit;
+package org.failearly.ajunit.internal.predicate.standard;
+
+import org.failearly.ajunit.internal.predicate.Predicate;
 
 /**
- * Add the test fixture classes to the ajUnit universe.
+ * Predicate evaluates <code>object!=null</code>.
  */
-public interface AjUniverseSetup {
-    AjUniverseSetup addTestFixtureClass(Class<?> clazz);
-    AjUniverseSetup addTestFixtureClass(String className);
+final class NotNullPredicate implements Predicate {
+    @Override
+    public boolean evaluate(Object object) {
+        return object != null;
+    }
+
+    @Override
+    public String getType() {
+        return "NotNull";
+    }
+
+    @Override
+    public String toString() {
+        return getType();
+    }
 }

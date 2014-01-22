@@ -22,7 +22,32 @@ package org.failearly.ajunit.builder;
  * JoinPointSelectorBuilder is responsible for ...
  */
 public interface JoinPointSelectorBuilder  {
+    /**
+     * Select join points of type method execution.<br/>
+     * </br>
+     * AspectJ pointcut definitions:
+     * <ul>
+     *     <li><code>execution(<method signature>)</code></li>
+     * </ul>
+     *
+     * @return the method join point selector builder.
+     */
     MethodJoinPointSelectorBuilder methodExecute();
+
+    /**
+     * Select join points of type method execution.<br/>
+     * </br>
+     * AspectJ pointcut definitions:
+     * <ul>
+     *     <li><code>call(<method signature>)</code></li>
+     * </ul>
+     *
+     * @return the method join point selector builder.
+     */
     MethodJoinPointSelectorBuilder methodCall();
+
+    /**
+     * Does not select any join point. Just for initial setup - a placeholder.
+     */
     void notYetSpecified();
 }

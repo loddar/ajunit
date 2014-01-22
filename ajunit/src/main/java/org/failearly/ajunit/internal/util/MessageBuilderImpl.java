@@ -29,6 +29,10 @@ final class MessageBuilderImpl implements MessageBuilder {
         stringBuilder=new StringBuilder(initialMessage);
     }
 
+    public MessageBuilderImpl() {
+        this("");
+    }
+
     @Override
     public MessageBuilder part(String message) {
         stringBuilder.append(" ")
@@ -68,6 +72,11 @@ final class MessageBuilderImpl implements MessageBuilder {
 
     @Override
     public String build() {
+        return stringBuilder.toString();
+    }
+
+    @Override
+    public String toString() {
         return stringBuilder.toString();
     }
 }

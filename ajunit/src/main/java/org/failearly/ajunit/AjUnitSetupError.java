@@ -16,10 +16,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package any.company.aspect;
+package org.failearly.ajunit;
 
 /**
- * MissingBaseAspectAspect does not extends correct base aspect.
+ * Thrown in case of an ajUnit setup error.
+ *
+ * @see org.failearly.ajunit.AjUnitTest
  */
-public aspect MissingBaseAspectAspect {
+public final class AjUnitSetupError extends Error {
+
+    public AjUnitSetupError(String message) {
+        super(message);
+    }
 }

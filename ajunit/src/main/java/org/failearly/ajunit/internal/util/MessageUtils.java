@@ -19,27 +19,31 @@
 package org.failearly.ajunit.internal.util;
 
 /**
- * MessageBuilderUtils is responsible for ...
+ * MessageUtils provides factory methods for {@link org.failearly.ajunit.internal.util.MessageBuilder}.
  */
-public abstract class MessageBuilderUtils {
+public abstract class MessageUtils {
 
-    private MessageBuilderUtils() {}
+    private MessageUtils() {}
 
     /**
-     * Factory method for message builder with initial message.
+     * Factory method for message builder with initial message: <i>ajUnit - {@code message}</i>.
      * @param message the initial message.
      * @return the created message builder.
      */
     public static MessageBuilder message(String message) {
-        return new MessageBuilderImpl("ajUnit -").part(message);
+        return createMessageBuilder("ajUnit -").part(message);
     }
 
     /**
-     * Factory method for message builder with initial message (without usual ajUnit -).
+     * Factory method for Setup Error messages with initial message: <i>ajUnit - Setup Error: {@code message}</i>.
      * @param message the initial message.
      * @return the created message builder.
      */
-    public static MessageBuilder assertMessage(String message) {
+    public static MessageBuilder setupError(String message) {
+        return createMessageBuilder("ajUnit - Setup Error:").part(message);
+    }
+
+    private static MessageBuilder createMessageBuilder(String message) {
         return new MessageBuilderImpl(message);
     }
 }

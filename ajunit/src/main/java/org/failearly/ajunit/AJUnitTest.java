@@ -21,15 +21,14 @@ package org.failearly.ajunit;
 import org.failearly.ajunit.builder.JoinPointSelectorBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderImpl;
 import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.universe.AjJoinPoint;
+import org.failearly.ajunit.internal.universe.AjJoinPointType;
+import org.failearly.ajunit.internal.universe.AjJoinPointVisitor;
 import org.failearly.ajunit.internal.universe.AjUniverse;
 import org.failearly.ajunit.internal.universe.impl.AjUniversesHolder;
-import org.failearly.ajunit.internal.util.AjUnitUtils;
-import org.failearly.ajunit.internal.util.ClassUtils;
-import org.failearly.ajunit.internal.util.MessageBuilder;
-import org.failearly.ajunit.internal.util.MessageBuilderUtils;
+import org.failearly.ajunit.internal.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -47,13 +46,14 @@ public abstract class AjUnitTest {
             universeName = resolveUniverseName();
             assertAssociatedAspect(universeName);
             final AjUniverse universe = setupUniverse(universeName);
-            final Predicate joinPointSelector = createJoinPointSelector(universe);
+            final Set<AjJoinPointType> joinPointTypes=new HashSet<>();
+            final Predicate joinPointSelector = createJoinPointSelector(joinPointTypes);
 
             // act / when
             executeTestFixtures();
 
             // assert / then
-            assertPointcutDefinition(universe, joinPointSelector);
+            assertPointcutDefinition(universe, joinPointTypes, joinPointSelector);
         } finally {
             // Cleanup
             if( universeName!=null ) {
@@ -63,7 +63,50 @@ public abstract class AjUnitTest {
 
     }
 
-    private void assertPointcutDefinition(AjUniverse universe, final Predicate joinPointSelector) {
+    private void assertPointcutDefinition(final AjUniverse universe, final Set<AjJoinPointType> joinPointTypes, final Predicate joinPointSelector) {
+        final List<AjJoinPoint> matchingJoinPoints=new LinkedList<>();
+        universe.visitJoinPoints(new AjJoinPointVisitor() {
+            @Override
+            public void visit(AjJoinPoint joinPoint) {
+                if( joinPointSelector.evaluate(joinPoint) ) {
+                    matchingJoinPoints.add(joinPoint);
+                }
+            }
+        });
+
+        assertMatchingJoinPoints(matchingJoinPoints, joinPointTypes);
+    }
+
+    private void assertMatchingJoinPoints(List<AjJoinPoint> matchingJoinPoints, Set<AjJoinPointType> joinPointTypes) {
+        if( matchingJoinPoints.isEmpty() ) {
+            doFail(MessageUtils.message("No join points matching. Possible reasons:")
+                    .line("The pointcut definition does mot match.")
+                    .line("The setupJoinPointSelector() uses notYetSpecified().")
+                    .line("Method executeTestFixtures() does not provide a proper implementation.")
+            );
+        }
+        else {
+            final List<AjJoinPoint> appliedJoinPoints=resolveAppliedJoinPoints(matchingJoinPoints, joinPointTypes);
+            if( appliedJoinPoints.size()<matchingJoinPoints.size() ) {
+                doFail(incompleteMessage(matchingJoinPoints, appliedJoinPoints));
+            }
+        }
+    }
+
+    private MessageBuilder incompleteMessage(List<AjJoinPoint> matchingJoinPoints, List<AjJoinPoint> appliedJoinPoints) {
+        final MessageBuilder messageBuilder = MessageUtils.message("The pointcut definition is incomplete.");
+        return messageBuilder;
+    }
+
+    private List<AjJoinPoint> resolveAppliedJoinPoints(List<AjJoinPoint> joinPointList, Set<AjJoinPointType> joinPointTypes) {
+        final List<AjJoinPoint> appliedJoinPoints=new LinkedList<>();
+        for (AjJoinPoint joinPoint : joinPointList) {
+            if( joinPoint.getNumApplications()>0 ) {
+                appliedJoinPoints.add(joinPoint);
+            }
+        }
+        AjAssert.assertCondition(appliedJoinPoints.size()<=joinPointList.size(), MessageUtils.message("#applied > #matching join points."));
+        return appliedJoinPoints;
     }
 
     private void assertAssociatedAspect(String universeName) {
@@ -76,8 +119,8 @@ public abstract class AjUnitTest {
     private void doAssertAspectsUniverse(Class<?> aspectClass, String universeName) {
         final String aspectsUniverseName=AjUnitUtils.resolveUniverseName(aspectClass);
         if( ! universeName.equals(aspectsUniverseName) ) {
-            doFail(
-                    MessageBuilderUtils.message("Aspect").arg(aspectClass.getCanonicalName()).part("has wrong universe name:").arg(aspectsUniverseName).fullStop()
+            throwSetupError(
+                    MessageUtils.setupError("Aspect").arg(aspectClass.getCanonicalName()).part("has wrong universe name:").arg(aspectsUniverseName).fullStop()
                             .line("Please use universe name:").arg(universeName).fullStop()
             );
         }
@@ -85,14 +128,14 @@ public abstract class AjUnitTest {
 
     private void doAssertAspectExtendsBaseAspectClass(Class<?> aspectClass) {
         if( ! AjUnitAspectBase.class.isAssignableFrom(aspectClass) )  {
-            doFail(MessageBuilderUtils.message("Test aspect")
+            throwSetupError(MessageUtils.setupError("Test aspect")
                     .arg(aspectClass.getCanonicalName())
                     .part("does not extend AjUnitAspectBase!")
                     .line("Please extend your aspect from one of the provided base aspects:")
-                        .subLine("AjUnitAspect or AjUnitClassicAspect")
-                        .subLine("AjUnitBeforeAspect or AjUnitBeforeClassicAspect")
-                        .subLine("AjUnitAfterAspect or AjUnitAfterClassicAspect")
-                        .subLine("AjUnitAroundAspect or AjUnitAroundClassicAspect")
+                    .subLine("AjUnitAspect or AjUnitClassicAspect")
+                    .subLine("AjUnitBeforeAspect or AjUnitBeforeClassicAspect")
+                    .subLine("AjUnitAfterAspect or AjUnitAfterClassicAspect")
+                    .subLine("AjUnitAroundAspect or AjUnitAroundClassicAspect")
             );
         }
     }
@@ -110,14 +153,14 @@ public abstract class AjUnitTest {
      * @return the aspect's full qualified class name.
      */
     protected String getAssociatedAspect() {
-        doFail(MessageBuilderUtils.message("No associated aspect defined.")
+        throwSetupError(MessageUtils.setupError("No associated aspect defined.")
                 .line("Create an aspect and ...")
                 .line("override getAssociatedAspect() providing the full qualified class name of the aspect."));
         return null;
     }
 
     private AjUniverse setupUniverse(String universeName) {
-        final AjUniverseSetupImpl ajUnitTestSetup = new AjUniverseSetupImpl();
+        final AjUnitSetupImpl ajUnitTestSetup = new AjUnitSetupImpl();
         initializeTest(ajUnitTestSetup);
 
         assertUniverseSetup(ajUnitTestSetup);
@@ -129,21 +172,25 @@ public abstract class AjUnitTest {
         return AjUnitUtils.resolveUniverseName(this);
     }
 
-    private void assertUniverseSetup(AjUniverseSetupImpl ajUnitTestSetup) {
+    private void assertUniverseSetup(AjUnitSetupImpl ajUnitTestSetup) {
         final List<Class<?>> testFixtureClasses = ajUnitTestSetup.testFixtureClasses;
         if( testFixtureClasses.isEmpty() ) {
-            doFail(MessageBuilderUtils.message("Missing test fixture class(es).")
-                        .line("Apply addTestFixtureClass(<class> or <class name>) for every test fixture class.")
-                );
+            throwSetupError(MessageUtils.setupError("Missing test fixture class(es).")
+                    .line("Apply addTestFixtureClass(<class> or <class name>) for every test fixture class.")
+            );
         }
     }
 
     /**
      * Adds the test fixture classes to the ajUnit universe.
-     * @param ajUniverseSetup
+     * @param ajUnitSetup the universe setup instance.
      */
-    protected void initializeTest(AjUniverseSetup ajUniverseSetup) {
-        doFail(MessageBuilderUtils.message("Missing implementation of initializeTest(AjUniverseSetup)!"));
+    protected void initializeTest(AjUnitSetup ajUnitSetup) {
+        throwSetupError(MessageUtils.setupError("Missing implementation of initializeTest(AjUnitSetup)!"));
+    }
+    
+   private void throwSetupError(MessageBuilder messageBuilder) {
+        AjAssert.throwSetupError(messageBuilder);
     }
 
     private void doFail(MessageBuilder message) {
@@ -155,11 +202,11 @@ public abstract class AjUnitTest {
      */
     protected abstract void doFail(String message);
 
-    private Predicate createJoinPointSelector(AjUniverse universe) {
-        final JoinPointSelectorBuilderImpl joinPointBuilder=new JoinPointSelectorBuilderImpl();
+    private Predicate createJoinPointSelector(final Set<AjJoinPointType> joinPointTypes) {
+        final JoinPointSelectorBuilderImpl joinPointBuilder=new JoinPointSelectorBuilderImpl(joinPointTypes);
         setupJoinPointSelector(joinPointBuilder);
         if( ! joinPointBuilder.anyPredicateDefined() ) {
-            doFail(MessageBuilderUtils.message("Missing valid implementation of setupJoinPointSelector(JoinPointSelectorBuilder)."));
+            throwSetupError(MessageUtils.setupError("Missing valid implementation of setupJoinPointSelector(JoinPointSelectorBuilder)."));
         }
         return joinPointBuilder.build();
     }
@@ -169,7 +216,8 @@ public abstract class AjUnitTest {
      * @param joinPointSelectorBuilder
      */
     protected void setupJoinPointSelector(JoinPointSelectorBuilder joinPointSelectorBuilder) {
-        doFail(MessageBuilderUtils.message("Missing setupJoinPointSelector.").line("Please override setupJoinPointSelector(JoinPointSelectorBuilder)"));
+        throwSetupError(MessageUtils.setupError("Missing setupJoinPointSelector.")
+                .line("Please override setupJoinPointSelector(JoinPointSelectorBuilder)"));
     }
 
 
@@ -178,20 +226,20 @@ public abstract class AjUnitTest {
      */
     protected abstract void executeTestFixtures();
 
-    private static class AjUniverseSetupImpl implements AjUniverseSetup {
+    private static class AjUnitSetupImpl implements AjUnitSetup {
         private final List<Class<?>> testFixtureClasses =new ArrayList<>();
 
-        public AjUniverseSetupImpl() {
+        public AjUnitSetupImpl() {
         }
 
         @Override
-        public AjUniverseSetup addTestFixtureClass(Class<?> clazz) {
+        public AjUnitSetup addTestFixtureClass(Class<?> clazz) {
             testFixtureClasses.add(clazz);
             return this;
         }
 
         @Override
-        public AjUniverseSetup addTestFixtureClass(String className) {
+        public AjUnitSetup addTestFixtureClass(String className) {
             testFixtureClasses.add(ClassUtils.loadClass(className, false));
             return this;
         }
