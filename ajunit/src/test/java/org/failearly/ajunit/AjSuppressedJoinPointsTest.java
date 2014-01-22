@@ -36,9 +36,9 @@ import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
 /**
- * IgnoredMethodsTest is responsible for ...
+ * AjSuppressedJoinPointsTest is responsible for ...
  */
-public class IgnoredMethodsTest {
+public class AjSuppressedJoinPointsTest {
 
     public static final String ANY_UNIVERSE = "anyUniverse";
 
@@ -46,7 +46,7 @@ public class IgnoredMethodsTest {
 
     @Before
     public void setUp() throws Exception {
-        this.ajUniverse=AjUniversesHolder.createUniverseByClassNames(ANY_UNIVERSE, Arrays.asList("java.lang.Object"));
+        this.ajUniverse=AjUniversesHolder.createUniverseByClassNames(ANY_UNIVERSE, Arrays.asList(java.lang.Object.class.getName(),AnyWeavedClass.class.getName()));
     }
 
     @After
@@ -57,7 +57,7 @@ public class IgnoredMethodsTest {
     @Test
     public void javaLangObject() throws Exception {
         assertSelectedJoinPoints(
-                IgnoredMethods.jlo(),
+                AjSuppressedJoinPoints.jlo(),
                 // SyncMethods
                 "method-call{#apply=0, method=public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException}",
                 "method-execution{#apply=0, method=public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException}",
@@ -96,13 +96,13 @@ public class IgnoredMethodsTest {
 
     @Test
     public void jlo() throws Exception {
-        assertThat("Alias of javaLangObject()?", IgnoredMethods.jlo(), sameInstance(IgnoredMethods.javaLangObject()));
+        assertThat("Alias of javaLangObject()?", AjSuppressedJoinPoints.jlo(), sameInstance(AjSuppressedJoinPoints.javaLangObject()));
     }
 
     @Test
     public void jloStandardMethods() throws Exception {
         assertSelectedJoinPoints(
-                IgnoredMethods.jloStandardMethods(),
+                AjSuppressedJoinPoints.jloStandardMethods(),
                 // Standard Methods
                 "method-call{#apply=0, method=public boolean java.lang.Object.equals(java.lang.Object)}",
                 "method-execution{#apply=0, method=public boolean java.lang.Object.equals(java.lang.Object)}",
@@ -118,7 +118,7 @@ public class IgnoredMethodsTest {
     @Test
     public void jloSyncMethods() throws Exception {
         assertSelectedJoinPoints(
-                IgnoredMethods.jloSyncMethods(),
+                AjSuppressedJoinPoints.jloSyncMethods(),
                 // SyncMethods
                 "method-call{#apply=0, method=public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException}",
                 "method-execution{#apply=0, method=public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException}",
@@ -136,7 +136,7 @@ public class IgnoredMethodsTest {
     @Test
     public void jloClone() throws Exception {
         assertSelectedJoinPoints(
-                IgnoredMethods.jloClone(),
+                AjSuppressedJoinPoints.jloClone(),
                 // Cloning
                 "method-call{#apply=0, method=protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException}",
                 "method-execution{#apply=0, method=protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException}"
@@ -147,7 +147,7 @@ public class IgnoredMethodsTest {
     @Test
     public void jloEquals() throws Exception {
         assertSelectedJoinPoints(
-                IgnoredMethods.jloEquals(),
+                AjSuppressedJoinPoints.jloEquals(),
                 "method-call{#apply=0, method=public boolean java.lang.Object.equals(java.lang.Object)}",
                 "method-execution{#apply=0, method=public boolean java.lang.Object.equals(java.lang.Object)}"
         );
@@ -156,7 +156,7 @@ public class IgnoredMethodsTest {
     @Test
     public void jloHashCode() throws Exception {
         assertSelectedJoinPoints(
-                IgnoredMethods.jloHashCode(),
+                AjSuppressedJoinPoints.jloHashCode(),
                 "method-call{#apply=0, method=public native int java.lang.Object.hashCode()}",
                 "method-execution{#apply=0, method=public native int java.lang.Object.hashCode()}"
         );
@@ -165,7 +165,7 @@ public class IgnoredMethodsTest {
     @Test
     public void jloToString() throws Exception {
         assertSelectedJoinPoints(
-                IgnoredMethods.jloToString(),
+                AjSuppressedJoinPoints.jloToString(),
                 "method-call{#apply=0, method=public java.lang.String java.lang.Object.toString()}",
                 "method-execution{#apply=0, method=public java.lang.String java.lang.Object.toString()}"
         );
@@ -174,7 +174,7 @@ public class IgnoredMethodsTest {
     @Test
     public void jloGetClass() throws Exception {
         assertSelectedJoinPoints(
-                IgnoredMethods.jloGetClass(),
+                AjSuppressedJoinPoints.jloGetClass(),
                 "method-call{#apply=0, method=public final native java.lang.Class java.lang.Object.getClass()}",
                 "method-execution{#apply=0, method=public final native java.lang.Class java.lang.Object.getClass()}"
         );
@@ -183,7 +183,7 @@ public class IgnoredMethodsTest {
     @Test
     public void jloFinalize() throws Exception {
         assertSelectedJoinPoints(
-                IgnoredMethods.jloFinalize(),
+                AjSuppressedJoinPoints.jloFinalize(),
                 "method-call{#apply=0, method=protected void java.lang.Object.finalize() throws java.lang.Throwable}",
                 "method-execution{#apply=0, method=protected void java.lang.Object.finalize() throws java.lang.Throwable}"
         );
@@ -192,24 +192,65 @@ public class IgnoredMethodsTest {
     @Test
     public void jloConstructor() throws Exception {
         assertSelectedJoinPoints(
-                IgnoredMethods.jloConstructor(),
+                AjSuppressedJoinPoints.jloConstructor(),
                 "constructor-call{#apply=0, constructor=public java.lang.Object()}",
                 "constructor-execution{#apply=0, constructor=public java.lang.Object()}"
         );
     }
 
+    @Test
+    public void ajcMethods() throws Exception {
+        assertSelectedJoinPoints(
+                AjSuppressedJoinPoints.ajcMethods(),
+                "method-call{#apply=0, method=private void org.failearly.ajunit.AjSuppressedJoinPointsTest$AnyWeavedClass.ajc$other(java.lang.String)}",
+                "method-execution{#apply=0, method=private void org.failearly.ajunit.AjSuppressedJoinPointsTest$AnyWeavedClass.ajc$other(java.lang.String)}",
+                "method-call{#apply=0, method=private static void org.failearly.ajunit.AjSuppressedJoinPointsTest$AnyWeavedClass.ajc$Clinit()}",
+                "method-execution{#apply=0, method=private static void org.failearly.ajunit.AjSuppressedJoinPointsTest$AnyWeavedClass.ajc$Clinit()}"
+        );
+    }
+
+    @Test
+    public void ajcFields() throws Exception {
+        assertSelectedJoinPoints(
+                AjSuppressedJoinPoints.ajcFields(),
+                "field-get{#apply=0, field=private java.lang.String org.failearly.ajunit.AjSuppressedJoinPointsTest$AnyWeavedClass.ajc$field}",
+                "field-set{#apply=0, field=private java.lang.String org.failearly.ajunit.AjSuppressedJoinPointsTest$AnyWeavedClass.ajc$field}",
+                "field-get{#apply=0, field=private static java.lang.Object org.failearly.ajunit.AjSuppressedJoinPointsTest$AnyWeavedClass.ajc$other}",
+                "field-set{#apply=0, field=private static java.lang.Object org.failearly.ajunit.AjSuppressedJoinPointsTest$AnyWeavedClass.ajc$other}"
+        );
+    }
+
+    @Test
+    public void ajcMethod() throws Exception {
+        assertSelectedJoinPoints(
+                AjSuppressedJoinPoints.ajcMethod("Clinit"),
+                "method-call{#apply=0, method=private static void org.failearly.ajunit.AjSuppressedJoinPointsTest$AnyWeavedClass.ajc$Clinit()}",
+                "method-execution{#apply=0, method=private static void org.failearly.ajunit.AjSuppressedJoinPointsTest$AnyWeavedClass.ajc$Clinit()}"
+        );
+    }
+
+    @SuppressWarnings("all")
+    private static class AnyWeavedClass {
+        private String ajc$field;
+        private static Object ajc$other;
+        private static void ajc$Clinit() { }
+        private void ajc$other(String value) {
+            ajc$field = value;
+        }
+    }
 
 
 
-    private void assertSelectedJoinPoints(IgnoredMethod ignoredMethod, String... expectedJoinPoints) {
+
+    private void assertSelectedJoinPoints(SuppressedJoinPoint suppressedJoinPoint, String... expectedJoinPoints) {
         // act / when
-        final List<String> joinPoints = filterJoinPointsBy(ignoredMethod);
+        final List<String> joinPoints = filterJoinPointsBy(suppressedJoinPoint);
 
         // assert / then
         assertThat("Selected Join Points?", joinPoints, containsInAnyOrder(expectedJoinPoints));
     }
 
-    private List<String> filterJoinPointsBy(final IgnoredMethod method) {
+    private List<String> filterJoinPointsBy(final SuppressedJoinPoint method) {
         final List<String> joinPoints=new LinkedList<>();
         final Predicate predicate=method.predicate();
 

@@ -33,10 +33,24 @@ public final class LogicalPredicates {
     }
 
     /**
+     * Creates an logical AND predicate.
+     */
+    public static Predicate and(Predicate... predicates) {
+        return composite(and(), predicates);
+    }
+
+    /**
      * Creates an (empty) logical OR predicate.
      */
     public static CompositePredicate or() {
         return new OrPredicate();
+    }
+
+    /**
+     * Creates an logical OR predicate.
+     */
+    public static Predicate or(Predicate... predicates) {
+        return composite(or(), predicates);
     }
 
     /**
@@ -74,5 +88,11 @@ public final class LogicalPredicates {
         return not(or());
     }
 
+    private static Predicate composite(CompositePredicate compositePredicate, Predicate[] predicates) {
+        for (Predicate predicate : predicates) {
+            compositePredicate.addPredicate(predicate);
+        }
 
+        return compositePredicate;
+    }
 }

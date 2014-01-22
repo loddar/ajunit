@@ -21,10 +21,12 @@ package org.failearly.ajunit;
 import org.failearly.ajunit.internal.predicate.Predicate;
 
 /**
- * IgnoredMethod ...
- * @see IgnoredMethods
+ * SuppressedJoinPoint marks any {@link org.aspectj.lang.JoinPoint} which will be suppressed by ajUnit. You could enable it by
+ * calling {@link org.failearly.ajunit.AjUnitSetup#enableSuppressedJoinPoints(SuppressedJoinPoint)}.
+ *
+ * @see AjSuppressedJoinPoints
  */
-public interface IgnoredMethod {
+public interface SuppressedJoinPoint {
     /**
      * ONLY INTERNAL USE.
      */

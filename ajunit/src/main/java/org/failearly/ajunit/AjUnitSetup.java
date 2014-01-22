@@ -19,9 +19,20 @@
 package org.failearly.ajunit;
 
 /**
- * Setup the ajUnit Test by adding test fixture classes and TODO.
+ * Setup the ajUnit Test by adding test fixture classes and enabling suppressed join points.
  */
 public interface AjUnitSetup {
     AjUnitSetup addTestFixtureClass(Class<?> clazz);
     AjUnitSetup addTestFixtureClass(String className);
+
+    /**
+     * Opt in for suppressed join points. The usually suppressed join points (i.e. methods of {@link java.lang.Object}) could be enabled, so they will be
+     * part of the universe (test fixture classes) again.
+     *
+     * @param suppressedJoinPoints any suppressed joint point(s)
+     * @return this
+     *
+     * @see org.failearly.ajunit.AjSuppressedJoinPoints
+     */
+    AjUnitSetup enableSuppressedJoinPoints(SuppressedJoinPoint suppressedJoinPoints);
 }
