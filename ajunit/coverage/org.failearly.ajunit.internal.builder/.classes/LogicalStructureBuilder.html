@@ -1,0 +1,249 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: LogicalStructureBuilder</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">org.failearly.ajunit.internal.builder</a> ]
+</div>
+
+<h1>Coverage Summary for Class: LogicalStructureBuilder (org.failearly.ajunit.internal.builder)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LogicalStructureBuilder</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (12/ 15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90%
+  </span>
+  <span class="absValue">
+    (27/ 30)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;/*
+<i>2</i>&nbsp; * ajUnit - Unit Testing AspectJ pointcut definitions.
+<i>3</i>&nbsp; *
+<i>4</i>&nbsp; * Copyright (C) 2013-2014 Marko Umek (ajunit.contact(at)fail-early.com)
+<i>5</i>&nbsp; *
+<i>6</i>&nbsp; * This program is free software: you can redistribute it and/or modify
+<i>7</i>&nbsp; * it under the terms of the GNU General Public License as published by
+<i>8</i>&nbsp; * the Free Software Foundation, either version 3 of the License, or
+<i>9</i>&nbsp; * (at your option) any later version.
+<i>10</i>&nbsp; *
+<i>11</i>&nbsp; * This program is distributed in the hope that it will be useful,
+<i>12</i>&nbsp; * but WITHOUT ANY WARRANTY; without even the implied warranty of
+<i>13</i>&nbsp; * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+<i>14</i>&nbsp; * GNU General Public License for more details.
+<i>15</i>&nbsp; *
+<i>16</i>&nbsp; * You should have received a copy of the GNU General Public License
+<i>17</i>&nbsp; * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;
+<i>18</i>&nbsp; */
+<i>19</i>&nbsp;package org.failearly.ajunit.internal.builder;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;import org.failearly.ajunit.internal.predicate.CompositePredicate;
+<i>22</i>&nbsp;import org.failearly.ajunit.internal.predicate.Predicate;
+<i>23</i>&nbsp;import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
+<i>24</i>&nbsp;import org.failearly.ajunit.internal.util.AjAssert;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;/**
+<i>27</i>&nbsp; * Responsible for building a logical structure.
+<i>28</i>&nbsp; *
+<i>29</i>&nbsp; * @see org.failearly.ajunit.internal.builder.BuilderBase#init(LogicalStructureBuilder)
+<i>30</i>&nbsp; */
+<i>31</i>&nbsp;public final class LogicalStructureBuilder&lt;R extends RootBuilder, C extends Builder&gt; {
+<i>32</i>&nbsp;    private final CompositePredicate compositePredicate;
+<i>33</i>&nbsp;    private Builder parent;
+<i>34</i>&nbsp;    private C current;
+<i>35</i>&nbsp;    private R root;
+<b class="fc"><i>36</i>&nbsp;    private boolean anyPredicateDefined=false;</b>
+<i>37</i>&nbsp;
+<b class="fc"><i>38</i>&nbsp;    private LogicalStructureBuilder(R root, Builder parent, C current, CompositePredicate compositePredicate) {</b>
+<b class="fc"><i>39</i>&nbsp;        this.root = root;</b>
+<b class="fc"><i>40</i>&nbsp;        this.parent = parent;</b>
+<b class="fc"><i>41</i>&nbsp;        this.current = current;</b>
+<b class="fc"><i>42</i>&nbsp;        this.compositePredicate = compositePredicate;</b>
+<b class="fc"><i>43</i>&nbsp;        this.root.addBuilder(current);</b>
+<b class="fc"><i>44</i>&nbsp;    }</b>
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    /**
+<i>47</i>&nbsp;     * Factory method for creating &lt;i&gt;the&lt;/i&gt; ROOT builder instance.
+<i>48</i>&nbsp;     * @param root the ROOT builder instance. (will be used in the entire structure.)
+<i>49</i>&nbsp;     * @param compositePredicate the associated logical predicate.
+<i>50</i>&nbsp;     * @param &lt;R&gt; the ROOT builder type.
+<i>51</i>&nbsp;     * @return the logical structure builder.
+<i>52</i>&nbsp;     */
+<i>53</i>&nbsp;    public static &lt;R extends RootBuilder&gt; LogicalStructureBuilder&lt;R, R&gt; createRootBuilder(R root, CompositePredicate compositePredicate) {
+<b class="fc"><i>54</i>&nbsp;        return new LogicalStructureBuilder&lt;&gt;(root, root, root, compositePredicate);</b>
+<i>55</i>&nbsp;    }
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;    /**
+<i>59</i>&nbsp;     * Factory method for creating builder instances except the ROOT instance, where all builder nodes could be heterogeneous.
+<i>60</i>&nbsp;     * @param root the ROOT builder instance
+<i>61</i>&nbsp;     * @param parent the parent builder instance.
+<i>62</i>&nbsp;     * @param current the current builder.
+<i>63</i>&nbsp;     * @param compositePredicate the associated logical predicate.
+<i>64</i>&nbsp;     * @param &lt;R&gt; the ROOT builder type.
+<i>65</i>&nbsp;     * @param &lt;C&gt; the CURRENT builder type.
+<i>66</i>&nbsp;     * @return  the logical structure builder.
+<i>67</i>&nbsp;     */
+<i>68</i>&nbsp;    public static &lt;R extends RootBuilder, C extends Builder&gt; LogicalStructureBuilder&lt;R, C&gt;
+<i>69</i>&nbsp;        createBuilder(R root, Builder parent, C current, CompositePredicate compositePredicate) {
+<b class="fc"><i>70</i>&nbsp;        parent.addPredicate(compositePredicate);</b>
+<b class="fc"><i>71</i>&nbsp;        return new LogicalStructureBuilder&lt;&gt;(root, parent, current, compositePredicate);</b>
+<i>72</i>&nbsp;    }
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;    /**
+<i>75</i>&nbsp;     * Creates a new AND builder node.
+<i>76</i>&nbsp;     */
+<i>77</i>&nbsp;    &lt;N extends Builder&gt; N and(BuilderFactory&lt;R, C, N&gt; builderFactory) {
+<b class="fc"><i>78</i>&nbsp;        return createNewBuilderNode(builderFactory, LogicalPredicates.and());</b>
+<i>79</i>&nbsp;    }
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;    /**
+<i>82</i>&nbsp;     * Creates a new NAND builder node.
+<i>83</i>&nbsp;     */
+<i>84</i>&nbsp;    &lt;N extends Builder&gt; N nand(BuilderFactory&lt;R, C, N&gt; builderFactory) {
+<b class="nc"><i>85</i>&nbsp;        return createNewBuilderNode(builderFactory, LogicalPredicates.nand());</b>
+<i>86</i>&nbsp;    }
+<i>87</i>&nbsp;
+<i>88</i>&nbsp;    /**
+<i>89</i>&nbsp;     * Creates a new OR builder node.
+<i>90</i>&nbsp;     */
+<i>91</i>&nbsp;    &lt;N extends Builder&gt; N or(BuilderFactory&lt;R, C, N&gt; builderFactory) {
+<b class="fc"><i>92</i>&nbsp;        return createNewBuilderNode(builderFactory, LogicalPredicates.or());</b>
+<i>93</i>&nbsp;    }
+<i>94</i>&nbsp;
+<i>95</i>&nbsp;    /**
+<i>96</i>&nbsp;     * Creates a new NOR builder node.
+<i>97</i>&nbsp;     */
+<i>98</i>&nbsp;    &lt;N extends Builder&gt; N nor(BuilderFactory&lt;R, C, N&gt; builderFactory) {
+<b class="nc"><i>99</i>&nbsp;        return createNewBuilderNode(builderFactory, LogicalPredicates.nor());</b>
+<i>100</i>&nbsp;    }
+<i>101</i>&nbsp;
+<i>102</i>&nbsp;    /**
+<i>103</i>&nbsp;     * Creates a new XOR builder node.
+<i>104</i>&nbsp;     */
+<i>105</i>&nbsp;    &lt;N extends Builder&gt; N xor(BuilderFactory&lt;R, C, N&gt; builderFactory) {
+<b class="nc"><i>106</i>&nbsp;        return createNewBuilderNode(builderFactory, LogicalPredicates.xor());</b>
+<i>107</i>&nbsp;    }
+<i>108</i>&nbsp;
+<i>109</i>&nbsp;    &lt;N extends Builder&gt; N createNewBuilderNode(BuilderFactory&lt;R, C, N&gt; builderFactory, CompositePredicate compositePredicate) {
+<b class="fc"><i>110</i>&nbsp;        return builderFactory.createBuilder(this.root, this.current, compositePredicate);</b>
+<i>111</i>&nbsp;    }
+<i>112</i>&nbsp;
+<i>113</i>&nbsp;    /**
+<i>114</i>&nbsp;     * Adds a {@code predicate} to current predicate composite.
+<i>115</i>&nbsp;     */
+<i>116</i>&nbsp;    void addPredicate(Predicate predicate) {
+<b class="fc"><i>117</i>&nbsp;        if( ! (predicate instanceof CompositePredicate) ) {</b>
+<b class="fc"><i>118</i>&nbsp;            this.anyPredicateDefined = true;</b>
+<i>119</i>&nbsp;        }
+<b class="fc"><i>120</i>&nbsp;        compositePredicate.addPredicate(predicate);</b>
+<b class="fc"><i>121</i>&nbsp;    }</b>
+<i>122</i>&nbsp;
+<i>123</i>&nbsp;    /**
+<i>124</i>&nbsp;     * @return the parent builder node.
+<i>125</i>&nbsp;     */
+<i>126</i>&nbsp;    Builder end() {
+<b class="fc"><i>127</i>&nbsp;        return this.parent;</b>
+<i>128</i>&nbsp;    }
+<i>129</i>&nbsp;
+<i>130</i>&nbsp;
+<i>131</i>&nbsp;    /**
+<i>132</i>&nbsp;     * Jumps to the root builder node.
+<i>133</i>&nbsp;     *
+<i>134</i>&nbsp;     * @return the root builder node.
+<i>135</i>&nbsp;     * @see
+<i>136</i>&nbsp;     */
+<i>137</i>&nbsp;    R done() {
+<b class="fc"><i>138</i>&nbsp;        return this.root;</b>
+<i>139</i>&nbsp;    }
+<i>140</i>&nbsp;
+<i>141</i>&nbsp;    /**
+<i>142</i>&nbsp;     * Cleanup builder. Otherwise there will be memory leaks.
+<i>143</i>&nbsp;     *
+<i>144</i>&nbsp;     * @return parent builder.
+<i>145</i>&nbsp;     * @see Builder#cleanup()
+<i>146</i>&nbsp;     */
+<i>147</i>&nbsp;    void cleanup() {
+<b class="fc"><i>148</i>&nbsp;        this.root = null;</b>
+<b class="fc"><i>149</i>&nbsp;        this.parent = null;</b>
+<b class="fc"><i>150</i>&nbsp;        this.current = null;</b>
+<b class="fc"><i>151</i>&nbsp;    }</b>
+<i>152</i>&nbsp;
+<i>153</i>&nbsp;    /**
+<i>154</i>&nbsp;     * Build has been finished.
+<i>155</i>&nbsp;     * Caution: This method should be called by the ROOT builder.
+<i>156</i>&nbsp;     * @return the predicate build.
+<i>157</i>&nbsp;     */
+<i>158</i>&nbsp;    Predicate build() {
+<b class="fc"><i>159</i>&nbsp;        AjAssert.state(this.parent == this.root, &quot;This method should be called by the ROOT builder.&quot;);</b>
+<b class="fc"><i>160</i>&nbsp;        return compositePredicate;</b>
+<i>161</i>&nbsp;    }
+<i>162</i>&nbsp;
+<i>163</i>&nbsp;    boolean anyPredicateDefined() {
+<b class="fc"><i>164</i>&nbsp;        return anyPredicateDefined;</b>
+<i>165</i>&nbsp;    }
+<i>166</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2014-01-23 19:53</div>
+</div>
+</body>
+</html>

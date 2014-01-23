@@ -1,0 +1,139 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: NotCompoundPredicate</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">org.failearly.ajunit.internal.predicate.standard</a> ]
+</div>
+
+<h1>Coverage Summary for Class: NotCompoundPredicate (org.failearly.ajunit.internal.predicate.standard)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">NotCompoundPredicate</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;/*
+<i>2</i>&nbsp; * ajUnit - Unit Testing AspectJ pointcut definitions.
+<i>3</i>&nbsp; *
+<i>4</i>&nbsp; * Copyright (C) 2013-2014  Marko Umek (ajunit.contact(at)gmail.com)
+<i>5</i>&nbsp; *
+<i>6</i>&nbsp; * This program is free software: you can redistribute it and/or modify
+<i>7</i>&nbsp; * it under the terms of the GNU General Public License as published by
+<i>8</i>&nbsp; * the Free Software Foundation, either version 3 of the License, or
+<i>9</i>&nbsp; * (at your option) any later version.
+<i>10</i>&nbsp; *
+<i>11</i>&nbsp; * This program is distributed in the hope that it will be useful,
+<i>12</i>&nbsp; * but WITHOUT ANY WARRANTY; without even the implied warranty of
+<i>13</i>&nbsp; * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+<i>14</i>&nbsp; * GNU General Public License for more details.
+<i>15</i>&nbsp; *
+<i>16</i>&nbsp; * You should have received a copy of the GNU General Public License
+<i>17</i>&nbsp; * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;
+<i>18</i>&nbsp; */
+<i>19</i>&nbsp;package org.failearly.ajunit.internal.predicate.standard;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;import org.failearly.ajunit.internal.predicate.CompositePredicate;
+<i>22</i>&nbsp;import org.failearly.ajunit.internal.predicate.Predicate;
+<i>23</i>&nbsp;import org.failearly.ajunit.internal.predicate.PredicateBase;
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;/**
+<i>26</i>&nbsp; * NotCompoundPredicate implements &lt;code&gt;NOT(cp(P1(o), ...,Pn(o)))&lt;/code&gt;.
+<i>27</i>&nbsp; * &lt;ul&gt;
+<i>28</i>&nbsp; *     &lt;li&gt;cp := any implementation of {@link org.failearly.ajunit.internal.predicate.CompositePredicate}. &lt;/li&gt;
+<i>29</i>&nbsp; *     &lt;li&gt;P1, ..., Pn := any {@link org.failearly.ajunit.internal.predicate.Predicate} &lt;/li&gt;
+<i>30</i>&nbsp; * &lt;/ul&gt;
+<i>31</i>&nbsp; */
+<i>32</i>&nbsp;final class NotCompoundPredicate extends PredicateBase implements CompositePredicate {
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    private final CompositePredicate compositePredicate;
+<i>35</i>&nbsp;
+<b class="fc"><i>36</i>&nbsp;    public NotCompoundPredicate(CompositePredicate compositePredicate) {</b>
+<b class="fc"><i>37</i>&nbsp;        this.compositePredicate = compositePredicate;</b>
+<b class="fc"><i>38</i>&nbsp;    }</b>
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    @Override
+<i>41</i>&nbsp;    public CompositePredicate addPredicate(Predicate predicate) {
+<b class="fc"><i>42</i>&nbsp;        this.compositePredicate.addPredicate(predicate);</b>
+<b class="fc"><i>43</i>&nbsp;        return this;</b>
+<i>44</i>&nbsp;    }
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    @Override
+<i>47</i>&nbsp;    public boolean noPredicates() {
+<b class="fc"><i>48</i>&nbsp;        return compositePredicate.noPredicates();</b>
+<i>49</i>&nbsp;    }
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    @Override
+<i>52</i>&nbsp;    protected boolean doEvaluate(Object object) {
+<b class="fc"><i>53</i>&nbsp;        return noPredicates() || ! compositePredicate.evaluate(object);</b>
+<i>54</i>&nbsp;    }
+<i>55</i>&nbsp;
+<i>56</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2014-01-05 11:44</div>
+</div>
+</body>
+</html>

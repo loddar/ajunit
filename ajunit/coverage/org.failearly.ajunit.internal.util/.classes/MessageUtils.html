@@ -1,0 +1,132 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: MessageUtils</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">org.failearly.ajunit.internal.util</a> ]
+</div>
+
+<h1>Coverage Summary for Class: MessageUtils (org.failearly.ajunit.internal.util)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MessageUtils</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (3/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (3/ 4)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;/*
+<i>2</i>&nbsp; * ajUnit - Unit Testing AspectJ pointcut definitions.
+<i>3</i>&nbsp; *
+<i>4</i>&nbsp; * Copyright (C) 2013-2014 Marko Umek (ajunit.contact(at)fail-early.com)
+<i>5</i>&nbsp; *
+<i>6</i>&nbsp; * This program is free software: you can redistribute it and/or modify
+<i>7</i>&nbsp; * it under the terms of the GNU General Public License as published by
+<i>8</i>&nbsp; * the Free Software Foundation, either version 3 of the License, or
+<i>9</i>&nbsp; * (at your option) any later version.
+<i>10</i>&nbsp; *
+<i>11</i>&nbsp; * This program is distributed in the hope that it will be useful,
+<i>12</i>&nbsp; * but WITHOUT ANY WARRANTY; without even the implied warranty of
+<i>13</i>&nbsp; * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+<i>14</i>&nbsp; * GNU General Public License for more details.
+<i>15</i>&nbsp; *
+<i>16</i>&nbsp; * You should have received a copy of the GNU General Public License
+<i>17</i>&nbsp; * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;
+<i>18</i>&nbsp; */
+<i>19</i>&nbsp;package org.failearly.ajunit.internal.util;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;/**
+<i>22</i>&nbsp; * MessageUtils provides factory methods for {@link org.failearly.ajunit.internal.util.MessageBuilder}.
+<i>23</i>&nbsp; */
+<i>24</i>&nbsp;public abstract class MessageUtils {
+<i>25</i>&nbsp;
+<b class="nc"><i>26</i>&nbsp;    private MessageUtils() {}</b>
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    /**
+<i>29</i>&nbsp;     * Factory method for message builder with initial message: &lt;i&gt;ajUnit - {@code message}&lt;/i&gt;.
+<i>30</i>&nbsp;     * @param message the initial message.
+<i>31</i>&nbsp;     * @return the created message builder.
+<i>32</i>&nbsp;     */
+<i>33</i>&nbsp;    public static MessageBuilder message(String message) {
+<b class="fc"><i>34</i>&nbsp;        return createMessageBuilder(&quot;ajUnit -&quot;).part(message);</b>
+<i>35</i>&nbsp;    }
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    /**
+<i>38</i>&nbsp;     * Factory method for Setup Error messages with initial message: &lt;i&gt;ajUnit - Setup Error: {@code message}&lt;/i&gt;.
+<i>39</i>&nbsp;     * @param message the initial message.
+<i>40</i>&nbsp;     * @return the created message builder.
+<i>41</i>&nbsp;     */
+<i>42</i>&nbsp;    public static MessageBuilder setupError(String message) {
+<b class="fc"><i>43</i>&nbsp;        return createMessageBuilder(&quot;ajUnit - Setup Error:&quot;).part(message);</b>
+<i>44</i>&nbsp;    }
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    private static MessageBuilder createMessageBuilder(String message) {
+<b class="fc"><i>47</i>&nbsp;        return new MessageBuilderImpl(message);</b>
+<i>48</i>&nbsp;    }
+<i>49</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2014-01-23 19:53</div>
+</div>
+</body>
+</html>

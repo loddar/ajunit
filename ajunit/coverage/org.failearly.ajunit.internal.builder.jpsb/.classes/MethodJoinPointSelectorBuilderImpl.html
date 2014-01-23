@@ -1,0 +1,222 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: MethodJoinPointSelectorBuilderImpl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">org.failearly.ajunit.internal.builder.jpsb</a> ]
+</div>
+
+<h1>Coverage Summary for Class: MethodJoinPointSelectorBuilderImpl (org.failearly.ajunit.internal.builder.jpsb)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MethodJoinPointSelectorBuilderImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    16,7%
+  </span>
+  <span class="absValue">
+    (3/ 18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    42,3%
+  </span>
+  <span class="absValue">
+    (11/ 26)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;/*
+<i>2</i>&nbsp; * ajUnit - Unit Testing AspectJ pointcut definitions.
+<i>3</i>&nbsp; *
+<i>4</i>&nbsp; * Copyright (C) 2013-2014 Marko Umek (ajunit.contact(at)fail-early.com)
+<i>5</i>&nbsp; *
+<i>6</i>&nbsp; * This program is free software: you can redistribute it and/or modify
+<i>7</i>&nbsp; * it under the terms of the GNU General Public License as published by
+<i>8</i>&nbsp; * the Free Software Foundation, either version 3 of the License, or
+<i>9</i>&nbsp; * (at your option) any later version.
+<i>10</i>&nbsp; *
+<i>11</i>&nbsp; * This program is distributed in the hope that it will be useful,
+<i>12</i>&nbsp; * but WITHOUT ANY WARRANTY; without even the implied warranty of
+<i>13</i>&nbsp; * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+<i>14</i>&nbsp; * GNU General Public License for more details.
+<i>15</i>&nbsp; *
+<i>16</i>&nbsp; * You should have received a copy of the GNU General Public License
+<i>17</i>&nbsp; * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;
+<i>18</i>&nbsp; */
+<i>19</i>&nbsp;package org.failearly.ajunit.internal.builder.jpsb;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;import org.failearly.ajunit.builder.JoinPointSelectorBuilder;
+<i>22</i>&nbsp;import org.failearly.ajunit.builder.MethodJoinPointSelectorBuilder;
+<i>23</i>&nbsp;import org.failearly.ajunit.internal.builder.BuilderBase;
+<i>24</i>&nbsp;import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
+<i>25</i>&nbsp;import org.failearly.ajunit.internal.predicate.CompositePredicate;
+<i>26</i>&nbsp;import org.failearly.ajunit.internal.predicate.Predicate;
+<i>27</i>&nbsp;import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
+<i>28</i>&nbsp;import org.failearly.ajunit.internal.transformer.ajp.AjpTransformers;
+<i>29</i>&nbsp;import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
+<i>30</i>&nbsp;import org.failearly.ajunit.internal.universe.AjJoinPointType;
+<i>31</i>&nbsp;import org.failearly.ajunit.modifier.AccessModifier;
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;/**
+<i>34</i>&nbsp; * MethodJoinPointSelectorBuilderImpl is responsible for ...
+<i>35</i>&nbsp; */
+<i>36</i>&nbsp;class MethodJoinPointSelectorBuilderImpl extends BuilderBase&lt;JoinPointSelectorBuilderImpl,MethodJoinPointSelectorBuilderImpl&gt; implements MethodJoinPointSelectorBuilder {
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    private final AjJoinPointType joinPointType;
+<i>39</i>&nbsp;
+<b class="fc"><i>40</i>&nbsp;    MethodJoinPointSelectorBuilderImpl(</b>
+<i>41</i>&nbsp;            JoinPointSelectorBuilderImpl root,
+<i>42</i>&nbsp;            JoinPointSelectorBuilderImpl parent,
+<i>43</i>&nbsp;            CompositePredicate compositePredicate,
+<i>44</i>&nbsp;            AjJoinPointType joinPointType) {
+<b class="fc"><i>45</i>&nbsp;        init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));</b>
+<b class="fc"><i>46</i>&nbsp;        this.joinPointType = joinPointType;</b>
+<b class="fc"><i>47</i>&nbsp;    }</b>
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    @Override
+<i>50</i>&nbsp;    public JoinPointSelectorBuilder endMethod() {
+<b class="nc"><i>51</i>&nbsp;        return super.end(JoinPointSelectorBuilderImpl.class);</b>
+<i>52</i>&nbsp;    }
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    @Override
+<i>55</i>&nbsp;    public MethodJoinPointSelectorBuilder byAnyOfAccessModifiers(AccessModifier... accessModifier) {
+<b class="nc"><i>56</i>&nbsp;        return null;</b>
+<i>57</i>&nbsp;    }
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;    @Override
+<i>60</i>&nbsp;    public MethodJoinPointSelectorBuilder byNoneOfAccessModifiers(AccessModifier... accessModifier) {
+<b class="nc"><i>61</i>&nbsp;        return null;</b>
+<i>62</i>&nbsp;    }
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;    @Override
+<i>65</i>&nbsp;    public MethodJoinPointSelectorBuilder byName(String methodName) {
+<b class="nc"><i>66</i>&nbsp;        return null;</b>
+<i>67</i>&nbsp;    }
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    @Override
+<i>70</i>&nbsp;    public MethodJoinPointSelectorBuilder byDeclaringClass(Class&lt;?&gt; clazz) {
+<b class="nc"><i>71</i>&nbsp;        return null;</b>
+<i>72</i>&nbsp;    }
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;    @Override
+<i>75</i>&nbsp;    public MethodJoinPointSelectorBuilder byDeclaringClassName(String className) {
+<b class="nc"><i>76</i>&nbsp;        return null;</b>
+<i>77</i>&nbsp;    }
+<i>78</i>&nbsp;
+<i>79</i>&nbsp;    @Override
+<i>80</i>&nbsp;    public MethodJoinPointSelectorBuilder byReturnType(Class&lt;?&gt; clazz) {
+<b class="nc"><i>81</i>&nbsp;        return null;</b>
+<i>82</i>&nbsp;    }
+<i>83</i>&nbsp;
+<i>84</i>&nbsp;    @Override
+<i>85</i>&nbsp;    public MethodJoinPointSelectorBuilder byReturnType(String className) {
+<b class="nc"><i>86</i>&nbsp;        return null;</b>
+<i>87</i>&nbsp;    }
+<i>88</i>&nbsp;
+<i>89</i>&nbsp;    @Override
+<i>90</i>&nbsp;    public MethodJoinPointSelectorBuilder anyMethod() {
+<b class="fc"><i>91</i>&nbsp;        return addMethodPredicate(StandardPredicates.alwaysTrue());</b>
+<i>92</i>&nbsp;    }
+<i>93</i>&nbsp;
+<i>94</i>&nbsp;    private MethodJoinPointSelectorBuilder addMethodPredicate(Predicate predicate) {
+<b class="fc"><i>95</i>&nbsp;        addPredicate(StandardPredicates.transformerPredicate(</b>
+<b class="fc"><i>96</i>&nbsp;                StandardTransformers.transformerComposition(</b>
+<b class="fc"><i>97</i>&nbsp;                        AjpTransformers.ajpJoinPointFilterTransformer(this.joinPointType),</b>
+<b class="fc"><i>98</i>&nbsp;                        AjpTransformers.methodTransformer()</b>
+<i>99</i>&nbsp;                ),
+<b class="fc"><i>100</i>&nbsp;                predicate</b>
+<i>101</i>&nbsp;        ));
+<b class="fc"><i>102</i>&nbsp;        return this;</b>
+<i>103</i>&nbsp;    }
+<i>104</i>&nbsp;
+<i>105</i>&nbsp;    @Override
+<i>106</i>&nbsp;    public MethodJoinPointSelectorBuilder or() {
+<b class="nc"><i>107</i>&nbsp;        return null;</b>
+<i>108</i>&nbsp;    }
+<i>109</i>&nbsp;
+<i>110</i>&nbsp;    @Override
+<i>111</i>&nbsp;    public MethodJoinPointSelectorBuilder union() {
+<b class="nc"><i>112</i>&nbsp;        return null;</b>
+<i>113</i>&nbsp;    }
+<i>114</i>&nbsp;
+<i>115</i>&nbsp;    @Override
+<i>116</i>&nbsp;    public MethodJoinPointSelectorBuilder anyOf() {
+<b class="nc"><i>117</i>&nbsp;        return null;</b>
+<i>118</i>&nbsp;    }
+<i>119</i>&nbsp;
+<i>120</i>&nbsp;    @Override
+<i>121</i>&nbsp;    public MethodJoinPointSelectorBuilder and() {
+<b class="nc"><i>122</i>&nbsp;        return null;</b>
+<i>123</i>&nbsp;    }
+<i>124</i>&nbsp;
+<i>125</i>&nbsp;    @Override
+<i>126</i>&nbsp;    public MethodJoinPointSelectorBuilder intersect() {
+<b class="nc"><i>127</i>&nbsp;        return null;</b>
+<i>128</i>&nbsp;    }
+<i>129</i>&nbsp;
+<i>130</i>&nbsp;    @Override
+<i>131</i>&nbsp;    public MethodJoinPointSelectorBuilder allOf() {
+<b class="nc"><i>132</i>&nbsp;        return null;</b>
+<i>133</i>&nbsp;    }
+<i>134</i>&nbsp;
+<i>135</i>&nbsp;    @Override
+<i>136</i>&nbsp;    public MethodJoinPointSelectorBuilder end() {
+<b class="nc"><i>137</i>&nbsp;        return null;</b>
+<i>138</i>&nbsp;    }
+<i>139</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2014-01-23 19:53</div>
+</div>
+</body>
+</html>
