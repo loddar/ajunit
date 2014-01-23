@@ -18,13 +18,11 @@
  */
 package org.failearly.ajunit;
 
-import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
-import org.failearly.ajunit.internal.predicate.string.StringPredicates;
+import org.failearly.ajunit.internal.runner.SuppressedJoinPointFactory;
 import org.failearly.ajunit.internal.transformer.ajp.AjpTransformers;
-import org.failearly.ajunit.internal.transformer.member.MemberTransformers;
 import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
 import org.failearly.ajunit.internal.util.AjAssert;
 
@@ -33,133 +31,63 @@ import org.failearly.ajunit.internal.util.AjAssert;
  *
  * @see AjUnitSetup#enableSuppressedJoinPoints(SuppressedJoinPoint)
  */
-public final class AjSuppressedJoinPoints {
+public final class AjSuppressedJoinPoints extends SuppressedJoinPointFactory {
 
-    private static final String ASPECTJ_PREFIX = "ajc$";
+    private static final Predicate PREDICATE_JLO_STANDARD = anyMethodPredicate("equals", "hashCode", "toString", "getClass");
 
-    private static final SuppressedJoinPoint JLO_ALL = new SuppressedJoinPoint() {
-        @Override
-        public Predicate predicate() {
-            return byDeclaringClassIsJavaLangObject();
-        }
-    };
+    private static final Predicate PREDICATE_JLO_SYNC_METHODS = anyMethodPredicate("notify", "notifyAll", "wait");
 
-    private static final SuppressedJoinPoint JLO_STANDARD = new SuppressedJoinPoint() {
-        @Override
-        public Predicate predicate() {
-            return anyMethodPredicate("equals", "hashCode", "toString", "getClass");
-        }
-    };
+    private static final Predicate PREDICATE_JLO_CLONE = anyMethodPredicate("clone");
 
-    private static final SuppressedJoinPoint JLO_SYNC_METHODS = new SuppressedJoinPoint() {
-        @Override
-        public Predicate predicate() {
-            return anyMethodPredicate("notify", "notifyAll", "wait");
-        }
-    };
+    private static final Predicate PREDICATE_JLO_TO_STRING = anyMethodPredicate("toString");
 
-    private static final SuppressedJoinPoint JLO_CLONE = new SuppressedJoinPoint() {
-        @Override
-        public Predicate predicate() {
-            return anyMethodPredicate("clone");
-        }
-    };
+    private static final Predicate PREDICATE_JLO_HASH_CODE = anyMethodPredicate("hashCode");
 
-    private static final SuppressedJoinPoint JLO_TO_STRING = new SuppressedJoinPoint() {
-        @Override
-        public Predicate predicate() {
-            return anyMethodPredicate("toString");
-        }
-    };
+    private static final Predicate PREDICATE_JLO_EQUALS = anyMethodPredicate("equals");
 
-    private static final SuppressedJoinPoint JLO_HASH_CODE = new SuppressedJoinPoint() {
-        @Override
-        public Predicate predicate() {
-            return anyMethodPredicate("hashCode");
-        }
-    };
+    private static final Predicate PREDICATE_JLO_GET_CLASS = anyMethodPredicate("getClass");
 
-    private static final SuppressedJoinPoint JLO_EQUALS = new SuppressedJoinPoint() {
-        @Override
-        public Predicate predicate() {
-            return anyMethodPredicate("equals");
-        }
-    };
+    private static final Predicate PREDICATE_JLO_FINALIZE = anyMethodPredicate("finalize");
 
-    private static final SuppressedJoinPoint JLO_GET_CLASS = new SuppressedJoinPoint() {
-        @Override
-        public Predicate predicate() {
-            return anyMethodPredicate("getClass");
-        }
-    };
-
-    private static final SuppressedJoinPoint JLO_FINALIZE = new SuppressedJoinPoint() {
-        @Override
-        public Predicate predicate() {
-            return anyMethodPredicate("finalize");
-        }
-    };
-
-    private static final SuppressedJoinPoint JLO_CONSTRUCTOR = new SuppressedJoinPoint() {
-        @Override
-        public Predicate predicate() {
-            return LogicalPredicates.and(
-                    byDeclaringClassIsJavaLangObject(),
-                    StandardPredicates.transformerPredicate(
-                            StandardTransformers.transformerComposition(
-                                    AjpTransformers.constructorTransformer()
-                            ),
-                            StandardPredicates.predicateNotNull()
-                    )
-            );
-        }
-    };
-
-    private static final SuppressedJoinPoint AJC$METHODS = new SuppressedJoinPoint() {
-        @Override
-        public Predicate predicate() {
-            return StandardPredicates.transformerPredicate(
+    private static final Predicate PREDICATE_JLO_CONSTRUCTOR = LogicalPredicates.and(
+            byDeclaringClass(Object.class),
+            StandardPredicates.transformerPredicate(
                     StandardTransformers.transformerComposition(
-                            AjpTransformers.methodTransformer(),
-                            MemberTransformers.nameTransformer()
+                            AjpTransformers.constructorTransformer()
                     ),
-                    StringPredicates.startsWith(ASPECTJ_PREFIX)
-            );
-        }
-    };
-
-    private static final SuppressedJoinPoint AJC$FIELDS = new SuppressedJoinPoint() {
-        @Override
-        public Predicate predicate() {
-            return StandardPredicates.transformerPredicate(
-                    StandardTransformers.transformerComposition(
-                            AjpTransformers.fieldTransformer(),
-                            MemberTransformers.nameTransformer()
-                    ),
-                    StringPredicates.startsWith(ASPECTJ_PREFIX)
-            );
-        }
-    };
+                    StandardPredicates.predicateNotNull()
+            )
+    );
 
     /**
      * All methods and constructors of {@link java.lang.Object}.
      */
     public static SuppressedJoinPoint javaLangObject() {
-        return JLO_ALL;
+        return new SuppressedJoinPoint() {
+            @Override
+            public Predicate predicate() {
+                return PREDICATE_JAVA_LANG_OBJECT;
+            }
+        };
     }
 
     /**
      * Alias for {@link #javaLangObject()}.
      */
     public static SuppressedJoinPoint jlo() {
-        return JLO_ALL;
+        return javaLangObject();
     }
 
     /**
      * Selected Methods: {@link Object#equals(Object)}, {@link Object#hashCode()}, {@link Object#toString()} and {@link Object#getClass()}.
      */
     public static SuppressedJoinPoint jloStandardMethods() {
-        return JLO_STANDARD;
+        return new SuppressedJoinPoint() {
+            @Override
+            public Predicate predicate() {
+                return PREDICATE_JLO_STANDARD;
+            }
+        };
     }
 
     /**
@@ -167,56 +95,96 @@ public final class AjSuppressedJoinPoints {
      * {@link Object#wait(long, int)}  and {@link Object#wait(long)}.
      */
     public static SuppressedJoinPoint jloSyncMethods() {
-        return JLO_SYNC_METHODS;
+        return new SuppressedJoinPoint() {
+            @Override
+            public Predicate predicate() {
+                return PREDICATE_JLO_SYNC_METHODS;
+            }
+        };
     }
 
     /**
      * Selected Methods: {@link Object#clone()}.
      */
     public static SuppressedJoinPoint jloClone() {
-        return JLO_CLONE;
+        return new SuppressedJoinPoint() {
+            @Override
+            public Predicate predicate() {
+                return PREDICATE_JLO_CLONE;
+            }
+        };
     }
 
     /**
      * Selected Methods: {@link Object#toString()}.
      */
     public static SuppressedJoinPoint jloToString() {
-        return JLO_TO_STRING;
+        return new SuppressedJoinPoint() {
+            @Override
+            public Predicate predicate() {
+                return PREDICATE_JLO_TO_STRING;
+            }
+        };
     }
 
     /**
      * Selected Methods: {@link Object#hashCode()}.
      */
     public static SuppressedJoinPoint jloHashCode() {
-        return JLO_HASH_CODE;
+        return new SuppressedJoinPoint() {
+            @Override
+            public Predicate predicate() {
+                return PREDICATE_JLO_HASH_CODE;
+            }
+        };
     }
 
     /**
      * Selected Methods: {@link Object#equals(Object)}.
      */
     public static SuppressedJoinPoint jloEquals() {
-        return JLO_EQUALS;
+        return new SuppressedJoinPoint() {
+            @Override
+            public Predicate predicate() {
+                return PREDICATE_JLO_EQUALS;
+            }
+        };
     }
 
     /**
      * Selected Methods: {@link Object#getClass()}.
      */
     public static SuppressedJoinPoint jloGetClass() {
-        return JLO_GET_CLASS;
+        return new SuppressedJoinPoint() {
+            @Override
+            public Predicate predicate() {
+                return PREDICATE_JLO_GET_CLASS;
+            }
+        };
     }
 
     /**
      * Selected Methods: {@link Object#finalize()}.
      */
     public static SuppressedJoinPoint jloFinalize() {
-        return JLO_FINALIZE;
+        return new SuppressedJoinPoint() {
+            @Override
+            public Predicate predicate() {
+                return PREDICATE_JLO_FINALIZE;
+            }
+        };
     }
 
     /**
      * Constructor of {@link Object}.
      */
     public static SuppressedJoinPoint jloConstructor() {
-        return JLO_CONSTRUCTOR;
+        return new SuppressedJoinPoint() {
+            @Override
+            public Predicate predicate() {
+                return PREDICATE_JLO_CONSTRUCTOR;
+            }
+        };
     }
 
     /**
@@ -231,48 +199,5 @@ public final class AjSuppressedJoinPoints {
                 return byMethodName(ASPECTJ_PREFIX + methodName);
             }
         };
-    }
-
-    /**
-     * Suppress any method generated by AspectJ (starting with <code>ajc$</code>). Internal use only.
-     */
-    static SuppressedJoinPoint ajcMethods() {
-        return AJC$METHODS;
-    }
-
-    /**
-     * Suppress any field generated by AspectJ (starting with <code>ajc$</code>). Internal use only.
-     */
-    static SuppressedJoinPoint ajcFields() {
-        return AJC$FIELDS;
-    }
-
-    private static Predicate anyMethodPredicate(String... names) {
-        return LogicalPredicates.and(
-                byDeclaringClassIsJavaLangObject(),
-                byMethodName(names)
-        );
-    }
-
-    private static Predicate byDeclaringClassIsJavaLangObject() {
-        return StandardPredicates.transformerPredicate(
-                AjpTransformers.declaringClassTransformer(),
-                StandardPredicates.predicateEquals(Object.class)
-        );
-    }
-
-    private static Predicate byMethodName(String... names) {
-        final CompositePredicate byAnyMethodName = LogicalPredicates.or();
-        for (String name : names) {
-            byAnyMethodName.addPredicate(StandardPredicates.predicateEquals(name));
-        }
-
-        return StandardPredicates.transformerPredicate(
-                    StandardTransformers.transformerComposition(
-                        AjpTransformers.methodTransformer(),
-                        MemberTransformers.nameTransformer()
-                    ),
-               byAnyMethodName
-        );
     }
 }
