@@ -50,9 +50,12 @@ public abstract class AjUnitAspect extends AjUnitAspectBase {
     protected abstract void pointcutUnderTest();
 
     /**
-     * Selects all join points which will be executed within the implementation of {@link AjUnitTest#executeTestFixtures()}.
+     * Selects all join points which will be executed below {@link org.failearly.ajunit.internal.runner.AjUnitTestRunner#doExecute()}. The implementation of
+     * {@link AjUnitTest#execute()} will be executed.
+     *
+     * @see AjUnitTest#execute()
      */
-    @Pointcut("cflowbelow(execution(protected void org.failearly.ajunit.AjUnitTest+.executeTestFixtures()))")
+    @Pointcut("cflowbelow(execution(private void org.failearly.ajunit.internal.runner.AjUnitTestRunner.doExecute()))")
     private void applyBelowTestFixturesExecution() {}
 
     /**

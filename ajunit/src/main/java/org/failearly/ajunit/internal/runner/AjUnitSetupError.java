@@ -16,12 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit;
+package org.failearly.ajunit.internal.runner;
 
 /**
  * Thrown in case of an ajUnit setup error.
  *
- * @see org.failearly.ajunit.AjUnitTest
+ * @see AjUnitTestRunner
  */
 public final class AjUnitSetupError extends Error {
 

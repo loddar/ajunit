@@ -16,18 +16,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package any.company.aspect;
-
-import org.failearly.ajunit.AjUnitTestBase;
+package org.failearly.ajunit.internal.runner;
 
 /**
-* AbstractAjUnitTest is responsible for ...
-*/
-abstract class AbstractAjUnitTest extends AjUnitTestBase {
-    AbstractAjUnitTest() {
-    }
-
-    public final void testPointcut() {
-        doPointcutTest();
-    }
+ * Provides a failing implementation to the actually Test Runner (JUnit4, TestNG, ...).
+ */
+public interface Fail {
+    /**
+     * Internal use only. Throws {@link java.lang.AssertionError}.
+     */
+    void doFail(String message);
 }

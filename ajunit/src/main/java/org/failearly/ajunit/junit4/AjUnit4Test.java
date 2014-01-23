@@ -18,17 +18,27 @@
  */
 package org.failearly.ajunit.junit4;
 
-import org.failearly.ajunit.AjUnitTest;
+import org.failearly.ajunit.AjUnitTestBase;
 import org.junit.Test;
+
+import static org.junit.Assert.fail;
+
 
 /**
  * AjUnit4Test is the base class for JUnit4 based test of ajUnit tests.
  */
-public abstract class AjUnit4Test extends AjUnitTest {
+public abstract class AjUnit4Test extends AjUnitTestBase {
+
+    protected AjUnit4Test() {
+    }
 
     @Test
     public final void pointcutTest() {
         super.doPointcutTest();
     }
 
+    @Override
+    public final void doFail(String message) {
+        fail(message);
+    }
 }

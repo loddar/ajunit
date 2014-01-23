@@ -30,29 +30,26 @@ public class MethodExecutionTest extends AbstractAjUnitTestTest {
     public void notYetSpecified() throws Exception {
         assertAssertionError(new AnyAjUnitTest() {
             @Override
-            protected String getAssociatedAspect() {
-                return "any.company.aspect.CorrectAjUnitClassicAspect";
+            public void setup(AjUnitSetup ajUnitSetup) {
+                ajUnitSetup
+                        .addTestFixtureClass(MyTestFixture.class.getName())
+                        .assignAspect("any.company.aspect.CorrectAjUnitClassicAspect");
             }
 
             @Override
-            protected void initializeTest(AjUnitSetup ajUnitSetup) {
-                ajUnitSetup.addTestFixtureClass(MyTestFixture.class);
-            }
-
-            @Override
-            protected void executeTestFixtures() {
+            public void execute() {
                 new MyTestFixture().anyMethod();
             }
 
             @Override
-            protected void setupJoinPointSelector(JoinPointSelectorBuilder joinPointSelectorBuilder) {
+            public void assertPointcut(JoinPointSelectorBuilder joinPointSelectorBuilder) {
                 joinPointSelectorBuilder.notYetSpecified();
             }
         },
                 "ajUnit - No join points matching. Possible reasons:" +
                         "\n- The pointcut definition does mot match." +
-                        "\n- The setupJoinPointSelector() uses notYetSpecified()." +
-                        "\n- Method executeTestFixtures() does not provide a proper implementation."
+                        "\n- Method assertPointcut(JoinPointSelectorBuilder) uses notYetSpecified()." +
+                        "\n- Method execute() is empty or the implementation is not proper."
         );
     }
 
@@ -60,22 +57,19 @@ public class MethodExecutionTest extends AbstractAjUnitTestTest {
     public void anyMethodExecution() throws Exception {
         assertAssertionError(new AnyAjUnitTest() {
             @Override
-            protected String getAssociatedAspect() {
-                return "any.company.aspect.CorrectAjUnitClassicAspect";
+            public void setup(AjUnitSetup ajUnitSetup) {
+                ajUnitSetup
+                        .addTestFixtureClass(MyTestFixture.class.getName())
+                        .assignAspect("any.company.aspect.CorrectAjUnitClassicAspect");
             }
 
             @Override
-            protected void initializeTest(AjUnitSetup ajUnitSetup) {
-                ajUnitSetup.addTestFixtureClass(MyTestFixture.class);
-            }
-
-            @Override
-            protected void executeTestFixtures() {
+            public void execute() {
                 new MyTestFixture().anyMethod();
             }
 
             @Override
-            protected void setupJoinPointSelector(JoinPointSelectorBuilder joinPointSelectorBuilder) {
+            public void assertPointcut(JoinPointSelectorBuilder joinPointSelectorBuilder) {
                 joinPointSelectorBuilder.methodExecute().anyMethod();
             }
         },

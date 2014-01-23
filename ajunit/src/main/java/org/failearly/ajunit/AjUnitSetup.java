@@ -19,7 +19,7 @@
 package org.failearly.ajunit;
 
 /**
- * Setup the ajUnit Test. Adding test fixture classes and enabling suppressed join points.
+ * Setup the ajUnit Test. Adding test fixture classes, enabling suppressed join points and assign the aspect.
  */
 public interface AjUnitSetup {
     /**
@@ -46,4 +46,19 @@ public interface AjUnitSetup {
      * @see org.failearly.ajunit.AjSuppressedJoinPoints
      */
     AjUnitSetup enableSuppressedJoinPoints(SuppressedJoinPoint suppressedJoinPoints);
+
+
+    /**
+     * Assign the aspect. Only one Aspect is permitted.
+     * <br/></br>
+     * The associated aspect should comply with following conditions:
+     * <ul>
+     * <li>The aspect must be inherit from {@code org.failearly.ajunit.AjUnitAspect} or one of
+     * the provided sub aspects.</li>
+     * <li>The aspect must be annotated with {@link org.failearly.ajunit.AjUniverseName}.</li>
+     * </ul>
+     *
+     * @param fullQualifiedAspectName the aspect's full qualified class name.
+     */
+    void assignAspect(String fullQualifiedAspectName);
 }

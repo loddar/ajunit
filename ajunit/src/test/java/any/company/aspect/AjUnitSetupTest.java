@@ -19,8 +19,8 @@
 package any.company.aspect;
 
 import org.failearly.ajunit.AjUnitSetup;
-import org.failearly.ajunit.AjUnitSetupError;
 import org.failearly.ajunit.builder.JoinPointSelectorBuilder;
+import org.failearly.ajunit.internal.runner.AjUnitSetupError;
 import org.junit.Test;
 
 /**
@@ -35,20 +35,32 @@ public class AjUnitSetupTest extends AbstractAjUnitTestTest {
     }
 
     @Test
-    public void missingAssociatedAspect() throws Exception {
+    public void missingSetup() throws Exception {
         assertAjUnitSetupError(new AnyAjUnitTest(),
-                "ajUnit - Setup Error: No associated aspect defined.\n" +
-                        "- Create an aspect and ...\n" +
-                        "- override getAssociatedAspect() providing the full qualified class name of the aspect."
+                "ajUnit - Setup Error: Missing setup.\n" +
+                        "- Please override setup(AjUnitSetup)."
         );
     }
 
     @Test
-    public void wrongClassNameOfAspect() throws Exception {
+    public void noAssociatedAspect() throws Exception {
         assertAjUnitSetupError(new AnyAjUnitTest() {
             @Override
-            protected String getAssociatedAspect() {
-                return "MissingBaseAspectAspect";
+            public void setup(AjUnitSetup ajUnitSetup) {
+            }
+        },
+                "ajUnit - Setup Error: Missing aspect or not yet assigned.\n" +
+                        "- Create an aspect and ...\n" +
+                        "- assign it by calling AjUnitSetup.assignAspect(\"full.path.MyAspect\") in setup(AjUnitSetup)."
+        );
+    }
+
+    @Test
+    public void notFullQualifiedAspectName() throws Exception {
+        assertAjUnitSetupError(new AnyAjUnitTest() {
+            @Override
+            public void setup(AjUnitSetup ajUnitSetup) {
+                ajUnitSetup.assignAspect("MissingBaseAspectAspect");
             }
         },
                 "ajUnit - Setup Error: Class 'MissingBaseAspectAspect' could not be found.\n" +
@@ -60,8 +72,8 @@ public class AjUnitSetupTest extends AbstractAjUnitTestTest {
     public void aspectDoesNotExtendBaseAspect() throws Exception {
         assertAjUnitSetupError(new AnyAjUnitTest() {
             @Override
-            protected String getAssociatedAspect() {
-                return "any.company.aspect.MissingBaseAspectAspect";
+            public void setup(AjUnitSetup ajUnitSetup) {
+                ajUnitSetup.assignAspect("any.company.aspect.MissingBaseAspectAspect");
             }
         },
                 "ajUnit - Setup Error: Test aspect 'any.company.aspect.MissingBaseAspectAspect' does not extend AjUnitAspectBase!\n" +
@@ -78,8 +90,8 @@ public class AjUnitSetupTest extends AbstractAjUnitTestTest {
     public void aspectHasWrongUniverseName() throws Exception {
         assertAjUnitSetupError(new AnyAjUnitTest() {
             @Override
-            protected String getAssociatedAspect() {
-                return "any.company.aspect.WrongUniverseAspect";
+            public void setup(AjUnitSetup ajUnitSetup) {
+                ajUnitSetup.assignAspect("any.company.aspect.WrongUniverseAspect");
             }
         },
                 "ajUnit - Setup Error: Aspect 'any.company.aspect.WrongUniverseAspect' has wrong universe name: 'otherUniverseName'.\n" +
@@ -88,27 +100,11 @@ public class AjUnitSetupTest extends AbstractAjUnitTestTest {
     }
 
     @Test
-    public void missingInitializeTestImplementation() throws Exception {
-        assertAjUnitSetupError(new AnyAjUnitTest() {
-            @Override
-            protected String getAssociatedAspect() {
-                return "any.company.aspect.CorrectAjUnitClassicAspect";
-            }
-        },
-                "ajUnit - Setup Error: Missing implementation of initializeTest(AjUnitSetup)!"
-        );
-    }
-
-    @Test
     public void missingTestFixtureClasses() throws Exception {
         assertAjUnitSetupError(new AnyAjUnitTest() {
             @Override
-            protected String getAssociatedAspect() {
-                return "any.company.aspect.CorrectAjUnitClassicAspect";
-            }
-
-            @Override
-            protected void initializeTest(AjUnitSetup ajUnitSetup) {
+            public void setup(AjUnitSetup ajUnitSetup) {
+                ajUnitSetup.assignAspect("any.company.aspect.CorrectAjUnitClassicAspect");
             }
         },
                 "ajUnit - Setup Error: Missing test fixture class(es).\n" +
@@ -120,23 +116,21 @@ public class AjUnitSetupTest extends AbstractAjUnitTestTest {
     public void missingSetupJoinPointSelector() throws Exception {
        assertAjUnitSetupError(
                new AnyAjUnitTest() {
+
                    @Override
-                   protected String getAssociatedAspect() {
-                       return "any.company.aspect.CorrectAjUnitClassicAspect";
+                   public void setup(AjUnitSetup ajUnitSetup) {
+                       ajUnitSetup
+                          .addTestFixtureClass(MyTestFixture.class)
+                          .assignAspect("any.company.aspect.CorrectAjUnitClassicAspect");
                    }
 
                    @Override
-                   protected void initializeTest(AjUnitSetup ajUnitSetup) {
-                       ajUnitSetup.addTestFixtureClass(MyTestFixture.class);
-                   }
-
-                   @Override
-                   protected void executeTestFixtures() {
+                   public void execute() {
                        new MyTestFixture().anyMethod();
                    }
                },
-               "ajUnit - Setup Error: Missing setupJoinPointSelector.\n" +
-                       "- Please override setupJoinPointSelector(JoinPointSelectorBuilder)"
+               "ajUnit - Setup Error: Missing assertPointcut.\n" +
+                       "- Please override assertPointcut(JoinPointSelectorBuilder)"
        );
     }
 
@@ -145,26 +139,23 @@ public class AjUnitSetupTest extends AbstractAjUnitTestTest {
         assertAjUnitSetupError(
                 new AnyAjUnitTest() {
                     @Override
-                    protected String getAssociatedAspect() {
-                        return "any.company.aspect.CorrectAjUnitClassicAspect";
+                    public void setup(AjUnitSetup ajUnitSetup) {
+                        ajUnitSetup
+                            .addTestFixtureClass(MyTestFixture.class.getName())
+                            .assignAspect("any.company.aspect.CorrectAjUnitClassicAspect");
                     }
 
                     @Override
-                    protected void initializeTest(AjUnitSetup ajUnitSetup) {
-                        ajUnitSetup.addTestFixtureClass(MyTestFixture.class);
-                    }
-
-                    @Override
-                    protected void executeTestFixtures() {
+                    public void execute() {
                         new MyTestFixture().anyMethod();
                     }
 
                     @Override
-                    protected void setupJoinPointSelector(JoinPointSelectorBuilder joinPointSelectorBuilder) {
+                    public void assertPointcut(JoinPointSelectorBuilder joinPointSelectorBuilder) {
                         // Missing implementation.
                     }
                 },
-                "ajUnit - Setup Error: Missing valid implementation of setupJoinPointSelector(JoinPointSelectorBuilder)."
+                "ajUnit - Setup Error: Missing implementation of assertPointcut(JoinPointSelectorBuilder)."
         );
     }
 
@@ -172,26 +163,23 @@ public class AjUnitSetupTest extends AbstractAjUnitTestTest {
     public void methodExecution() throws Exception {
         assertAjUnitSetupError(new AnyAjUnitTest() {
             @Override
-            protected String getAssociatedAspect() {
-                return "any.company.aspect.CorrectAjUnitClassicAspect";
+            public void setup(AjUnitSetup ajUnitSetup) {
+                ajUnitSetup
+                        .addTestFixtureClass(MyTestFixture.class)
+                        .assignAspect("any.company.aspect.CorrectAjUnitClassicAspect");
             }
 
             @Override
-            protected void initializeTest(AjUnitSetup ajUnitSetup) {
-                ajUnitSetup.addTestFixtureClass(MyTestFixture.class);
-            }
-
-            @Override
-            protected void executeTestFixtures() {
+            public void execute() {
                 new MyTestFixture().anyMethod();
             }
 
             @Override
-            protected void setupJoinPointSelector(JoinPointSelectorBuilder joinPointSelectorBuilder) {
+            public void assertPointcut(JoinPointSelectorBuilder joinPointSelectorBuilder) {
                 joinPointSelectorBuilder.methodExecute();
             }
         },
-                "ajUnit - Setup Error: Missing valid implementation of setupJoinPointSelector(JoinPointSelectorBuilder)."
+                "ajUnit - Setup Error: Missing implementation of assertPointcut(JoinPointSelectorBuilder)."
         );
     }
 

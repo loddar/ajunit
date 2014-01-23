@@ -18,7 +18,7 @@
  */
 package org.failearly.ajunit.internal.util;
 
-import org.failearly.ajunit.AjUnitSetupError;
+import org.failearly.ajunit.internal.runner.AjUnitSetupError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

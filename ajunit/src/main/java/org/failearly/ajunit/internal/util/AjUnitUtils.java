@@ -36,7 +36,7 @@ public abstract class AjUnitUtils {
      * @throws java.lang.IllegalArgumentException
      *
      * @see org.failearly.ajunit.AjUnitClassicAspect
-     * @see org.failearly.ajunit.AjUnitTest
+     * @see org.failearly.ajunit.internal.runner.AjUnitTestRunner
      */
     public static String resolveUniverseName(final Object ajUnitObject) {
         return resolveUniverseName(ajUnitObject.getClass());
@@ -50,7 +50,7 @@ public abstract class AjUnitUtils {
      * @throws java.lang.IllegalArgumentException
      *
      * @see org.failearly.ajunit.AjUnitClassicAspect
-     * @see org.failearly.ajunit.AjUnitTest
+     * @see org.failearly.ajunit.internal.runner.AjUnitTestRunner
      */
     public static String resolveUniverseName(Class<?> ajUnitObjectClass) {
         final AjUniverseName universeName = AnnotationUtils.findClassAnnotation(ajUnitObjectClass, AjUniverseName.class);
