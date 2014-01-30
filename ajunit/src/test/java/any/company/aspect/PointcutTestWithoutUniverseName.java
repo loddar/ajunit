@@ -18,8 +18,10 @@
  */
 package any.company.aspect;
 
+import org.failearly.ajunit.internal.runner.PointcutUnitTestBase;
+
 /**
 * AbstractAjUnitTest is responsible for ...
 */
-final class AjUnitTestWithoutUniverseName extends AbstractAjUnitTest {
+public final class PointcutTestWithoutUniverseName extends PointcutUnitTestBase {
 }

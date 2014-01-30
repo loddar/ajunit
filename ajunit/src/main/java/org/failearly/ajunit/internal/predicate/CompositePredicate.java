@@ -33,6 +33,13 @@ public interface CompositePredicate extends Predicate {
     CompositePredicate addPredicate(Predicate predicate);
 
     /**
+     * Adds a collection of predicates at once to the composite.
+     * @param predicates a collection of predicates.
+     * @return itself - {@code this}.
+     */
+    CompositePredicate addPredicates(Iterable<Predicate> predicates);
+
+    /**
      * @return {@code true} if any predicate has been added.
      *
      * @see #addPredicate(Predicate)

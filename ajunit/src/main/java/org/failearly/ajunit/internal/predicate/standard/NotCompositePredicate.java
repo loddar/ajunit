@@ -45,6 +45,11 @@ final class NotCompositePredicate extends PredicateBase implements CompositePred
     }
 
     @Override
+    public CompositePredicate addPredicates(Iterable<Predicate> predicates) {
+        return this.compositePredicate.addPredicates(predicates);
+    }
+
+    @Override
     public boolean noPredicates() {
         return compositePredicate.noPredicates();
     }

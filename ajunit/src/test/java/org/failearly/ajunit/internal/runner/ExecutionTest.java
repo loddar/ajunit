@@ -16,19 +16,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package any.company.aspect;
+package org.failearly.ajunit.internal.runner;
 
+import any.company.aspect.MyTestFixture;
+import any.company.aspect.PointcutUnitTest;
 import org.failearly.ajunit.AjUnitSetup;
 import org.failearly.ajunit.builder.JoinPointSelectorBuilder;
 import org.junit.Test;
 
 /**
- * MethodExecutionTest is responsible for ...
+ * ExecutionTest tests the {@link org.failearly.ajunit.internal.runner.AjUnitTestRunner} for the thrown Assertion Error Messages.
  */
-public class MethodExecutionTest extends AbstractAjUnitTestTest {
+public class ExecutionTest extends AbstractTestRunnerTest {
     @Test
     public void notYetSpecified() throws Exception {
-        assertAssertionError(new AnyAjUnitTest() {
+        assertAssertionError(new PointcutUnitTest() {
             @Override
             public void setup(AjUnitSetup ajUnitSetup) {
                 ajUnitSetup
@@ -55,7 +57,7 @@ public class MethodExecutionTest extends AbstractAjUnitTestTest {
 
     @Test
     public void anyMethodExecution() throws Exception {
-        assertAssertionError(new AnyAjUnitTest() {
+        assertAssertionError(new PointcutUnitTest() {
             @Override
             public void setup(AjUnitSetup ajUnitSetup) {
                 ajUnitSetup
@@ -77,7 +79,7 @@ public class MethodExecutionTest extends AbstractAjUnitTestTest {
         );
     }
 
-    private static void assertAssertionError(AbstractAjUnitTest testClass, String expectedMessage) {
+    private static void assertAssertionError(PointcutUnitTestBase testClass, String expectedMessage) {
         assertException(testClass, AssertionError.class, expectedMessage);
     }
 

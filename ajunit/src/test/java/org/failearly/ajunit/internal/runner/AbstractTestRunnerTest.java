@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package any.company.aspect;
+package org.failearly.ajunit.internal.runner;
 
 import org.failearly.ajunit.internal.util.MessageUtils;
 
@@ -26,10 +26,10 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 /**
- * AbstractAjUnitTestTest is responsible for ...
+ * AjUnitTestRunnerTest is the base class for AjUnitTestRunner's tests.
  */
-public abstract class AbstractAjUnitTestTest {
-    protected static void assertException(AbstractAjUnitTest testClass, Class<? extends Throwable> expectedException, String expectedMessage) {
+public abstract class AbstractTestRunnerTest {
+    protected static void assertException(PointcutUnitTestBase testClass, Class<? extends Throwable> expectedException, String expectedMessage) {
         try {
             testClass.testPointcut();
         } catch (Throwable ex) {

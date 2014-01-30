@@ -16,27 +16,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package any.company.aspect;
+package org.failearly.ajunit.internal.runner;
 
+import any.company.aspect.MyTestFixture;
+import any.company.aspect.PointcutTestWithoutUniverseName;
+import any.company.aspect.PointcutUnitTest;
 import org.failearly.ajunit.AjUnitSetup;
 import org.failearly.ajunit.builder.JoinPointSelectorBuilder;
-import org.failearly.ajunit.internal.runner.AjUnitSetupError;
 import org.junit.Test;
 
 /**
- * AjUnitSetupTest is responsible for ...
+ * AjUnitSetupTest tests the setup errors.
  */
-public class AjUnitSetupTest extends AbstractAjUnitTestTest {
+public class SetupTest extends AbstractTestRunnerTest {
 
     @Test
     public void missingAjUniverseNameOnTestClass() throws Exception {
-        assertAjUnitSetupError(new AjUnitTestWithoutUniverseName(),
-                "ajUnit - Setup Error: Missing annotation @AjUniverseName for class/aspect 'AjUnitTestWithoutUniverseName'");
+        assertAjUnitSetupError(new PointcutTestWithoutUniverseName(),
+                "ajUnit - Setup Error: Missing annotation @AjUniverseName for class/aspect 'PointcutTestWithoutUniverseName'");
     }
 
     @Test
     public void missingSetup() throws Exception {
-        assertAjUnitSetupError(new AnyAjUnitTest(),
+        assertAjUnitSetupError(new PointcutUnitTest(),
                 "ajUnit - Setup Error: Missing setup.\n" +
                         "- Please override setup(AjUnitSetup)."
         );
@@ -44,7 +46,7 @@ public class AjUnitSetupTest extends AbstractAjUnitTestTest {
 
     @Test
     public void noAssociatedAspect() throws Exception {
-        assertAjUnitSetupError(new AnyAjUnitTest() {
+        assertAjUnitSetupError(new PointcutUnitTest() {
             @Override
             public void setup(AjUnitSetup ajUnitSetup) {
             }
@@ -57,7 +59,7 @@ public class AjUnitSetupTest extends AbstractAjUnitTestTest {
 
     @Test
     public void notFullQualifiedAspectName() throws Exception {
-        assertAjUnitSetupError(new AnyAjUnitTest() {
+        assertAjUnitSetupError(new PointcutUnitTest() {
             @Override
             public void setup(AjUnitSetup ajUnitSetup) {
                 ajUnitSetup.assignAspect("MissingBaseAspectAspect");
@@ -70,7 +72,7 @@ public class AjUnitSetupTest extends AbstractAjUnitTestTest {
 
     @Test
     public void aspectDoesNotExtendBaseAspect() throws Exception {
-        assertAjUnitSetupError(new AnyAjUnitTest() {
+        assertAjUnitSetupError(new PointcutUnitTest() {
             @Override
             public void setup(AjUnitSetup ajUnitSetup) {
                 ajUnitSetup.assignAspect("any.company.aspect.MissingBaseAspectAspect");
@@ -88,7 +90,7 @@ public class AjUnitSetupTest extends AbstractAjUnitTestTest {
 
     @Test
     public void aspectHasWrongUniverseName() throws Exception {
-        assertAjUnitSetupError(new AnyAjUnitTest() {
+        assertAjUnitSetupError(new PointcutUnitTest() {
             @Override
             public void setup(AjUnitSetup ajUnitSetup) {
                 ajUnitSetup.assignAspect("any.company.aspect.WrongUniverseAspect");
@@ -101,7 +103,7 @@ public class AjUnitSetupTest extends AbstractAjUnitTestTest {
 
     @Test
     public void missingTestFixtureClasses() throws Exception {
-        assertAjUnitSetupError(new AnyAjUnitTest() {
+        assertAjUnitSetupError(new PointcutUnitTest() {
             @Override
             public void setup(AjUnitSetup ajUnitSetup) {
                 ajUnitSetup.assignAspect("any.company.aspect.CorrectAjUnitClassicAspect");
@@ -115,7 +117,7 @@ public class AjUnitSetupTest extends AbstractAjUnitTestTest {
     @Test
     public void missingSetupJoinPointSelector() throws Exception {
        assertAjUnitSetupError(
-               new AnyAjUnitTest() {
+               new PointcutUnitTest() {
 
                    @Override
                    public void setup(AjUnitSetup ajUnitSetup) {
@@ -137,7 +139,7 @@ public class AjUnitSetupTest extends AbstractAjUnitTestTest {
     @Test
     public void missingValidJoinPointSelector() throws Exception {
         assertAjUnitSetupError(
-                new AnyAjUnitTest() {
+                new PointcutUnitTest() {
                     @Override
                     public void setup(AjUnitSetup ajUnitSetup) {
                         ajUnitSetup
@@ -161,7 +163,7 @@ public class AjUnitSetupTest extends AbstractAjUnitTestTest {
 
     @Test
     public void methodExecution() throws Exception {
-        assertAjUnitSetupError(new AnyAjUnitTest() {
+        assertAjUnitSetupError(new PointcutUnitTest() {
             @Override
             public void setup(AjUnitSetup ajUnitSetup) {
                 ajUnitSetup
@@ -184,7 +186,7 @@ public class AjUnitSetupTest extends AbstractAjUnitTestTest {
     }
 
 
-    private static void assertAjUnitSetupError(AbstractAjUnitTest testClass, String expectedMessage) {
+    private static void assertAjUnitSetupError(PointcutUnitTestBase testClass, String expectedMessage) {
         assertException(testClass, AjUnitSetupError.class, expectedMessage);
     }
 

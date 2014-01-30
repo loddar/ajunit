@@ -29,12 +29,12 @@ import org.failearly.ajunit.internal.util.MessageUtils;
  */
 public abstract class AjUnitTestBase implements AjUnitTest, Fail {
 
-    private final AjUnitTestRunner testRunner=new AjUnitTestRunner(this, this);
+    private final AjUnitTestRunner testRunner = AjUnitTestRunner.createTestRunner(this, this);
 
     @Override
     public void setup(AjUnitSetup ajUnitSetup) {
         AjAssert.throwSetupError(MessageUtils.setupError("Missing setup.")
-                        .line("Please override setup(AjUnitSetup)."));
+                .line("Please override setup(AjUnitSetup)."));
     }
 
     @Override

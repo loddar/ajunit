@@ -22,6 +22,8 @@ import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.failearly.ajunit.internal.predicate.standard.StandardPredicates.alwaysFalse;
 import static org.failearly.ajunit.internal.predicate.standard.StandardPredicates.alwaysTrue;
 import static org.hamcrest.CoreMatchers.is;
@@ -44,9 +46,7 @@ public abstract class LogicalPredicatesTest {
     }
 
     protected final void registerPredicates(final Predicate... predicates) {
-        for (final Predicate predicate : predicates) {
-            compositePredicate.addPredicate(predicate);
-        }
+        compositePredicate.addPredicates(Arrays.asList(predicates));
     }
 
     protected final void assertCompositePredicateEvaluatesTo(boolean expectedValue) {

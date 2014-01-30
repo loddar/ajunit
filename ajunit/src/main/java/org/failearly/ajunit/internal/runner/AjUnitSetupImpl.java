@@ -20,12 +20,11 @@ package org.failearly.ajunit.internal.runner;
 
 import org.failearly.ajunit.AjUnitSetup;
 import org.failearly.ajunit.SuppressedJoinPoint;
-import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
-import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
 import org.failearly.ajunit.internal.util.ClassUtils;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -34,15 +33,14 @@ import java.util.List;
 final class AjUnitSetupImpl implements AjUnitSetup {
     private final List<Class<?>> testFixtureClasses = new ArrayList<>();
 
-    private final CompositePredicate enabledJoinPoints = LogicalPredicates.or();
+    private final List<Predicate> enabledJoinPoints = new LinkedList<>();
 
     private String aspectName;
 
     public AjUnitSetupImpl() {
     }
 
-    @SuppressWarnings("unused")
-    Predicate getEnabledJoinPoints() {
+    List<Predicate> getEnabledJoinPoints() {
         return enabledJoinPoints;
     }
 
@@ -68,7 +66,7 @@ final class AjUnitSetupImpl implements AjUnitSetup {
 
     @Override
     public AjUnitSetup enableSuppressedJoinPoints(SuppressedJoinPoint suppressedJoinPoint) {
-        enabledJoinPoints.addPredicate(suppressedJoinPoint.predicate());
+        enabledJoinPoints.add(suppressedJoinPoint.predicate());
         return this;
     }
 

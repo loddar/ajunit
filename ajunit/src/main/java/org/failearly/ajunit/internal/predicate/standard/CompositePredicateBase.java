@@ -48,6 +48,14 @@ abstract class CompositePredicateBase extends PredicateBase implements Composite
     }
 
     @Override
+    public final CompositePredicate addPredicates(Iterable<Predicate> predicates) {
+        for (Predicate predicate : predicates) {
+            this.addPredicate(predicate);
+        }
+        return this;
+    }
+
+    @Override
     public final boolean noPredicates() {
         return predicates.isEmpty();
     }

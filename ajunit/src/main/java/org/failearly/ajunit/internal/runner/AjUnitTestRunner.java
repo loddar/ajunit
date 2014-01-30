@@ -24,7 +24,6 @@ import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderImpl;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.universe.AjJoinPoint;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
-import org.failearly.ajunit.internal.universe.AjJoinPointVisitor;
 import org.failearly.ajunit.internal.universe.AjUniverse;
 import org.failearly.ajunit.internal.universe.impl.AjUniversesHolder;
 import org.failearly.ajunit.internal.util.*;
@@ -41,14 +40,18 @@ import java.util.Set;
  * @see org.failearly.ajunit.AjUnitTest
  * @see org.failearly.ajunit.AjUnitTestBase
  */
-public class AjUnitTestRunner {
+public final class AjUnitTestRunner {
 
     private final AjUnitTest ajUnitTest;
     private final Fail fail;
 
-    public AjUnitTestRunner(AjUnitTest ajUnitTest, Fail fail) {
+    private AjUnitTestRunner(AjUnitTest ajUnitTest, Fail fail) {
         this.ajUnitTest = ajUnitTest;
         this.fail = fail;
+    }
+
+    public static AjUnitTestRunner createTestRunner(AjUnitTest ajUnitTest, Fail fail) {
+        return new AjUnitTestRunner(ajUnitTest, fail);
     }
 
     /**
@@ -59,7 +62,8 @@ public class AjUnitTestRunner {
         try {
             // arrange / given
             universeName = resolveUniverseName();
-            final AjUniverse universe = setupUniverse(universeName);
+            final List<Predicate> enabledJoinPoints=new LinkedList<>();
+            final AjUniverse universe = setupAjUnitTest(universeName, enabledJoinPoints);
             final Set<AjJoinPointType> joinPointTypes = new HashSet<>();
             final Predicate joinPointSelector = buildJoinPointSelector(joinPointTypes);
 
@@ -67,7 +71,7 @@ public class AjUnitTestRunner {
             doExecute();
 
             // assert / then
-            assertPointcutDefinition(universe, joinPointTypes, joinPointSelector);
+            assertPointcutDefinition(universe, joinPointTypes, joinPointSelector, enabledJoinPoints);
         } finally {
             // Cleanup
             if (universeName != null) {
@@ -81,18 +85,16 @@ public class AjUnitTestRunner {
         this.ajUnitTest.execute();
     }
 
-    private void assertPointcutDefinition(final AjUniverse universe, final Set<AjJoinPointType> joinPointTypes, final Predicate joinPointSelector) {
-        final List<AjJoinPoint> matchingJoinPoints = new LinkedList<>();
-        universe.visitJoinPoints(new AjJoinPointVisitor() {
-            @Override
-            public void visit(AjJoinPoint joinPoint) {
-                if (joinPointSelector.evaluate(joinPoint)) {
-                    matchingJoinPoints.add(joinPoint);
-                }
-            }
-        });
+    private void assertPointcutDefinition(
+                        final AjUniverse universe,
+                        final Set<AjJoinPointType> joinPointTypes,
+                        final Predicate joinPointSelector,
+                        final List<Predicate> enabledJoinPoints)
+    {
+        final AjUnitTestRunnerJoinPointVisitor joinPointVisitor = new AjUnitTestRunnerJoinPointVisitor(enabledJoinPoints, joinPointSelector);
+        universe.visitJoinPoints(joinPointVisitor);
 
-        assertMatchingJoinPoints(matchingJoinPoints, joinPointTypes);
+        assertMatchingJoinPoints(joinPointVisitor.getMatchingJoinPoints(), joinPointTypes);
     }
 
     private void assertMatchingJoinPoints(List<AjJoinPoint> matchingJoinPoints, Set<AjJoinPointType> joinPointTypes) {
@@ -167,9 +169,10 @@ public class AjUnitTestRunner {
         }
     }
 
-    private AjUniverse setupUniverse(String universeName) {
+    private AjUniverse setupAjUnitTest(String universeName, List<Predicate> enabledJoinPoints) {
         final AjUnitSetupImpl ajUnitTestSetup = new AjUnitSetupImpl();
         ajUnitTest.setup(ajUnitTestSetup);
+        enabledJoinPoints.addAll(ajUnitTestSetup.getEnabledJoinPoints());
 
         assertAssociatedAspect(universeName, ajUnitTestSetup);
         assertUniverseSetup(ajUnitTestSetup);
@@ -210,4 +213,5 @@ public class AjUnitTestRunner {
         }
         return joinPointBuilder.build();
     }
+
 }
