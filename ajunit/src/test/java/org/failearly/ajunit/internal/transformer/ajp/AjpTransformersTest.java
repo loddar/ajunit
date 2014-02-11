@@ -24,8 +24,7 @@ import org.failearly.ajunit.internal.universe.AjJoinPoint;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.CoreMatchers.sameInstance;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -34,6 +33,8 @@ import static org.mockito.Mockito.when;
  * Tests for {@link org.failearly.ajunit.internal.transformer.ajp.AjpTransformers}.
  */
 public class AjpTransformersTest extends TransformersBaseTest {
+
+    public static final int NUMBER_OF_APPLICATIONS = 2;
 
     @Test
     public void ajpToMethod() throws Exception {
@@ -114,6 +115,19 @@ public class AjpTransformersTest extends TransformersBaseTest {
         assertThat("Transformation result?", output, nullValue());
     }
 
+    @Test
+    public void ajpNumberOfApplications() throws Exception {
+        // arrange / given
+        final AjJoinPoint joinPoint = prepareAjJoinPoint(AjJoinPointType._UNKNOWN);
+        final Transformer transformer = AjpTransformers.numberOfApplicationsTransformer();
+
+        // act / when
+        final Object output = transformer.transform(joinPoint);
+
+        // assert / then
+        assertThat("Transformation result?", output, is((Object) NUMBER_OF_APPLICATIONS));
+    }
+
     @SuppressWarnings("unchecked")
     private AjJoinPoint prepareAjJoinPoint(AjJoinPointType joinPointType) throws NoSuchMethodException, NoSuchFieldException {
         final AjJoinPoint joinPoint = mock(AjJoinPoint.class);
@@ -124,6 +138,7 @@ public class AjpTransformersTest extends TransformersBaseTest {
         when(joinPoint.getConstructor()).thenReturn(resolveConstructor());
         when(joinPoint.getMethod()).thenReturn(resolveMethod());
         when(joinPoint.getField()).thenReturn(resolveField());
+        when(joinPoint.getNumApplications()).thenReturn(NUMBER_OF_APPLICATIONS);
 
         return joinPoint;
     }

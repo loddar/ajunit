@@ -20,15 +20,39 @@ package org.failearly.ajunit.internal.transformer.method;
 
 import org.failearly.ajunit.internal.transformer.Transformer;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.List;
+
 /**
  * MethodTransformers provides factory methods for {@link java.lang.reflect.Method} related transformations.
  */
 public abstract class MethodTransformers {
 
-    private static final Transformer METHOD_DECLARED_ANNOTATIONS_TRANSFORMER = new MethodDeclaredAnnotationsTransformer();
-    private static final Transformer METHOD_RETURN_TYPE_TRANSFORMER = new MethodReturnTypeTransformer();
-    private static final Transformer METHOD_PARAMETERS_TRANSFORMER = new MethodParametersTransformer();
-    private static final Transformer METHOD_EXCEPTIONS_TRANSFORMER = new MethodExceptionsTransformer();
+    private static final Transformer METHOD_DECLARED_ANNOTATIONS_TRANSFORMER = new MethodListTransformerBase<Annotation>() {
+        @Override
+        protected List<Annotation> doTypedTransform(Method input) {
+            return convert(input.getDeclaredAnnotations());
+        }
+    };
+    private static final Transformer METHOD_RETURN_TYPE_TRANSFORMER = new MethodTransformerBase<Class<?>>() {
+        @Override
+        protected Class<?> doTypedTransform(final Method input) {
+            return input.getReturnType();
+        }
+    };
+    private static final Transformer METHOD_PARAMETERS_TRANSFORMER = new MethodListTransformerBase<Class<?>>() {
+        @Override
+        protected List<Class<?>> doTypedTransform(Method input) {
+            return convert(input.getParameterTypes());
+        }
+    };
+    private static final Transformer METHOD_EXCEPTIONS_TRANSFORMER = new MethodListTransformerBase<Class<?>>() {
+        @Override
+        protected List<Class<?>> doTypedTransform(Method input) {
+            return convert(input.getExceptionTypes());
+        }
+    };
 
     private MethodTransformers() {
     }

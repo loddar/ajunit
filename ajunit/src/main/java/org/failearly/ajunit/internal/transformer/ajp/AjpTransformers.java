@@ -19,17 +19,48 @@
 package org.failearly.ajunit.internal.transformer.ajp;
 
 import org.failearly.ajunit.internal.transformer.Transformer;
+import org.failearly.ajunit.internal.universe.AjJoinPoint;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * AjpTransformers is a utility class which provides factory methods for {@link org.failearly.ajunit.internal.universe.AjJoinPoint} transformers.
  */
 public abstract class AjpTransformers {
 
-    private static final AjpMethodTransformer AJP_METHOD_TRANSFORMER = new AjpMethodTransformer();
-    private static final AjpFieldTransformer AJP_FIELD_TRANSFORMER = new AjpFieldTransformer();
-    private static final AjpConstructorTransformer AJP_CONSTRUCTOR_TRANSFORMER = new AjpConstructorTransformer();
-    private static final AjpDeclaringClassTransformer AJP_DECLARING_CLASS_TRANSFORMER = new AjpDeclaringClassTransformer();
+    private static final Transformer AJP_METHOD_TRANSFORMER = new AjpTransformerBase<Method>() {
+        @Override
+        protected Method doTypedTransform(final AjJoinPoint input) {
+            return input.getMethod();
+        }
+    };
+    private static final Transformer AJP_FIELD_TRANSFORMER = new AjpTransformerBase<Field>() {
+        @Override
+        protected Field doTypedTransform(AjJoinPoint input) {
+            return input.getField();
+        }
+    };
+    private static final Transformer AJP_CONSTRUCTOR_TRANSFORMER = new AjpTransformerBase<Constructor<?>>() {
+        @Override
+        protected Constructor<?> doTypedTransform(AjJoinPoint input) {
+            return input.getConstructor();
+        }
+    };
+    private static final Transformer AJP_DECLARING_CLASS_TRANSFORMER = new AjpTransformerBase<Class<?>>() {
+        @Override
+        protected Class<?> doTypedTransform(AjJoinPoint input) {
+            return input.getDeclaringClass();
+        }
+    };
+    private static final Transformer AJP_NUMBER_OF_APPLICATIONS_TRANSFORMER = new AjpTransformerBase<Integer>() {
+        @Override
+        protected Integer doTypedTransform(AjJoinPoint input) {
+            return input.getNumApplications();
+        }
+    };
 
     private AjpTransformers() {
     }
@@ -68,6 +99,13 @@ public abstract class AjpTransformers {
     }
 
     /**
+     * @return value of {@link org.failearly.ajunit.internal.universe.AjJoinPoint#getNumApplications()}.
+     */
+    public static Transformer numberOfApplicationsTransformer() {
+        return AJP_NUMBER_OF_APPLICATIONS_TRANSFORMER;
+    }
+
+    /**
      * Filter of {@link org.failearly.ajunit.internal.universe.AjJoinPoint}s,
      * which uses the {@link org.failearly.ajunit.internal.universe.AjJoinPointType} as filter criteria.
      * @param joinPointType the filter criteria.
@@ -78,4 +116,5 @@ public abstract class AjpTransformers {
     public static Transformer ajpJoinPointFilterTransformer(AjJoinPointType joinPointType) {
         return new AjpJoinPointTypeFilter(joinPointType);
     }
+
 }

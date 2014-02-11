@@ -26,14 +26,43 @@ import java.lang.reflect.Method;
  * The ajUnit join point definition. Will be collected by {@link AjUniverse}.
  */
 public interface AjJoinPoint {
+    /**
+     * @return the ajUnit joinpoint type.
+     */
     AjJoinPointType getJoinPointType();
 
+    /**
+     * @return The declaring class of the methods, constructor or field.
+     */
     Class<?> getDeclaringClass();
 
+    /**
+     * @return {@code null} or the method object.
+     */
     Method getMethod();
+
+    /**
+     * @return {@code null} or the field object.
+     */
     Field  getField();
+
+    /**
+     * @return {@code null} or the constructor object.
+     */
     Constructor getConstructor();
 
+    /**
+     * @return the number of applications (#executions of {@link #apply()}).
+     */
     int getNumApplications();
+
+    /**
+     * Called by the ajUnit aspect.
+     */
     void apply();
+
+    /**
+     * @return a short string representation of the joinpoint.
+     */
+    String toShortString();
 }

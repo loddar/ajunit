@@ -19,14 +19,27 @@
 package org.failearly.ajunit.internal.transformer.member;
 
 import org.failearly.ajunit.internal.transformer.Transformer;
+import org.failearly.ajunit.internal.transformer.TypedTransformer;
+
+import java.lang.reflect.Member;
 
 /**
  * MemberTransformers provides factory methods for {@link java.lang.reflect.Member} related transformations.
  */
 public abstract class MemberTransformers {
 
-    private static final MemberNameTransformer MEMBER_NAME_TRANSFORMER = new MemberNameTransformer();
-    private static final MemberModifiersTransformer MEMBER_MODIFIERS_TRANSFORMER = new MemberModifiersTransformer();
+    private static final TypedTransformer<Member, String> MEMBER_NAME_TRANSFORMER = new TypedTransformer<Member, String>(Member.class) {
+        @Override
+        protected String doTypedTransform(final Member input) {
+            return input.getName();
+        }
+    };
+    private static final TypedTransformer<Member, Integer> MEMBER_MODIFIERS_TRANSFORMER = new TypedTransformer<Member, Integer>(Member.class) {
+        @Override
+        protected Integer doTypedTransform(final Member input) {
+            return input.getModifiers();
+        }
+    };
 
     private MemberTransformers() {
     }

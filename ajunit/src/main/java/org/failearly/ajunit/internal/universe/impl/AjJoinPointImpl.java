@@ -118,12 +118,28 @@ final class AjJoinPointImpl implements AjJoinPoint {
         return stringBuilder.append("}").toString();
     }
 
+    @Override
+    public String toShortString() {
+        final StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(getJoinPointType()).append("(");
+        addProperty(stringBuilder, getMethod());
+        addProperty(stringBuilder, getField());
+        addProperty(stringBuilder, getConstructor());
+        return stringBuilder.append("),#a=").append(getNumApplications()).toString();
+    }
+
     private static void addProperty(final StringBuilder stringBuilder, String type, Object object, boolean first) {
         if (object != null) {
             if (! first) {
                 stringBuilder.append(", ");
             }
             stringBuilder.append(type).append("=").append(object.toString());
+        }
+    }
+
+    private static void addProperty(final StringBuilder stringBuilder, Object object) {
+        if (object != null) {
+            stringBuilder.append(object.toString());
         }
     }
 

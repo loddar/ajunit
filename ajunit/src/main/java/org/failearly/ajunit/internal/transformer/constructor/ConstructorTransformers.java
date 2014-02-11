@@ -20,14 +20,33 @@ package org.failearly.ajunit.internal.transformer.constructor;
 
 import org.failearly.ajunit.internal.transformer.Transformer;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
+import java.util.List;
+
 /**
  * ConstructorTransformers provides factory methods for {@link java.lang.reflect.Constructor} related transformations.
  */
 public final class ConstructorTransformers {
 
-    private static final Transformer CONSTRUCTOR_ANNOTATIONS_TRANSFORMER = new ConstructorDeclaredAnnotationsTransformer();
-    private static final Transformer CONSTRUCTOR_PARAMETERS_TRANSFORMER = new ConstructorParametersTransformer();
-    private static final Transformer CONSTRUCTOR_EXCEPTIONS_TRANSFORMER = new ConstructorExceptionsTransformer();
+    private static final Transformer CONSTRUCTOR_ANNOTATIONS_TRANSFORMER = new ConstructorListTransformerBase<Annotation>() {
+        @Override
+        protected List<Annotation> doTypedTransform(final Constructor input) {
+            return convert(input.getAnnotations());
+        }
+    };
+    private static final Transformer CONSTRUCTOR_PARAMETERS_TRANSFORMER = new ConstructorListTransformerBase<Class<?>>() {
+        @Override
+        protected List<Class<?>> doTypedTransform(final Constructor input) {
+            return convert(input.getParameterTypes());
+        }
+    };
+    private static final Transformer CONSTRUCTOR_EXCEPTIONS_TRANSFORMER = new ConstructorListTransformerBase<Class<?>>() {
+        @Override
+        protected List<Class<?>> doTypedTransform(final Constructor input) {
+            return convert(input.getExceptionTypes());
+        }
+    };
 
     private ConstructorTransformers() {
     }

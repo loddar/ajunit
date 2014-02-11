@@ -21,12 +21,19 @@ package org.failearly.ajunit.internal.transformer.list;
 import org.failearly.ajunit.internal.transformer.Transformer;
 import org.failearly.ajunit.internal.util.AjAssert;
 
+import java.util.List;
+
 /**
  * ListTransformers provides factory methods for {@link java.util.List} related transformations.
  */
 public abstract class ListTransformers {
 
-    private static final ListSizeTransformer LIST_SIZE_TRANSFORMER = new ListSizeTransformer();
+    private static final Transformer LIST_SIZE_TRANSFORMER = new ListTransformerBase<Integer>() {
+        @Override
+        protected Integer doTypedTransform(final List input) {
+            return input.size();
+        }
+    };
 
     private ListTransformers() {
     }

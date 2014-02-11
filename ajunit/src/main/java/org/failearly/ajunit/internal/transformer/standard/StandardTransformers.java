@@ -27,7 +27,12 @@ import java.util.Arrays;
  */
 public abstract class StandardTransformers {
 
-    public static final Transformer NULL_TRANSFORMER = new NullTransformer();
+    public static final Transformer NULL_TRANSFORMER = new Transformer() {
+        @Override
+        public Object transform(Object input) {
+            return null;
+        }
+    };
 
     private StandardTransformers() {}
 

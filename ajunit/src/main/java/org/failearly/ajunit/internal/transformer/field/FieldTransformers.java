@@ -19,14 +19,30 @@
 package org.failearly.ajunit.internal.transformer.field;
 
 import org.failearly.ajunit.internal.transformer.Transformer;
+import org.failearly.ajunit.internal.transformer.TypedListTransformer;
+import org.failearly.ajunit.internal.transformer.TypedTransformer;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.util.List;
 
 /**
  * FieldTransformers provides factory methods for {@link java.lang.reflect.Field} related transformations.
  */
 public abstract class FieldTransformers {
 
-    private static final Transformer FIELD_TYPE_TRANSFORMER = new FieldTypeTransformer();
-    private static final Transformer FIELD_DECLARED_ANNOTATIONS_TRANSFORMER = new FieldDeclaredAnnotationsTransformer();
+    private static final Transformer FIELD_TYPE_TRANSFORMER = new TypedTransformer<Field, Class<?>>(Field.class) {
+        @Override
+        protected Class<?> doTypedTransform(Field input) {
+            return input.getType();
+        }
+    };
+    private static final Transformer FIELD_DECLARED_ANNOTATIONS_TRANSFORMER = new TypedListTransformer<Field, Annotation>(Field.class) {
+        @Override
+        protected List<Annotation> doTypedTransform(Field input) {
+            return convert(input.getDeclaredAnnotations());
+        }
+    };
 
     private FieldTransformers() {
     }

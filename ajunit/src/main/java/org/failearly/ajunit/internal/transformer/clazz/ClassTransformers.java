@@ -19,16 +19,44 @@
 package org.failearly.ajunit.internal.transformer.clazz;
 
 import org.failearly.ajunit.internal.transformer.Transformer;
+import org.failearly.ajunit.internal.transformer.TypedListTransformer;
+
+import java.lang.annotation.Annotation;
+import java.util.List;
 
 /**
  * ClassTransformers provides factory methods for {@link java.lang.Class} related transformations.
  */
 public abstract class ClassTransformers {
 
-    private static final Transformer CLASS_PACKAGE_NAME_TRANSFORMER = new ClassPackageNameTransformer();
-    private static final Transformer CLASS_MODIFIERS_TRANSFORMER = new ClassModifiersTransformer();
-    private static final Transformer CLASS_NAME_TRANSFORMER = new ClassNameTransformer();
-    private static final Transformer CLASS_ANNOTATIONS_TRANSFORMER = new ClassAnnotationsTransformer();
+    private static final Transformer CLASS_PACKAGE_NAME_TRANSFORMER = new ClassTransformerBase<String>() {
+        @Override
+        protected String doTypedTransform(Class input) {
+            final Package thePackage = input.getPackage();
+            if(thePackage==null) {
+                return "";
+            }
+            return thePackage.getName();
+        }
+    };
+    private static final Transformer CLASS_MODIFIERS_TRANSFORMER = new ClassTransformerBase<Integer>() {
+        @Override
+        protected Integer doTypedTransform(Class input) {
+            return input.getModifiers();
+        }
+    };
+    private static final Transformer CLASS_NAME_TRANSFORMER = new ClassTransformerBase<String>() {
+        @Override
+        protected String doTypedTransform(Class input) {
+            return input.getSimpleName();
+        }
+    };
+    private static final Transformer CLASS_ANNOTATIONS_TRANSFORMER = new TypedListTransformer<Class, Annotation>(Class.class) {
+        @Override
+        protected List<Annotation> doTypedTransform(Class input) {
+            return convert(input.getAnnotations());
+        }
+    };
 
     private ClassTransformers() {
     }
