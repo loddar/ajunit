@@ -16,37 +16,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.internal.universe;
+package org.failearly.ajunit.internal.universe.impl;
+
+import org.failearly.ajunit.internal.universe.AjJoinPoint;
+import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
- * AjUniverse builds the <i>Test Fixture</i> for the actually tests.
+ * AjJoinPointFactory is responsible for ...
  */
-public interface AjUniverse {
-    /**
-     * The universe name.
-     */
-    String getUniverseName();
+final class AjJoinPointFactory {
+    private AjJoinPointFactory() {
+    }
 
-    /**
-     * @return {@code true} if the universe has been initialized.
-     */
-    boolean isInitialized();
+    static AjJoinPoint createAjJoinPoint(AjJoinPointType type, Method method) {
+        return new MethodJoinPoint(type, method);
+    }
 
-    void addJoinpoint(AjJoinPointType joinPointType, Method method);
+    static AjJoinPoint createAjJoinPoint(AjJoinPointType type, Field field) {
+        return new FieldJoinPoint(type, field);
+    }
 
-    void addJoinpoint(AjJoinPointType joinPointType, Field field);
-
-    void addJoinpoint(AjJoinPointType joinPointType, Constructor<?> constructor);
-
-    /**
-     * Visit all {@link AjJoinPoint} associated with the universe.
-     *
-     * @param joinPointVisitor the join point visitor.
-     *
-     */
-    void visitJoinPoints(AjJoinPointVisitor joinPointVisitor);
+    static AjJoinPoint createAjJoinPoint(AjJoinPointType type, Constructor<?> constructor) {
+        return new ConstructorJoinPoint(type, constructor);
+    }
 }

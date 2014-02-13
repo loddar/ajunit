@@ -66,31 +66,23 @@ final class AjUniverseImpl implements AjUniverse {
 
     @Override
     public void addJoinpoint(final AjJoinPointType joinPointType, final Method method) {
-        final AjJoinPointImpl ajJoinPoint = createAjJoinPoint(joinPointType);
-        ajJoinPoint.setMethod(method);
-        LOGGER.info("Add method join point: {}", ajJoinPoint);
+        doAddJoinPoint(AjJoinPointFactory.createAjJoinPoint(joinPointType, method));
     }
 
     @Override
     public void addJoinpoint(final AjJoinPointType joinPointType, final Field field) {
-        final AjJoinPointImpl ajJoinPoint = createAjJoinPoint(joinPointType);
-        ajJoinPoint.setField(field);
-        LOGGER.info("Add field join point: {}", ajJoinPoint);
+        doAddJoinPoint(AjJoinPointFactory.createAjJoinPoint(joinPointType, field));
     }
 
     @Override
-    public void addJoinpoint(final AjJoinPointType joinPointType, final Constructor constructor) {
-        final AjJoinPointImpl ajJoinPoint = createAjJoinPoint(joinPointType);
-        ajJoinPoint.setConstructor(constructor);
-        LOGGER.info("Add constructor join point: {}", ajJoinPoint);
+    public void addJoinpoint(final AjJoinPointType joinPointType, final Constructor<?> constructor) {
+        doAddJoinPoint(AjJoinPointFactory.createAjJoinPoint(joinPointType, constructor));
     }
 
-    private AjJoinPointImpl createAjJoinPoint(final AjJoinPointType joinPointType) {
-        final AjJoinPointImpl joinPoint = new AjJoinPointImpl(joinPointType);
-        joinPoints.add(joinPoint);
-        return joinPoint;
+    private void doAddJoinPoint(AjJoinPoint ajJoinPoint) {
+        joinPoints.add(ajJoinPoint);
+        LOGGER.info("Add join point: {}", ajJoinPoint);
     }
-
 
     @Override
     public void visitJoinPoints(AjJoinPointVisitor joinPointVisitor) {

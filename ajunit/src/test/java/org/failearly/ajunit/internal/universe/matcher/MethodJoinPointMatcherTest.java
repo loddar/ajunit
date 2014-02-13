@@ -90,7 +90,7 @@ public class MethodJoinPointMatcherTest {
         when(ajJoinPoint.getMethod()).thenReturn(resolveMethod(methodName));
 
         LOGGER.debug("AjJoinPoint Mock - getJoinPointType() => {}", ajJoinPoint.getJoinPointType());
-        LOGGER.debug("AjJoinPoint Mock - getMethod() => {}", ajJoinPoint.getMethod());
+        LOGGER.debug("AjJoinPoint Mock - getField() => {}", ajJoinPoint.getField());
 
         return ajJoinPoint;
     }
@@ -112,7 +112,7 @@ public class MethodJoinPointMatcherTest {
         final MethodSignature methodSignature = mock(MethodSignature.class);
         when(methodSignature.getMethod()).thenReturn(resolveMethod(methodName));
 
-        LOGGER.debug("MethodSignature Mock - getMethod() = {}", methodSignature.getMethod());
+        LOGGER.debug("MethodSignature Mock - getField() = {}", methodSignature.getMethod());
 
         return methodSignature;
     }
