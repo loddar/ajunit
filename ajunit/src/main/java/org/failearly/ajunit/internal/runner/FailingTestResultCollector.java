@@ -16,14 +16,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package any.company.aspect;
-
-import org.failearly.ajunit.AjUniverseName;
-import org.failearly.ajunit.internal.runner.PointcutUnitTestBase;
+package org.failearly.ajunit.internal.runner;
 
 /**
-* AbstractAjUnitTest is responsible for ...
-*/
-@AjUniverseName("testUniverse")
-public class PointcutUnitTest extends PointcutUnitTestBase {
+ * FailingTestResultCollector is responsible for ...
+ */
+interface FailingTestResultCollector {
 }

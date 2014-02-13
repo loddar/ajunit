@@ -1,7 +1,7 @@
 /*
  * ajUnit - Unit Testing AspectJ pointcut definitions.
  *
- * Copyright (C) 2013-2014 Marko Umek (ajunit.contact(at)fail-early.com)
+ * Copyright (C) 2013-2014 Marko Umek (http://fail-early.com/contact)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -94,7 +94,7 @@ public final class AjUnitTestRunner {
         final AjUnitTestRunnerJoinPointVisitor joinPointVisitor = new AjUnitTestRunnerJoinPointVisitor(enabledJoinPoints, joinPointSelector);
         universe.visitJoinPoints(joinPointVisitor);
 
-        assertMatchingJoinPoints(joinPointVisitor.getMatchingJoinPoints(), joinPointTypes);
+        assertMatchingJoinPoints(joinPointVisitor.getSelectedJoinPoints(), joinPointTypes);
     }
 
     private void assertMatchingJoinPoints(List<AjJoinPoint> matchingJoinPoints, Set<AjJoinPointType> joinPointTypes) {

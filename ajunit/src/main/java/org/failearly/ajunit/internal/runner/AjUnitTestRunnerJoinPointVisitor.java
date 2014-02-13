@@ -1,7 +1,7 @@
 /*
  * ajUnit - Unit Testing AspectJ pointcut definitions.
  *
- * Copyright (C) 2013-2014 Marko Umek (ajunit.contact(at)fail-early.com)
+ * Copyright (C) 2013-2014 Marko Umek (http://fail-early.com/contact)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,8 +36,8 @@ import java.util.List;
  * <br/><br/>
  * The splitting results:<br/>
  * <ul>
- *     <li>the matching join points</li>
- *     <li>the none matching join points</li>
+ *     <li>the selected join points</li>
+ *     <li>the none selected join points</li>
  *     <li>the suppressed join points, not enabled by {@link org.failearly.ajunit.AjUnitSetup#enableSuppressedJoinPoints(org.failearly.ajunit.SuppressedJoinPoint)}</li>
  * </ul>
  *
@@ -50,8 +50,8 @@ final class AjUnitTestRunnerJoinPointVisitor implements AjJoinPointVisitor {
     private final Predicate enabledJoinPointsPredicate;
     private final Predicate joinPointSelector;
 
-    private final List<AjJoinPoint> matchingJoinPoints=new LinkedList<>();
-    private final List<AjJoinPoint> noneMatchingJoinPoints=new LinkedList<>();
+    private final List<AjJoinPoint> selectedJoinPoints =new LinkedList<>();
+    private final List<AjJoinPoint> noneSelectedJoinPoints =new LinkedList<>();
     private final List<AjJoinPoint> suppressedJoinPoints =new LinkedList<>();
 
     AjUnitTestRunnerJoinPointVisitor(List<Predicate> enabledJoinPoints, Predicate joinPointSelector) {
@@ -75,10 +75,10 @@ final class AjUnitTestRunnerJoinPointVisitor implements AjJoinPointVisitor {
     public void visit(AjJoinPoint joinPoint) {
         if( isNotSuppressed(joinPoint) ) {
             if (joinPointSelector.evaluate(joinPoint)) {
-                matchingJoinPoints.add(joinPoint);
+                selectedJoinPoints.add(joinPoint);
             }
             else {
-                noneMatchingJoinPoints.add(joinPoint);
+                noneSelectedJoinPoints.add(joinPoint);
             }
         }
         else {
@@ -96,12 +96,12 @@ final class AjUnitTestRunnerJoinPointVisitor implements AjJoinPointVisitor {
         return ! SUPPRESSED_JOIN_POINTS.evaluate(joinPoint);
     }
 
-    List<AjJoinPoint> getMatchingJoinPoints() {
-        return Collections.unmodifiableList(matchingJoinPoints);
+    List<AjJoinPoint> getSelectedJoinPoints() {
+        return Collections.unmodifiableList(selectedJoinPoints);
     }
 
-    List<AjJoinPoint> getNoneMatchingJoinPoints() {
-        return Collections.unmodifiableList(noneMatchingJoinPoints);
+    List<AjJoinPoint> getNoneSelectedJoinPoints() {
+        return Collections.unmodifiableList(noneSelectedJoinPoints);
     }
 
     List<AjJoinPoint> getSuppressedJoinPoints() {
