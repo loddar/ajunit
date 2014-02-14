@@ -27,7 +27,6 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 
 /**
  * AjUniverseHolderTest contains tests for {@link org.failearly.ajunit.internal.universe.impl.AjUniversesHolder}.
@@ -101,14 +100,10 @@ public class AjUniverseHolderTest {
         AjUniversesHolder.createUniverseByClasses(universeName, toClassList(AjUniverseHolderTest.class));
 
         // act / when
-        try {
-            AjUniversesHolder.findUniverse("any unknown instance name");
+        final AjUniverse universe = AjUniversesHolder.findUniverse("any unknown instance name");
 
-            // assert / then
-            fail("java.lang.IllegalStateException expected");
-        } catch (IllegalStateException e) {
-            assertThat("Message", e.getMessage(), is("ajUnit - Illegal state: Could not find universe by name 'any unknown instance name'"));
-        }
+        // assert / then
+        assertThat("None existing universe?", universe, nullValue());
     }
 
     @Test
@@ -121,12 +116,7 @@ public class AjUniverseHolderTest {
         AjUniversesHolder.dropUniverse(universeName);
 
         // assert / then
-        try {
-            AjUniversesHolder.findUniverse(universeName);
-            fail("java.lang.IllegalStateException expected");
-        } catch (IllegalStateException e) {
-            assertThat("Message", e.getMessage(), is("ajUnit - Illegal state: Could not find universe by name 'universe-6'"));
-        }
+        assertThat("None existing universe?", AjUniversesHolder.findUniverse(universeName), nullValue());
     }
 
 
