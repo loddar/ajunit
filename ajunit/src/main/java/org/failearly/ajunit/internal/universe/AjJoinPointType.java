@@ -208,7 +208,7 @@ public enum AjJoinPointType {
      * Returns the associated {@link AjJoinPointMatcher}.
      * The default implementation returns the {@link org.failearly.ajunit.internal.universe.matcher.NullMatcher}.
      *
-     * @see org.failearly.ajunit.AjUnitClassicAspect
+     * @see org.failearly.ajunit.AjUnitAspectBase
      */
     public AjJoinPointMatcher getJoinPointMatcher() {
         return JoinPointMatchers.nullMatcher();

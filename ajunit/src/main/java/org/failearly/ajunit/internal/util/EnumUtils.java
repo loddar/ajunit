@@ -19,7 +19,9 @@
 package org.failearly.ajunit.internal.util;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Utility class for enum related operations.
@@ -72,6 +74,14 @@ public abstract class EnumUtils {
     @SuppressWarnings("unchecked")
     public static <E extends Enum<?>> Map<String, E> resolveValidEnums(final Class<E> enumType) {
         return resolveValidEnums(enumType, DEFAULT_ENUM_KEY_RESOLVER);
+    }
+
+
+    /**
+     * Resolves all valid enumeration values as Set.
+     */
+    public static <E extends Enum<?>> Set<E> resolveValidEnumValues(final Class<E> enumType) {
+        return new HashSet<>(resolveValidEnums(enumType).values());
     }
 
 

@@ -23,9 +23,41 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
- * AjUniverse builds the <i>Test Fixture</i> for the actually tests.
+ * An AjUniverse builds the <i>Test Fixture</i> for the pointcut tests.
  */
 public interface AjUniverse {
+    AjUniverse NULL_UNIVERSE=new AjUniverse() {
+        @Override
+        public String getUniverseName() {
+            return null;
+        }
+
+        @Override
+        public boolean isInitialized() {
+            return false;
+        }
+
+        @Override
+        public void addJoinpoint(AjJoinPointType joinPointType, Method method) {
+
+        }
+
+        @Override
+        public void addJoinpoint(AjJoinPointType joinPointType, Field field) {
+
+        }
+
+        @Override
+        public void addJoinpoint(AjJoinPointType joinPointType, Constructor<?> constructor) {
+
+        }
+
+        @Override
+        public void visitJoinPoints(AjJoinPointVisitor joinPointVisitor) {
+
+        }
+    };
+
     /**
      * The universe name.
      */
@@ -36,14 +68,23 @@ public interface AjUniverse {
      */
     boolean isInitialized();
 
+    /**
+     * Create and add {@link org.failearly.ajunit.internal.universe.AjJoinPoint} for {@link java.lang.reflect.Method} instance.
+     */
     void addJoinpoint(AjJoinPointType joinPointType, Method method);
 
+    /**
+     * Create and add {@link org.failearly.ajunit.internal.universe.AjJoinPoint} for {@link java.lang.reflect.Field} instance.
+     */
     void addJoinpoint(AjJoinPointType joinPointType, Field field);
 
+    /**
+     * Create and add {@link org.failearly.ajunit.internal.universe.AjJoinPoint} for {@link java.lang.reflect.Constructor} instance.
+     */
     void addJoinpoint(AjJoinPointType joinPointType, Constructor<?> constructor);
 
     /**
-     * Visit all {@link AjJoinPoint} associated with the universe.
+     * Visit all {@link AjJoinPoint} stored in the universe.
      *
      * @param joinPointVisitor the join point visitor.
      *

@@ -188,8 +188,8 @@ public final class AjSuppressedJoinPoints extends SuppressedJoinPointFactory {
     }
 
     /**
-     * For enabling a specific AspectJ method starting with {@value #ASPECTJ_PREFIX}. Usually all AspectJ generated methods and fields will be ignored.
-     * @param methodName the name without {@value #ASPECTJ_PREFIX}.
+     * For enabling a specific AspectJ method starting with {@link #ASPECTJ_PREFIX}. Usually all AspectJ generated methods and fields will be ignored.
+     * @param methodName the name without {@link #ASPECTJ_PREFIX}.
      */
     public static SuppressedJoinPoint ajcMethod(final String methodName) {
         AjAssert.parameter(! methodName.startsWith(ASPECTJ_PREFIX), methodName+" starts with " + ASPECTJ_PREFIX + ". Remove the prefix " + ASPECTJ_PREFIX);

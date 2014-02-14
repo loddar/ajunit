@@ -29,7 +29,6 @@ import org.failearly.ajunit.modifier.AccessModifier;
  *     execution(method signature)
  * </code>
  *
- * @see
  */
 public interface MethodJoinPointSelectorBuilder extends LogicalSelectorBuilder<MethodJoinPointSelectorBuilder> {
 

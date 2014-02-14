@@ -30,12 +30,12 @@ public abstract class AjUnitUtils {
     /**
      * Resolves the Universe name by evaluating the annotation {@link org.failearly.ajunit.AjUniverseName}.
      *
-     * @param ajUnitObject the ajUnit object.
+     * @param ajUnitObject the ajUnit object (either the aspect or test).
      * @return the universe name.
      *
      * @throws java.lang.IllegalArgumentException
      *
-     * @see org.failearly.ajunit.AjUnitClassicAspect
+     * @see org.failearly.ajunit.AjUnitAspectBase
      * @see org.failearly.ajunit.internal.runner.AjUnitTestRunner
      */
     public static String resolveUniverseName(final Object ajUnitObject) {
@@ -49,7 +49,7 @@ public abstract class AjUnitUtils {
      *
      * @throws java.lang.IllegalArgumentException
      *
-     * @see org.failearly.ajunit.AjUnitClassicAspect
+     * @see org.failearly.ajunit.AjUnitAspectBase
      * @see org.failearly.ajunit.internal.runner.AjUnitTestRunner
      */
     public static String resolveUniverseName(Class<?> ajUnitObjectClass) {
@@ -59,7 +59,7 @@ public abstract class AjUnitUtils {
                     MessageUtils.setupError("Missing annotation @AjUniverseName for class/aspect")
                             .arg(ajUnitObjectClass.getSimpleName())
             );
-            // Just for keeping it green.
+            // Just for keeping IDEA & Co happy.
             return "<unknown universe name>";
         }
         return universeName.value();

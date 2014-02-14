@@ -20,14 +20,14 @@ package org.failearly.ajunit;
 
 import org.failearly.ajunit.builder.JoinPointSelectorBuilder;
 import org.failearly.ajunit.internal.runner.AjUnitTestRunner;
-import org.failearly.ajunit.internal.runner.Fail;
+import org.failearly.ajunit.internal.runner.FailureHandler;
 import org.failearly.ajunit.internal.util.AjAssert;
 import org.failearly.ajunit.internal.util.MessageUtils;
 
 /**
  * AjUnitTestBase is responsible for ...
  */
-public abstract class AjUnitTestBase implements AjUnitTest, Fail {
+public abstract class AjUnitTestBase implements AjUnitTest, FailureHandler {
 
     private final AjUnitTestRunner testRunner = AjUnitTestRunner.createTestRunner(this, this);
 

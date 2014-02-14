@@ -43,7 +43,6 @@ public interface MemberSelectorBuilder<B extends SelectorBuilder> {
     /**
      * TODO
      * @param clazz
-     * @return
      */
     B byDeclaringClass(Class<?> clazz);
     B byDeclaringClassName(String className);

@@ -19,7 +19,11 @@
 package org.failearly.ajunit.internal.runner;
 
 /**
- * FailingTestResultCollector is responsible for ...
+ * Provides a failing implementation to the actually Test Runner (JUnit4, TestNG, ...).
  */
-interface FailingTestResultCollector {
+public interface FailureHandler {
+    /**
+     * Internal use only. Throws {@link java.lang.AssertionError}.
+     */
+    void doFail(String message);
 }

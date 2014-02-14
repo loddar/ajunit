@@ -19,44 +19,89 @@
 package org.failearly.ajunit.internal.runner;
 
 import org.failearly.ajunit.internal.universe.AjJoinPoint;
+import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
-import java.util.List;
+import java.util.*;
 
 /**
- * TestResultEvaluator is responsible for ...
+ * TestResultEvaluator is responsible for evaluating the test results of {@link ApplyJoinPointSelector}.
  */
 final class TestResultEvaluator {
-    private List<AjJoinPoint> selectedJoinPoints;
-    private List<AjJoinPoint> noneSelectedJoinPoints;
-    private List<AjJoinPoint> suppressedJoinPoints;
+    private final List<AjJoinPoint> selectedJoinPoints=new LinkedList<>();
+    private final List<AjJoinPoint> noneSelectedJoinPoints=new LinkedList<>();
+    private final List<AjJoinPoint> suppressedJoinPoints=new LinkedList<>();
+    private final Set<AjJoinPointType> joinPointTypes=new HashSet<>();
 
 
-    void setSelectedJoinPoints(List<AjJoinPoint> selectedJoinPoints) {
-        this.selectedJoinPoints = selectedJoinPoints;
+    TestResultEvaluator init(ApplyJoinPointSelector joinPointVisitor, Collection<AjJoinPointType> ajJoinPointTypes) {
+        this.selectedJoinPoints.addAll(joinPointVisitor.getSelectedJoinPoints());
+        this.noneSelectedJoinPoints.addAll(joinPointVisitor.getNoneSelectedJoinPoints());
+        this.suppressedJoinPoints.addAll(joinPointVisitor.getSuppressedJoinPoints());
+        this.joinPointTypes.addAll(ajJoinPointTypes);
+        return this;
     }
 
-    void setNoneSelectedJoinPoints(List<AjJoinPoint> noneSelectedJoinPoints) {
-        this.noneSelectedJoinPoints = noneSelectedJoinPoints;
+
+    void evaluateTestResult(TestResultCollector testResultCollector) {
+        evaluateSelectedJoinPoints(testResultCollector);
+        evaluateNoneSelectedJoinPoints(testResultCollector);
+        evaluateSuppressedJoinPoints(testResultCollector);
     }
 
-    void setSuppressedJoinPoints(List<AjJoinPoint> suppressedJoinPoints) {
-        this.suppressedJoinPoints = suppressedJoinPoints;
+    private void evaluateSuppressedJoinPoints(TestResultCollector testResultCollector) {
+        for (AjJoinPoint suppressedJoinPoint : suppressedJoinPoints ) {
+            if( suppressedJoinPoint.getNumApplications()>0 ) {
+                testResultCollector.suppressedButApplied(suppressedJoinPoint.toShortString());
+            }
+        }
     }
 
-    void evaluateTestResult(FailingTestResultCollector failingTestResultCollector) {
-        evaluateSelectedJoinPoints(failingTestResultCollector);
-        evaluateNoneSelectedJoinPoints(failingTestResultCollector);
-        evaluateSuppressedJoinPoints(failingTestResultCollector);
+    private void evaluateNoneSelectedJoinPoints(TestResultCollector testResultCollector) {
+        checkForMissingNoneSelected(testResultCollector);
+        checkForNoneSelectedButApplied(testResultCollector);
     }
 
-    private void evaluateSuppressedJoinPoints(FailingTestResultCollector failingTestResultCollector) {
+    private void checkForNoneSelectedButApplied(TestResultCollector testResultCollector) {
+        for (AjJoinPoint noneSelectedJoinPoint : noneSelectedJoinPoints) {
+            if( noneSelectedJoinPoint.getNumApplications()>0 ) {
+                testResultCollector.noneSelectedButApplied(noneSelectedJoinPoint.toShortString());
+            }
+        }
 
     }
 
-    private void evaluateNoneSelectedJoinPoints(FailingTestResultCollector failingTestResultCollector) {
-        
+    private void checkForMissingNoneSelected(TestResultCollector testResultCollector) {
+        if( hasNoKindedJoinPoints(this.noneSelectedJoinPoints) ) {
+            testResultCollector.missingNoneSelected();
+        }
     }
 
-    private void evaluateSelectedJoinPoints(FailingTestResultCollector failingTestResultCollector) {
+    private void evaluateSelectedJoinPoints(TestResultCollector testResultCollector) {
+        checkForNoJoinPointsSelected(testResultCollector);
+        checkForSelectedButNotApplied(testResultCollector);
+    }
+
+    private void checkForSelectedButNotApplied(TestResultCollector testResultCollector) {
+        for (AjJoinPoint selectedJoinPoint : selectedJoinPoints) {
+            if( selectedJoinPoint.getNumApplications()==0 ) {
+                testResultCollector.selectedButNotApplied(selectedJoinPoint.toShortString());
+            }
+        }
+    }
+
+    private void checkForNoJoinPointsSelected(TestResultCollector testResultCollector) {
+        if(hasNoKindedJoinPoints(this.selectedJoinPoints)) {
+            testResultCollector.noJoinPointsSelected();
+        }
+    }
+
+
+    private boolean hasNoKindedJoinPoints(List<AjJoinPoint> joinPoints) {
+        for (AjJoinPoint joinPoint : joinPoints) {
+            if( joinPointTypes.contains(joinPoint.getJoinPointType())) {
+                return false;
+            }
+        }
+        return true;
     }
 }

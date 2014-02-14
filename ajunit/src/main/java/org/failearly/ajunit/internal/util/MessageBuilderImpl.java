@@ -42,13 +42,31 @@ final class MessageBuilderImpl implements MessageBuilder {
 
     @Override
     public MessageBuilder newline() {
-        stringBuilder.append("\n");
+        return newlines(1);
+    }
+
+    @Override
+    public MessageBuilder newlines(int num) {
+        do {
+            stringBuilder.append("\n");
+            num-=1;
+        } while(num>0);
         return this;
     }
 
     @Override
+    public MessageBuilder newline(String message) {
+        stringBuilder.append("\n").append(message);
+        return this;
+    }
+
+
+    @Override
     public MessageBuilder line(String message) {
-        stringBuilder.append("\n- ").append(message);
+        stringBuilder.append("\n-");
+        if(! message.isEmpty() ) {
+            stringBuilder.append(" ").append(message);
+        }
         return this;
     }
 
@@ -60,7 +78,10 @@ final class MessageBuilderImpl implements MessageBuilder {
 
     @Override
     public MessageBuilder arg(Object object) {
-        stringBuilder.append(" '").append(object).append("'");
+        if(object instanceof Number)
+            stringBuilder.append(" ").append(object);
+        else
+            stringBuilder.append(" '").append(object).append("'");
         return this;
     }
 

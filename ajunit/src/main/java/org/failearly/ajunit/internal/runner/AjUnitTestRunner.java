@@ -43,15 +43,15 @@ import java.util.Set;
 public final class AjUnitTestRunner {
 
     private final AjUnitTest ajUnitTest;
-    private final Fail fail;
+    private final FailureHandler failureHandler;
 
-    private AjUnitTestRunner(AjUnitTest ajUnitTest, Fail fail) {
+    private AjUnitTestRunner(AjUnitTest ajUnitTest, FailureHandler failureHandler) {
         this.ajUnitTest = ajUnitTest;
-        this.fail = fail;
+        this.failureHandler = failureHandler;
     }
 
-    public static AjUnitTestRunner createTestRunner(AjUnitTest ajUnitTest, Fail fail) {
-        return new AjUnitTestRunner(ajUnitTest, fail);
+    public static AjUnitTestRunner createTestRunner(AjUnitTest ajUnitTest, FailureHandler failureHandler) {
+        return new AjUnitTestRunner(ajUnitTest, failureHandler);
     }
 
     /**
@@ -91,10 +91,13 @@ public final class AjUnitTestRunner {
                         final Predicate joinPointSelector,
                         final List<Predicate> enabledJoinPoints)
     {
-        final AjUnitTestRunnerJoinPointVisitor joinPointVisitor = new AjUnitTestRunnerJoinPointVisitor(enabledJoinPoints, joinPointSelector);
+        final ApplyJoinPointSelector joinPointVisitor = new ApplyJoinPointSelector(enabledJoinPoints, joinPointSelector);
         universe.visitJoinPoints(joinPointVisitor);
-
-        assertMatchingJoinPoints(joinPointVisitor.getSelectedJoinPoints(), joinPointTypes);
+        final TestResultCollectorImpl testResultCollector=new TestResultCollectorImpl();
+        final TestResultEvaluator testResultEvaluator=new TestResultEvaluator();
+        testResultEvaluator.init(joinPointVisitor, joinPointTypes)
+                           .evaluateTestResult(testResultCollector);
+        testResultCollector.onFailure(this.failureHandler);
     }
 
     private void assertMatchingJoinPoints(List<AjJoinPoint> matchingJoinPoints, Set<AjJoinPointType> joinPointTypes) {
@@ -202,7 +205,7 @@ public final class AjUnitTestRunner {
     }
 
     private void doFail(String message) {
-        fail.doFail(message);
+        failureHandler.doFail(message);
     }
 
     private Predicate buildJoinPointSelector(final Set<AjJoinPointType> joinPointTypes) {

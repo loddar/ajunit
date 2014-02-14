@@ -30,10 +30,23 @@ public interface MessageBuilder {
     MessageBuilder part(String message);
 
     /**
-     * Adds a new line.
+     * Adds a single new line.
      * @return this.
      */
     MessageBuilder newline();
+
+    /**
+     * Adds new lines.
+     * @return this.
+     */
+    MessageBuilder newlines(int num);
+
+    /**
+     * Adds a new line with text.
+     * @param message the message on the next line
+     * @return this.
+     */
+    MessageBuilder newline(String message);
 
     /**
      * Adds a new line and then the message.
@@ -61,7 +74,7 @@ public interface MessageBuilder {
      *     mb.part(" '" + object + "'");
      * </code>
      * @param object
-     * @return
+     * @return this.
      */
     MessageBuilder arg(Object object);
 

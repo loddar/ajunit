@@ -132,7 +132,6 @@ public final class LogicalStructureBuilder<R extends RootBuilder, C extends Buil
      * Jumps to the root builder node.
      *
      * @return the root builder node.
-     * @see
      */
     R done() {
         return this.root;
@@ -141,7 +140,6 @@ public final class LogicalStructureBuilder<R extends RootBuilder, C extends Buil
     /**
      * Cleanup builder. Otherwise there will be memory leaks.
      *
-     * @return parent builder.
      * @see Builder#cleanup()
      */
     void cleanup() {
