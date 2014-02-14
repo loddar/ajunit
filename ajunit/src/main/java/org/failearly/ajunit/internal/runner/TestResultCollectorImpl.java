@@ -97,7 +97,8 @@ final class TestResultCollectorImpl implements TestResultCollector {
 
     private void buildNoneSelectedButAppliedMessagePart(MessageBuilder messageBuilder) {
         if( ! noneSelectedButApplied.isEmpty() ) {
-            messageBuilder.newline().line("").arg(noneSelectedButApplied.size()).part("none(!) selected join point(s) has/have been applied. The join point(s):");
+            messageBuilder.newline().line("").arg(noneSelectedButApplied.size())
+                    .part("none(!) selected join point(s) has/have been applied. The join point(s):");
             listJoinPoints(messageBuilder, noneSelectedButApplied);
             messageBuilder.line("Possible reasons for this error:")
                     .subLine("Your pointcut definition should not select the listed join point(s). Your pointcut definition is too weak.")

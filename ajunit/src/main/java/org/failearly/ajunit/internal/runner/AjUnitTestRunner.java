@@ -22,7 +22,6 @@ import org.failearly.ajunit.AjUnitAspectBase;
 import org.failearly.ajunit.AjUnitTest;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderImpl;
 import org.failearly.ajunit.internal.predicate.Predicate;
-import org.failearly.ajunit.internal.universe.AjJoinPoint;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.failearly.ajunit.internal.universe.AjUniverse;
 import org.failearly.ajunit.internal.universe.impl.AjUniversesHolder;
@@ -35,7 +34,7 @@ import java.util.Set;
 
 
 /**
- * AjUnitTestRunner the internal used test runner.
+ * AjUnitTestRunner the internal test runner.
  *
  * @see org.failearly.ajunit.AjUnitTest
  * @see org.failearly.ajunit.AjUnitTestBase
@@ -50,6 +49,10 @@ public final class AjUnitTestRunner {
         this.failureHandler = failureHandler;
     }
 
+    /**
+     * The factory method.
+     * @return an AjUnitTestRunner instance.
+     */
     public static AjUnitTestRunner createTestRunner(AjUnitTest ajUnitTest, FailureHandler failureHandler) {
         return new AjUnitTestRunner(ajUnitTest, failureHandler);
     }
@@ -78,7 +81,6 @@ public final class AjUnitTestRunner {
                 AjUniversesHolder.dropUniverse(universeName);
             }
         }
-
     }
 
     private void doExecute() {
@@ -98,38 +100,6 @@ public final class AjUnitTestRunner {
         testResultEvaluator.init(joinPointVisitor, joinPointTypes)
                            .evaluateTestResult(testResultCollector);
         testResultCollector.onFailure(this.failureHandler);
-    }
-
-    private void assertMatchingJoinPoints(List<AjJoinPoint> matchingJoinPoints, Set<AjJoinPointType> joinPointTypes) {
-        if (matchingJoinPoints.isEmpty()) {
-            doFail(MessageUtils.message("No join points matching. Possible reasons:")
-                    .line("The pointcut definition does mot match.")
-                    .line("Method assertPointcut(JoinPointSelectorBuilder) uses notYetSpecified().")
-                    .line("Method execute() is empty or the implementation is not proper.")
-            );
-        } else {
-            final List<AjJoinPoint> appliedJoinPoints = resolveAppliedJoinPoints(matchingJoinPoints, joinPointTypes);
-            if (appliedJoinPoints.size() < matchingJoinPoints.size()) {
-                doFail(incompleteMessage(matchingJoinPoints, appliedJoinPoints));
-            }
-        }
-    }
-
-    @SuppressWarnings("unused")
-    private MessageBuilder incompleteMessage(List<AjJoinPoint> matchingJoinPoints, List<AjJoinPoint> appliedJoinPoints) {
-        return MessageUtils.message("The pointcut definition is incomplete.");
-    }
-
-    @SuppressWarnings("unused")
-    private List<AjJoinPoint> resolveAppliedJoinPoints(List<AjJoinPoint> joinPointList, Set<AjJoinPointType> joinPointTypes) {
-        final List<AjJoinPoint> appliedJoinPoints = new LinkedList<>();
-        for (AjJoinPoint joinPoint : joinPointList) {
-            if (joinPoint.getNumApplications() > 0) {
-                appliedJoinPoints.add(joinPoint);
-            }
-        }
-        AjAssert.assertCondition(appliedJoinPoints.size() <= joinPointList.size(), MessageUtils.message("#applied > #matching join points."));
-        return appliedJoinPoints;
     }
 
     private void assertAssociatedAspect(String universeName, AjUnitSetupImpl ajUnitTestSetup) {
@@ -198,14 +168,6 @@ public final class AjUnitTestRunner {
 
     private void throwSetupError(MessageBuilder messageBuilder) {
         AjAssert.throwSetupError(messageBuilder);
-    }
-
-    private void doFail(MessageBuilder message) {
-        doFail(message.build());
-    }
-
-    private void doFail(String message) {
-        failureHandler.doFail(message);
     }
 
     private Predicate buildJoinPointSelector(final Set<AjJoinPointType> joinPointTypes) {
