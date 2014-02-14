@@ -1,6 +1,7 @@
 *~
 *.class
 target/
+javadoc/
 
 # IDEA files #
 *.iml
