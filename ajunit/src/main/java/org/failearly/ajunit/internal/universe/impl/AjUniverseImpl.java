@@ -81,7 +81,7 @@ final class AjUniverseImpl implements AjUniverse {
 
     private void doAddJoinPoint(AjJoinPoint ajJoinPoint) {
         joinPoints.add(ajJoinPoint);
-        LOGGER.info("Add join point: {}", ajJoinPoint);
+        LOGGER.info("Universe {}: Add join point {}", this.universeName, ajJoinPoint);
     }
 
     @Override

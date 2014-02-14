@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -45,31 +46,41 @@ public abstract class AjUnitAspectBase {
      * @param joinPoint the AspectJ join point.
      */
     protected final void doApply(final JoinPoint joinPoint) {
-        LOGGER.info("ajUnit - Apply AspectJ join point: {}", joinPoint);
-        final AjJoinPoint ajUnitJoinPoint=resolveAjJoinPoint(joinPoint);
+        final String universeName = AjUnitUtils.resolveUniverseName(this);
+        LOGGER.info("ajUnit - {}: Apply AspectJ join point {}", universeName, joinPoint);
+        final AjJoinPoint ajUnitJoinPoint=resolveAjJoinPoint(joinPoint, universeName);
         ajUnitJoinPoint.apply();
-        LOGGER.debug("ajUnit - Applied ajUnit join point: {}", ajUnitJoinPoint);
+        LOGGER.debug("ajUnit - {}: Applied ajUnit join point {}", universeName, ajUnitJoinPoint);
     }
 
-    private AjJoinPoint resolveAjJoinPoint(final JoinPoint joinPoint) {
-        final List<AjJoinPoint> joinPoints = lookupForJoinPointsInUniverse(joinPoint);
+    private AjJoinPoint resolveAjJoinPoint(final JoinPoint joinPoint, String universeName) {
+        final List<AjJoinPoint> joinPoints = lookupForJoinPointsInUniverse(joinPoint, universeName);
         validateResult(joinPoint, joinPoints);
         return joinPoints.get(0);
     }
 
-    private List<AjJoinPoint> lookupForJoinPointsInUniverse(final JoinPoint joinPoint) {
-        final List<AjJoinPoint> joinPoints=new ArrayList<>();
-        final AjJoinPointMatcher matcher = resolveJoinPointMatcher(joinPoint);
-        final AjUniverse universe = AjUniversesHolder.findUniverse(AjUnitUtils.resolveUniverseName(this));
-        universe.visitJoinPoints(new AjJoinPointVisitor() {
-            @Override
-            public void visit(AjJoinPoint ajJoinPoint) {
-                if (matcher.match(joinPoint, ajJoinPoint)) {
-                    joinPoints.add(ajJoinPoint);
+    private List<AjJoinPoint> lookupForJoinPointsInUniverse(final JoinPoint joinPoint, String universeName) {
+        final AjUniverse universe = AjUniversesHolder.findUniverse(universeName);
+        return findAjJoinPointsInUniverse(joinPoint, universe);
+    }
+
+    private List<AjJoinPoint> findAjJoinPointsInUniverse(final JoinPoint joinPoint, AjUniverse universe) {
+        if( universe !=null ) {
+            final AjJoinPointMatcher matcher = resolveJoinPointMatcher(joinPoint);
+            final List<AjJoinPoint> joinPoints=new ArrayList<>();
+            universe.visitJoinPoints(new AjJoinPointVisitor() {
+                @Override
+                public void visit(AjJoinPoint ajJoinPoint) {
+                    if (matcher.match(joinPoint, ajJoinPoint)) {
+                        joinPoints.add(ajJoinPoint);
+                    }
                 }
-            }
-        });
-        return joinPoints;
+            });
+
+            return joinPoints;
+        }
+
+        return Arrays.asList(AjJoinPoint.NULL_OBJECT);
     }
 
     private void validateResult(JoinPoint joinPoint, List<AjJoinPoint> joinPoints) {

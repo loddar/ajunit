@@ -18,6 +18,9 @@
  */
 package org.failearly.ajunit.internal.universe;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -26,6 +29,53 @@ import java.lang.reflect.Method;
  * The ajUnit join point definition. Will be collected by {@link AjUniverse}.
  */
 public interface AjJoinPoint {
+    Logger LOGGER = LoggerFactory.getLogger(AjJoinPoint.class);
+
+    /**
+     * Used by {@link org.failearly.ajunit.AjUnitAspectBase}.
+     */
+    AjJoinPoint NULL_OBJECT = new AjJoinPoint() {
+        @Override
+        public AjJoinPointType getJoinPointType() {
+            return null;
+        }
+
+        @Override
+        public Class<?> getDeclaringClass() {
+            return null;
+        }
+
+        @Override
+        public Method getMethod() {
+            return null;
+        }
+
+        @Override
+        public Field getField() {
+            return null;
+        }
+
+        @Override
+        public Constructor getConstructor() {
+            return null;
+        }
+
+        @Override
+        public int getNumApplications() {
+            return 0;
+        }
+
+        @Override
+        public void apply() {
+            LOGGER.info("Call apply on NULL_OBJECT");
+        }
+
+        @Override
+        public String toShortString() {
+            return null;
+        }
+    };
+
     /**
      * @return the ajUnit joinpoint type.
      */

@@ -21,6 +21,8 @@ package org.failearly.ajunit.internal.universe.impl;
 import org.failearly.ajunit.internal.universe.AjUniverse;
 import org.failearly.ajunit.internal.util.AjAssert;
 import org.failearly.ajunit.internal.util.ClassUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -34,6 +36,8 @@ import java.util.concurrent.ConcurrentMap;
  * @see org.failearly.ajunit.internal.universe.AjUniverse
  */
 public final class AjUniversesHolder {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AjUniversesHolder.class);
 
     private static final AjUniversesHolder INSTANCE = new AjUniversesHolder();
     private final ConcurrentMap<String, AjUniverseImpl> universes = new ConcurrentHashMap<>();
@@ -119,7 +123,9 @@ public final class AjUniversesHolder {
 
     private AjUniverse doFindUniverse(String universeName) {
         final AjUniverse ajUniverse = universes.get(universeName);
-        AjAssert.state(ajUniverse != null, "Could not find universe by name '" + universeName + "'");
+        if( ajUniverse==null ) {
+            LOGGER.info("No universe instance found for '{}'", universeName);
+        }
         return ajUniverse;
     }
 

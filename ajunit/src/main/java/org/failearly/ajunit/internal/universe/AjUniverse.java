@@ -26,38 +26,6 @@ import java.lang.reflect.Method;
  * An AjUniverse builds the <i>Test Fixture</i> for the pointcut tests.
  */
 public interface AjUniverse {
-    AjUniverse NULL_UNIVERSE=new AjUniverse() {
-        @Override
-        public String getUniverseName() {
-            return null;
-        }
-
-        @Override
-        public boolean isInitialized() {
-            return false;
-        }
-
-        @Override
-        public void addJoinpoint(AjJoinPointType joinPointType, Method method) {
-
-        }
-
-        @Override
-        public void addJoinpoint(AjJoinPointType joinPointType, Field field) {
-
-        }
-
-        @Override
-        public void addJoinpoint(AjJoinPointType joinPointType, Constructor<?> constructor) {
-
-        }
-
-        @Override
-        public void visitJoinPoints(AjJoinPointVisitor joinPointVisitor) {
-
-        }
-    };
-
     /**
      * The universe name.
      */
