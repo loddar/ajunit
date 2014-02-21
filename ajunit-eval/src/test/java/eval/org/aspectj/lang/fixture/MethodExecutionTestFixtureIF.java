@@ -19,19 +19,8 @@
 package eval.org.aspectj.lang.fixture;
 
 /**
- * Test Subject for {@link eval.org.aspectj.lang.MethodExecutionTest}.
- *
- * @see eval.org.aspectj.lang.AbstractJoinpointAfterAdviceTestAspect
+ * MethodExecutionTestFixtureIF is responsible for ...
  */
-public class MethodExecutionTestFixture implements MethodExecutionTestFixtureIF {
-
-    public MethodExecutionTestFixture() {
-    }
-
-    @Override
-    public void executeMe(final int i, final int i1, final int i2) {
-    }
-
-    public static void executeMe() {
-    }
+public interface MethodExecutionTestFixtureIF {
+    void executeMe(int i, int i1, int i2);
 }

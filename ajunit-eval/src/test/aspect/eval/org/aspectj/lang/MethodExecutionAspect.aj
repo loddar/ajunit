@@ -22,5 +22,5 @@ package eval.org.aspectj.lang;
  * MethodExecutionAspect picks method execution join point.
  */
 public aspect MethodExecutionAspect extends AbstractJoinpointAfterAdviceTestAspect {
-    pointcut testPointcut() : execution(void eval.org.aspectj.lang.fixture.MethodExecutionTestFixture.executeMe(..));
+    pointcut testPointcut() : execution(void eval.org.aspectj.lang.fixture.MethodExecutionTestFixtureIF+.executeMe(..));
 }

@@ -20,6 +20,7 @@ package org.failearly.ajunit.internal.builder.jpsb;
 
 import org.failearly.ajunit.builder.JoinPointSelectorBuilder;
 import org.failearly.ajunit.builder.MethodJoinPointSelectorBuilder;
+import org.failearly.ajunit.builder.StringMatcherType;
 import org.failearly.ajunit.internal.builder.BuilderBase;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
@@ -28,7 +29,6 @@ import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.failearly.ajunit.internal.transformer.ajp.AjpTransformers;
 import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
-import org.failearly.ajunit.modifier.AccessModifier;
 
 /**
  * MethodJoinPointSelectorBuilderImpl is responsible for ...
@@ -52,37 +52,7 @@ class MethodJoinPointSelectorBuilderImpl extends BuilderBase<JoinPointSelectorBu
     }
 
     @Override
-    public MethodJoinPointSelectorBuilder byAnyOfAccessModifiers(AccessModifier... accessModifier) {
-        return null;
-    }
-
-    @Override
-    public MethodJoinPointSelectorBuilder byNoneOfAccessModifiers(AccessModifier... accessModifier) {
-        return null;
-    }
-
-    @Override
-    public MethodJoinPointSelectorBuilder byName(String methodName) {
-        return null;
-    }
-
-    @Override
-    public MethodJoinPointSelectorBuilder byDeclaringClass(Class<?> clazz) {
-        return null;
-    }
-
-    @Override
-    public MethodJoinPointSelectorBuilder byDeclaringClassName(String className) {
-        return null;
-    }
-
-    @Override
-    public MethodJoinPointSelectorBuilder byReturnType(Class<?> clazz) {
-        return null;
-    }
-
-    @Override
-    public MethodJoinPointSelectorBuilder byReturnType(String className) {
+    public MethodJoinPointSelectorBuilder byName(String methodNamePattern, StringMatcherType matcherType) {
         return null;
     }
 

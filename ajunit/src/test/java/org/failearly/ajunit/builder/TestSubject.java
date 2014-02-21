@@ -16,22 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package eval.org.aspectj.lang.fixture;
+package org.failearly.ajunit.builder;
 
 /**
- * Test Subject for {@link eval.org.aspectj.lang.MethodExecutionTest}.
- *
- * @see eval.org.aspectj.lang.AbstractJoinpointAfterAdviceTestAspect
- */
-public class MethodExecutionTestFixture implements MethodExecutionTestFixtureIF {
-
-    public MethodExecutionTestFixture() {
-    }
-
-    @Override
-    public void executeMe(final int i, final int i1, final int i2) {
-    }
-
-    public static void executeMe() {
-    }
+* Just for {@link org.failearly.ajunit.builder.AbstractJoinPointSelectorBuilderTest}.
+*/
+class TestSubject {
+    public void anyMethod() {}
+    private void otherMethod() {}
 }

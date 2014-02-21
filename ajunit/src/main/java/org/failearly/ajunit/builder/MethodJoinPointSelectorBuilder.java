@@ -18,39 +18,58 @@
  */
 package org.failearly.ajunit.builder;
 
-import org.failearly.ajunit.modifier.AccessModifier;
-
 /**
  * MethodJoinPointSelectorBuilder is the builder for method join point selector expression.
  * <br/><br/>
  * AspectJ pointcut definitions:
  * <code>
- *     call(method signature)
- *     execution(method signature)
+ * call(method signature)
+ * execution(method signature)
  * </code>
- *
  */
 public interface MethodJoinPointSelectorBuilder extends LogicalSelectorBuilder<MethodJoinPointSelectorBuilder> {
 
+    /**
+     * End the method execution/call expression(s) end return to join point selector builder. It's like ending a
+     * <pre>(execution(expr1) && execution(expr2))</pre> or <pre>(call(expr1) && call(expr2))</pre>.
+     *
+     * @return the {@link org.failearly.ajunit.builder.JoinPointSelectorBuilder}.
+     * @see JoinPointSelectorBuilder#methodExecute()
+     * @see org.failearly.ajunit.builder.JoinPointSelectorBuilder#methodCall()
+     */
     JoinPointSelectorBuilder endMethod();
 
-    MethodJoinPointSelectorBuilder byAnyOfAccessModifiers(AccessModifier... accessModifier);
-    MethodJoinPointSelectorBuilder byNoneOfAccessModifiers(AccessModifier... accessModifier);
-    MethodJoinPointSelectorBuilder byName(String methodName);
-    MethodJoinPointSelectorBuilder byDeclaringClass(Class<?> clazz);
-    MethodJoinPointSelectorBuilder byDeclaringClassName(String className);
+    /**
+     * Select a method by method name (pattern).<br/>
+     * </br>
+     * <ul>
+     * <li><code>execution(* *.get*(..))</code></li>
+     * <li><code>call(* *.set*(..))</code></li>
+     * </ul>
+     *
+     * @param methodNamePattern the method name/name part or regular expression.
+     * @param matcherType the matcher type
+     * @return itself
+     */
+    MethodJoinPointSelectorBuilder byName(String methodNamePattern, StringMatcherType matcherType);
 
-    MethodJoinPointSelectorBuilder byReturnType(Class<?> clazz);
-    MethodJoinPointSelectorBuilder byReturnType(String className);
+//    MethodJoinPointSelectorBuilder byAnyOfAccessModifiers(AccessModifier... accessModifier);
+//    MethodJoinPointSelectorBuilder byNoneOfAccessModifiers(AccessModifier... accessModifier);
+//    MethodJoinPointSelectorBuilder byDeclaringClass(Class<?> clazz);
+//    MethodJoinPointSelectorBuilder byDeclaringClassName(String className, StringMatcherType matcherType);
+//
+//    MethodJoinPointSelectorBuilder byReturnType(Class<?> clazz);
+//    MethodJoinPointSelectorBuilder byReturnType(String className, StringMatcherType matcherType);
 
     /**
      * Accepts any method signature.<br/>
      * </br>
      * AspectJ pointcut definitions:
      * <ul>
-     *     <li><code>execution(* *(..))</code></li>
-     *     <li><code>call(* *(..))</code></li>
+     * <li><code>execution(* *(..))</code></li>
+     * <li><code>call(* *(..))</code></li>
      * </ul>
+     *
      * @return itself
      */
     MethodJoinPointSelectorBuilder anyMethod();

@@ -16,22 +16,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package eval.org.aspectj.lang.fixture;
+package org.failearly.ajunit.test.helper;
+
+import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.universe.AjJoinPoint;
 
 /**
- * Test Subject for {@link eval.org.aspectj.lang.MethodExecutionTest}.
- *
- * @see eval.org.aspectj.lang.AbstractJoinpointAfterAdviceTestAspect
+ * ToShortStringJoinPointVisistor is responsible for ...
  */
-public class MethodExecutionTestFixture implements MethodExecutionTestFixtureIF {
-
-    public MethodExecutionTestFixture() {
+public class ToShortStringJoinPointVisitor extends StandardJoinPointVisitor {
+    public ToShortStringJoinPointVisitor(Predicate joinPointSelector) {
+        super(joinPointSelector);
     }
 
     @Override
-    public void executeMe(final int i, final int i1, final int i2) {
-    }
-
-    public static void executeMe() {
+    protected String toString(AjJoinPoint joinPoint) {
+        return joinPoint.toShortString();
     }
 }

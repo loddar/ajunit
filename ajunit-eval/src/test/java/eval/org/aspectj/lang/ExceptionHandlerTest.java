@@ -55,6 +55,15 @@ public class ExceptionHandlerTest extends AbstractAspectTest {
                 assertThat("This?", joinPoint.getThis(), sameInstance((Object) testFixture));
                 assertThat("Target?", joinPoint.getTarget(), nullValue());
                 assertThat("#Arguments?", joinPoint.getArgs().length, is(1));
+                final CatchClauseSignature catchClauseSignature= (CatchClauseSignature) joinPoint.getSignature();
+                assertThat("Catch Clause Signature?", catchClauseSignature.toLongString(), is("catch(java.lang.ArithmeticException)"));
+                assertThat("Catch Clause Signature: Parameter Type?",
+                                        catchClauseSignature.getParameterType().getCanonicalName(), is("java.lang.ArithmeticException"));
+                assertThat("Catch Clause Signature: Parameter Name?", catchClauseSignature.getParameterName(), is("ex"));
+                assertThat("Catch Clause Signature: Name?", catchClauseSignature.getName(), is("catch"));
+                assertThat("Catch Clause Signature: Declaring Type Name?",
+                                        catchClauseSignature.getDeclaringTypeName(),
+                                        is("eval.org.aspectj.lang.fixture.ExceptionHandlerTestFixture"));
             }
         });
     }

@@ -20,6 +20,9 @@ package org.failearly.ajunit.internal.util;
 
 import org.failearly.ajunit.AjUniverseName;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Some utility methods.
  */
@@ -63,5 +66,12 @@ public abstract class AjUnitUtils {
             return "<unknown universe name>";
         }
         return universeName.value();
+    }
+
+    /**
+     * Convert classes to class list.
+     */
+    public static List<Class<?>> toClassList(Class<?>... classes) {
+        return Arrays.asList(classes);
     }
 }

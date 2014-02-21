@@ -33,8 +33,8 @@ public class ExceptionHandlerTestFixture {
         try {
             value /= divisor;
         }
-        catch (Exception ex) {
-            LOGGER.info("Exception caught {}", ex.getMessage());
+        catch (ArithmeticException ex) {
+            LOGGER.error("Exception caught", ex);
         }
     }
 }
