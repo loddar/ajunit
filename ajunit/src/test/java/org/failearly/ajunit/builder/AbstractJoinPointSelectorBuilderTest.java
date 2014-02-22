@@ -49,7 +49,7 @@ public abstract class AbstractJoinPointSelectorBuilderTest<T extends SelectorBui
 
     @BeforeClass
     public static void createUniverse() throws Exception {
-        ajUniverse=AjUniversesHolder.createUniverseByClasses(UNIVERSE_NAME, AjUnitUtils.toClassList(TestSubject.class));
+        ajUniverse=AjUniversesHolder.createUniverseByClasses(UNIVERSE_NAME, AjUnitUtils.toClassList(TestSubject1.class, TestSubject2.class));
     }
 
     @AfterClass

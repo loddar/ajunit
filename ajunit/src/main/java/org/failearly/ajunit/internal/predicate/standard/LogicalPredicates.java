@@ -21,6 +21,9 @@ package org.failearly.ajunit.internal.predicate.standard;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * LogicalPredicates provides factory methods for logical operations.
  */
@@ -40,6 +43,14 @@ public final class LogicalPredicates {
     }
 
     /**
+     * Creates an logical AND predicate.
+     */
+    public static Predicate and(List<Predicate> predicates) {
+        return composite(and(), predicates);
+    }
+
+
+    /**
      * Creates an (empty) logical OR predicate.
      */
     public static CompositePredicate or() {
@@ -50,6 +61,13 @@ public final class LogicalPredicates {
      * Creates an logical OR predicate.
      */
     public static Predicate or(Predicate... predicates) {
+        return composite(or(), predicates);
+    }
+
+    /**
+     * Creates an logical OR predicate.
+     */
+    public static Predicate or(List<Predicate> predicates) {
         return composite(or(), predicates);
     }
 
@@ -88,7 +106,18 @@ public final class LogicalPredicates {
         return not(or());
     }
 
-    private static Predicate composite(CompositePredicate compositePredicate, Predicate[] predicates) {
+    /**
+     * Creates an logical NOR predicate.
+     */
+    public static Predicate nor(List<Predicate> predicates) {
+        return not(composite(or(), predicates));
+    }
+
+    private static CompositePredicate composite(CompositePredicate compositePredicate, Predicate[] predicates) {
+        return composite(compositePredicate, Arrays.asList(predicates));
+    }
+
+    private static CompositePredicate composite(CompositePredicate compositePredicate, Iterable<Predicate> predicates) {
         for (Predicate predicate : predicates) {
             compositePredicate.addPredicate(predicate);
         }

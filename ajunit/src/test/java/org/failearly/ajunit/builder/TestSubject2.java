@@ -18,13 +18,17 @@
  */
 package org.failearly.ajunit.builder;
 
+import java.io.Serializable;
+
 /**
- * CompareType is responsible for ...
- */
-public enum StringMatcherType {
-    EQUALS,
-    STARTS_WITH,
-    ENDS_WITH,
-    CONTAINS,
-    REGEX;
+* Just for {@link AbstractJoinPointSelectorBuilderTest}.
+*/
+@SuppressWarnings("all")
+abstract class TestSubject2 implements Serializable {
+    public void anyMethod() {}
+    void packagePrivateMethod() {}
+    private void otherMethod() {}
+    protected abstract void abstractMethod0();
+    protected synchronized void syncMethod0() {}
+    protected strictfp void strictMethod0() {}
 }

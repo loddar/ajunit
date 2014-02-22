@@ -16,15 +16,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.internal.builder.jpsb;
+
+import org.failearly.ajunit.internal.predicate.Predicate;
 
 /**
- * CompareType is responsible for ...
+ * PredicateFactory is a abstract factory for {@link org.failearly.ajunit.internal.predicate.Predicate}.
  */
-public enum StringMatcherType {
-    EQUALS,
-    STARTS_WITH,
-    ENDS_WITH,
-    CONTAINS,
-    REGEX;
+public interface PredicateFactory<T> {
+    /**
+     * Factory method for a single Predicate.
+     */
+    Predicate createPredicate(T input);
 }

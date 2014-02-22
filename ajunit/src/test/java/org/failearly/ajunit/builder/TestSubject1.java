@@ -19,12 +19,11 @@
 package org.failearly.ajunit.builder;
 
 /**
- * CompareType is responsible for ...
- */
-public enum StringMatcherType {
-    EQUALS,
-    STARTS_WITH,
-    ENDS_WITH,
-    CONTAINS,
-    REGEX;
+* Just for {@link org.failearly.ajunit.builder.AbstractJoinPointSelectorBuilderTest}.
+*/
+@SuppressWarnings("all")
+class TestSubject1 {
+    public void anyMethod() {}
+    void packagePrivateMethod() {}
+    private void otherMethod() {}
 }

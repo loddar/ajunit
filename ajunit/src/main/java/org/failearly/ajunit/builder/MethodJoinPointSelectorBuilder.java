@@ -18,6 +18,9 @@
  */
 package org.failearly.ajunit.builder;
 
+import org.failearly.ajunit.modifier.AccessModifier;
+import org.failearly.ajunit.modifier.MethodModifier;
+
 /**
  * MethodJoinPointSelectorBuilder is the builder for method join point selector expression.
  * <br/><br/>
@@ -42,6 +45,7 @@ public interface MethodJoinPointSelectorBuilder extends LogicalSelectorBuilder<M
     /**
      * Select a method by method name (pattern).<br/>
      * </br>
+     * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(* *.get*(..))</code></li>
      * <li><code>call(* *.set*(..))</code></li>
@@ -53,8 +57,46 @@ public interface MethodJoinPointSelectorBuilder extends LogicalSelectorBuilder<M
      */
     MethodJoinPointSelectorBuilder byName(String methodNamePattern, StringMatcherType matcherType);
 
-//    MethodJoinPointSelectorBuilder byAnyOfAccessModifiers(AccessModifier... accessModifier);
-//    MethodJoinPointSelectorBuilder byNoneOfAccessModifiers(AccessModifier... accessModifier);
+    /**
+     * Select a method by any of {@link org.failearly.ajunit.modifier.AccessModifier}.<br/>
+     * </br>
+     * AspectJ pointcut definition examples:
+     * <ul>
+     * <li><code>execution(public * *.*(..))</code></li>
+     * <li><code>call(private * *.*(..))</code></li>
+     * </ul>
+     * @param accessModifiers the supported access modifiers.
+     * @return itself
+     */
+    MethodJoinPointSelectorBuilder byAnyOfAccessModifiers(AccessModifier... accessModifiers);
+
+    /**
+     * Select a method by none of {@link org.failearly.ajunit.modifier.AccessModifier}.<br/>
+     * </br>
+     * AspectJ pointcut definition examples:
+     * <ul>
+     * <li><code>execution(!public * *.*(..))</code></li>
+     * <li><code>call(!private * *.*(..))</code></li>
+     * </ul>
+     * @param accessModifiers the supported access modifiers.
+     * @return itself
+     */
+    MethodJoinPointSelectorBuilder byNoneOfAccessModifiers(AccessModifier... accessModifiers);
+
+    /**
+     * Select a method by any of {@link org.failearly.ajunit.modifier.MethodModifier}.<br/>
+     * </br>
+     * AspectJ pointcut definition examples:
+     * <ul>
+     * <li><code>execution(final * *.*(..))</code></li>
+     * <li><code>call(static * *.*(..))</code></li>
+     * </ul>
+     * @param methodModifiers the supported method modifiers.
+     * @return itself
+     */
+    MethodJoinPointSelectorBuilder byAnyOfMethodModifiers(MethodModifier... methodModifiers);
+
+
 //    MethodJoinPointSelectorBuilder byDeclaringClass(Class<?> clazz);
 //    MethodJoinPointSelectorBuilder byDeclaringClassName(String className, StringMatcherType matcherType);
 //

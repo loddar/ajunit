@@ -16,12 +16,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.internal.builder.jpsb;
+
+import org.failearly.ajunit.internal.predicate.Predicate;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
-* Just for {@link org.failearly.ajunit.builder.AbstractJoinPointSelectorBuilderTest}.
-*/
-class TestSubject {
-    public void anyMethod() {}
-    private void otherMethod() {}
+ * PredicateMap is responsible for ...
+ */
+final class PredicateFactories<E,T> {
+    private final Map<E,PredicateFactory<T>> predicateFactories=new HashMap<>();
+
+    PredicateFactories<E,T> addFactory(E type, PredicateFactory<T> factory) {
+        predicateFactories.put(type, factory);
+        return this;
+    }
+
+    Predicate createPredicate(E type, T input) {
+        return predicateFactories.get(type).createPredicate(input);
+    }
 }

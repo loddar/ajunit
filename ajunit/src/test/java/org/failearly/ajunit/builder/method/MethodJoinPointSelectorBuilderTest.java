@@ -16,14 +16,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.method;
 
+import org.failearly.ajunit.builder.AbstractJoinPointSelectorBuilderTest;
+import org.failearly.ajunit.builder.JoinPointSelectorBuilder;
+import org.failearly.ajunit.builder.MethodJoinPointSelectorBuilder;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
-import org.junit.Ignore;
 import org.junit.Test;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 
 /**
  * MethodJoinPointSelectorBuilderTest tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelectorBuilder}.
@@ -32,6 +31,11 @@ public final class MethodJoinPointSelectorBuilderTest extends AbstractJoinPointS
 
     public MethodJoinPointSelectorBuilderTest() {
         super(AjJoinPointType.METHOD_EXECUTION);
+    }
+
+    @Override
+    protected MethodJoinPointSelectorBuilder createSelectorBuilderUnderTest(JoinPointSelectorBuilder joinPointSelectorBuilder) {
+        return joinPointSelectorBuilder.methodExecute();
     }
 
     @Test
@@ -47,36 +51,30 @@ public final class MethodJoinPointSelectorBuilderTest extends AbstractJoinPointS
 
         // assert / then
         assertBuildJoinPointSelector(
-                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject.anyMethod()}",
-                "method-execution{#apply=0, method=private void org.failearly.ajunit.builder.TestSubject.otherMethod()}",
-                "method-execution{#apply=0, method=protected void java.lang.Object.finalize() throws java.lang.Throwable}",
+                // TestSubject1
+                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject1.anyMethod()}",
+                "method-execution{#apply=0, method=void org.failearly.ajunit.builder.TestSubject1.packagePrivateMethod()}",
+                "method-execution{#apply=0, method=private void org.failearly.ajunit.builder.TestSubject1.otherMethod()}",
+                // TestSubject2
+                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject2.anyMethod()}",
+                "method-execution{#apply=0, method=void org.failearly.ajunit.builder.TestSubject2.packagePrivateMethod()}",
+                "method-execution{#apply=0, method=private void org.failearly.ajunit.builder.TestSubject2.otherMethod()}",
+                "method-execution{#apply=0, method=protected abstract void org.failearly.ajunit.builder.TestSubject2.abstractMethod0()}",
+                "method-execution{#apply=0, method=protected synchronized void org.failearly.ajunit.builder.TestSubject2.syncMethod0()}",
+                "method-execution{#apply=0, method=protected strictfp void org.failearly.ajunit.builder.TestSubject2.strictMethod0()}",
+                // java.lang.Object
                 "method-execution{#apply=0, method=public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException}",
                 "method-execution{#apply=0, method=public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException}",
                 "method-execution{#apply=0, method=public final void java.lang.Object.wait() throws java.lang.InterruptedException}",
-                "method-execution{#apply=0, method=private static native void java.lang.Object.registerNatives()}",
                 "method-execution{#apply=0, method=public boolean java.lang.Object.equals(java.lang.Object)}",
                 "method-execution{#apply=0, method=public java.lang.String java.lang.Object.toString()}",
                 "method-execution{#apply=0, method=public native int java.lang.Object.hashCode()}",
                 "method-execution{#apply=0, method=public final native java.lang.Class java.lang.Object.getClass()}",
-                "method-execution{#apply=0, method=protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException}",
                 "method-execution{#apply=0, method=public final native void java.lang.Object.notify()}",
-                "method-execution{#apply=0, method=public final native void java.lang.Object.notifyAll()}"
+                "method-execution{#apply=0, method=public final native void java.lang.Object.notifyAll()}",
+                "method-execution{#apply=0, method=protected void java.lang.Object.finalize() throws java.lang.Throwable}",
+                "method-execution{#apply=0, method=protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException}",
+                "method-execution{#apply=0, method=private static native void java.lang.Object.registerNatives()}"
         );
-    }
-
-    @Test @Ignore
-    public void testByName() throws Exception {
-        // arrange / given
-
-
-        // act / when
-
-        // assert / then
-        assertThat("not yet implemented", false, is(true));
-    }
-
-    @Override
-    protected MethodJoinPointSelectorBuilder createSelectorBuilderUnderTest(JoinPointSelectorBuilder joinPointSelectorBuilder) {
-        return joinPointSelectorBuilder.methodExecute();
     }
 }

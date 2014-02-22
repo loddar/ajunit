@@ -25,15 +25,62 @@ import org.failearly.ajunit.internal.builder.BuilderBase;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
+import org.failearly.ajunit.internal.predicate.string.StringPredicates;
+import org.failearly.ajunit.internal.transformer.Transformer;
 import org.failearly.ajunit.internal.transformer.ajp.AjpTransformers;
+import org.failearly.ajunit.internal.transformer.member.MemberTransformers;
 import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
+import org.failearly.ajunit.modifier.AccessModifier;
+import org.failearly.ajunit.modifier.MethodModifier;
+
+import java.lang.reflect.Method;
 
 /**
  * MethodJoinPointSelectorBuilderImpl is responsible for ...
  */
 class MethodJoinPointSelectorBuilderImpl extends BuilderBase<JoinPointSelectorBuilderImpl,MethodJoinPointSelectorBuilderImpl> implements MethodJoinPointSelectorBuilder {
+
+    private static final PredicateFactories<StringMatcherType,String> STRING_MATCHER_PREDICATES =new PredicateFactories<>();
+
+    static {
+        STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.EQUALS, new PredicateFactory<String>() {
+            @Override
+            public Predicate createPredicate(String input) {
+                return StandardPredicates.predicateEquals(input);
+            }
+        });
+        STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.STARTS_WITH, new PredicateFactory<String>() {
+            @Override
+            public Predicate createPredicate(String input) {
+                return StringPredicates.startsWith(input);
+            }
+        });
+
+        STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.ENDS_WITH, new PredicateFactory<String>() {
+            @Override
+            public Predicate createPredicate(String input) {
+                return StringPredicates.endsWith(input);
+            }
+        });
+
+        STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.CONTAINS, new PredicateFactory<String>() {
+            @Override
+            public Predicate createPredicate(String input) {
+                return StringPredicates.contains(input);
+            }
+        });
+
+        STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.REGEX, new PredicateFactory<String>() {
+            @Override
+            public Predicate createPredicate(String input) {
+                return StringPredicates.regex(input);
+            }
+        });
+
+    }
 
     private final AjJoinPointType joinPointType;
 
@@ -53,7 +100,40 @@ class MethodJoinPointSelectorBuilderImpl extends BuilderBase<JoinPointSelectorBu
 
     @Override
     public MethodJoinPointSelectorBuilder byName(String methodNamePattern, StringMatcherType matcherType) {
-        return null;
+        return addMethodPredicate(
+                MemberTransformers.nameTransformer(),
+                STRING_MATCHER_PREDICATES.createPredicate(matcherType, methodNamePattern)
+        );
+    }
+
+    @Override
+    public MethodJoinPointSelectorBuilder byAnyOfAccessModifiers(AccessModifier... accessModifiers) {
+        return addMethodPredicate(
+                MemberTransformers.modifierTransformer(),
+                LogicalPredicates.or(
+                        JoinPointSelectorUtils.toPredicates(accessModifiers)
+                )
+            );
+    }
+
+    @Override
+    public MethodJoinPointSelectorBuilder byNoneOfAccessModifiers(AccessModifier... accessModifiers) {
+        return addMethodPredicate(
+                MemberTransformers.modifierTransformer(),
+                LogicalPredicates.nor(
+                    JoinPointSelectorUtils.toPredicates(accessModifiers)
+                )
+            );
+    }
+
+    @Override
+    public MethodJoinPointSelectorBuilder byAnyOfMethodModifiers(MethodModifier... methodModifiers) {
+        return addMethodPredicate(
+                MemberTransformers.modifierTransformer(),
+                LogicalPredicates.or(
+                        JoinPointSelectorUtils.toPredicates(methodModifiers)
+                )
+        );
     }
 
     @Override
@@ -62,10 +142,15 @@ class MethodJoinPointSelectorBuilderImpl extends BuilderBase<JoinPointSelectorBu
     }
 
     private MethodJoinPointSelectorBuilder addMethodPredicate(Predicate predicate) {
+        return addMethodPredicate(StandardTransformers.identityTransformer(Method.class), predicate);
+    }
+
+    private MethodJoinPointSelectorBuilder addMethodPredicate(Transformer transformer, Predicate predicate) {
         addPredicate(StandardPredicates.transformerPredicate(
                 StandardTransformers.transformerComposition(
                         AjpTransformers.ajpJoinPointFilterTransformer(this.joinPointType),
-                        AjpTransformers.methodTransformer()
+                        AjpTransformers.methodTransformer(),
+                        transformer
                 ),
                 predicate
         ));
