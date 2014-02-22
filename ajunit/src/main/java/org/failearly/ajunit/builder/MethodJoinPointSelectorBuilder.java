@@ -96,6 +96,19 @@ public interface MethodJoinPointSelectorBuilder extends LogicalSelectorBuilder<M
      */
     MethodJoinPointSelectorBuilder byAnyOfMethodModifiers(MethodModifier... methodModifiers);
 
+    /**
+     * Select a method by none of {@link org.failearly.ajunit.modifier.MethodModifier}.<br/>
+     * </br>
+     * AspectJ pointcut definition examples:
+     * <ul>
+     * <li><code>execution(!final * *.*(..))</code></li>
+     * <li><code>call(!static * *.*(..))</code></li>
+     * </ul>
+     * @param methodModifiers the supported method modifiers.
+     * @return itself
+     */
+    MethodJoinPointSelectorBuilder byNoneOfMethodModifiers(MethodModifier... methodModifiers);
+
 
 //    MethodJoinPointSelectorBuilder byDeclaringClass(Class<?> clazz);
 //    MethodJoinPointSelectorBuilder byDeclaringClassName(String className, StringMatcherType matcherType);

@@ -121,7 +121,7 @@ class MethodJoinPointSelectorBuilderImpl extends BuilderBase<JoinPointSelectorBu
         return addMethodPredicate(
                 MemberTransformers.modifierTransformer(),
                 LogicalPredicates.nor(
-                    JoinPointSelectorUtils.toPredicates(accessModifiers)
+                        JoinPointSelectorUtils.toPredicates(accessModifiers)
                 )
             );
     }
@@ -131,6 +131,16 @@ class MethodJoinPointSelectorBuilderImpl extends BuilderBase<JoinPointSelectorBu
         return addMethodPredicate(
                 MemberTransformers.modifierTransformer(),
                 LogicalPredicates.or(
+                        JoinPointSelectorUtils.toPredicates(methodModifiers)
+                )
+        );
+    }
+
+    @Override
+    public MethodJoinPointSelectorBuilder byNoneOfMethodModifiers(MethodModifier... methodModifiers) {
+        return addMethodPredicate(
+                MemberTransformers.modifierTransformer(),
+                LogicalPredicates.nor(
                         JoinPointSelectorUtils.toPredicates(methodModifiers)
                 )
         );

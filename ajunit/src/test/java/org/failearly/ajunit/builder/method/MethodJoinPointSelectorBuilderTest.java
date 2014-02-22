@@ -25,7 +25,10 @@ import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
 /**
- * MethodJoinPointSelectorBuilderTest tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelectorBuilder}.
+ * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelectorBuilder}.
+ *
+ * @see org.failearly.ajunit.builder.MethodJoinPointSelectorBuilder#endMethod()
+ * @see org.failearly.ajunit.builder.MethodJoinPointSelectorBuilder#anyMethod()
  */
 public final class MethodJoinPointSelectorBuilderTest extends AbstractJoinPointSelectorBuilderTest<MethodJoinPointSelectorBuilder> {
 

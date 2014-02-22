@@ -26,7 +26,7 @@ import org.failearly.ajunit.modifier.AccessModifier;
 import org.junit.Test;
 
 /**
- * MethodJoinPointSelectorBuilderTest tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelectorBuilder}.
+ * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelectorBuilder#byAnyOfAccessModifiers(org.failearly.ajunit.modifier.AccessModifier...)}.
  */
 public final class MethodJoinPointSelectorBuilderByAnyOfAccessModifierTest extends AbstractJoinPointSelectorBuilderTest<MethodJoinPointSelectorBuilder> {
 
