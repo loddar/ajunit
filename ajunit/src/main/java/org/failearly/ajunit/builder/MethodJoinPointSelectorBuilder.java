@@ -18,7 +18,6 @@
  */
 package org.failearly.ajunit.builder;
 
-import org.failearly.ajunit.modifier.AccessModifier;
 import org.failearly.ajunit.modifier.MethodModifier;
 
 /**
@@ -30,7 +29,7 @@ import org.failearly.ajunit.modifier.MethodModifier;
  * execution(method signature)
  * </code>
  */
-public interface MethodJoinPointSelectorBuilder extends LogicalSelectorBuilder<MethodJoinPointSelectorBuilder> {
+public interface MethodJoinPointSelectorBuilder extends MemberSelectorBuilder<MethodJoinPointSelectorBuilder> {
 
     /**
      * End the method execution/call expression(s) end return to join point selector builder. It's like ending a
@@ -56,32 +55,6 @@ public interface MethodJoinPointSelectorBuilder extends LogicalSelectorBuilder<M
      * @return itself
      */
     MethodJoinPointSelectorBuilder byName(String methodNamePattern, StringMatcherType matcherType);
-
-    /**
-     * Select a method by any of {@link org.failearly.ajunit.modifier.AccessModifier}.<br/>
-     * </br>
-     * AspectJ pointcut definition examples:
-     * <ul>
-     * <li><code>execution(public * *.*(..))</code></li>
-     * <li><code>call(private * *.*(..))</code></li>
-     * </ul>
-     * @param accessModifiers the supported access modifiers.
-     * @return itself
-     */
-    MethodJoinPointSelectorBuilder byAnyOfAccessModifiers(AccessModifier... accessModifiers);
-
-    /**
-     * Select a method by none of {@link org.failearly.ajunit.modifier.AccessModifier}.<br/>
-     * </br>
-     * AspectJ pointcut definition examples:
-     * <ul>
-     * <li><code>execution(!public * *.*(..))</code></li>
-     * <li><code>call(!private * *.*(..))</code></li>
-     * </ul>
-     * @param accessModifiers the supported access modifiers.
-     * @return itself
-     */
-    MethodJoinPointSelectorBuilder byNoneOfAccessModifiers(AccessModifier... accessModifiers);
 
     /**
      * Select a method by any of {@link org.failearly.ajunit.modifier.MethodModifier}.<br/>

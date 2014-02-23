@@ -16,29 +16,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.method;
 
-import java.io.Serializable;
+import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
- * Just for {@link AbstractJoinPointSelectorBuilderTest}.
+ * Base class for {@link org.failearly.ajunit.builder.MethodJoinPointSelectorBuilder} tests.
  */
-@SuppressWarnings("all")
-public abstract class TestSubject2 implements Serializable {
-    public void anyMethod() {
+class MethodJoinPointSelectorBuilderBaseTest extends AbstractJoinPointSelectorBuilderTest<MethodJoinPointSelectorBuilder> {
+    protected MethodJoinPointSelectorBuilderBaseTest(AjJoinPointType expectedJoinPointType) {
+        super(expectedJoinPointType, TestSubject1.class, TestSubject2.class);
     }
 
-    void packagePrivateMethod() {
+    @Override
+    protected final MethodJoinPointSelectorBuilder createSelectorBuilderUnderTest(JoinPointSelectorBuilder joinPointSelectorBuilder) {
+        return joinPointSelectorBuilder.methodExecute();
     }
 
-    private void otherMethod() {
-    }
-
-    protected abstract void abstractMethod0();
-
-    protected synchronized void syncMethod0() {
-    }
-
-    protected strictfp void strictMethod0() {
-    }
 }

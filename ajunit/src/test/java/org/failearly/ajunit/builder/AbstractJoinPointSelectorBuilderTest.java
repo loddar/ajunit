@@ -24,11 +24,11 @@ import org.failearly.ajunit.internal.universe.AjUniverse;
 import org.failearly.ajunit.internal.universe.impl.AjUniversesHolder;
 import org.failearly.ajunit.internal.util.AjUnitUtils;
 import org.failearly.ajunit.test.helper.StandardJoinPointVisitor;
-import org.junit.AfterClass;
+import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.sameInstance;
@@ -40,25 +40,29 @@ import static org.junit.Assert.assertThat;
  */
 public abstract class AbstractJoinPointSelectorBuilderTest<T extends SelectorBuilder> {
     private static final String UNIVERSE_NAME = "AbstractJoinPointSelectorBuilderTest$Universe";
-    private static AjUniverse ajUniverse;
+    private AjUniverse ajUniverse;
     private final AjJoinPointType expectedJoinPointType;
     private Set<AjJoinPointType> joinPointTypes;
 
     protected T selectorBuilder;
     private JoinPointSelectorBuilderImpl joinPointSelectorBuilder;
+    private final List<Class<?>> testFixtureClasses;
 
-    @BeforeClass
-    public static void createUniverse() throws Exception {
-        ajUniverse=AjUniversesHolder.createUniverseByClasses(UNIVERSE_NAME, AjUnitUtils.toClassList(TestSubject1.class, TestSubject2.class));
-    }
 
-    @AfterClass
-    public static void dropUniverse() throws Exception {
-        AjUniversesHolder.dropUniverse(UNIVERSE_NAME);
-    }
-
-    protected AbstractJoinPointSelectorBuilderTest(AjJoinPointType expectedJoinPointType) {
+    protected AbstractJoinPointSelectorBuilderTest(AjJoinPointType expectedJoinPointType, Class<?>... testFixtureClasses) {
         this.expectedJoinPointType = expectedJoinPointType;
+        this.testFixtureClasses = AjUnitUtils.toClassList(testFixtureClasses);
+    }
+
+
+    @Before
+    public void createUniverse() throws Exception {
+        ajUniverse=AjUniversesHolder.createUniverseByClasses(UNIVERSE_NAME,testFixtureClasses);
+    }
+
+    @After
+    public void dropUniverse() throws Exception {
+        AjUniversesHolder.dropUniverse(UNIVERSE_NAME);
     }
 
     @Before

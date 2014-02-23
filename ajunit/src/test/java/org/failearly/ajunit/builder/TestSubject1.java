@@ -19,11 +19,16 @@
 package org.failearly.ajunit.builder;
 
 /**
-* Just for {@link org.failearly.ajunit.builder.AbstractJoinPointSelectorBuilderTest}.
-*/
+ * Just for {@link org.failearly.ajunit.builder.AbstractJoinPointSelectorBuilderTest}.
+ */
 @SuppressWarnings("all")
-class TestSubject1 {
-    public void anyMethod() {}
-    void packagePrivateMethod() {}
-    private void otherMethod() {}
+public final class TestSubject1 extends AbstractBaseClass implements AnyInterface {
+    public void anyMethod() {
+    }
+
+    void packagePrivateMethod() {
+    }
+
+    private void otherMethod() {
+    }
 }

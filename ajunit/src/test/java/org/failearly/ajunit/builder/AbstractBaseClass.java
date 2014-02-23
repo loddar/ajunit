@@ -18,27 +18,8 @@
  */
 package org.failearly.ajunit.builder;
 
-import java.io.Serializable;
-
 /**
  * Just for {@link AbstractJoinPointSelectorBuilderTest}.
  */
-@SuppressWarnings("all")
-public abstract class TestSubject2 implements Serializable {
-    public void anyMethod() {
-    }
-
-    void packagePrivateMethod() {
-    }
-
-    private void otherMethod() {
-    }
-
-    protected abstract void abstractMethod0();
-
-    protected synchronized void syncMethod0() {
-    }
-
-    protected strictfp void strictMethod0() {
-    }
+public abstract class AbstractBaseClass {
 }

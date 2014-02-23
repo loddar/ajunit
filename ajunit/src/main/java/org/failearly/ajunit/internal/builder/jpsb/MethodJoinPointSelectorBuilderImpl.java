@@ -30,6 +30,7 @@ import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.failearly.ajunit.internal.predicate.string.StringPredicates;
 import org.failearly.ajunit.internal.transformer.Transformer;
 import org.failearly.ajunit.internal.transformer.ajp.AjpTransformers;
+import org.failearly.ajunit.internal.transformer.clazz.ClassTransformers;
 import org.failearly.ajunit.internal.transformer.member.MemberTransformers;
 import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
@@ -37,6 +38,8 @@ import org.failearly.ajunit.modifier.AccessModifier;
 import org.failearly.ajunit.modifier.MethodModifier;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * MethodJoinPointSelectorBuilderImpl is responsible for ...
@@ -99,6 +102,11 @@ class MethodJoinPointSelectorBuilderImpl extends BuilderBase<JoinPointSelectorBu
     }
 
     @Override
+    public MethodJoinPointSelectorBuilder anyMethod() {
+        return addMethodPredicate(StandardPredicates.alwaysTrue());
+    }
+
+    @Override
     public MethodJoinPointSelectorBuilder byName(String methodNamePattern, StringMatcherType matcherType) {
         return addMethodPredicate(
                 MemberTransformers.nameTransformer(),
@@ -147,8 +155,52 @@ class MethodJoinPointSelectorBuilderImpl extends BuilderBase<JoinPointSelectorBu
     }
 
     @Override
-    public MethodJoinPointSelectorBuilder anyMethod() {
-        return addMethodPredicate(StandardPredicates.alwaysTrue());
+    public MethodJoinPointSelectorBuilder byDeclaringClass(Class<?> declaringClass) {
+        return addDeclaringClassPredicate(
+                StandardTransformers.identityTransformer(Class.class),
+                StandardPredicates.predicateEquals(declaringClass)
+        );
+    }
+
+    @Override
+    public MethodJoinPointSelectorBuilder byDeclaringClassName(String classNamePattern, StringMatcherType matcherType) {
+        return addDeclaringClassPredicate(
+                ClassTransformers.classNameTransformer(),
+                STRING_MATCHER_PREDICATES.createPredicate(matcherType, classNamePattern)
+        );
+    }
+
+    @Override
+    public MethodJoinPointSelectorBuilder byExtending(Class<?> baseClass) {
+        return addDeclaringClassPredicate(
+                StandardTransformers.identityTransformer(Class.class),
+                StandardPredicates.predicateIsSubclass(baseClass)
+        );
+    }
+
+    @Override
+    public MethodJoinPointSelectorBuilder byImplementingAnyOf(Class<?>... interfaces) {
+        return addDeclaringClassPredicate(
+                StandardTransformers.identityTransformer(Class.class),
+                LogicalPredicates.or(createImplementingInterfacePredicates(interfaces))
+        );
+    }
+
+    @Override
+    public MethodJoinPointSelectorBuilder byImplementingAllOf(Class<?>... interfaces) {
+        return addDeclaringClassPredicate(
+                StandardTransformers.identityTransformer(Class.class),
+                LogicalPredicates.and(createImplementingInterfacePredicates(interfaces))
+        );
+
+    }
+
+    private List<Predicate> createImplementingInterfacePredicates(Class<?>... interfaces) {
+        final List<Predicate> predicates=new ArrayList<>(interfaces.length);
+        for (Class<?> anInterface : interfaces) {
+            predicates.add(StandardPredicates.predicateIsSubclass(anInterface));
+        }
+        return predicates;
     }
 
     private MethodJoinPointSelectorBuilder addMethodPredicate(Predicate predicate) {
@@ -167,38 +219,15 @@ class MethodJoinPointSelectorBuilderImpl extends BuilderBase<JoinPointSelectorBu
         return this;
     }
 
-    @Override
-    public MethodJoinPointSelectorBuilder or() {
-        return null;
-    }
-
-    @Override
-    public MethodJoinPointSelectorBuilder union() {
-        return null;
-    }
-
-    @Override
-    public MethodJoinPointSelectorBuilder anyOf() {
-        return null;
-    }
-
-    @Override
-    public MethodJoinPointSelectorBuilder and() {
-        return null;
-    }
-
-    @Override
-    public MethodJoinPointSelectorBuilder intersect() {
-        return null;
-    }
-
-    @Override
-    public MethodJoinPointSelectorBuilder allOf() {
-        return null;
-    }
-
-    @Override
-    public MethodJoinPointSelectorBuilder end() {
-        return null;
+    private MethodJoinPointSelectorBuilder addDeclaringClassPredicate(Transformer transformer, Predicate predicate) {
+        addPredicate(StandardPredicates.transformerPredicate(
+                StandardTransformers.transformerComposition(
+                        AjpTransformers.ajpJoinPointFilterTransformer(this.joinPointType),
+                        AjpTransformers.declaringClassTransformer(),
+                        transformer
+                ),
+                predicate
+        ));
+        return this;
     }
 }

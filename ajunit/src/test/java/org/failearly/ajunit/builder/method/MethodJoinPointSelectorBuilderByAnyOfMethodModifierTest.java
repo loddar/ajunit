@@ -18,9 +18,6 @@
  */
 package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.builder.AbstractJoinPointSelectorBuilderTest;
-import org.failearly.ajunit.builder.JoinPointSelectorBuilder;
-import org.failearly.ajunit.builder.MethodJoinPointSelectorBuilder;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.failearly.ajunit.modifier.MethodModifier;
 import org.junit.Test;
@@ -28,15 +25,10 @@ import org.junit.Test;
 /**
  * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelectorBuilder#byAnyOfMethodModifiers(org.failearly.ajunit.modifier.MethodModifier...)}.
  */
-public final class MethodJoinPointSelectorBuilderByAnyOfMethodModifierTest extends AbstractJoinPointSelectorBuilderTest<MethodJoinPointSelectorBuilder> {
+public final class MethodJoinPointSelectorBuilderByAnyOfMethodModifierTest extends MethodJoinPointSelectorBuilderBaseTest {
 
     public MethodJoinPointSelectorBuilderByAnyOfMethodModifierTest() {
         super(AjJoinPointType.METHOD_EXECUTION);
-    }
-
-    @Override
-    protected MethodJoinPointSelectorBuilder createSelectorBuilderUnderTest(JoinPointSelectorBuilder joinPointSelectorBuilder) {
-        return joinPointSelectorBuilder.methodExecute();
     }
 
     @Test

@@ -21,31 +21,106 @@ package org.failearly.ajunit.builder;
 import org.failearly.ajunit.modifier.AccessModifier;
 
 /**
- * MemberSelectorBuilder is responsible for TODO
+ * MemberSelectorBuilder provides selector methods based on {@link java.lang.reflect.Member}.
  */
-public interface MemberSelectorBuilder<B extends SelectorBuilder> {
+public interface MemberSelectorBuilder<SB extends SelectorBuilder> extends SelectorBuilder {
     /**
-     * select by any method, field or constructor with access modifier {@code public}, {@code protected}, <i>package private</i> or {@code private}.
-     * @param accessModifiers the access modifiers {@link org.failearly.ajunit.modifier.AccessModifier}.
+     * Select a method by any of {@link org.failearly.ajunit.modifier.AccessModifier}.<br/>
+     * </br>
+     * AspectJ pointcut definition examples:
+     * <ul>
+     * <li><code>execution(public * *.*(..))</code></li>
+     * <li><code>call(private * *.*(..))</code></li>
+     * </ul>
      *
-     * @see java.lang.reflect.Modifier
+     * @param accessModifiers the supported access modifiers.
+     * @return itself
      */
-    B byAnyOfAccessModifiers(AccessModifier... accessModifiers);
+    SB byAnyOfAccessModifiers(AccessModifier... accessModifiers);
 
     /**
-     * select by any method, field or constructor with out given access modifiesr {@code public}, {@code protected}, <i>package private</i> or {@code private}.
-     * @param accessModifiers the access modifiers {@link org.failearly.ajunit.modifier.AccessModifier}.
+     * Select a method by none of {@link org.failearly.ajunit.modifier.AccessModifier}.<br/>
+     * </br>
+     * AspectJ pointcut definition examples:
+     * <ul>
+     * <li><code>execution(!public * *.*(..))</code></li>
+     * <li><code>call(!private * *.*(..))</code></li>
+     * </ul>
      *
-     * @see java.lang.reflect.Modifier
+     * @param accessModifiers the supported access modifiers.
+     * @return itself
      */
-    B byNoneOfAccessModifiers(AccessModifier... accessModifiers);
+    SB byNoneOfAccessModifiers(AccessModifier... accessModifiers);
 
     /**
-     * TODO
-     * @param clazz
+     * Select a method by it's declaring class.<br/>
+     * </br>
+     * AspectJ pointcut definition examples:
+     * <ul>
+     * <li><code>execution(* com.company.MyClass.*(..))</code></li>
+     * <li><code>call(* com.company.MyClass.*(..))</code></li>
+     * </ul>
+     *
+     * @param declaringClass the declaring class.
+     * @return itself
      */
-    B byDeclaringClass(Class<?> clazz);
-    B byDeclaringClassName(String className);
-    B byExtending(Class<?> clazz);
-    B byImplementing(Class<?>... interfaces);
+    SB byDeclaringClass(Class<?> declaringClass);
+
+    /**
+     * Select a method by it's declaring class name (pattern).<br/>
+     * </br>
+     * AspectJ pointcut definition examples:
+     * <ul>
+     * <li><code>execution(* **.My*.*(..))</code></li>
+     * <li><code>call(* **.*Class.*(..))</code></li>
+     * </ul>
+     *
+     * @param classNamePattern the declaring class.
+     * @param matcherType  the matcher type
+     * @return itself
+     */
+    SB byDeclaringClassName(String classNamePattern, StringMatcherType matcherType);
+
+
+    /**
+     * Select a method by class inheritance (extending the specified baseClass).<br/>
+     * </br>
+     * AspectJ pointcut definition examples:
+     * <ul>
+     * <li><code>execution(* com.company.MyClass+.*(..))</code></li>
+     * <li><code>call(* com.company.MyBaseClass+.*(..))</code></li>
+     * </ul>
+     *
+     * @param baseClass the base class or the class itself.
+     * @return itself
+     */
+    SB byExtending(Class<?> baseClass);
+
+    /**
+     * Select a method by class implementation (any of the specified interfaces).<br/>
+     * </br>
+     * AspectJ pointcut definition examples:
+     * <ul>
+     * <li><code>execution(* com.company.MyInterface+.*(..)) || execution(* com.company.OtherInterface+.*(..))</code></li>
+     * <li><code>call(* com.company.MyInterface+.*(..)) || call(* com.company.OtherInterface+.*(..))</code></li>
+     * </ul>
+     *
+     * @param interfaces the base class or the class itself.
+     * @return itself
+     */
+    SB byImplementingAnyOf(Class<?>... interfaces);
+
+    /**
+     * Select a method by class implementation (all of the specified interfaces).<br/>
+     * </br>
+     * AspectJ pointcut definition examples:
+     * <ul>
+     * <li><code>execution(* com.company.MyInterface+.*(..)) && execution(* com.company.OtherInterface+.*(..))</code></li>
+     * <li><code>call(* com.company.MyInterface+.*(..)) && call(* com.company.OtherInterface+.*(..))</code></li>
+     * </ul>
+     *
+     * @param interfaces the base class or the class itself.
+     * @return itself
+     */
+    SB byImplementingAllOf(Class<?>... interfaces);
 }
