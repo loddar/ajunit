@@ -18,11 +18,9 @@
  */
 package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.builder.StringMatcherType;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
-
-import java.io.Serializable;
 
 /**
  * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelectorBuilder}.
@@ -30,42 +28,16 @@ import java.io.Serializable;
  * @see org.failearly.ajunit.builder.MethodJoinPointSelectorBuilder#endMethod()
  * @see org.failearly.ajunit.builder.MethodJoinPointSelectorBuilder#anyMethod()
  */
-public final class MethodJoinPointSelectorBuilderByClassTest extends MethodJoinPointSelectorBuilderBaseTest {
+public final class MethodJoinPointSelectorBuilderByPackageNameTest extends MethodJoinPointSelectorBuilderBaseTest {
 
-    public MethodJoinPointSelectorBuilderByClassTest() {
+    public MethodJoinPointSelectorBuilderByPackageNameTest() {
         super(AjJoinPointType.METHOD_EXECUTION);
     }
 
     @Test
-    public void byDeclaringClass() throws Exception {
+    public void byPackageNameEquals() throws Exception {
         // act / when
-        selectorBuilder.byDeclaringClass(TestSubject1.class);
-
-        // assert / then
-        assertBuildJoinPointSelector(
-                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject1.anyMethod()}",
-                "method-execution{#apply=0, method=void org.failearly.ajunit.builder.TestSubject1.packagePrivateMethod()}",
-                "method-execution{#apply=0, method=private void org.failearly.ajunit.builder.TestSubject1.otherMethod()}"
-        );
-    }
-
-    @Test
-    public void byDeclaringClassNameEquals() throws Exception {
-        // act / when
-        selectorBuilder.byDeclaringClassName("TestSubject1", StringMatcherType.EQUALS);
-
-        // assert / then
-        assertBuildJoinPointSelector(
-                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject1.anyMethod()}",
-                "method-execution{#apply=0, method=void org.failearly.ajunit.builder.TestSubject1.packagePrivateMethod()}",
-                "method-execution{#apply=0, method=private void org.failearly.ajunit.builder.TestSubject1.otherMethod()}"
-        );
-    }
-
-    @Test
-    public void byDeclaringClassNameStartsWith() throws Exception {
-        // act / when
-        selectorBuilder.byDeclaringClassName("Test", StringMatcherType.STARTS_WITH);
+        selectorBuilder.byPackageName("org.failearly.ajunit.builder", StringMatcherType.EQUALS);
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -84,26 +56,9 @@ public final class MethodJoinPointSelectorBuilderByClassTest extends MethodJoinP
     }
 
     @Test
-    public void byDeclaringClassNameEndsWith() throws Exception {
+    public void byPackageNameStartsWith() throws Exception {
         // act / when
-        selectorBuilder.byDeclaringClassName("Subject2", StringMatcherType.ENDS_WITH);
-
-        // assert / then
-        assertBuildJoinPointSelector(
-                // TestSubject2
-                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject2.anyMethod()}",
-                "method-execution{#apply=0, method=void org.failearly.ajunit.builder.TestSubject2.packagePrivateMethod()}",
-                "method-execution{#apply=0, method=private void org.failearly.ajunit.builder.TestSubject2.otherMethod()}",
-                "method-execution{#apply=0, method=protected abstract void org.failearly.ajunit.builder.TestSubject2.abstractMethod0()}",
-                "method-execution{#apply=0, method=protected synchronized void org.failearly.ajunit.builder.TestSubject2.syncMethod0()}",
-                "method-execution{#apply=0, method=protected strictfp void org.failearly.ajunit.builder.TestSubject2.strictMethod0()}"
-        );
-    }
-
-    @Test
-    public void byDeclaringClassNameContains() throws Exception {
-        // act / when
-        selectorBuilder.byDeclaringClassName("stSub", StringMatcherType.CONTAINS);
+        selectorBuilder.byPackageName("org.failearly", StringMatcherType.STARTS_WITH);
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -122,70 +77,9 @@ public final class MethodJoinPointSelectorBuilderByClassTest extends MethodJoinP
     }
 
     @Test
-    public void byDeclaringClassNameRegularExpression() throws Exception {
+    public void byPackageNameEndsWith() throws Exception {
         // act / when
-        selectorBuilder.byDeclaringClassName(".*stSub.*1", StringMatcherType.REGEX);
-
-        // assert / then
-        assertBuildJoinPointSelector(
-                // TestSubject1
-                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject1.anyMethod()}",
-                "method-execution{#apply=0, method=void org.failearly.ajunit.builder.TestSubject1.packagePrivateMethod()}",
-                "method-execution{#apply=0, method=private void org.failearly.ajunit.builder.TestSubject1.otherMethod()}"
-        );
-    }
-    @Test
-    public void byExtendingABaseClass() throws Exception {
-        // act / when
-        selectorBuilder.byExtending(AbstractBaseClass.class);
-
-        // assert / then
-        assertBuildJoinPointSelector(
-                // TestSubject1
-                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject1.anyMethod()}",
-                "method-execution{#apply=0, method=void org.failearly.ajunit.builder.TestSubject1.packagePrivateMethod()}",
-                "method-execution{#apply=0, method=private void org.failearly.ajunit.builder.TestSubject1.otherMethod()}"
-        );
-    }
-
-    @Test
-    public void byExtendingItself() throws Exception {
-        // act / when
-        selectorBuilder.byExtending(TestSubject2.class);
-
-        // assert / then
-        assertBuildJoinPointSelector(
-                // TestSubject2
-                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject2.anyMethod()}",
-                "method-execution{#apply=0, method=void org.failearly.ajunit.builder.TestSubject2.packagePrivateMethod()}",
-                "method-execution{#apply=0, method=private void org.failearly.ajunit.builder.TestSubject2.otherMethod()}",
-                "method-execution{#apply=0, method=protected abstract void org.failearly.ajunit.builder.TestSubject2.abstractMethod0()}",
-                "method-execution{#apply=0, method=protected synchronized void org.failearly.ajunit.builder.TestSubject2.syncMethod0()}",
-                "method-execution{#apply=0, method=protected strictfp void org.failearly.ajunit.builder.TestSubject2.strictMethod0()}"
-        );
-    }
-
-    @Test
-    public void byImplementingAnyOfSingleInterface() throws Exception {
-        // act / when
-        selectorBuilder.byImplementingAnyOf(Serializable.class);
-
-        // assert / then
-        assertBuildJoinPointSelector(
-                // TestSubject2
-                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject2.anyMethod()}",
-                "method-execution{#apply=0, method=void org.failearly.ajunit.builder.TestSubject2.packagePrivateMethod()}",
-                "method-execution{#apply=0, method=private void org.failearly.ajunit.builder.TestSubject2.otherMethod()}",
-                "method-execution{#apply=0, method=protected abstract void org.failearly.ajunit.builder.TestSubject2.abstractMethod0()}",
-                "method-execution{#apply=0, method=protected synchronized void org.failearly.ajunit.builder.TestSubject2.syncMethod0()}",
-                "method-execution{#apply=0, method=protected strictfp void org.failearly.ajunit.builder.TestSubject2.strictMethod0()}"
-        );
-    }
-
-    @Test
-    public void byImplementingAnyOfTwoInterface() throws Exception {
-        // act / when
-        selectorBuilder.byImplementingAnyOf(Serializable.class, AnyInterface.class);
+        selectorBuilder.byPackageName("ajunit.builder", StringMatcherType.ENDS_WITH);
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -204,12 +98,16 @@ public final class MethodJoinPointSelectorBuilderByClassTest extends MethodJoinP
     }
 
     @Test
-    public void byImplementingAllOfSingleInterface() throws Exception {
+    public void byPackageNameContains() throws Exception {
         // act / when
-        selectorBuilder.byImplementingAllOf(Serializable.class);
+        selectorBuilder.byPackageName("ajunit", StringMatcherType.CONTAINS);
 
         // assert / then
         assertBuildJoinPointSelector(
+                // TestSubject1
+                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject1.anyMethod()}",
+                "method-execution{#apply=0, method=void org.failearly.ajunit.builder.TestSubject1.packagePrivateMethod()}",
+                "method-execution{#apply=0, method=private void org.failearly.ajunit.builder.TestSubject1.otherMethod()}",
                 // TestSubject2
                 "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject2.anyMethod()}",
                 "method-execution{#apply=0, method=void org.failearly.ajunit.builder.TestSubject2.packagePrivateMethod()}",
@@ -221,11 +119,26 @@ public final class MethodJoinPointSelectorBuilderByClassTest extends MethodJoinP
     }
 
     @Test
-    public void byImplementingAllOfTwoInterface() throws Exception {
+    public void byPackageNameRegex() throws Exception {
         // act / when
-        selectorBuilder.byImplementingAllOf(Serializable.class, AnyInterface.class);
+        selectorBuilder.byPackageName(".*ajunit.*", StringMatcherType.REGEX);
 
         // assert / then
-        assertBuildJoinPointSelector(/* None of the classes implements both interfaces.*/);
+        assertBuildJoinPointSelector(
+                // TestSubject1
+                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject1.anyMethod()}",
+                "method-execution{#apply=0, method=void org.failearly.ajunit.builder.TestSubject1.packagePrivateMethod()}",
+                "method-execution{#apply=0, method=private void org.failearly.ajunit.builder.TestSubject1.otherMethod()}",
+                // TestSubject2
+                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject2.anyMethod()}",
+                "method-execution{#apply=0, method=void org.failearly.ajunit.builder.TestSubject2.packagePrivateMethod()}",
+                "method-execution{#apply=0, method=private void org.failearly.ajunit.builder.TestSubject2.otherMethod()}",
+                "method-execution{#apply=0, method=protected abstract void org.failearly.ajunit.builder.TestSubject2.abstractMethod0()}",
+                "method-execution{#apply=0, method=protected synchronized void org.failearly.ajunit.builder.TestSubject2.syncMethod0()}",
+                "method-execution{#apply=0, method=protected strictfp void org.failearly.ajunit.builder.TestSubject2.strictMethod0()}"
+        );
     }
+
+
+
 }

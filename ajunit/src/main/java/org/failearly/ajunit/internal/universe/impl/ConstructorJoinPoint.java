@@ -18,6 +18,7 @@
  */
 package org.failearly.ajunit.internal.universe.impl;
 
+import org.failearly.ajunit.internal.universe.AjJoinPointStringBuilder;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 import java.lang.reflect.Constructor;
@@ -59,12 +60,7 @@ final class ConstructorJoinPoint extends AjJoinPointBase {
     }
 
     @Override
-    protected void toString(StringBuilder stringBuilder, boolean longToString) {
-        if( longToString ) {
-            stringBuilder.append(", constructor=").append(this.constructor);
-        }
-        else {
-            stringBuilder.append(this.constructor);
-        }
+    public String toString(AjJoinPointStringBuilder stringBuilder) {
+        return super.toString(stringBuilder.setConstructor(this.constructor));
     }
 }

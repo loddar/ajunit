@@ -27,7 +27,6 @@ import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
-import org.failearly.ajunit.internal.predicate.string.StringPredicates;
 import org.failearly.ajunit.internal.transformer.Transformer;
 import org.failearly.ajunit.internal.transformer.ajp.AjpTransformers;
 import org.failearly.ajunit.internal.transformer.clazz.ClassTransformers;
@@ -45,45 +44,6 @@ import java.util.List;
  * MethodJoinPointSelectorBuilderImpl is responsible for ...
  */
 class MethodJoinPointSelectorBuilderImpl extends BuilderBase<JoinPointSelectorBuilderImpl,MethodJoinPointSelectorBuilderImpl> implements MethodJoinPointSelectorBuilder {
-
-    private static final PredicateFactories<StringMatcherType,String> STRING_MATCHER_PREDICATES =new PredicateFactories<>();
-
-    static {
-        STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.EQUALS, new PredicateFactory<String>() {
-            @Override
-            public Predicate createPredicate(String input) {
-                return StandardPredicates.predicateEquals(input);
-            }
-        });
-        STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.STARTS_WITH, new PredicateFactory<String>() {
-            @Override
-            public Predicate createPredicate(String input) {
-                return StringPredicates.startsWith(input);
-            }
-        });
-
-        STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.ENDS_WITH, new PredicateFactory<String>() {
-            @Override
-            public Predicate createPredicate(String input) {
-                return StringPredicates.endsWith(input);
-            }
-        });
-
-        STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.CONTAINS, new PredicateFactory<String>() {
-            @Override
-            public Predicate createPredicate(String input) {
-                return StringPredicates.contains(input);
-            }
-        });
-
-        STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.REGEX, new PredicateFactory<String>() {
-            @Override
-            public Predicate createPredicate(String input) {
-                return StringPredicates.regex(input);
-            }
-        });
-
-    }
 
     private final AjJoinPointType joinPointType;
 
@@ -110,7 +70,7 @@ class MethodJoinPointSelectorBuilderImpl extends BuilderBase<JoinPointSelectorBu
     public MethodJoinPointSelectorBuilder byName(String methodNamePattern, StringMatcherType matcherType) {
         return addMethodPredicate(
                 MemberTransformers.nameTransformer(),
-                STRING_MATCHER_PREDICATES.createPredicate(matcherType, methodNamePattern)
+                JoinPointSelectorUtils.createStringMatcherPredicate(methodNamePattern, matcherType)
         );
     }
 
@@ -166,7 +126,7 @@ class MethodJoinPointSelectorBuilderImpl extends BuilderBase<JoinPointSelectorBu
     public MethodJoinPointSelectorBuilder byDeclaringClassName(String classNamePattern, StringMatcherType matcherType) {
         return addDeclaringClassPredicate(
                 ClassTransformers.classNameTransformer(),
-                STRING_MATCHER_PREDICATES.createPredicate(matcherType, classNamePattern)
+                JoinPointSelectorUtils.createStringMatcherPredicate(classNamePattern, matcherType)
         );
     }
 
@@ -192,10 +152,17 @@ class MethodJoinPointSelectorBuilderImpl extends BuilderBase<JoinPointSelectorBu
                 StandardTransformers.identityTransformer(Class.class),
                 LogicalPredicates.and(createImplementingInterfacePredicates(interfaces))
         );
-
     }
 
-    private List<Predicate> createImplementingInterfacePredicates(Class<?>... interfaces) {
+    @Override
+    public MethodJoinPointSelectorBuilder byPackageName(String packageNamePattern, StringMatcherType matcherType) {
+        return addDeclaringClassPredicate(
+                ClassTransformers.packageNameTransformer(),
+                JoinPointSelectorUtils.createStringMatcherPredicate(packageNamePattern, matcherType)
+        );
+    }
+
+    private static List<Predicate> createImplementingInterfacePredicates(Class<?>... interfaces) {
         final List<Predicate> predicates=new ArrayList<>(interfaces.length);
         for (Class<?> anInterface : interfaces) {
             predicates.add(StandardPredicates.predicateIsSubclass(anInterface));

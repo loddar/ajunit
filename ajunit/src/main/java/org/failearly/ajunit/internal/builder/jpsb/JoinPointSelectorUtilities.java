@@ -18,8 +18,11 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb;
 
+import org.failearly.ajunit.builder.StringMatcherType;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.modifier.ModifierPredicate;
+import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
+import org.failearly.ajunit.internal.predicate.string.StringPredicates;
 import org.failearly.ajunit.modifier.ModifierMatcher;
 
 import java.util.ArrayList;
@@ -29,6 +32,45 @@ import java.util.List;
  * JoinPointSelectorUtilities is an utility class for shared functionality.
  */
 final class JoinPointSelectorUtils {
+    private static final PredicateFactories<StringMatcherType,String> STRING_MATCHER_PREDICATES =new PredicateFactories<>();
+
+    static {
+        STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.EQUALS, new PredicateFactory<String>() {
+            @Override
+            public Predicate createPredicate(String input) {
+                return StandardPredicates.predicateEquals(input);
+            }
+        });
+        STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.STARTS_WITH, new PredicateFactory<String>() {
+            @Override
+            public Predicate createPredicate(String input) {
+                return StringPredicates.startsWith(input);
+            }
+        });
+
+        STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.ENDS_WITH, new PredicateFactory<String>() {
+            @Override
+            public Predicate createPredicate(String input) {
+                return StringPredicates.endsWith(input);
+            }
+        });
+
+        STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.CONTAINS, new PredicateFactory<String>() {
+            @Override
+            public Predicate createPredicate(String input) {
+                return StringPredicates.contains(input);
+            }
+        });
+
+        STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.REGEX, new PredicateFactory<String>() {
+            @Override
+            public Predicate createPredicate(String input) {
+                return StringPredicates.regex(input);
+            }
+        });
+
+    }
+
     private JoinPointSelectorUtils() {
     }
 
@@ -43,5 +85,15 @@ final class JoinPointSelectorUtils {
             predicates.add(ModifierPredicate.modifierPredicate(modifierMatcher));
         }
         return predicates;
+    }
+
+    /**
+     * Create string matcher predicate.
+     * @param pattern  the pattern String.
+     * @param matcherType the matcher type.
+     * @return the predicate.
+     */
+    static Predicate createStringMatcherPredicate(String pattern, StringMatcherType matcherType) {
+        return STRING_MATCHER_PREDICATES.createPredicate(matcherType, pattern);
     }
 }

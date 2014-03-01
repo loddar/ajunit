@@ -18,6 +18,7 @@
  */
 package org.failearly.ajunit.internal.universe.impl;
 
+import org.failearly.ajunit.internal.universe.AjJoinPointStringBuilder;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 import java.lang.reflect.Method;
@@ -60,12 +61,7 @@ final class MethodJoinPoint extends AjJoinPointBase {
     }
 
     @Override
-    protected void toString(StringBuilder stringBuilder, boolean longToString) {
-        if( longToString ) {
-            stringBuilder.append(", method=").append(this.method);
-        }
-        else {
-            stringBuilder.append(this.method);
-        }
+    public String toString(AjJoinPointStringBuilder stringBuilder) {
+        return super.toString(stringBuilder.setMethod(this.method));
     }
 }

@@ -18,6 +18,7 @@
  */
 package org.failearly.ajunit.internal.universe.impl;
 
+import org.failearly.ajunit.internal.universe.AjJoinPointStringBuilder;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 import java.lang.reflect.Field;
@@ -60,12 +61,7 @@ final class FieldJoinPoint extends AjJoinPointBase {
     }
 
     @Override
-    protected void toString(StringBuilder stringBuilder, boolean longToString) {
-        if( longToString ) {
-            stringBuilder.append(", field=").append(this.field);
-        }
-        else {
-            stringBuilder.append(this.field);
-        }
+    public String toString(AjJoinPointStringBuilder stringBuilder) {
+        return super.toString(stringBuilder.setField(field));
     }
 }

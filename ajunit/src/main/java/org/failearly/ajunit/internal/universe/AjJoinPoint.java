@@ -74,6 +74,11 @@ public interface AjJoinPoint {
         public String toShortString() {
             return null;
         }
+
+        @Override
+        public String toString(AjJoinPointStringBuilder stringBuilder) {
+            return null;
+        }
     };
 
     /**
@@ -115,4 +120,11 @@ public interface AjJoinPoint {
      * @return a short string representation of the joinpoint.
      */
     String toShortString();
+
+    /**
+     * Build a String using {@link AjJoinPointStringBuilder}.
+     * @param stringBuilder the string builder
+     * @return the string
+     */
+    String toString(AjJoinPointStringBuilder stringBuilder);
 }

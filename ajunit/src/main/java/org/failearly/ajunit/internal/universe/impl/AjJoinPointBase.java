@@ -19,6 +19,8 @@
 package org.failearly.ajunit.internal.universe.impl;
 
 import org.failearly.ajunit.internal.universe.AjJoinPoint;
+import org.failearly.ajunit.internal.universe.AjJoinPointStringBuilder;
+import org.failearly.ajunit.internal.universe.AjJoinPointStringBuilders;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 import java.lang.reflect.Constructor;
@@ -76,23 +78,22 @@ abstract class AjJoinPointBase implements AjJoinPoint {
     }
 
     @Override
+    public String toString(AjJoinPointStringBuilder stringBuilder) {
+        return stringBuilder
+                .setJoinPointType(this.joinPointType)
+                .setNumberOfApplications(this.numApplications)
+                .build();
+    }
+
+    @Override
     public final String toString() {
-        final StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(getJoinPointType()).append("{");
-        stringBuilder.append("#apply=").append(this.numApplications);
-        toString(stringBuilder, true);
-        return stringBuilder.append("}").toString();
+        return toString(AjJoinPointStringBuilders.toLongStringBuilder());
     }
 
     @Override
     public final String toShortString() {
-        final StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(getJoinPointType()).append("(");
-        toString(stringBuilder, false);
-        return stringBuilder.append(")#a=").append(getNumApplications()).toString();
+        return toString(AjJoinPointStringBuilders.toShortStringBuilder());
     }
-
-    protected abstract void toString(StringBuilder stringBuilder, boolean longToString);
 
     @Override
     public boolean equals(Object o) {

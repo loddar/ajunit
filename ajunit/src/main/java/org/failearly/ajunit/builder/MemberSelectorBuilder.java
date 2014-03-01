@@ -123,4 +123,19 @@ public interface MemberSelectorBuilder<SB extends SelectorBuilder> extends Selec
      * @return itself
      */
     SB byImplementingAllOf(Class<?>... interfaces);
+
+    /**
+     * Select a method by it's declaring classes package (pattern).<br/>
+     * </br>
+     * AspectJ pointcut definition examples:
+     * <ul>
+     * <li><code>execution(* **.My*.*(..))</code></li>
+     * <li><code>call(* **.*Class.*(..))</code></li>
+     * </ul>
+     *
+     * @param packageNamePattern the declaring class.
+     * @param matcherType  the matcher type
+     * @return itself
+     */
+    SB byPackageName(String packageNamePattern, StringMatcherType matcherType);
 }
