@@ -18,8 +18,9 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb;
 
-import org.failearly.ajunit.builder.JoinPointSelectorBuilder;
-import org.failearly.ajunit.builder.MethodJoinPointSelectorBuilder;
+import org.failearly.ajunit.builder.JoinPointSelector;
+import org.failearly.ajunit.builder.MethodCallJoinPointSelector;
+import org.failearly.ajunit.builder.MethodExecutionJoinPointSelector;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.RootBuilderBase;
@@ -30,9 +31,9 @@ import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import java.util.Set;
 
 /**
- * JoinPointSelectorBuilderImpl is the implementation for JoinPointSelectorBuilder.
+ * JoinPointSelectorBuilderImpl is the implementation for JoinPointSelector.
  */
-public final class JoinPointSelectorBuilderImpl extends RootBuilderBase<JoinPointSelectorBuilderImpl> implements JoinPointSelectorBuilder {
+public final class JoinPointSelectorBuilderImpl extends RootBuilderBase<JoinPointSelectorBuilderImpl> implements JoinPointSelector {
     private final Set<AjJoinPointType> joinPointTypes;
 
     public JoinPointSelectorBuilderImpl(Set<AjJoinPointType> joinPointTypes) {
@@ -41,13 +42,13 @@ public final class JoinPointSelectorBuilderImpl extends RootBuilderBase<JoinPoin
     }
 
     @Override
-    public MethodJoinPointSelectorBuilder methodExecute() {
-        return super.and(getMethodJoinPointBuilderFactory(AjJoinPointType.METHOD_EXECUTION));
+    public MethodExecutionJoinPointSelector methodExecute() {
+        return super.and(getMethodExecutionJoinPointBuilderFactory());
     }
 
     @Override
-    public MethodJoinPointSelectorBuilder methodCall() {
-        return super.and(getMethodJoinPointBuilderFactory(AjJoinPointType.METHOD_CALL));
+    public MethodCallJoinPointSelector methodCall() {
+        return super.and(getMethodCallJoinPointBuilderFactory());
     }
 
     @Override
@@ -55,23 +56,30 @@ public final class JoinPointSelectorBuilderImpl extends RootBuilderBase<JoinPoin
         alwaysFalse();
     }
 
-    public BuilderFactory<JoinPointSelectorBuilderImpl, JoinPointSelectorBuilderImpl, MethodJoinPointSelectorBuilderImpl>
-                getMethodJoinPointBuilderFactory(final AjJoinPointType methodJoinPointType) {
-        joinPointTypes.add(methodJoinPointType);
-        return new BuilderFactory<JoinPointSelectorBuilderImpl, JoinPointSelectorBuilderImpl, MethodJoinPointSelectorBuilderImpl>() {
+    private BuilderFactory<JoinPointSelectorBuilderImpl, JoinPointSelectorBuilderImpl, MethodExecutionJoinPointSelectorImpl>
+            getMethodExecutionJoinPointBuilderFactory() {
+        joinPointTypes.add(AjJoinPointType.METHOD_EXECUTION);
+        return new BuilderFactory<JoinPointSelectorBuilderImpl, JoinPointSelectorBuilderImpl, MethodExecutionJoinPointSelectorImpl>() {
             @Override
-            public MethodJoinPointSelectorBuilderImpl createBuilder(JoinPointSelectorBuilderImpl root,
+            public MethodExecutionJoinPointSelectorImpl createBuilder(JoinPointSelectorBuilderImpl root,
                                                                     JoinPointSelectorBuilderImpl parent,
                                                                     CompositePredicate compositePredicate) {
-                return new MethodJoinPointSelectorBuilderImpl(root, parent, compositePredicate, methodJoinPointType);
+                return new MethodExecutionJoinPointSelectorImpl(root, parent, compositePredicate);
             }
         };
     }
 
-    /**
-     * Returns the join point types {@link org.failearly.ajunit.internal.universe.AjJoinPointType}, a selector builder has been created for.
-     */
-    public Set<AjJoinPointType> getJoinPointTypes() {
-        return joinPointTypes;
+    private BuilderFactory<JoinPointSelectorBuilderImpl, JoinPointSelectorBuilderImpl, MethodCallJoinPointSelectorImpl>
+        getMethodCallJoinPointBuilderFactory() {
+        joinPointTypes.add(AjJoinPointType.METHOD_CALL);
+        return new BuilderFactory<JoinPointSelectorBuilderImpl, JoinPointSelectorBuilderImpl, MethodCallJoinPointSelectorImpl>() {
+            @Override
+            public MethodCallJoinPointSelectorImpl createBuilder(JoinPointSelectorBuilderImpl root,
+                                                                      JoinPointSelectorBuilderImpl parent,
+                                                                      CompositePredicate compositePredicate) {
+                return new MethodCallJoinPointSelectorImpl(root, parent, compositePredicate);
+            }
+        };
     }
+
 }

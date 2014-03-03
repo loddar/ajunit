@@ -127,7 +127,7 @@ public class TestResultEvaluatorBaseTest<T extends TestResultCollector> {
         return enableJoinPoint ? evaluateUniverseJoinPoints(joinPointSelector, joinPointSelector) : evaluateUniverseJoinPoints(joinPointSelector);
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings("all")
     private static class AnyClass {
         public void selectedMethod() {}
         public void otherMethod() {}

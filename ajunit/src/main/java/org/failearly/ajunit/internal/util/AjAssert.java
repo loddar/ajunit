@@ -70,13 +70,13 @@ public abstract class AjAssert {
         }
     }
 
-    public static void throwIllegalArgumentException(MessageBuilder messageBuilder) throws IllegalArgumentException {
+    private static void throwIllegalArgumentException(MessageBuilder messageBuilder) throws IllegalArgumentException {
         final String message=messageBuilder.build();
         LOGGER.error(message);
         throw new IllegalArgumentException(message);
     }
 
-    public static void throwIllegalStateException(MessageBuilder messageBuilder) throws IllegalStateException {
+    private static void throwIllegalStateException(MessageBuilder messageBuilder) throws IllegalStateException {
         final String message=messageBuilder.build();
         LOGGER.error(message);
         throw new IllegalStateException(message);

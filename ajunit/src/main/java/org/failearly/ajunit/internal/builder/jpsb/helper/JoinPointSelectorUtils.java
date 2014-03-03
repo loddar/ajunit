@@ -16,17 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.internal.builder.jpsb;
+package org.failearly.ajunit.internal.builder.jpsb.helper;
 
 import org.failearly.ajunit.builder.StringMatcherType;
 import org.failearly.ajunit.internal.predicate.Predicate;
-import org.failearly.ajunit.internal.predicate.modifier.ModifierPredicate;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.failearly.ajunit.internal.predicate.string.StringPredicates;
-import org.failearly.ajunit.modifier.ModifierMatcher;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * JoinPointSelectorUtilities is an utility class for shared functionality.
@@ -72,19 +67,6 @@ final class JoinPointSelectorUtils {
     }
 
     private JoinPointSelectorUtils() {
-    }
-
-    /**
-     * Convert {@link org.failearly.ajunit.modifier.ModifierMatcher} to {@link org.failearly.ajunit.internal.predicate.Predicate}s.
-     * @param modifierMatchers modifier matchers.
-     * @return Predicate List
-     */
-    static List<Predicate> toPredicates(ModifierMatcher... modifierMatchers) {
-        final List<Predicate> predicates=new ArrayList<>(modifierMatchers.length);
-        for (ModifierMatcher modifierMatcher : modifierMatchers) {
-            predicates.add(ModifierPredicate.modifierPredicate(modifierMatcher));
-        }
-        return predicates;
     }
 
     /**

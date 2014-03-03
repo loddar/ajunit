@@ -26,10 +26,10 @@ import org.failearly.ajunit.internal.predicate.Predicate;
  *
  * @see org.failearly.ajunit.internal.builder.LogicalStructureBuilder
  */
-interface Builder {
+public interface Builder {
     /**
      * Adds a predicate to the builder.
-     * @param predicate
+     * @param predicate the predicate to add.
      */
     void addPredicate(Predicate predicate);
 
@@ -42,4 +42,10 @@ interface Builder {
      * Clean up the builder.
      */
     void cleanup();
+
+    /**
+     * End the current logical expression and returns the parent builder.
+     * @return the parent.
+     */
+    Builder endLogicalExpression();
 }

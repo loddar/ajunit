@@ -174,7 +174,7 @@ public final class AjUnitTestRunner {
         final JoinPointSelectorBuilderImpl joinPointBuilder = new JoinPointSelectorBuilderImpl(joinPointTypes);
         ajUnitTest.assertPointcut(joinPointBuilder);
         if (!joinPointBuilder.anyPredicateDefined()) {
-            throwSetupError(MessageUtils.setupError("Missing implementation of assertPointcut(JoinPointSelectorBuilder)."));
+            throwSetupError(MessageUtils.setupError("Missing implementation of assertPointcut(JoinPointSelector)."));
         }
         return joinPointBuilder.build();
     }

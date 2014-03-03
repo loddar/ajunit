@@ -34,7 +34,7 @@ import static org.mockito.Mockito.when;
  */
 public class AjpTransformersTest extends TransformersBaseTest {
 
-    public static final int NUMBER_OF_APPLICATIONS = 2;
+    private static final int NUMBER_OF_APPLICATIONS = 2;
 
     @Test
     public void ajpToMethod() throws Exception {

@@ -22,7 +22,7 @@ import any.company.aspect.MyTestFixture;
 import any.company.aspect.PointcutTestWithoutUniverseName;
 import any.company.aspect.PointcutUnitTest;
 import org.failearly.ajunit.AjUnitSetup;
-import org.failearly.ajunit.builder.JoinPointSelectorBuilder;
+import org.failearly.ajunit.builder.JoinPointSelector;
 import org.junit.Test;
 
 /**
@@ -132,7 +132,7 @@ public class SetupTest extends AbstractTestRunnerTest {
                    }
                },
                "ajUnit - Setup Error: Missing assertPointcut.\n" +
-                       "- Please override assertPointcut(JoinPointSelectorBuilder)"
+                       "- Please override assertPointcut(JoinPointSelector)"
        );
     }
 
@@ -153,38 +153,13 @@ public class SetupTest extends AbstractTestRunnerTest {
                     }
 
                     @Override
-                    public void assertPointcut(JoinPointSelectorBuilder joinPointSelectorBuilder) {
+                    public void assertPointcut(JoinPointSelector joinPointSelector) {
                         // Missing implementation.
                     }
                 },
-                "ajUnit - Setup Error: Missing implementation of assertPointcut(JoinPointSelectorBuilder)."
+                "ajUnit - Setup Error: Missing implementation of assertPointcut(JoinPointSelector)."
         );
     }
-
-    @Test
-    public void methodExecution() throws Exception {
-        assertAjUnitSetupError(new PointcutUnitTest() {
-            @Override
-            public void setup(AjUnitSetup ajUnitSetup) {
-                ajUnitSetup
-                        .addTestFixtureClass(MyTestFixture.class)
-                        .assignAspect("any.company.aspect.CorrectAjUnitClassicAspect");
-            }
-
-            @Override
-            public void execute() {
-                new MyTestFixture().anyMethod();
-            }
-
-            @Override
-            public void assertPointcut(JoinPointSelectorBuilder joinPointSelectorBuilder) {
-                joinPointSelectorBuilder.methodExecute();
-            }
-        },
-                "ajUnit - Setup Error: Missing implementation of assertPointcut(JoinPointSelectorBuilder)."
-        );
-    }
-
 
     private static void assertAjUnitSetupError(PointcutUnitTestBase testClass, String expectedMessage) {
         assertException(testClass, AjUnitSetupError.class, expectedMessage);

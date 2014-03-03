@@ -60,10 +60,10 @@ public class YBuilder extends BuilderBase<TopBuilder,YBuilder> {
     }
 
     public YBuilder end() {
-        return super.end(YBuilder.class);
+        return super.doEndLogicalExpression(YBuilder.class);
     }
 
     public TopBuilder endTop() {
-        return super.end(TopBuilder.class);
+        return super.doEndLogicalExpression(TopBuilder.class);
     }
 }

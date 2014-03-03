@@ -47,16 +47,6 @@ public abstract class BuilderBase<R extends RootBuilder, C extends Builder> impl
     }
 
     /**
-     * Generic NAND.
-     * @param builderFactory the builder factory.
-     * @param <N> the next builder type.
-     * @return next builder.
-     */
-    protected final <N extends Builder> N nand(final BuilderFactory<R, C, N> builderFactory) {
-        return logicalStructureBuilder.nand(builderFactory);
-    }
-
-    /**
      * Generic OR.
      * @param builderFactory the builder factory.
      * @param <N> the next builder type.
@@ -76,16 +66,6 @@ public abstract class BuilderBase<R extends RootBuilder, C extends Builder> impl
         return logicalStructureBuilder.nor(builderFactory);
     }
 
-    /**
-     * Generic XOR.
-     * @param builderFactory the builder factory.
-     * @param <N> the next builder type.
-     * @return next builder.
-     */
-    protected final <N extends Builder> N xor(final BuilderFactory<R, C, N> builderFactory) {
-        return logicalStructureBuilder.xor(builderFactory);
-    }
-
     @SuppressWarnings("unchecked")
     protected C alwaysTrue() {
         addPredicate(StandardPredicates.alwaysTrue());
@@ -98,8 +78,17 @@ public abstract class BuilderBase<R extends RootBuilder, C extends Builder> impl
         return (C) this;
     }
 
-    protected final <P extends Builder> P end(Class<P> builderClass) {
-        return builderClass.cast(this.logicalStructureBuilder.end());
+    protected final <P extends Builder> P doEndLogicalExpression(Class<P> builderClass) {
+        Builder parent = this.endLogicalExpression();
+        while(! builderClass.isInstance(parent)) {
+            parent=parent.endLogicalExpression();
+        }
+        return builderClass.cast(parent);
+    }
+
+    @Override
+    public final Builder endLogicalExpression() {
+        return this.logicalStructureBuilder.end();
     }
 
     @Override

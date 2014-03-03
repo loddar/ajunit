@@ -16,21 +16,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.test.helper;
+package org.failearly.ajunit.builder.method.execution;
 
-import org.failearly.ajunit.internal.predicate.Predicate;
-import org.failearly.ajunit.internal.universe.AjJoinPoint;
+import org.failearly.ajunit.builder.JoinPointSelector;
+import org.failearly.ajunit.builder.MethodExecutionJoinPointSelector;
+import org.failearly.ajunit.builder.method.MethodJoinPointSelectorByNameTest;
+import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
- * ToShortStringJoinPointVisistor is responsible for ...
+ * Tests for {@link org.failearly.ajunit.builder.MethodExecutionJoinPointSelector}.
  */
-public class ToShortStringJoinPointVisitor extends StandardJoinPointVisitor {
-    public ToShortStringJoinPointVisitor(Predicate joinPointSelector) {
-        super(joinPointSelector);
+public final class MethodExecutionJoinPointSelectorByNameTest extends MethodJoinPointSelectorByNameTest<MethodExecutionJoinPointSelector> {
+
+    public MethodExecutionJoinPointSelectorByNameTest() {
+        super(AjJoinPointType.METHOD_EXECUTION);
     }
 
     @Override
-    protected String toString(AjJoinPoint joinPoint) {
-        return joinPoint.toShortString();
+    protected MethodExecutionJoinPointSelector createSelectorBuilderUnderTest(JoinPointSelector joinPointSelector) {
+        return joinPointSelector.methodExecute();
     }
 }

@@ -132,7 +132,7 @@ final class TestResultCollectorImpl implements TestResultCollector {
     private void buildNoJoinPointSelectedMessagePart(MessageBuilder messageBuilder) {
         if(noJoinPointsSelected) {
             messageBuilder.newline().line("No join points selected. Possible reasons:")
-                .subLine("Method assertPointcut(JoinPointSelectorBuilder) uses notYetSpecified().")
+                .subLine("Method assertPointcut(JoinPointSelector) uses notYetSpecified().")
                 .subLine("You defined a join point selector which has a impossible condition.");
         }
     }

@@ -33,7 +33,7 @@ abstract class AjJoinPointMatcherBase<T extends Signature> implements AjJoinPoin
     private final AjJoinPointType joinPointType;
     private final Class<T> signatureClass;
 
-    protected AjJoinPointMatcherBase(AjJoinPointType joinPointType, Class<T> signatureClass) {
+    AjJoinPointMatcherBase(AjJoinPointType joinPointType, Class<T> signatureClass) {
         this.joinPointType = joinPointType;
         this.signatureClass = signatureClass;
     }

@@ -19,9 +19,9 @@
 package org.failearly.ajunit.builder;
 
 /**
- * JoinPointSelectorBuilder is responsible for ...
+ * JoinPointSelector is responsible for ...
  */
-public interface JoinPointSelectorBuilder  {
+public interface JoinPointSelector {
     /**
      * Select join points of type method execution.<br/>
      * </br>
@@ -32,7 +32,7 @@ public interface JoinPointSelectorBuilder  {
      *
      * @return the method join point selector builder.
      */
-    MethodJoinPointSelectorBuilder methodExecute();
+    MethodExecutionJoinPointSelector methodExecute();
 
     /**
      * Select join points of type method execution.<br/>
@@ -44,7 +44,7 @@ public interface JoinPointSelectorBuilder  {
      *
      * @return the method join point selector builder.
      */
-    MethodJoinPointSelectorBuilder methodCall();
+    MethodCallJoinPointSelector methodCall();
 
     /**
      * Does not select any join point. Just for initial setup - a placeholder.

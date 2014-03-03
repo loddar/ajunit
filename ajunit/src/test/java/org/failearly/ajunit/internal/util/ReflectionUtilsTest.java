@@ -36,10 +36,11 @@ import static org.junit.Assert.assertThat;
  */
 public class ReflectionUtilsTest {
     // The test subjects.
+    @SuppressWarnings("all")
     private static class EmptyClass {
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings("all")
     private static class CommonClass {
         private static final int MY_CONST = 1;
         public int publicField;
@@ -74,7 +75,7 @@ public class ReflectionUtilsTest {
         }
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings("all")
     private static abstract class AbstractClass {
         private static final int MY_CONST = 1;
         public int publicField;

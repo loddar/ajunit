@@ -59,7 +59,7 @@ public class TestResultCollectorImplTest extends TestResultEvaluatorBaseTest<Tes
                         "\n\nDetails:" +
                         "\n\n" +
                         "- No join points selected. Possible reasons:" +
-                        "\n\t* Method assertPointcut(JoinPointSelectorBuilder) uses notYetSpecified()." +
+                        "\n\t* Method assertPointcut(JoinPointSelector) uses notYetSpecified()." +
                         "\n\t* You defined a join point selector which has a impossible condition." +
                         "\n\n" +
                         "- Missing none selected join points. Possible reason:" +

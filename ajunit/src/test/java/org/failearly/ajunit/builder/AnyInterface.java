@@ -19,7 +19,7 @@
 package org.failearly.ajunit.builder;
 
 /**
- * Just for {@link AbstractJoinPointSelectorBuilderTest}.
+ * Just for {@link AbstractJoinPointSelectorTest}.
  */
 public interface AnyInterface {
 }

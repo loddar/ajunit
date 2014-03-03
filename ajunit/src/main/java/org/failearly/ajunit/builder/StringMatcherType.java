@@ -26,5 +26,5 @@ public enum StringMatcherType {
     STARTS_WITH,
     ENDS_WITH,
     CONTAINS,
-    REGEX;
+    REGEX
 }

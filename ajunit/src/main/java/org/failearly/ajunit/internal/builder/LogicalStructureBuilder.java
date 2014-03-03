@@ -75,38 +75,24 @@ public final class LogicalStructureBuilder<R extends RootBuilder, C extends Buil
      * Creates a new AND builder node.
      */
     <N extends Builder> N and(BuilderFactory<R, C, N> builderFactory) {
-        return createNewBuilderNode(builderFactory, LogicalPredicates.and());
-    }
-
-    /**
-     * Creates a new NAND builder node.
-     */
-    <N extends Builder> N nand(BuilderFactory<R, C, N> builderFactory) {
-        return createNewBuilderNode(builderFactory, LogicalPredicates.nand());
+        return createNewBuilderNode(LogicalPredicates.and(), builderFactory);
     }
 
     /**
      * Creates a new OR builder node.
      */
     <N extends Builder> N or(BuilderFactory<R, C, N> builderFactory) {
-        return createNewBuilderNode(builderFactory, LogicalPredicates.or());
+        return createNewBuilderNode(LogicalPredicates.or(), builderFactory);
     }
 
     /**
      * Creates a new NOR builder node.
      */
     <N extends Builder> N nor(BuilderFactory<R, C, N> builderFactory) {
-        return createNewBuilderNode(builderFactory, LogicalPredicates.nor());
+        return createNewBuilderNode(LogicalPredicates.nor(), builderFactory);
     }
 
-    /**
-     * Creates a new XOR builder node.
-     */
-    <N extends Builder> N xor(BuilderFactory<R, C, N> builderFactory) {
-        return createNewBuilderNode(builderFactory, LogicalPredicates.xor());
-    }
-
-    <N extends Builder> N createNewBuilderNode(BuilderFactory<R, C, N> builderFactory, CompositePredicate compositePredicate) {
+    private <N extends Builder> N createNewBuilderNode(CompositePredicate compositePredicate, BuilderFactory<R, C, N> builderFactory) {
         return builderFactory.createBuilder(this.root, this.current, compositePredicate);
     }
 

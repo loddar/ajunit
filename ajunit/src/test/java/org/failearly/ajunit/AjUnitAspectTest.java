@@ -35,8 +35,8 @@ import java.util.Arrays;
  */
 public class AjUnitAspectTest {
 
-    public static final String UNIVERSE_NAME_1 = "Universe$1";
-    public static final String UNIVERSE_NAME_2 = "Universe$2";
+    private static final String UNIVERSE_NAME_1 = "Universe$1";
+    private static final String UNIVERSE_NAME_2 = "Universe$2";
 
     @AjUniverseName(UNIVERSE_NAME_1)
     private static class AjUnitAspect1 extends AjUnitAspectBase {
@@ -130,7 +130,7 @@ public class AjUnitAspectTest {
         return AnyClass.class.getDeclaredMethod("anyMethod");
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings("all")
     private static class AnyClass {
         void anyMethod() {
         }

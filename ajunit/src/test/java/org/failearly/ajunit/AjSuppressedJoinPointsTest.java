@@ -40,7 +40,7 @@ import static org.junit.Assert.assertThat;
  */
 public class AjSuppressedJoinPointsTest {
 
-    public static final String ANY_UNIVERSE = "anyUniverse";
+    private static final String ANY_UNIVERSE = "anyUniverse";
 
     private AjUniverse ajUniverse;
 

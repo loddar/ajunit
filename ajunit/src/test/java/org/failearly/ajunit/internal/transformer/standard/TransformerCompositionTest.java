@@ -30,6 +30,7 @@ import static org.junit.Assert.assertThat;
  */
 public class TransformerCompositionTest {
 
+    @SuppressWarnings({"all", "CanBeFinal"})
     private static class MyClass {
         private int value;
 
@@ -42,6 +43,7 @@ public class TransformerCompositionTest {
         }
     }
 
+    @SuppressWarnings({"all", "CanBeFinal"})
     private static class OtherClass {
         private MyClass myClass;
 

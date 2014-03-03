@@ -27,9 +27,7 @@ import org.failearly.ajunit.internal.predicate.CompositePredicate;
  *
  * @see org.failearly.ajunit.internal.builder.LogicalStructureBuilder#and(BuilderFactory)
  * @see org.failearly.ajunit.internal.builder.LogicalStructureBuilder#or(BuilderFactory)
- * @see org.failearly.ajunit.internal.builder.LogicalStructureBuilder#nand(BuilderFactory)
  * @see org.failearly.ajunit.internal.builder.LogicalStructureBuilder#nor(BuilderFactory)
- * @see org.failearly.ajunit.internal.builder.LogicalStructureBuilder#xor(BuilderFactory)
  */
 public interface BuilderFactory<R extends Builder, P extends Builder, T extends Builder> {
     T createBuilder(R root, P parent, CompositePredicate compositePredicate);

@@ -92,7 +92,7 @@ public class TransformersBaseTest {
         String value() default "";
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings("all")
     @AnyAnnotation
     private static final class MyClass {
         @AnyAnnotation

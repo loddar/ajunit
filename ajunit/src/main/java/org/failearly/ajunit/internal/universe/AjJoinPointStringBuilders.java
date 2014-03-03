@@ -65,12 +65,7 @@ public final class AjJoinPointStringBuilders {
 
         @Override
         public String build() {
-            final StringBuilder stringBuilder=new StringBuilder();
-            stringBuilder.append(joinPointKind)
-                         .append("{#apply=").append(numberOfApplications)
-                         .append(", ").append(joinPoint)
-                         .append("}");
-            return stringBuilder.toString();
+            return joinPointKind + "{#apply=" + numberOfApplications + ", " + joinPoint + "}";
         }
     };
 
@@ -111,12 +106,7 @@ public final class AjJoinPointStringBuilders {
 
         @Override
         public String build() {
-            final StringBuilder stringBuilder=new StringBuilder();
-            stringBuilder.append(joinPointKind)
-                    .append("(")
-                    .append(joinPoint)
-                    .append(")#a=").append(numberOfApplications);
-            return stringBuilder.toString();
+            return joinPointKind + "(" + joinPoint + ")#a=" + numberOfApplications;
         }
     };
 

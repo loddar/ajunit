@@ -81,6 +81,6 @@ public final class TopBuilder extends RootBuilderBase<TopBuilder> {
     }
 
     public TopBuilder end() {
-        return super.end(TopBuilder.class);
+        return super.doEndLogicalExpression(TopBuilder.class);
     }
 }

@@ -36,7 +36,7 @@ abstract class AjJoinPointBase implements AjJoinPoint {
     private final Class<?> declaringClass;
     private int numApplications = 0;
 
-    protected AjJoinPointBase(final AjJoinPointType joinPointType, Class<?> declaringClass) {
+    AjJoinPointBase(final AjJoinPointType joinPointType, Class<?> declaringClass) {
         this.joinPointType = joinPointType;
         this.declaringClass = declaringClass;
     }
@@ -102,10 +102,8 @@ abstract class AjJoinPointBase implements AjJoinPoint {
 
         final AjJoinPointBase that = (AjJoinPointBase) o;
 
-        if (joinPointType != that.joinPointType) return false;
-        if (!declaringClass.equals(that.declaringClass)) return false;
+        return joinPointType == that.joinPointType && declaringClass.equals(that.declaringClass);
 
-        return true;
     }
 
     @Override

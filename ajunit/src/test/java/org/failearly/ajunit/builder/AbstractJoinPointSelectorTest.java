@@ -19,6 +19,8 @@
 package org.failearly.ajunit.builder;
 
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderImpl;
+import org.failearly.ajunit.internal.universe.AjJoinPointStringBuilder;
+import org.failearly.ajunit.internal.universe.AjJoinPointStringBuilderBase;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.failearly.ajunit.internal.universe.AjUniverse;
 import org.failearly.ajunit.internal.universe.impl.AjUniversesHolder;
@@ -27,6 +29,8 @@ import org.failearly.ajunit.test.helper.StandardJoinPointVisitor;
 import org.junit.After;
 import org.junit.Before;
 
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,10 +40,10 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertThat;
 
 /**
- * AbstractJoinPointSelectorBuilderTest is responsible for ...
+ * Base class for all {@link org.failearly.ajunit.builder.JoinPointSelector} Tests.
  */
-public abstract class AbstractJoinPointSelectorBuilderTest<T extends SelectorBuilder> {
-    private static final String UNIVERSE_NAME = "AbstractJoinPointSelectorBuilderTest$Universe";
+public abstract class AbstractJoinPointSelectorTest<T extends SelectorBuilder> {
+    private static final String UNIVERSE_NAME = "AbstractJoinPointSelectorTest$Universe";
     private AjUniverse ajUniverse;
     private final AjJoinPointType expectedJoinPointType;
     private Set<AjJoinPointType> joinPointTypes;
@@ -48,12 +52,21 @@ public abstract class AbstractJoinPointSelectorBuilderTest<T extends SelectorBui
     private JoinPointSelectorBuilderImpl joinPointSelectorBuilder;
     private final List<Class<?>> testFixtureClasses;
 
-
-    protected AbstractJoinPointSelectorBuilderTest(AjJoinPointType expectedJoinPointType, Class<?>... testFixtureClasses) {
-        this.expectedJoinPointType = expectedJoinPointType;
-        this.testFixtureClasses = AjUnitUtils.toClassList(testFixtureClasses);
+    protected AbstractJoinPointSelectorTest(AjJoinPointType expectedJoinPointType, Class<?>... testFixtureClasses) {
+        this(expectedJoinPointType,AjUnitUtils.toClassList(testFixtureClasses));
     }
 
+    private AbstractJoinPointSelectorTest(AjJoinPointType expectedJoinPointType, List<Class<?>> testFixtureClasses) {
+        this.expectedJoinPointType = expectedJoinPointType;
+        this.testFixtureClasses = testFixtureClasses;
+    }
+
+    protected static List<Class<?>> toClassList(Class<?> class1, Class<?>... classes) {
+        final List<Class<?>> classList=new ArrayList<>(classes.length+1);
+        classList.add(class1);
+        classList.addAll(AjUnitUtils.toClassList(classes));
+        return classList;
+    }
 
     @Before
     public void createUniverse() throws Exception {
@@ -72,21 +85,35 @@ public abstract class AbstractJoinPointSelectorBuilderTest<T extends SelectorBui
         selectorBuilder=createSelectorBuilderUnderTest(this.joinPointSelectorBuilder);
     }
 
-    protected abstract T createSelectorBuilderUnderTest(JoinPointSelectorBuilder joinPointSelectorBuilder);
+    protected abstract T createSelectorBuilderUnderTest(JoinPointSelector joinPointSelector);
 
     protected final void assertJoinPointType() {
         assertThat("Join Point Type?", this.joinPointTypes, containsInAnyOrder(this.expectedJoinPointType));
     }
 
     protected final void assertBuildJoinPointSelector(String... expectedJoinPoints) {
-        final StandardJoinPointVisitor joinPointVisitor = new StandardJoinPointVisitor(this.joinPointSelectorBuilder.build());
+        final StandardJoinPointVisitor joinPointVisitor = new StandardJoinPointVisitor(this.joinPointSelectorBuilder.build(), JOIN_POINT_STRING_BUILDER);
         ajUniverse.visitJoinPoints(joinPointVisitor);
         assertThat("Matching join points?", joinPointVisitor.getSelectedJoinPoints(), containsInAnyOrder(expectedJoinPoints));
     }
 
-    protected final void assertEndSpecificJoinPointBuilder(String methodName, JoinPointSelectorBuilder joinPointSelectorBuilder) {
-        assertThat(methodName + " returns same created JoinPointSelectorBuilder?",
-                    joinPointSelectorBuilder, sameInstance((JoinPointSelectorBuilder)this.joinPointSelectorBuilder));
+    protected final void assertEndSpecificJoinPointBuilder(String methodName, JoinPointSelector joinPointSelector) {
+        assertThat(methodName + " returns same created JoinPointSelector?",
+                joinPointSelector, sameInstance((JoinPointSelector)this.joinPointSelectorBuilder));
     }
 
+    private static final AjJoinPointStringBuilder JOIN_POINT_STRING_BUILDER = new AjJoinPointStringBuilderBase() {
+        private String value;
+
+        @Override
+        public AjJoinPointStringBuilder setMethod(Method method) {
+            value = method.toString();
+            return this;
+        }
+
+        @Override
+        public String build() {
+            return value;
+        }
+    };
 }

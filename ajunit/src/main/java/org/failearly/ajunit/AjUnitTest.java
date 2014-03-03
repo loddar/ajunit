@@ -18,7 +18,7 @@
  */
 package org.failearly.ajunit;
 
-import org.failearly.ajunit.builder.JoinPointSelectorBuilder;
+import org.failearly.ajunit.builder.JoinPointSelector;
 
 /**
  * AjUnitTest the INTERFACE any ajUnit test must provide.
@@ -47,7 +47,7 @@ public interface AjUnitTest {
     /**
      * Assert the pointcut definition - the assert/then part of ajUnit tests. <b>This is the most important function of ajUnit.</b>
      * <br/></br>
-     * The {@code joinPointSelectorBuilder} is responsible to build the <i>join point selector</i>. A join point selector
+     * The {@code joinPointSelector} is responsible to build the <i>join point selector</i>. A join point selector
      * is the counterpart of an Aspect's pointcut. It separates the ajUnit Universe in two halves:<br/></br>
      * <ul>
      *     <li>The join points which should be applied (or touched) by your specified Aspect. This is the base for the <i>false positive</i> test.
@@ -55,8 +55,8 @@ public interface AjUnitTest {
      *     <li>And the join points which shouldn't be touched at all. This is the base for the <i>true negative<i/> test</li>
      * </ul>
      *
-     * @param joinPointSelectorBuilder the join point selector builder.
+     * @param joinPointSelector the join point selector builder.
      */
-    void assertPointcut(JoinPointSelectorBuilder joinPointSelectorBuilder);
+    void assertPointcut(JoinPointSelector joinPointSelector);
 
 }

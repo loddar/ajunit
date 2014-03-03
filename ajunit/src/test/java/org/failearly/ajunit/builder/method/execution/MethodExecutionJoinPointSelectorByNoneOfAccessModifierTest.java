@@ -16,22 +16,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder.method;
+package org.failearly.ajunit.builder.method.execution;
 
-import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.builder.JoinPointSelector;
+import org.failearly.ajunit.builder.MethodExecutionJoinPointSelector;
+import org.failearly.ajunit.builder.method.MethodJoinPointSelectorByNoneOfAccessModifierTest;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
- * Base class for {@link org.failearly.ajunit.builder.MethodJoinPointSelectorBuilder} tests.
+ * Tests for {@link org.failearly.ajunit.builder.MethodExecutionJoinPointSelector}.
  */
-class MethodJoinPointSelectorBuilderBaseTest extends AbstractJoinPointSelectorBuilderTest<MethodJoinPointSelectorBuilder> {
-    protected MethodJoinPointSelectorBuilderBaseTest(AjJoinPointType expectedJoinPointType) {
-        super(expectedJoinPointType, TestSubject1.class, TestSubject2.class);
+public final class MethodExecutionJoinPointSelectorByNoneOfAccessModifierTest
+        extends MethodJoinPointSelectorByNoneOfAccessModifierTest<MethodExecutionJoinPointSelector> {
+
+    public MethodExecutionJoinPointSelectorByNoneOfAccessModifierTest() {
+        super(AjJoinPointType.METHOD_EXECUTION);
     }
 
     @Override
-    protected final MethodJoinPointSelectorBuilder createSelectorBuilderUnderTest(JoinPointSelectorBuilder joinPointSelectorBuilder) {
-        return joinPointSelectorBuilder.methodExecute();
+    protected MethodExecutionJoinPointSelector createSelectorBuilderUnderTest(JoinPointSelector joinPointSelector) {
+        return joinPointSelector.methodExecute();
     }
-
 }

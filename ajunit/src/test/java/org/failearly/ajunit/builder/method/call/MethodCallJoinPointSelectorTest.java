@@ -16,25 +16,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.internal.builder.jpsb;
+package org.failearly.ajunit.builder.method.call;
 
-import org.failearly.ajunit.internal.predicate.Predicate;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.failearly.ajunit.builder.JoinPointSelector;
+import org.failearly.ajunit.builder.MethodCallJoinPointSelector;
+import org.failearly.ajunit.builder.method.MethodJoinPointSelectorTest;
+import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
- * PredicateMap is responsible for ...
+ * Tests for {@link org.failearly.ajunit.builder.MethodCallJoinPointSelector}.
  */
-final class PredicateFactories<E,T> {
-    private final Map<E,PredicateFactory<T>> predicateFactories=new HashMap<>();
+public final class MethodCallJoinPointSelectorTest extends MethodJoinPointSelectorTest<MethodCallJoinPointSelector> {
 
-    PredicateFactories<E,T> addFactory(E type, PredicateFactory<T> factory) {
-        predicateFactories.put(type, factory);
-        return this;
+    public MethodCallJoinPointSelectorTest() {
+        super(AjJoinPointType.METHOD_CALL);
     }
 
-    Predicate createPredicate(E type, T input) {
-        return predicateFactories.get(type).createPredicate(input);
+    @Override
+    protected MethodCallJoinPointSelector createSelectorBuilderUnderTest(JoinPointSelector joinPointSelector) {
+        return joinPointSelector.methodCall();
     }
 }

@@ -18,17 +18,17 @@
  */
 package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.builder.StringMatcherType;
+import org.failearly.ajunit.builder.*;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelectorBuilder#byName(String, org.failearly.ajunit.builder.StringMatcherType)}.
+ * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector#byName(String, org.failearly.ajunit.builder.StringMatcherType)}.
  */
-public final class MethodJoinPointSelectorBuilderByNameTest extends MethodJoinPointSelectorBuilderBaseTest {
+public abstract class MethodJoinPointSelectorByNameTest <T extends MethodJoinPointSelector<T>> extends AbstractJoinPointSelectorTest<T> {
 
-    public MethodJoinPointSelectorBuilderByNameTest() {
-        super(AjJoinPointType.METHOD_EXECUTION);
+    protected MethodJoinPointSelectorByNameTest(AjJoinPointType expectedJoinPointType) {
+        super(expectedJoinPointType, TestSubject1.class, TestSubject2.class);
     }
 
     @Test
@@ -38,8 +38,8 @@ public final class MethodJoinPointSelectorBuilderByNameTest extends MethodJoinPo
 
         // assert / then
         assertBuildJoinPointSelector(
-                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject1.anyMethod()}",
-                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject2.anyMethod()}"
+                "public void org.failearly.ajunit.builder.TestSubject1.anyMethod()",
+                "public void org.failearly.ajunit.builder.TestSubject2.anyMethod()"
         );
     }
 
@@ -50,8 +50,8 @@ public final class MethodJoinPointSelectorBuilderByNameTest extends MethodJoinPo
 
         // assert / then
         assertBuildJoinPointSelector(
-                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject1.anyMethod()}",
-                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject2.anyMethod()}"
+                "public void org.failearly.ajunit.builder.TestSubject1.anyMethod()",
+                "public void org.failearly.ajunit.builder.TestSubject2.anyMethod()"
         );
     }
 
@@ -62,12 +62,12 @@ public final class MethodJoinPointSelectorBuilderByNameTest extends MethodJoinPo
 
         // assert / then
         assertBuildJoinPointSelector(
-                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject1.anyMethod()}",
-                "method-execution{#apply=0, method=private void org.failearly.ajunit.builder.TestSubject1.otherMethod()}",
-                "method-execution{#apply=0, method=void org.failearly.ajunit.builder.TestSubject1.packagePrivateMethod()}",
-                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject2.anyMethod()}",
-                "method-execution{#apply=0, method=private void org.failearly.ajunit.builder.TestSubject2.otherMethod()}",
-                "method-execution{#apply=0, method=void org.failearly.ajunit.builder.TestSubject2.packagePrivateMethod()}"
+                "public void org.failearly.ajunit.builder.TestSubject1.anyMethod()",
+                "private void org.failearly.ajunit.builder.TestSubject1.otherMethod()",
+                "void org.failearly.ajunit.builder.TestSubject1.packagePrivateMethod()",
+                "public void org.failearly.ajunit.builder.TestSubject2.anyMethod()",
+                "private void org.failearly.ajunit.builder.TestSubject2.otherMethod()",
+                "void org.failearly.ajunit.builder.TestSubject2.packagePrivateMethod()"
         );
     }
 
@@ -78,8 +78,8 @@ public final class MethodJoinPointSelectorBuilderByNameTest extends MethodJoinPo
 
         // assert / then
         assertBuildJoinPointSelector(
-                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject1.anyMethod()}",
-                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject2.anyMethod()}"
+                "public void org.failearly.ajunit.builder.TestSubject1.anyMethod()",
+                "public void org.failearly.ajunit.builder.TestSubject2.anyMethod()"
         );
     }
 
@@ -90,8 +90,8 @@ public final class MethodJoinPointSelectorBuilderByNameTest extends MethodJoinPo
 
         // assert / then
         assertBuildJoinPointSelector(
-                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject1.anyMethod()}",
-                "method-execution{#apply=0, method=public void org.failearly.ajunit.builder.TestSubject2.anyMethod()}"
+                "public void org.failearly.ajunit.builder.TestSubject1.anyMethod()",
+                "public void org.failearly.ajunit.builder.TestSubject2.anyMethod()"
         );
     }
 }

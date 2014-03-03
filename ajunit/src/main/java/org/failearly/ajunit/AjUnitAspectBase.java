@@ -45,7 +45,7 @@ public abstract class AjUnitAspectBase {
      * <i>Apply the join point</i>, means to find the associated ajUnit join point and then mark it as applied..
      * @param joinPoint the AspectJ join point.
      */
-    protected final void doApply(final JoinPoint joinPoint) {
+    final void doApply(final JoinPoint joinPoint) {
         final String universeName = AjUnitUtils.resolveUniverseName(this);
         LOGGER.info("ajUnit - {}: Apply AspectJ join point {}", universeName, joinPoint);
         final AjJoinPoint ajUnitJoinPoint=resolveAjJoinPoint(joinPoint, universeName);

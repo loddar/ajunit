@@ -21,7 +21,7 @@ package org.failearly.ajunit.builder;
 import java.io.Serializable;
 
 /**
- * Just for {@link AbstractJoinPointSelectorBuilderTest}.
+ * Just for {@link AbstractJoinPointSelectorTest}.
  */
 @SuppressWarnings("all")
 public abstract class TestSubject2 implements Serializable {

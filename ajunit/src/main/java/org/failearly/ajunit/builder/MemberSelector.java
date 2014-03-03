@@ -21,9 +21,9 @@ package org.failearly.ajunit.builder;
 import org.failearly.ajunit.modifier.AccessModifier;
 
 /**
- * MemberSelectorBuilder provides selector methods based on {@link java.lang.reflect.Member}.
+ * MemberSelector provides selector methods based on {@link java.lang.reflect.Member}.
  */
-public interface MemberSelectorBuilder<SB extends SelectorBuilder> extends SelectorBuilder {
+public interface MemberSelector<SB extends SelectorBuilder> extends SelectorBuilder {
     /**
      * Select a method by any of {@link org.failearly.ajunit.modifier.AccessModifier}.<br/>
      * </br>

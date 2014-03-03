@@ -18,7 +18,7 @@
  */
 package org.failearly.ajunit;
 
-import org.failearly.ajunit.builder.JoinPointSelectorBuilder;
+import org.failearly.ajunit.builder.JoinPointSelector;
 import org.failearly.ajunit.internal.runner.AjUnitTestRunner;
 import org.failearly.ajunit.internal.runner.FailureHandler;
 import org.failearly.ajunit.internal.util.AjAssert;
@@ -44,9 +44,9 @@ public abstract class AjUnitTestBase implements AjUnitTest, FailureHandler {
     }
 
     @Override
-    public void assertPointcut(JoinPointSelectorBuilder joinPointSelectorBuilder) {
+    public void assertPointcut(JoinPointSelector joinPointSelector) {
         AjAssert.throwSetupError(MessageUtils.setupError("Missing assertPointcut.")
-                .line("Please override assertPointcut(JoinPointSelectorBuilder)"));
+                .line("Please override assertPointcut(JoinPointSelector)"));
 
     }
 

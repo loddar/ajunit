@@ -29,10 +29,6 @@ final class MessageBuilderImpl implements MessageBuilder {
         stringBuilder=new StringBuilder(initialMessage);
     }
 
-    public MessageBuilderImpl() {
-        this("");
-    }
-
     @Override
     public MessageBuilder part(String message) {
         stringBuilder.append(" ")
@@ -77,11 +73,11 @@ final class MessageBuilderImpl implements MessageBuilder {
     }
 
     @Override
-    public MessageBuilder arg(Object object) {
-        if(object instanceof Number)
-            stringBuilder.append(" ").append(object);
+    public MessageBuilder arg(Object argument) {
+        if(argument instanceof Number)
+            stringBuilder.append(" ").append(argument);
         else
-            stringBuilder.append(" '").append(object).append("'");
+            stringBuilder.append(" '").append(argument).append("'");
         return this;
     }
 

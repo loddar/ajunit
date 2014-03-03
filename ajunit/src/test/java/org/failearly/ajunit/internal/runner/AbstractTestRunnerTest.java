@@ -29,7 +29,7 @@ import static org.junit.Assert.fail;
  * AjUnitTestRunnerTest is the base class for AjUnitTestRunner's tests.
  */
 public abstract class AbstractTestRunnerTest {
-    protected static void assertException(PointcutUnitTestBase testClass, Class<? extends Throwable> expectedException, String expectedMessage) {
+    static void assertException(PointcutUnitTestBase testClass, Class<? extends Throwable> expectedException, String expectedMessage) {
         try {
             testClass.testPointcut();
         } catch (Throwable ex) {

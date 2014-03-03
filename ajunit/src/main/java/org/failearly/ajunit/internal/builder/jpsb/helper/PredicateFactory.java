@@ -16,23 +16,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.internal.builder.jpsb.helper;
+
+import org.failearly.ajunit.internal.predicate.Predicate;
 
 /**
- * LogicalSelectorBuilder is responsible for ...
+ * PredicateFactory is a abstract factory for {@link org.failearly.ajunit.internal.predicate.Predicate}.
  */
-public interface LogicalSelectorBuilder<B extends SelectorBuilder> extends SelectorBuilder {
-    B or();
-
-    B union();
-
-    B anyOf();
-
-    B and();
-
-    B intersect();
-
-    B allOf();
-
-    B end();
+public interface PredicateFactory<T> {
+    /**
+     * Factory method for a single Predicate.
+     */
+    Predicate createPredicate(T input);
 }

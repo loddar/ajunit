@@ -21,7 +21,7 @@ package org.failearly.ajunit.builder;
 import org.failearly.ajunit.modifier.MethodModifier;
 
 /**
- * MethodJoinPointSelectorBuilder is the builder for method join point selector expression.
+ * MethodJoinPointSelector is the builder for method join point selector expression.
  * <br/><br/>
  * AspectJ pointcut definitions:
  * <code>
@@ -29,17 +29,7 @@ import org.failearly.ajunit.modifier.MethodModifier;
  * execution(method signature)
  * </code>
  */
-public interface MethodJoinPointSelectorBuilder extends MemberSelectorBuilder<MethodJoinPointSelectorBuilder> {
-
-    /**
-     * End the method execution/call expression(s) end return to join point selector builder. It's like ending a
-     * <pre>(execution(expr1) && execution(expr2))</pre> or <pre>(call(expr1) && call(expr2))</pre>.
-     *
-     * @return the {@link org.failearly.ajunit.builder.JoinPointSelectorBuilder}.
-     * @see JoinPointSelectorBuilder#methodExecute()
-     * @see org.failearly.ajunit.builder.JoinPointSelectorBuilder#methodCall()
-     */
-    JoinPointSelectorBuilder endMethod();
+public interface MethodJoinPointSelector<MS extends MethodJoinPointSelector> extends MemberSelector<MS>, LogicalSelector<MS> {
 
     /**
      * Select a method by method name (pattern).<br/>
@@ -54,7 +44,7 @@ public interface MethodJoinPointSelectorBuilder extends MemberSelectorBuilder<Me
      * @param matcherType the matcher type
      * @return itself
      */
-    MethodJoinPointSelectorBuilder byName(String methodNamePattern, StringMatcherType matcherType);
+    MS byName(String methodNamePattern, StringMatcherType matcherType);
 
     /**
      * Select a method by any of {@link org.failearly.ajunit.modifier.MethodModifier}.<br/>
@@ -67,7 +57,7 @@ public interface MethodJoinPointSelectorBuilder extends MemberSelectorBuilder<Me
      * @param methodModifiers the supported method modifiers.
      * @return itself
      */
-    MethodJoinPointSelectorBuilder byAnyOfMethodModifiers(MethodModifier... methodModifiers);
+    MS byAnyOfMethodModifiers(MethodModifier... methodModifiers);
 
     /**
      * Select a method by none of {@link org.failearly.ajunit.modifier.MethodModifier}.<br/>
@@ -80,14 +70,12 @@ public interface MethodJoinPointSelectorBuilder extends MemberSelectorBuilder<Me
      * @param methodModifiers the supported method modifiers.
      * @return itself
      */
-    MethodJoinPointSelectorBuilder byNoneOfMethodModifiers(MethodModifier... methodModifiers);
+    MS byNoneOfMethodModifiers(MethodModifier... methodModifiers);
 
 
-//    MethodJoinPointSelectorBuilder byDeclaringClass(Class<?> clazz);
-//    MethodJoinPointSelectorBuilder byDeclaringClassName(String className, StringMatcherType matcherType);
-//
-//    MethodJoinPointSelectorBuilder byReturnType(Class<?> clazz);
-//    MethodJoinPointSelectorBuilder byReturnType(String className, StringMatcherType matcherType);
+//    MethodJoinPointSelector byAnyOfReturnTypes(Class<?>... classes);
+//    MethodJoinPointSelector byNoneOfReturnTypes(Class<?>... classes);
+//    MethodJoinPointSelector byReturnType(String className, StringMatcherType matcherType);
 
     /**
      * Accepts any method signature.<br/>
@@ -100,5 +88,15 @@ public interface MethodJoinPointSelectorBuilder extends MemberSelectorBuilder<Me
      *
      * @return itself
      */
-    MethodJoinPointSelectorBuilder anyMethod();
+    MS anyMethod();
+
+    /**
+     * End the method execution/call expression(s) end return to join point selector builder. It's like ending a
+     * <pre>(execution(expr1) && execution(expr2))</pre> or <pre>(call(expr1) && call(expr2))</pre>.
+     *
+     * @return the {@link JoinPointSelector}.
+     * @see JoinPointSelector#methodExecute()
+     * @see JoinPointSelector#methodCall()
+     */
+    JoinPointSelector endMethod();
 }

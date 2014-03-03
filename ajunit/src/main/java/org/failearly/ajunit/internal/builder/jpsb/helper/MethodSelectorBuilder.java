@@ -16,16 +16,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.internal.builder.jpsb;
+package org.failearly.ajunit.internal.builder.jpsb.helper;
 
-import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.builder.Builder;
+import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
+import org.failearly.ajunit.internal.transformer.ajp.AjpTransformers;
+import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
- * PredicateFactory is a abstract factory for {@link org.failearly.ajunit.internal.predicate.Predicate}.
+ * MethodSelectorBuilder is responsible for ...
  */
-public interface PredicateFactory<T> {
-    /**
-     * Factory method for a single Predicate.
-     */
-    Predicate createPredicate(T input);
+public final class MethodSelectorBuilder<T extends Builder> extends MemberSelectorBuilder<T> {
+    MethodSelectorBuilder(T predicateBuilder, AjJoinPointType joinPointType) {
+        super(predicateBuilder, joinPointType, AjpTransformers.methodTransformer());
+    }
+
+    public T anyMethod() {
+        return addPredicate(StandardPredicates.alwaysTrue());
+    }
 }

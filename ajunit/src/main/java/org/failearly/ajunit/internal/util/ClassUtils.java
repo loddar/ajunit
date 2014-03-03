@@ -18,9 +18,6 @@
  */
 package org.failearly.ajunit.internal.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -28,8 +25,6 @@ import java.util.Collection;
  * Utility class for class related operations.
  */
 public abstract class ClassUtils {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ClassUtils.class);
 
 
     private ClassUtils() {

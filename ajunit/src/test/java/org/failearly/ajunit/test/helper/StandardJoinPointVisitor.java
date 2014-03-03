@@ -20,31 +20,44 @@ package org.failearly.ajunit.test.helper;
 
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.universe.AjJoinPoint;
+import org.failearly.ajunit.internal.universe.AjJoinPointStringBuilder;
+import org.failearly.ajunit.internal.universe.AjJoinPointStringBuilders;
 import org.failearly.ajunit.internal.universe.AjJoinPointVisitor;
 
 import java.util.LinkedList;
 import java.util.List;
 
 /**
-* StandardJoinPointVisitor applies the predicate and collects all matching join points.
-*/
+ * StandardJoinPointVisitor applies the predicate and collects all matching join points. Uses
+ * an {@link org.failearly.ajunit.internal.universe.AjJoinPointStringBuilder} for converting the
+ * {@link org.failearly.ajunit.internal.universe.AjJoinPoint} to a string. These strings will be collected.
+ *
+ * The Standard implementation uses the {@link org.failearly.ajunit.internal.universe.AjJoinPointStringBuilders#toLongStringBuilder()}.
+ */
 public class StandardJoinPointVisitor implements AjJoinPointVisitor {
     private final Predicate predicate;
-    private final List<String> selectedJoinPoints=new LinkedList<>();
+    private final List<String> selectedJoinPoints = new LinkedList<>();
+    private final AjJoinPointStringBuilder ajJoinPointStringBuilder;
+
 
     public StandardJoinPointVisitor(Predicate predicate) {
+        this(predicate, AjJoinPointStringBuilders.toLongStringBuilder());
+    }
+
+    public StandardJoinPointVisitor(Predicate predicate, AjJoinPointStringBuilder ajJoinPointStringBuilder) {
         this.predicate = predicate;
+        this.ajJoinPointStringBuilder = ajJoinPointStringBuilder;
     }
 
     @Override
     public void visit(AjJoinPoint joinPoint) {
-        if( predicate.evaluate(joinPoint) ) {
+        if (predicate.evaluate(joinPoint)) {
             selectedJoinPoints.add(toString(joinPoint));
         }
     }
 
-    protected String toString(AjJoinPoint joinPoint) {
-        return joinPoint.toString();
+    private String toString(AjJoinPoint joinPoint) {
+        return joinPoint.toString(this.ajJoinPointStringBuilder);
     }
 
     public final List<String> getSelectedJoinPoints() {

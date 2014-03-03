@@ -21,6 +21,7 @@ package any.company.aspect;
 /**
  * MyTestFixture is responsible for ...
  */
+@SuppressWarnings("all")
 public class MyTestFixture {
 
     public void anyMethod() {}

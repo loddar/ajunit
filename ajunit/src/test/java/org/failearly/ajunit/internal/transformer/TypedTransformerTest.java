@@ -29,6 +29,7 @@ import static org.junit.Assert.assertThat;
  */
 public class TypedTransformerTest {
 
+    @SuppressWarnings({"all", "CanBeFinal"})
     private static class MyClass {
         private int value;
 

@@ -24,7 +24,7 @@ package org.failearly.ajunit.internal.util;
 public interface MessageBuilder {
     /**
      * Creates a part of the entire message including a space.
-     * @param message
+     * @param message the message.
      * @return this.
      */
     MessageBuilder part(String message);
@@ -73,10 +73,10 @@ public interface MessageBuilder {
      * <code>
      *     mb.part(" '" + object + "'");
      * </code>
-     * @param object
+     * @param argument the argument.
      * @return this.
      */
-    MessageBuilder arg(Object object);
+    MessageBuilder arg(Object argument);
 
     /**
      * Adds a full stop sign.

@@ -29,10 +29,6 @@ public class XBuilder extends BuilderBase<TopBuilder,XBuilder> {
         init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
     }
 
-    public XBuilder and() {
-        return super.and(getXBuilderFactory());
-    }
-
     public XBuilder or() {
         return super.or(getXBuilderFactory());
     }
@@ -47,14 +43,14 @@ public class XBuilder extends BuilderBase<TopBuilder,XBuilder> {
     }
 
     public XBuilder end() {
-        return super.end(XBuilder.class);
+        return super.doEndLogicalExpression(XBuilder.class);
     }
 
     public YBuilder endY() {
-        return super.end(YBuilder.class);
+        return super.doEndLogicalExpression(YBuilder.class);
     }
 
     public TopBuilder endTop() {
-        return super.end(TopBuilder.class);
+        return super.doEndLogicalExpression(TopBuilder.class);
     }
 }

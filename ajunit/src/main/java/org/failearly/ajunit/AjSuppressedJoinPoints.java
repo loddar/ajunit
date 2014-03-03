@@ -31,7 +31,7 @@ import org.failearly.ajunit.internal.util.AjAssert;
  *
  * @see AjUnitSetup#enableSuppressedJoinPoints(SuppressedJoinPoint)
  */
-public final class AjSuppressedJoinPoints extends SuppressedJoinPointFactory {
+final class AjSuppressedJoinPoints extends SuppressedJoinPointFactory {
 
     private static final Predicate PREDICATE_JLO_STANDARD = anyMethodPredicate("equals", "hashCode", "toString", "getClass");
 

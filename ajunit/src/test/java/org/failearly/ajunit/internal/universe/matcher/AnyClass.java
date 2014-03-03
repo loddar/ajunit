@@ -21,7 +21,7 @@ package org.failearly.ajunit.internal.universe.matcher;
 /**
  * Only for {@link org.failearly.ajunit.internal.universe.AjJoinPointMatcher} Tests.
  */
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class AnyClass {
 
     public int field=0;

@@ -40,6 +40,7 @@ import org.aspectj.lang.annotation.Pointcut;
  *
  * @see org.failearly.ajunit.AjUnitBeforeAspect
  */
+@SuppressWarnings("EmptyMethod")
 @Aspect
 public abstract class AjUnitAspect extends AjUnitAspectBase {
 
