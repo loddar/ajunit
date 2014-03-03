@@ -1,5 +1,5 @@
 /*
- * ajUnit - Unit Testing AspectJ pointcut definitions.
+ * ajUnit - Unit Testing AspectJ.
  *
  * Copyright (C) 2013-2014 Marko Umek (http://fail-early.com/contact)
  *
@@ -254,7 +254,7 @@ public abstract class MethodJoinPointSelectorLogicalOpsTest<T extends MethodJoin
                 "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException",
                 "private static native void java.lang.Object.registerNatives()",
                 "protected void java.lang.Object.finalize() throws java.lang.Throwable"
-         );
+        );
     }
 
     @Test

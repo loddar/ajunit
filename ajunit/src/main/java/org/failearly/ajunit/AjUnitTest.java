@@ -1,5 +1,5 @@
 /*
- * ajUnit - Unit Testing AspectJ pointcut definitions.
+ * ajUnit - Unit Testing AspectJ.
  *
  * Copyright (C) 2013-2014 Marko Umek (http://fail-early.com/contact)
  *

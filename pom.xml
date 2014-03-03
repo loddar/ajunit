@@ -1,5 +1,5 @@
 <!--
-  ~ ajUnit - Unit Testing AspectJ pointcut definitions.
+  ~ ajUnit - Unit Testing AspectJ.
   ~
   ~ Copyright (C) 2013-2014 Marko Umek (http://fail-early.com/contact)
   ~
@@ -24,7 +24,7 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>ajUnit (Parent POM)</name>
-    <description>ajUnit - Unit Testing for AspectJ pointcut definitions.</description>
+    <description>ajUnit - Unit Testing for AspectJ.</description>
     <url>http://www.fail-early.org</url>
 
     <properties>

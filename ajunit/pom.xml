@@ -1,5 +1,5 @@
 <!--
-  ~ ajUnit - Unit Testing AspectJ pointcut definitions.
+  ~ ajUnit - Unit Testing AspectJ.
   ~
   ~ Copyright (C) 2013-2014 Marko Umek (http://fail-early.com/contact)
   ~
@@ -30,7 +30,7 @@
     <packaging>jar</packaging>
 
     <name>ajUnit (The ajUnit project)</name>
-    <description>ajUnit - Unit Testing for AspectJ pointcut definitions.</description>
+    <description>ajUnit - Unit Testing for AspectJ.</description>
 
     <properties>
         <config.dir>${project.basedir}/../config</config.dir>
