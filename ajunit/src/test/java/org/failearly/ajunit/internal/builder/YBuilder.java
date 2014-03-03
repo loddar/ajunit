@@ -26,6 +26,7 @@ import org.failearly.ajunit.internal.predicate.CompositePredicate;
 public class YBuilder extends BuilderBase<TopBuilder,YBuilder> {
 
     YBuilder(TopBuilder root, Builder parent, CompositePredicate compositePredicate) {
+        super(YBuilder.class);
         init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
     }
 
@@ -60,10 +61,10 @@ public class YBuilder extends BuilderBase<TopBuilder,YBuilder> {
     }
 
     public YBuilder end() {
-        return super.doEndLogicalExpression(YBuilder.class);
+        return super.doEndLogicalExpression(YBuilder.class, true);
     }
 
     public TopBuilder endTop() {
-        return super.doEndLogicalExpression(TopBuilder.class);
+        return super.doEndLogicalExpression(TopBuilder.class, true);
     }
 }

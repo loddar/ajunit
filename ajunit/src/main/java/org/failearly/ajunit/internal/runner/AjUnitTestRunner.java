@@ -20,7 +20,7 @@ package org.failearly.ajunit.internal.runner;
 
 import org.failearly.ajunit.AjUnitAspectBase;
 import org.failearly.ajunit.AjUnitTest;
-import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderImpl;
+import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.failearly.ajunit.internal.universe.AjUniverse;
@@ -171,7 +171,7 @@ public final class AjUnitTestRunner {
     }
 
     private Predicate buildJoinPointSelector(final Set<AjJoinPointType> joinPointTypes) {
-        final JoinPointSelectorBuilderImpl joinPointBuilder = new JoinPointSelectorBuilderImpl(joinPointTypes);
+        final JoinPointSelectorImpl joinPointBuilder = new JoinPointSelectorImpl(joinPointTypes);
         ajUnitTest.assertPointcut(joinPointBuilder);
         if (!joinPointBuilder.anyPredicateDefined()) {
             throwSetupError(MessageUtils.setupError("Missing implementation of assertPointcut(JoinPointSelector)."));

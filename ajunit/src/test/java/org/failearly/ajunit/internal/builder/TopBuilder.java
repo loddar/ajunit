@@ -30,10 +30,12 @@ import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
 public final class TopBuilder extends RootBuilderBase<TopBuilder> {
 
     public TopBuilder() {
+        super(TopBuilder.class);
         init(LogicalStructureBuilder.createRootBuilder(this, LogicalPredicates.or()));
     }
 
     private TopBuilder(TopBuilder root, TopBuilder parent, CompositePredicate compositePredicate) {
+        super(TopBuilder.class);
         init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
     }
 
@@ -81,6 +83,6 @@ public final class TopBuilder extends RootBuilderBase<TopBuilder> {
     }
 
     public TopBuilder end() {
-        return super.doEndLogicalExpression(TopBuilder.class);
+        return super.doEndLogicalExpression(TopBuilder.class, false);
     }
 }

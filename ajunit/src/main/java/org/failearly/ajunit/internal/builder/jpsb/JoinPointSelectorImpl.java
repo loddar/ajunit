@@ -31,12 +31,13 @@ import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import java.util.Set;
 
 /**
- * JoinPointSelectorBuilderImpl is the implementation for JoinPointSelector.
+ * JoinPointSelectorImpl is the implementation for JoinPointSelector.
  */
-public final class JoinPointSelectorBuilderImpl extends RootBuilderBase<JoinPointSelectorBuilderImpl> implements JoinPointSelector {
+public final class JoinPointSelectorImpl extends RootBuilderBase<JoinPointSelectorImpl> implements JoinPointSelector {
     private final Set<AjJoinPointType> joinPointTypes;
 
-    public JoinPointSelectorBuilderImpl(Set<AjJoinPointType> joinPointTypes) {
+    public JoinPointSelectorImpl(Set<AjJoinPointType> joinPointTypes) {
+        super(JoinPointSelectorImpl.class);
         init(LogicalStructureBuilder.createRootBuilder(this, LogicalPredicates.or()));
         this.joinPointTypes = joinPointTypes;
     }
@@ -56,26 +57,26 @@ public final class JoinPointSelectorBuilderImpl extends RootBuilderBase<JoinPoin
         alwaysFalse();
     }
 
-    private BuilderFactory<JoinPointSelectorBuilderImpl, JoinPointSelectorBuilderImpl, MethodExecutionJoinPointSelectorImpl>
+    private BuilderFactory<JoinPointSelectorImpl, JoinPointSelectorImpl, MethodExecutionJoinPointSelectorImpl>
             getMethodExecutionJoinPointBuilderFactory() {
         joinPointTypes.add(AjJoinPointType.METHOD_EXECUTION);
-        return new BuilderFactory<JoinPointSelectorBuilderImpl, JoinPointSelectorBuilderImpl, MethodExecutionJoinPointSelectorImpl>() {
+        return new BuilderFactory<JoinPointSelectorImpl, JoinPointSelectorImpl, MethodExecutionJoinPointSelectorImpl>() {
             @Override
-            public MethodExecutionJoinPointSelectorImpl createBuilder(JoinPointSelectorBuilderImpl root,
-                                                                    JoinPointSelectorBuilderImpl parent,
+            public MethodExecutionJoinPointSelectorImpl createBuilder(JoinPointSelectorImpl root,
+                                                                    JoinPointSelectorImpl parent,
                                                                     CompositePredicate compositePredicate) {
                 return new MethodExecutionJoinPointSelectorImpl(root, parent, compositePredicate);
             }
         };
     }
 
-    private BuilderFactory<JoinPointSelectorBuilderImpl, JoinPointSelectorBuilderImpl, MethodCallJoinPointSelectorImpl>
+    private BuilderFactory<JoinPointSelectorImpl, JoinPointSelectorImpl, MethodCallJoinPointSelectorImpl>
         getMethodCallJoinPointBuilderFactory() {
         joinPointTypes.add(AjJoinPointType.METHOD_CALL);
-        return new BuilderFactory<JoinPointSelectorBuilderImpl, JoinPointSelectorBuilderImpl, MethodCallJoinPointSelectorImpl>() {
+        return new BuilderFactory<JoinPointSelectorImpl, JoinPointSelectorImpl, MethodCallJoinPointSelectorImpl>() {
             @Override
-            public MethodCallJoinPointSelectorImpl createBuilder(JoinPointSelectorBuilderImpl root,
-                                                                      JoinPointSelectorBuilderImpl parent,
+            public MethodCallJoinPointSelectorImpl createBuilder(JoinPointSelectorImpl root,
+                                                                      JoinPointSelectorImpl parent,
                                                                       CompositePredicate compositePredicate) {
                 return new MethodCallJoinPointSelectorImpl(root, parent, compositePredicate);
             }

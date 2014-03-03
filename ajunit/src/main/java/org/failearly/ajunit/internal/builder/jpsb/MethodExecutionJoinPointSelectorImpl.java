@@ -36,7 +36,7 @@ import org.failearly.ajunit.modifier.MethodModifier;
  * MethodExecutionJoinPointSelectorImpl is the implementation of {@link org.failearly.ajunit.builder.MethodExecutionJoinPointSelector}.
  */
 final class MethodExecutionJoinPointSelectorImpl
-        extends BuilderBase<JoinPointSelectorBuilderImpl, MethodExecutionJoinPointSelectorImpl> implements MethodExecutionJoinPointSelector {
+        extends BuilderBase<JoinPointSelectorImpl, MethodExecutionJoinPointSelectorImpl> implements MethodExecutionJoinPointSelector {
 
     private static final AjJoinPointType JOIN_POINT_TYPE=AjJoinPointType.METHOD_EXECUTION;
 
@@ -44,8 +44,8 @@ final class MethodExecutionJoinPointSelectorImpl
     private final ClassSelectorBuilder<MethodExecutionJoinPointSelectorImpl>  declaringClassSelector;
 
     MethodExecutionJoinPointSelectorImpl(
-            JoinPointSelectorBuilderImpl root,
-            JoinPointSelectorBuilderImpl parent,
+            JoinPointSelectorImpl root,
+            JoinPointSelectorImpl parent,
             CompositePredicate compositePredicate) {
         this();
         init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
@@ -53,19 +53,20 @@ final class MethodExecutionJoinPointSelectorImpl
     }
 
     private MethodExecutionJoinPointSelectorImpl(
-            JoinPointSelectorBuilderImpl root, MethodExecutionJoinPointSelectorImpl parent, CompositePredicate compositePredicate) {
+            JoinPointSelectorImpl root, MethodExecutionJoinPointSelectorImpl parent, CompositePredicate compositePredicate) {
         this();
         init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
     }
 
     private MethodExecutionJoinPointSelectorImpl() {
+        super(MethodExecutionJoinPointSelectorImpl.class);
         this.methodSelector = SelectorBuilders.createMethodSelectorBuilder(this, JOIN_POINT_TYPE);
         this.declaringClassSelector = SelectorBuilders.createDeclaringClassSelectorBuilder(this, JOIN_POINT_TYPE);
     }
 
     @Override
     public JoinPointSelector endMethod() {
-        return super.doEndLogicalExpression(JoinPointSelectorBuilderImpl.class);
+        return super.doEndLogicalExpression(JoinPointSelector.class, true);
     }
 
     @Override
@@ -180,15 +181,15 @@ final class MethodExecutionJoinPointSelectorImpl
 
     @Override
     public MethodExecutionJoinPointSelector end() {
-        return super.doEndLogicalExpression(MethodExecutionJoinPointSelectorImpl.class);
+        return super.doEndLogicalExpression(MethodExecutionJoinPointSelector.class, false);
     }
 
-    private BuilderFactory<JoinPointSelectorBuilderImpl,MethodExecutionJoinPointSelectorImpl,MethodExecutionJoinPointSelectorImpl>
+    private BuilderFactory<JoinPointSelectorImpl,MethodExecutionJoinPointSelectorImpl,MethodExecutionJoinPointSelectorImpl>
             getMethodJoinPointSelectorBuilderFactory() {
-        return new BuilderFactory<JoinPointSelectorBuilderImpl, MethodExecutionJoinPointSelectorImpl, MethodExecutionJoinPointSelectorImpl>() {
+        return new BuilderFactory<JoinPointSelectorImpl, MethodExecutionJoinPointSelectorImpl, MethodExecutionJoinPointSelectorImpl>() {
             @Override
             public MethodExecutionJoinPointSelectorImpl createBuilder(
-                    JoinPointSelectorBuilderImpl root, MethodExecutionJoinPointSelectorImpl parent, CompositePredicate compositePredicate) {
+                    JoinPointSelectorImpl root, MethodExecutionJoinPointSelectorImpl parent, CompositePredicate compositePredicate) {
                 return new MethodExecutionJoinPointSelectorImpl(root, parent, compositePredicate);
             }
         };

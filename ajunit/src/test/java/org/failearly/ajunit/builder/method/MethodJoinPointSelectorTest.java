@@ -25,6 +25,9 @@ import org.failearly.ajunit.builder.TestSubject2;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
+
 /**
  * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
  *
@@ -38,15 +41,20 @@ public abstract class MethodJoinPointSelectorTest<T extends MethodJoinPointSelec
     }
 
     @Test
-    public void testEndMethod() throws Exception {
+    public void endMethod() throws Exception {
         assertEndSpecificJoinPointBuilder("endMethod()", selectorBuilder.endMethod());
         assertJoinPointType();
     }
 
+    @Test(expected = java.lang.IllegalStateException.class)
+    public void callingEndOnFirstSelector() throws Exception {
+        assertThat("end()", selectorBuilder.end(), nullValue());
+    }
+
     @Test
-    public void testAnyMethod() throws Exception {
+    public void anyMethod() throws Exception {
         // act / when
-        selectorBuilder.anyMethod();
+        // Implicitly called selectorBuilder.anyMethod();
 
         // assert / then
         assertBuildJoinPointSelector(

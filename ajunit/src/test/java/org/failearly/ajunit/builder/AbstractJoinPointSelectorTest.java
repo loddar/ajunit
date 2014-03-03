@@ -18,7 +18,7 @@
  */
 package org.failearly.ajunit.builder;
 
-import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderImpl;
+import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
 import org.failearly.ajunit.internal.universe.AjJoinPointStringBuilder;
 import org.failearly.ajunit.internal.universe.AjJoinPointStringBuilderBase;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
@@ -49,7 +49,7 @@ public abstract class AbstractJoinPointSelectorTest<T extends SelectorBuilder> {
     private Set<AjJoinPointType> joinPointTypes;
 
     protected T selectorBuilder;
-    private JoinPointSelectorBuilderImpl joinPointSelectorBuilder;
+    private JoinPointSelectorImpl joinPointSelectorBuilder;
     private final List<Class<?>> testFixtureClasses;
 
     protected AbstractJoinPointSelectorTest(AjJoinPointType expectedJoinPointType, Class<?>... testFixtureClasses) {
@@ -81,7 +81,7 @@ public abstract class AbstractJoinPointSelectorTest<T extends SelectorBuilder> {
     @Before
     public final void setUp() throws Exception {
         joinPointTypes = new HashSet<>();
-        joinPointSelectorBuilder = new JoinPointSelectorBuilderImpl(joinPointTypes);
+        joinPointSelectorBuilder = new JoinPointSelectorImpl(joinPointTypes);
         selectorBuilder=createSelectorBuilderUnderTest(this.joinPointSelectorBuilder);
     }
 

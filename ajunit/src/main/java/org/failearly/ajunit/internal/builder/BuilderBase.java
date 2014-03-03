@@ -21,14 +21,17 @@ package org.failearly.ajunit.internal.builder;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.failearly.ajunit.internal.util.AjAssert;
+import org.failearly.ajunit.internal.util.MessageUtils;
 
 /**
  * The base class for all {@link Builder}.
  */
 public abstract class BuilderBase<R extends RootBuilder, C extends Builder> implements Builder {
+    private final Class<C> clazz;
     private LogicalStructureBuilder<R, C> logicalStructureBuilder;
 
-    protected BuilderBase() {
+    protected BuilderBase(Class<C> clazz) {
+        this.clazz = clazz;
     }
 
     protected final <P extends Builder> void init(LogicalStructureBuilder<R, C> logicalStructureBuilder) {
@@ -66,23 +69,27 @@ public abstract class BuilderBase<R extends RootBuilder, C extends Builder> impl
         return logicalStructureBuilder.nor(builderFactory);
     }
 
-    @SuppressWarnings("unchecked")
     protected C alwaysTrue() {
         addPredicate(StandardPredicates.alwaysTrue());
-        return (C) this;
+        return clazz.cast(this);
     }
 
     @SuppressWarnings("unchecked")
     protected C alwaysFalse() {
         addPredicate(StandardPredicates.alwaysFalse());
-        return (C) this;
+        return clazz.cast(this);
     }
 
-    protected final <P extends Builder> P doEndLogicalExpression(Class<P> builderClass) {
+    protected final <P> P doEndLogicalExpression(Class<P> builderClass, boolean recursiveEndExpressions) {
         Builder parent = this.endLogicalExpression();
-        while(! builderClass.isInstance(parent)) {
+        while(recursiveEndExpressions && ! builderClass.isInstance(parent) ) {
             parent=parent.endLogicalExpression();
         }
+        AjAssert.assertCondition(
+                builderClass.isInstance(parent),
+                MessageUtils.message("Invalid termination of logical expression: Parent selector instance is not of expected type")
+                        .arg(builderClass.getSimpleName())
+        );
         return builderClass.cast(parent);
     }
 
