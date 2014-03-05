@@ -28,7 +28,7 @@ public abstract class StandardPredicates {
 
     private static final Predicate P_TRUE = new ConstantPredicate(true);
     private static final Predicate P_FALSE = new ConstantPredicate(false);
-    public static final NotNullPredicate P_NOT_NULL = new NotNullPredicate();
+    private static final NotNullPredicate P_NOT_NULL = new NotNullPredicate();
 
     private StandardPredicates() {}
 
@@ -75,8 +75,18 @@ public abstract class StandardPredicates {
         return new TransformerPredicate(transformer, predicate);
     }
 
+    /**
+     * Predicate checks if the object to evaluate is {@code not null}.
+     */
     public static Predicate predicateNotNull() {
         return P_NOT_NULL;
+    }
+
+    /**
+     * Predicates checks whether given object is a {@code Boolean} object and returns the value whitout any further checks.
+     */
+    public static Predicate booleanIdentity() {
+        return new BooleanPredicate();
     }
 
 }

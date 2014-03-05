@@ -52,7 +52,7 @@ public abstract class ListTransformers {
      * @param position the position (from the first element) ({@code >=0}).
      */
     public static Transformer getElementListTransformer(final int position) {
-        AjAssert.parameter(position>=0, "position >= 0");
+        checkPositions(position);
         return new GetListElementTransformer(position);
     }
 
@@ -62,7 +62,26 @@ public abstract class ListTransformers {
      * @param position the position (from the first element) ({@code >=0}).
      */
     public static Transformer getElementListFromEndTransformer(final int position) {
-        AjAssert.parameter(position>=0, "position >= 0");
+        checkPositions(position);
         return new GetListElementFromEndTransformer(position);
+    }
+
+    /**
+     * The returned transformer returns a new list which contains the values from the input list at given {@code positions}.
+     * If the input list is smaller then the max value of {@code positions} then the transformer returns {@code null}.
+     *
+     * @param positions the positions (from the first element) ({@code >=0}).
+     *
+     * @see java.util.List#get(int)
+     */
+    public static Transformer getElementsFromList(int... positions) {
+        checkPositions(positions);
+        return new GetElementsFromListTransformer(positions);
+    }
+
+    private static void checkPositions(int... positions) {
+        for (int position : positions) {
+            AjAssert.parameter(position>=0, "position >= 0");
+        }
     }
 }

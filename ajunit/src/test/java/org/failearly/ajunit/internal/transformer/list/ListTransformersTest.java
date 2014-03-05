@@ -118,4 +118,27 @@ public class ListTransformersTest extends TransformersBaseTest {
         ListTransformers.getElementListFromEndTransformer(-1);
     }
 
+    @Test
+    public void getElementsList() throws Exception {
+        // arrange / given
+        final Transformer listTransformer = ListTransformers.getElementsFromList(0, 2);
+
+        // act / when
+        final Object output = listTransformer.transform(Arrays.asList("00", "10", "20"));
+
+        // assert / then
+        assertTransformationResult(output, Arrays.asList("00", "20"));
+    }
+
+    @Test
+    public void getElementsListInvalidPosition() throws Exception {
+        // arrange / given
+        final Transformer listTransformer = ListTransformers.getElementsFromList(0, 2, 3);
+
+        // act / when
+        final Object output = listTransformer.transform(Arrays.asList("00", "10", "20"));
+
+        // assert / then
+        assertTransformationResult(output, null);
+    }
 }
