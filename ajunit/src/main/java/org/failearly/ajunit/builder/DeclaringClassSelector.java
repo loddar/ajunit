@@ -18,38 +18,40 @@
  */
 package org.failearly.ajunit.builder;
 
-import org.failearly.ajunit.modifier.AccessModifier;
-
 /**
- * MemberSelector provides selector methods based on {@link java.lang.reflect.Member}.
+ * DeclaringClassSelector provides alias for {@link ClassSelector#byClass(Class)} and
+ * {@link ClassSelector#byClassName(String, StringMatcherType)}
  */
-public interface MemberSelector<SB extends SelectorBuilder> extends SelectorBuilder {
+public interface DeclaringClassSelector<SB extends SelectorBuilder> extends ClassSelector<SB> {
     /**
-     * Select a method by any of {@link org.failearly.ajunit.modifier.AccessModifier}.<br/>
+     * Selects a joinpoint by it's declaring class.
+     * Alias for {@link ClassSelector#byClass(Class)}.<br/>
      * </br>
      * AspectJ pointcut definition examples:
      * <ul>
-     * <li><code>execution(public * *.*(..))</code></li>
-     * <li><code>call(private * *.*(..))</code></li>
+     * <li><code>execution(* com.company.MyClass.*(..))</code></li>
+     * <li><code>call(* com.company.MyClass.*(..))</code></li>
      * </ul>
      *
-     * @param accessModifiers the supported access modifiers.
+     * @param declaringClass the declaring class.
      * @return itself
      */
-    SB byAnyOfAccessModifiers(AccessModifier... accessModifiers);
+    SB byDeclaringClass(Class<?> declaringClass);
 
     /**
-     * Select a method by none of {@link org.failearly.ajunit.modifier.AccessModifier}.<br/>
+     * Select a method by it's declaring class name (pattern).
+     * Alias for {@link ClassSelector#byClassName(String, StringMatcherType)}.<br/>
      * </br>
      * AspectJ pointcut definition examples:
      * <ul>
-     * <li><code>execution(!public * *.*(..))</code></li>
-     * <li><code>call(!private * *.*(..))</code></li>
+     * <li><code>execution(* **.My*.*(..))</code></li>
+     * <li><code>call(* **.*Class.*(..))</code></li>
      * </ul>
      *
-     * @param accessModifiers the supported access modifiers.
+     * @param classNamePattern the declaring class.
+     * @param matcherType  the matcher type
      * @return itself
      */
-    SB byNoneOfAccessModifiers(AccessModifier... accessModifiers);
+    SB byDeclaringClassName(String classNamePattern, StringMatcherType matcherType);
 
 }

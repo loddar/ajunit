@@ -29,7 +29,8 @@ import org.failearly.ajunit.modifier.MethodModifier;
  * execution(method signature)
  * </code>
  */
-public interface MethodJoinPointSelector<MS extends MethodJoinPointSelector> extends MemberSelector<MS>, LogicalSelector<MS> {
+public interface MethodJoinPointSelector<MS extends MethodJoinPointSelector>
+        extends MemberSelector<MS>, DeclaringClassSelector<MS>, LogicalSelector<MS> {
 
     /**
      * Select a method by method name (pattern).<br/>
@@ -76,19 +77,6 @@ public interface MethodJoinPointSelector<MS extends MethodJoinPointSelector> ext
 //    MethodJoinPointSelector byAnyOfReturnTypes(Class<?>... classes);
 //    MethodJoinPointSelector byNoneOfReturnTypes(Class<?>... classes);
 //    MethodJoinPointSelector byReturnType(String className, StringMatcherType matcherType);
-
-    /**
-     * Accepts any method signature.<br/>
-     * </br>
-     * AspectJ pointcut definitions:
-     * <ul>
-     * <li><code>execution(* *(..))</code></li>
-     * <li><code>call(* *(..))</code></li>
-     * </ul>
-     *
-     * @return itself
-     */
-    MS anyMethod();
 
     /**
      * End the method execution/call expression(s) end return to join point selector builder. It's like ending a

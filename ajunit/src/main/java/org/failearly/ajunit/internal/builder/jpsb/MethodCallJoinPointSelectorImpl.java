@@ -69,8 +69,7 @@ final class MethodCallJoinPointSelectorImpl
         return super.doEndLogicalExpression(JoinPointSelector.class, true);
     }
 
-    @Override
-    public MethodCallJoinPointSelector anyMethod() {
+    private MethodCallJoinPointSelector anyMethod() {
         return this.methodSelector.anyMethod();
     }
 
@@ -100,13 +99,23 @@ final class MethodCallJoinPointSelectorImpl
     }
 
     @Override
+    public MethodCallJoinPointSelector byClass(Class<?> classType) {
+        return this.declaringClassSelector.byClass(classType);
+    }
+
+    @Override
+    public MethodCallJoinPointSelector byClassName(String classNamePattern, StringMatcherType matcherType) {
+        return this.declaringClassSelector.byClassName(classNamePattern, matcherType);
+    }
+
+    @Override
     public MethodCallJoinPointSelector byDeclaringClass(Class<?> declaringClass) {
-        return this.declaringClassSelector.byDeclaringClass(declaringClass);
+        return byClass(declaringClass);
     }
 
     @Override
     public MethodCallJoinPointSelector byDeclaringClassName(String classNamePattern, StringMatcherType matcherType) {
-        return this.declaringClassSelector.byDeclaringClassName(classNamePattern, matcherType);
+        return byClassName(classNamePattern, matcherType);
     }
 
     @Override

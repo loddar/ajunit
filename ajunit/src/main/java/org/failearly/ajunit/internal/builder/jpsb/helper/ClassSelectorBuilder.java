@@ -38,13 +38,13 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
         super(predicateBuilder, joinPointType, ajJoinPointTransformer);
     }
 
-    public T byDeclaringClass(Class<?> declaringClass) {
+    public T byClass(Class<?> declaringClass) {
         return addPredicate(
                 StandardPredicates.predicateEquals(declaringClass)
         );
     }
 
-    public T byDeclaringClassName(String classNamePattern, StringMatcherType matcherType) {
+    public T byClassName(String classNamePattern, StringMatcherType matcherType) {
         return addPredicate(
                 ClassTransformers.classNameTransformer(),
                 JoinPointSelectorUtils.createStringMatcherPredicate(classNamePattern, matcherType)

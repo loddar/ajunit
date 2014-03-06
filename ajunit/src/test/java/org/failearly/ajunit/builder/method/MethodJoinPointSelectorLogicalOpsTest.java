@@ -67,7 +67,7 @@ public abstract class MethodJoinPointSelectorLogicalOpsTest<T extends MethodJoin
     public void or() throws Exception {
         // act / when
         selectorBuilder.or()
-                .byDeclaringClass(TestSubject1.class)
+                .byClass(TestSubject1.class)
                 .byName("toString", StringMatcherType.EQUALS)
                 .end();
 
@@ -86,7 +86,7 @@ public abstract class MethodJoinPointSelectorLogicalOpsTest<T extends MethodJoin
     public void anyOf() throws Exception {
         // act / when
         selectorBuilder.anyOf()
-                .byDeclaringClass(TestSubject1.class)
+                .byClass(TestSubject1.class)
                 .byName("Method", StringMatcherType.ENDS_WITH)
                 .byName("toString", StringMatcherType.EQUALS)
                 .end();
@@ -110,7 +110,7 @@ public abstract class MethodJoinPointSelectorLogicalOpsTest<T extends MethodJoin
     public void union() throws Exception {
         // act / when
         selectorBuilder.union()
-                .byDeclaringClass(TestSubject1.class)
+                .byClass(TestSubject1.class)
                 .byName("Method0", StringMatcherType.ENDS_WITH)
                 .byName("toString", StringMatcherType.EQUALS)
                 .end();
@@ -231,7 +231,7 @@ public abstract class MethodJoinPointSelectorLogicalOpsTest<T extends MethodJoin
     public void nor() throws Exception {
         // act / when
         selectorBuilder.nor()
-                    .byDeclaringClass(TestSubject1.class)
+                    .byClass(TestSubject1.class)
                     .byName("toString", StringMatcherType.EQUALS)
                     .byName("Method0", StringMatcherType.ENDS_WITH)
                 .end();
@@ -261,7 +261,7 @@ public abstract class MethodJoinPointSelectorLogicalOpsTest<T extends MethodJoin
     public void noneOf() throws Exception {
         // act / when
         selectorBuilder.noneOf()
-                    .byDeclaringClass(TestSubject1.class)
+                    .byClass(TestSubject1.class)
                     .byName("toString", StringMatcherType.EQUALS)
                     .byName("Method0", StringMatcherType.ENDS_WITH)
                 .end();
@@ -291,7 +291,7 @@ public abstract class MethodJoinPointSelectorLogicalOpsTest<T extends MethodJoin
     public void neitherNor() throws Exception {
         // act / when
         selectorBuilder.neitherNor()
-                    .byDeclaringClass(TestSubject1.class)
+                    .byClass(TestSubject1.class)
                     .byName("toString", StringMatcherType.EQUALS)
                     .byName("Method0", StringMatcherType.ENDS_WITH)
                 .end();
@@ -321,7 +321,7 @@ public abstract class MethodJoinPointSelectorLogicalOpsTest<T extends MethodJoin
     public void complement() throws Exception {
         // act / when
         selectorBuilder.complement()
-                    .byDeclaringClass(TestSubject1.class)
+                    .byClass(TestSubject1.class)
                     .byName("toString", StringMatcherType.EQUALS)
                     .byName("Method0", StringMatcherType.ENDS_WITH)
                 .end();
@@ -355,7 +355,7 @@ public abstract class MethodJoinPointSelectorLogicalOpsTest<T extends MethodJoin
                 .anyOf()
                     .byName("Method0", StringMatcherType.ENDS_WITH)
                     .allOf()
-                        .byDeclaringClassName("Object", StringMatcherType.EQUALS)
+                        .byClassName("Object", StringMatcherType.EQUALS)
                         .byAnyOfAccessModifiers(AccessModifier.PUBLIC)
                         .byAnyOfMethodModifiers(MethodModifier.NATIVE)
                     .end()
