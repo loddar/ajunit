@@ -29,6 +29,7 @@ public abstract class StandardPredicates {
     private static final Predicate P_TRUE = new ConstantPredicate(true);
     private static final Predicate P_FALSE = new ConstantPredicate(false);
     private static final NotNullPredicate P_NOT_NULL = new NotNullPredicate();
+    private static final BooleanPredicate BOOLEAN_PREDICATE = new BooleanPredicate();
 
     private StandardPredicates() {}
 
@@ -83,10 +84,11 @@ public abstract class StandardPredicates {
     }
 
     /**
-     * Predicates checks whether given object is a {@code Boolean} object and returns the value whitout any further checks.
+     * Predicates checks whether given object is a {@code Boolean} object and returns the value without any further checks.
+     * Internal use only.
      */
     public static Predicate booleanIdentity() {
-        return new BooleanPredicate();
+        return BOOLEAN_PREDICATE;
     }
 
 }
