@@ -21,6 +21,8 @@ package org.failearly.ajunit.internal.builder.jpsb.helper;
 import org.failearly.ajunit.internal.builder.Builder;
 import org.failearly.ajunit.internal.transformer.Transformer;
 import org.failearly.ajunit.internal.transformer.ajp.AjpTransformers;
+import org.failearly.ajunit.internal.transformer.method.MethodTransformers;
+import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
@@ -31,15 +33,27 @@ public class SelectorBuilders {
         return new MethodSelectorBuilder<>(predicateBuilder, joinPointType);
     }
 
-    public static <T extends Builder> ClassSelectorBuilder<T>
-    createDeclaringClassSelectorBuilder(T predicateBuilder, AjJoinPointType joinPointType) {
+    public static <T extends Builder> ClassSelectorBuilder<T>  createDeclaringClassSelectorBuilder(T predicateBuilder, AjJoinPointType joinPointType) {
         return createClassSelectorBuilderHelper(predicateBuilder, joinPointType, AjpTransformers.declaringClassTransformer());
     }
 
+    public static <T extends Builder> ClassSelectorBuilder<T>  createReturnTypeSelectorBuilder(T predicateBuilder, AjJoinPointType joinPointType) {
+        return createClassSelectorBuilderHelper(predicateBuilder, joinPointType,
+                                chain(
+                                    AjpTransformers.methodTransformer(),
+                                    MethodTransformers.methodReturnTypeTransformer()
+                                )
+                            );
+    }
 
-    private static <T extends Builder> ClassSelectorBuilder<T> createClassSelectorBuilderHelper(T predicateBuilder, AjJoinPointType joinPointType, Transformer ajJoinPointTransformer) {
+
+    private static <T extends Builder> ClassSelectorBuilder<T>
+    createClassSelectorBuilderHelper(T predicateBuilder, AjJoinPointType joinPointType, Transformer ajJoinPointTransformer) {
         return new ClassSelectorBuilder<>(predicateBuilder, joinPointType, ajJoinPointTransformer);
     }
 
 
+    private static Transformer chain(Transformer... transformers) {
+        return StandardTransformers.transformerComposition(transformers);
+    }
 }

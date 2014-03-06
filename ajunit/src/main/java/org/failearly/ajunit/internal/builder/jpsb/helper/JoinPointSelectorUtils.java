@@ -18,18 +18,85 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb.helper;
 
+import org.failearly.ajunit.builder.LogicalOperator;
 import org.failearly.ajunit.builder.StringMatcherType;
+import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.failearly.ajunit.internal.predicate.string.StringPredicates;
 
 /**
  * JoinPointSelectorUtilities is an utility class for shared functionality.
  */
-final class JoinPointSelectorUtils {
+public final class JoinPointSelectorUtils {
     private static final PredicateFactories<StringMatcherType,String> STRING_MATCHER_PREDICATES =new PredicateFactories<>();
+    private static final PredicateFactories<LogicalOperator,Void> LOGICAL_OPERATOR_PREDICATES =new PredicateFactories<>();
 
     static {
+        createStringMatcherPredicates();
+
+        createLogicalOperatorPredicates();
+    }
+
+    private static void createLogicalOperatorPredicates() {
+        LOGICAL_OPERATOR_PREDICATES.addFactory(LogicalOperator.AND, new PredicateFactory<Void>() {
+            @Override
+            public Predicate createPredicate(Void input) {
+                return LogicalPredicates.and();
+            }
+        });
+        LOGICAL_OPERATOR_PREDICATES.addFactory(LogicalOperator.OR, new PredicateFactory<Void>() {
+            @Override
+            public Predicate createPredicate(Void input) {
+                return LogicalPredicates.or();
+            }
+        });
+        LOGICAL_OPERATOR_PREDICATES.addFactory(LogicalOperator.NOR, new PredicateFactory<Void>() {
+            @Override
+            public Predicate createPredicate(Void input) {
+                return LogicalPredicates.nor();
+            }
+        });
+        LOGICAL_OPERATOR_PREDICATES.addFactory(LogicalOperator.ALL_OF, new PredicateFactory<Void>() {
+            @Override
+            public Predicate createPredicate(Void input) {
+                return LogicalPredicates.and();
+            }
+        });
+        LOGICAL_OPERATOR_PREDICATES.addFactory(LogicalOperator.ANY_OF, new PredicateFactory<Void>() {
+            @Override
+            public Predicate createPredicate(Void input) {
+                return LogicalPredicates.or();
+            }
+        });
+        LOGICAL_OPERATOR_PREDICATES.addFactory(LogicalOperator.NONE_OF, new PredicateFactory<Void>() {
+            @Override
+            public Predicate createPredicate(Void input) {
+                return LogicalPredicates.nor();
+            }
+        });
+        LOGICAL_OPERATOR_PREDICATES.addFactory(LogicalOperator.INTERSECT, new PredicateFactory<Void>() {
+            @Override
+            public Predicate createPredicate(Void input) {
+                return LogicalPredicates.and();
+            }
+        });
+        LOGICAL_OPERATOR_PREDICATES.addFactory(LogicalOperator.UNION, new PredicateFactory<Void>() {
+            @Override
+            public Predicate createPredicate(Void input) {
+                return LogicalPredicates.or();
+            }
+        });
+        LOGICAL_OPERATOR_PREDICATES.addFactory(LogicalOperator.COMPLEMENT, new PredicateFactory<Void>() {
+            @Override
+            public Predicate createPredicate(Void input) {
+                return LogicalPredicates.nor();
+            }
+        });
+    }
+
+    private static void createStringMatcherPredicates() {
         STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.EQUALS, new PredicateFactory<String>() {
             @Override
             public Predicate createPredicate(String input) {
@@ -42,28 +109,24 @@ final class JoinPointSelectorUtils {
                 return StringPredicates.startsWith(input);
             }
         });
-
         STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.ENDS_WITH, new PredicateFactory<String>() {
             @Override
             public Predicate createPredicate(String input) {
                 return StringPredicates.endsWith(input);
             }
         });
-
         STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.CONTAINS, new PredicateFactory<String>() {
             @Override
             public Predicate createPredicate(String input) {
                 return StringPredicates.contains(input);
             }
         });
-
         STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.REGEX, new PredicateFactory<String>() {
             @Override
             public Predicate createPredicate(String input) {
                 return StringPredicates.regex(input);
             }
         });
-
     }
 
     private JoinPointSelectorUtils() {
@@ -75,7 +138,20 @@ final class JoinPointSelectorUtils {
      * @param matcherType the matcher type.
      * @return the predicate.
      */
-    static Predicate createStringMatcherPredicate(String pattern, StringMatcherType matcherType) {
+    public static Predicate createStringMatcherPredicate(String pattern, StringMatcherType matcherType) {
         return STRING_MATCHER_PREDICATES.createPredicate(matcherType, pattern);
     }
+
+    /**
+     * Create a logical predicate.
+     * @param logicalOperator the logical operator.
+     * @return the logical predicate.
+     */
+    public static CompositePredicate createLogicalOperatorPredicate(LogicalOperator logicalOperator) {
+        return LOGICAL_OPERATOR_PREDICATES.createCompositePredicate(logicalOperator);
+    }
+
+
+
+
 }

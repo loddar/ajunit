@@ -30,7 +30,7 @@ import java.util.List;
 public abstract class RootBuilderBase<R extends RootBuilder> extends BuilderBase<R,R> implements RootBuilder {
     private final List<Builder> builderStack=new LinkedList<>();
     protected RootBuilderBase(Class<R> clazz) {
-        super(clazz);
+        super();
     }
 
     @Override

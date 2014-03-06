@@ -74,10 +74,6 @@ public interface MethodJoinPointSelector<MS extends MethodJoinPointSelector>
     MS byNoneOfMethodModifiers(MethodModifier... methodModifiers);
 
 
-//    MethodJoinPointSelector byAnyOfReturnTypes(Class<?>... classes);
-//    MethodJoinPointSelector byNoneOfReturnTypes(Class<?>... classes);
-//    MethodJoinPointSelector byReturnType(String className, StringMatcherType matcherType);
-
     /**
      * End the method execution/call expression(s) end return to join point selector builder. It's like ending a
      * <pre>(execution(expr1) && execution(expr2))</pre> or <pre>(call(expr1) && call(expr2))</pre>.
@@ -87,4 +83,26 @@ public interface MethodJoinPointSelector<MS extends MethodJoinPointSelector>
      * @see JoinPointSelector#methodCall()
      */
     JoinPointSelector endMethod();
+
+
+    /**
+     * Starts a complex logical expression based on the return types of the methods..<br/>
+     * </br>
+     * AspectJ pointcut definition examples:
+     * <ul>
+     * <li><code>execution(void *.*(..))</code></li>
+     * <li><code>call(Object+ *.*())</code></li>
+     * </ul>
+     * @param logicalOperator the logical operator.
+     * @return the new return type selector using the logical operator.
+     *
+     * @see java.lang.reflect.Method#getReturnType()
+     */
+    ReturnTypeSelector<MS> byReturnType(LogicalOperator logicalOperator);
+
+//    MethodJoinPointSelector byAnyOfReturnTypes(Class<?>... classes);
+//    MethodJoinPointSelector byNoneOfReturnTypes(Class<?>... classes);
+//    MethodJoinPointSelector byReturnType(String className, StringMatcherType matcherType);
+
+
 }

@@ -18,6 +18,7 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb.helper;
 
+import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
 
 import java.util.HashMap;
@@ -36,5 +37,9 @@ final class PredicateFactories<E,T> {
 
     Predicate createPredicate(E type, T input) {
         return predicateFactories.get(type).createPredicate(input);
+    }
+
+    CompositePredicate createCompositePredicate(E type) {
+        return (CompositePredicate)predicateFactories.get(type).createPredicate(null);
     }
 }

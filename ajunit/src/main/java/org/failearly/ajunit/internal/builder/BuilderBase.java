@@ -18,6 +18,7 @@
  */
 package org.failearly.ajunit.internal.builder;
 
+import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.failearly.ajunit.internal.util.AjAssert;
@@ -27,11 +28,9 @@ import org.failearly.ajunit.internal.util.MessageUtils;
  * The base class for all {@link Builder}.
  */
 public abstract class BuilderBase<R extends RootBuilder, C extends Builder> implements Builder {
-    private final Class<C> clazz;
     private LogicalStructureBuilder<R, C> logicalStructureBuilder;
 
-    protected BuilderBase(Class<C> clazz) {
-        this.clazz = clazz;
+    protected BuilderBase() {
     }
 
     protected final <P extends Builder> void init(LogicalStructureBuilder<R, C> logicalStructureBuilder) {
@@ -69,15 +68,27 @@ public abstract class BuilderBase<R extends RootBuilder, C extends Builder> impl
         return logicalStructureBuilder.nor(builderFactory);
     }
 
+    /**
+     * Creates a generic node.
+     * @param compositePredicate the logical predicate.
+     * @param builderFactory the builder factory.
+     * @param <N> the next builder type.
+     * @return next builder.
+     */
+    protected final <N extends Builder> N createNewBuilderNode(CompositePredicate compositePredicate, final BuilderFactory<R, C, N> builderFactory) {
+        return logicalStructureBuilder.createNewBuilderNode(compositePredicate, builderFactory);
+    }
+
+    @SuppressWarnings("unchecked")
     protected C alwaysTrue() {
         addPredicate(StandardPredicates.alwaysTrue());
-        return clazz.cast(this);
+        return (C)this;
     }
 
     @SuppressWarnings("unchecked")
     protected C alwaysFalse() {
         addPredicate(StandardPredicates.alwaysFalse());
-        return clazz.cast(this);
+        return (C)this;
     }
 
     protected final <P> P doEndLogicalExpression(Class<P> builderClass, boolean recursiveEndExpressions) {

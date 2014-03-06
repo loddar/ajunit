@@ -92,7 +92,10 @@ public final class LogicalStructureBuilder<R extends RootBuilder, C extends Buil
         return createNewBuilderNode(LogicalPredicates.nor(), builderFactory);
     }
 
-    private <N extends Builder> N createNewBuilderNode(CompositePredicate compositePredicate, BuilderFactory<R, C, N> builderFactory) {
+    /**
+     * Creates a new builder node.
+     */
+    <N extends Builder> N createNewBuilderNode(CompositePredicate compositePredicate, BuilderFactory<R, C, N> builderFactory) {
         return builderFactory.createBuilder(this.root, this.current, compositePredicate);
     }
 

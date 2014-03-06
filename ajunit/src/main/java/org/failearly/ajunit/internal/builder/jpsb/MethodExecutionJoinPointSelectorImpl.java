@@ -18,13 +18,11 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb;
 
-import org.failearly.ajunit.builder.JoinPointSelector;
-import org.failearly.ajunit.builder.MethodExecutionJoinPointSelector;
-import org.failearly.ajunit.builder.StringMatcherType;
-import org.failearly.ajunit.internal.builder.BuilderBase;
+import org.failearly.ajunit.builder.*;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
+import org.failearly.ajunit.internal.builder.jpsb.helper.JoinPointSelectorUtils;
 import org.failearly.ajunit.internal.builder.jpsb.helper.MethodSelectorBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.SelectorBuilders;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
@@ -36,7 +34,7 @@ import org.failearly.ajunit.modifier.MethodModifier;
  * MethodExecutionJoinPointSelectorImpl is the implementation of {@link org.failearly.ajunit.builder.MethodExecutionJoinPointSelector}.
  */
 final class MethodExecutionJoinPointSelectorImpl
-        extends BuilderBase<JoinPointSelectorImpl, MethodExecutionJoinPointSelectorImpl> implements MethodExecutionJoinPointSelector {
+        extends MethodJoinPointSelectorBase<MethodExecutionJoinPointSelectorImpl> implements MethodExecutionJoinPointSelector {
 
     private static final AjJoinPointType JOIN_POINT_TYPE=AjJoinPointType.METHOD_EXECUTION;
 
@@ -189,6 +187,30 @@ final class MethodExecutionJoinPointSelectorImpl
     }
 
     @Override
+    public ReturnTypeSelector<MethodExecutionJoinPointSelector> byReturnType(LogicalOperator logicalOperator) {
+        return createNewBuilderNode(
+                JoinPointSelectorUtils.createLogicalOperatorPredicate(logicalOperator),
+                getReturnTypeSelectorBuilderFactory()
+            );
+    }
+
+    private
+    BuilderFactory<JoinPointSelectorImpl,
+            MethodExecutionJoinPointSelectorImpl,
+            ReturnTypeSelectorImpl<MethodExecutionJoinPointSelectorImpl,MethodExecutionJoinPointSelector>>
+        getReturnTypeSelectorBuilderFactory() {
+        return new BuilderFactory<JoinPointSelectorImpl,
+                                  MethodExecutionJoinPointSelectorImpl,
+                                  ReturnTypeSelectorImpl<MethodExecutionJoinPointSelectorImpl,MethodExecutionJoinPointSelector>>() {
+            @Override
+            public ReturnTypeSelectorImpl<MethodExecutionJoinPointSelectorImpl, MethodExecutionJoinPointSelector>
+                createBuilder(JoinPointSelectorImpl root, MethodExecutionJoinPointSelectorImpl parent, CompositePredicate compositePredicate) {
+                return new ReturnTypeSelectorImpl<>(MethodExecutionJoinPointSelector.class, JOIN_POINT_TYPE, root, parent, compositePredicate);
+            }
+        };
+    }
+
+    @Override
     public MethodExecutionJoinPointSelector end() {
         return super.doEndLogicalExpression(MethodExecutionJoinPointSelector.class, false);
     }
@@ -203,5 +225,7 @@ final class MethodExecutionJoinPointSelectorImpl
             }
         };
     }
+
+
 
 }

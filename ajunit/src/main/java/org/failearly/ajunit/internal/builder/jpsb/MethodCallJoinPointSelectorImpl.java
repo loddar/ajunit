@@ -18,10 +18,7 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb;
 
-import org.failearly.ajunit.builder.JoinPointSelector;
-import org.failearly.ajunit.builder.MethodCallJoinPointSelector;
-import org.failearly.ajunit.builder.StringMatcherType;
-import org.failearly.ajunit.internal.builder.BuilderBase;
+import org.failearly.ajunit.builder.*;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
@@ -36,7 +33,8 @@ import org.failearly.ajunit.modifier.MethodModifier;
  * MethodCallJoinPointSelectorImpl is the implementation of {@link org.failearly.ajunit.builder.MethodCallJoinPointSelector}.
  */
 final class MethodCallJoinPointSelectorImpl
-        extends BuilderBase<JoinPointSelectorImpl, MethodCallJoinPointSelectorImpl> implements MethodCallJoinPointSelector {
+        extends MethodJoinPointSelectorBase<MethodCallJoinPointSelectorImpl>
+        implements MethodCallJoinPointSelector {
 
     private static final AjJoinPointType JOIN_POINT_TYPE=AjJoinPointType.METHOD_CALL;
 
@@ -186,6 +184,11 @@ final class MethodCallJoinPointSelectorImpl
     @Override
     public MethodCallJoinPointSelector complement() {
         return nor();
+    }
+
+    @Override
+    public ReturnTypeSelector<MethodCallJoinPointSelector> byReturnType(LogicalOperator logicalOperator) {
+        return null;
     }
 
     @Override

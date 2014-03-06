@@ -73,7 +73,4 @@ abstract class SelectorBuilderBase<T extends Builder> {
         );
     }
 
-    protected static Transformer chain(Transformer... transformers) {
-        return StandardTransformers.transformerComposition(transformers);
-    }
 }
