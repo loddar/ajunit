@@ -33,7 +33,7 @@ import java.io.Serializable;
  * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byImplementingAllOf(Class[])
  * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byImplementingAnyOf(Class[])
  */
-public abstract class MethodJoinPointSelectorByClassTest<T extends MethodJoinPointSelector<T>> extends AbstractJoinPointSelectorTest<T> {
+public abstract class MethodJoinPointSelectorByClassTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
     protected MethodJoinPointSelectorByClassTest(AjJoinPointType expectedJoinPointType) {
         super(expectedJoinPointType, TestSubject1.class, TestSubject2.class);

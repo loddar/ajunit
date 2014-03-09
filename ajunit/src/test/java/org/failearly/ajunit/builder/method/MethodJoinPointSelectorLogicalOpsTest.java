@@ -39,7 +39,7 @@ import static org.junit.Assert.assertThat;
  * @see org.failearly.ajunit.builder.MethodJoinPointSelector#allOf()
  * @see org.failearly.ajunit.builder.MethodJoinPointSelector#intersect()
  */
-public abstract class MethodJoinPointSelectorLogicalOpsTest<T extends MethodJoinPointSelector<T>> extends AbstractJoinPointSelectorTest<T> {
+public abstract class MethodJoinPointSelectorLogicalOpsTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
     protected MethodJoinPointSelectorLogicalOpsTest(AjJoinPointType expectedJoinPointType) {
         super(expectedJoinPointType, TestSubject1.class, TestSubject2.class);
@@ -48,7 +48,7 @@ public abstract class MethodJoinPointSelectorLogicalOpsTest<T extends MethodJoin
     @Test
     public void orReturnsNewInstance() throws Exception {
         // act / when
-        final T orInstance = selectorBuilder.or();
+        final MethodJoinPointSelector orInstance = selectorBuilder.or();
 
         // assert / then
         assertThat("or() returns new instance?", orInstance, not(sameInstance(selectorBuilder)));
@@ -57,7 +57,7 @@ public abstract class MethodJoinPointSelectorLogicalOpsTest<T extends MethodJoin
     @Test
     public void orEnd() throws Exception {
         // act / when
-        final T instance = selectorBuilder.or().end();
+        final MethodJoinPointSelector instance = selectorBuilder.or().end();
 
         // assert / then
         assertThat("end() returns parent selector builder?", instance, sameInstance(selectorBuilder));
@@ -133,7 +133,7 @@ public abstract class MethodJoinPointSelectorLogicalOpsTest<T extends MethodJoin
     @Test
     public void andReturnsNewInstance() throws Exception {
         // act / when
-        final T andInstance = selectorBuilder.and();
+        final MethodJoinPointSelector andInstance = selectorBuilder.and();
 
         // assert / then
         assertThat("and() returns new instance?", andInstance, not(sameInstance(selectorBuilder)));
@@ -142,7 +142,7 @@ public abstract class MethodJoinPointSelectorLogicalOpsTest<T extends MethodJoin
     @Test
     public void andEnd() throws Exception {
         // act / when
-        final T instance = selectorBuilder.and().end();
+        final MethodJoinPointSelector instance = selectorBuilder.and().end();
 
         // assert / then
         assertThat("end() returns parent selector builder?", instance, sameInstance(selectorBuilder));
@@ -212,7 +212,7 @@ public abstract class MethodJoinPointSelectorLogicalOpsTest<T extends MethodJoin
     @Test
     public void norReturnsNewInstance() throws Exception {
         // act / when
-        final T andInstance = selectorBuilder.nor();
+        final MethodJoinPointSelector andInstance = selectorBuilder.nor();
 
         // assert / then
         assertThat("nor() returns new instance?", andInstance, not(sameInstance(selectorBuilder)));
@@ -221,7 +221,7 @@ public abstract class MethodJoinPointSelectorLogicalOpsTest<T extends MethodJoin
     @Test
     public void norEnd() throws Exception {
         // act / when
-        final T instance = selectorBuilder.and().end();
+        final MethodJoinPointSelector instance = selectorBuilder.and().end();
 
         // assert / then
         assertThat("nor() returns parent selector builder?", instance, sameInstance(selectorBuilder));

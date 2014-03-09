@@ -32,9 +32,8 @@ import static org.junit.Assert.assertThat;
  * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
  *
  * @see org.failearly.ajunit.builder.MethodJoinPointSelector#endMethod()
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#anyMethod()
  */
-public abstract class MethodJoinPointSelectorTest<T extends MethodJoinPointSelector<T>> extends AbstractJoinPointSelectorTest<T> {
+public abstract class MethodJoinPointSelectorTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
     protected MethodJoinPointSelectorTest(AjJoinPointType expectedJoinPointType) {
         super(expectedJoinPointType, TestSubject1.class, TestSubject2.class);
@@ -52,10 +51,7 @@ public abstract class MethodJoinPointSelectorTest<T extends MethodJoinPointSelec
     }
 
     @Test
-    public void anyMethod() throws Exception {
-        // act / when
-        // Implicitly called selectorBuilder.anyMethod();
-
+    public void noFurtherSelector() throws Exception {
         // assert / then
         assertBuildJoinPointSelector(
                 // TestSubject1

@@ -29,7 +29,7 @@ import org.junit.Test;
 /**
  * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector#byNoneOfAccessModifiers(org.failearly.ajunit.modifier.AccessModifier...)}.
  */
-public abstract class MethodJoinPointSelectorByNoneOfAccessModifierTest<T extends MethodJoinPointSelector<T>> extends AbstractJoinPointSelectorTest<T> {
+public abstract class MethodJoinPointSelectorByNoneOfAccessModifierTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
     protected MethodJoinPointSelectorByNoneOfAccessModifierTest(AjJoinPointType expectedJoinPointType) {
         super(expectedJoinPointType, TestSubject1.class, TestSubject2.class);

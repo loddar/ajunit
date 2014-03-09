@@ -29,57 +29,55 @@ import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
- * ReturnTypeSelectorImpl is responsible for ...
+ * The implementation of {@link org.failearly.ajunit.builder.ReturnTypeSelector}.
  */
-final class ReturnTypeSelectorImpl<IT extends MethodJoinPointSelectorBase<IT>, IF extends MethodJoinPointSelector<IF>>
-        extends BuilderBase<JoinPointSelectorImpl,ReturnTypeSelectorImpl<IT, IF>>
-        implements ReturnTypeSelector<IF> {
+final class ReturnTypeSelectorImpl
+        extends BuilderBase<JoinPointSelectorImpl,ReturnTypeSelectorImpl>
+        implements ReturnTypeSelector {
 
-    private final Class<IF> parentClass;
-    private final ClassSelectorBuilder<ReturnTypeSelectorImpl<IT,IF>> returnTypeSelector;
+    private final ClassSelectorBuilder<ReturnTypeSelectorImpl> returnTypeSelector;
 
-    private ReturnTypeSelectorImpl(Class<IF> parentClass, AjJoinPointType joinPointType) {
-        this.parentClass = parentClass;
+    private ReturnTypeSelectorImpl(AjJoinPointType joinPointType) {
         this.returnTypeSelector = SelectorBuilders.createReturnTypeSelectorBuilder(this, joinPointType);
     }
 
-    ReturnTypeSelectorImpl(Class<IF> parentClass, AjJoinPointType joinPointType, JoinPointSelectorImpl root, IT parent, CompositePredicate compositePredicate) {
-        this(parentClass, joinPointType);
+    ReturnTypeSelectorImpl(AjJoinPointType joinPointType, JoinPointSelectorImpl root, MethodJoinPointSelectorImpl parent, CompositePredicate compositePredicate) {
+        this(joinPointType);
         init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
     }
 
     @Override
-    public IF endReturnType() {
-        return super.doEndLogicalExpression(parentClass, true);
+    public MethodJoinPointSelector endReturnType() {
+        return super.doEndLogicalExpression(MethodJoinPointSelector.class, true);
     }
 
     @Override
-    public ReturnTypeSelector<IF> byClass(Class<?> classType) {
+    public ReturnTypeSelector byClass(Class<?> classType) {
         return returnTypeSelector.byClass(classType);
     }
 
     @Override
-    public ReturnTypeSelector<IF> byClassName(String classNamePattern, StringMatcherType matcherType) {
+    public ReturnTypeSelector byClassName(String classNamePattern, StringMatcherType matcherType) {
         return returnTypeSelector.byClassName(classNamePattern, matcherType);
     }
 
     @Override
-    public ReturnTypeSelector<IF> byExtending(Class<?> baseClass) {
-        return this;
+    public ReturnTypeSelector byExtending(Class<?> baseClass) {
+        return returnTypeSelector.byExtending(baseClass);
     }
 
     @Override
-    public ReturnTypeSelector<IF> byImplementingAnyOf(Class<?>... interfaces) {
-        return this;
+    public ReturnTypeSelector byImplementingAnyOf(Class<?>... interfaces) {
+        return returnTypeSelector.byImplementingAnyOf(interfaces);
     }
 
     @Override
-    public ReturnTypeSelector<IF> byImplementingAllOf(Class<?>... interfaces) {
-        return this;
+    public ReturnTypeSelector byImplementingAllOf(Class<?>... interfaces) {
+        return returnTypeSelector.byImplementingAllOf(interfaces);
     }
 
     @Override
-    public ReturnTypeSelector<IF> byPackageName(String packageNamePattern, StringMatcherType matcherType) {
-        return this;
+    public ReturnTypeSelector byPackageName(String packageNamePattern, StringMatcherType matcherType) {
+        return returnTypeSelector.byPackageName(packageNamePattern, matcherType);
     }
 }

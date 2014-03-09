@@ -32,7 +32,7 @@ public interface JoinPointSelector {
      *
      * @return the method join point selector builder.
      */
-    MethodExecutionJoinPointSelector methodExecute();
+    MethodJoinPointSelector methodExecute();
 
     /**
      * Select join points of type method execution.<br/>
@@ -44,7 +44,7 @@ public interface JoinPointSelector {
      *
      * @return the method join point selector builder.
      */
-    MethodCallJoinPointSelector methodCall();
+    MethodJoinPointSelector methodCall();
 
     /**
      * Does not select any join point. Just for initial setup - a placeholder.

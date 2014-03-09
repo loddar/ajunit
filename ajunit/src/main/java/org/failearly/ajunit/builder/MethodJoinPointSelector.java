@@ -29,8 +29,8 @@ import org.failearly.ajunit.modifier.MethodModifier;
  * execution(method signature)
  * </code>
  */
-public interface MethodJoinPointSelector<MS extends MethodJoinPointSelector>
-        extends MemberSelector<MS>, DeclaringClassSelector<MS>, LogicalSelector<MS> {
+public interface MethodJoinPointSelector
+        extends MemberSelector<MethodJoinPointSelector>, DeclaringClassSelector<MethodJoinPointSelector>, LogicalSelector<MethodJoinPointSelector> {
 
     /**
      * Select a method by method name (pattern).<br/>
@@ -45,7 +45,7 @@ public interface MethodJoinPointSelector<MS extends MethodJoinPointSelector>
      * @param matcherType the matcher type
      * @return itself
      */
-    MS byName(String methodNamePattern, StringMatcherType matcherType);
+    MethodJoinPointSelector byName(String methodNamePattern, StringMatcherType matcherType);
 
     /**
      * Select a method by any of {@link org.failearly.ajunit.modifier.MethodModifier}.<br/>
@@ -58,7 +58,7 @@ public interface MethodJoinPointSelector<MS extends MethodJoinPointSelector>
      * @param methodModifiers the supported method modifiers.
      * @return itself
      */
-    MS byAnyOfMethodModifiers(MethodModifier... methodModifiers);
+    MethodJoinPointSelector byAnyOfMethodModifiers(MethodModifier... methodModifiers);
 
     /**
      * Select a method by none of {@link org.failearly.ajunit.modifier.MethodModifier}.<br/>
@@ -71,7 +71,7 @@ public interface MethodJoinPointSelector<MS extends MethodJoinPointSelector>
      * @param methodModifiers the supported method modifiers.
      * @return itself
      */
-    MS byNoneOfMethodModifiers(MethodModifier... methodModifiers);
+    MethodJoinPointSelector byNoneOfMethodModifiers(MethodModifier... methodModifiers);
 
 
     /**
@@ -98,7 +98,7 @@ public interface MethodJoinPointSelector<MS extends MethodJoinPointSelector>
      *
      * @see java.lang.reflect.Method#getReturnType()
      */
-    ReturnTypeSelector<MS> byReturnType(LogicalOperator logicalOperator);
+    ReturnTypeSelector byReturnType(LogicalOperator logicalOperator);
 
 //    MethodJoinPointSelector byAnyOfReturnTypes(Class<?>... classes);
 //    MethodJoinPointSelector byNoneOfReturnTypes(Class<?>... classes);

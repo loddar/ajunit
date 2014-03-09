@@ -19,21 +19,21 @@
 package org.failearly.ajunit.builder.method.execution;
 
 import org.failearly.ajunit.builder.JoinPointSelector;
-import org.failearly.ajunit.builder.MethodExecutionJoinPointSelector;
+import org.failearly.ajunit.builder.MethodJoinPointSelector;
 import org.failearly.ajunit.builder.method.MethodJoinPointSelectorByClassTest;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.MethodExecutionJoinPointSelector}.
+ * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
  */
-public final class MethodExecutionJoinPointSelectorByClassTest extends MethodJoinPointSelectorByClassTest<MethodExecutionJoinPointSelector> {
+public final class MethodExecutionJoinPointSelectorByClassTest extends MethodJoinPointSelectorByClassTest {
 
     public MethodExecutionJoinPointSelectorByClassTest() {
         super(AjJoinPointType.METHOD_EXECUTION);
     }
 
     @Override
-    protected MethodExecutionJoinPointSelector createSelectorBuilderUnderTest(JoinPointSelector joinPointSelector) {
+    protected MethodJoinPointSelector createSelectorBuilderUnderTest(JoinPointSelector joinPointSelector) {
         return joinPointSelector.methodExecute();
     }
 }

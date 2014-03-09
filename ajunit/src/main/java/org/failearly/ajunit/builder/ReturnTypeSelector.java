@@ -21,11 +21,11 @@ package org.failearly.ajunit.builder;
 /**
  * ReturnTypeSelector provides selectors for {@link java.lang.reflect.Method#getReturnType()}.
  */
-public interface ReturnTypeSelector<T extends MethodJoinPointSelector> extends ClassSelector<ReturnTypeSelector<T>> {
+public interface ReturnTypeSelector extends ClassSelector<ReturnTypeSelector> {
     /**
-     * Terminates the {@link org.failearly.ajunit.builder.MethodJoinPointSelector#byReturnType(LogicalOperator)}
+     * Terminates the {@link MethodJoinPointSelector#byReturnType(LogicalOperator)}
      * expression.
      * @return the method join point selector.
      */
-    T endReturnType();
+    MethodJoinPointSelector endReturnType();
 }

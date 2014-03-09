@@ -25,7 +25,7 @@ import org.junit.Test;
 /**
  * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector#byPackageName(String, org.failearly.ajunit.builder.StringMatcherType)}.
  */
-public abstract class MethodJoinPointSelectorByPackageNameTest<T extends MethodJoinPointSelector<T>> extends AbstractJoinPointSelectorTest<T> {
+public abstract class MethodJoinPointSelectorByPackageNameTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
     protected MethodJoinPointSelectorByPackageNameTest(AjJoinPointType expectedJoinPointType) {
         super(expectedJoinPointType, TestSubject1.class, TestSubject2.class);

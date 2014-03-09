@@ -18,13 +18,16 @@
  */
 package org.failearly.ajunit.builder;
 
+import java.io.Serializable;
+
 /**
  * TestSubject3 is responsible for ...
  */
 @SuppressWarnings("all")
-public class TestSubject3 {
+public class TestSubject3 implements AnyInterface, Serializable {
     public void setAnyValue(int value) {}
     public int getAnyValue() { return 0;}
+    public TestSubject3 getTestSubject3() { return null;}
     public TestSubject2 getTestSubject2() { return null;}
     public TestSubject1 getTestSubject1() { return null;}
 }

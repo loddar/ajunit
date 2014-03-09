@@ -19,22 +19,22 @@
 package org.failearly.ajunit.builder.method.execution;
 
 import org.failearly.ajunit.builder.JoinPointSelector;
-import org.failearly.ajunit.builder.MethodExecutionJoinPointSelector;
+import org.failearly.ajunit.builder.MethodJoinPointSelector;
 import org.failearly.ajunit.builder.method.MethodJoinPointSelectorByNoneOfAccessModifierTest;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.MethodExecutionJoinPointSelector}.
+ * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
  */
 public final class MethodExecutionJoinPointSelectorByNoneOfAccessModifierTest
-        extends MethodJoinPointSelectorByNoneOfAccessModifierTest<MethodExecutionJoinPointSelector> {
+        extends MethodJoinPointSelectorByNoneOfAccessModifierTest {
 
     public MethodExecutionJoinPointSelectorByNoneOfAccessModifierTest() {
         super(AjJoinPointType.METHOD_EXECUTION);
     }
 
     @Override
-    protected MethodExecutionJoinPointSelector createSelectorBuilderUnderTest(JoinPointSelector joinPointSelector) {
+    protected MethodJoinPointSelector createSelectorBuilderUnderTest(JoinPointSelector joinPointSelector) {
         return joinPointSelector.methodExecute();
     }
 }

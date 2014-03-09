@@ -18,12 +18,11 @@
  */
 package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.builder.AbstractJoinPointSelectorTest;
-import org.failearly.ajunit.builder.LogicalOperator;
-import org.failearly.ajunit.builder.MethodJoinPointSelector;
-import org.failearly.ajunit.builder.TestSubject3;
+import org.failearly.ajunit.builder.*;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
+
+import java.io.Serializable;
 
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
@@ -31,13 +30,9 @@ import static org.junit.Assert.assertThat;
 /**
  * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
  *
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byDeclaringClass(Class)
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byDeclaringClassName(String, org.failearly.ajunit.builder.StringMatcherType)
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byExtending(Class)
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byImplementingAllOf(Class[])
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byImplementingAnyOf(Class[])
+ * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byReturnType(org.failearly.ajunit.builder.LogicalOperator)
  */
-public abstract class MethodJoinPointSelectorByReturnTypeTest<T extends MethodJoinPointSelector<T>> extends AbstractJoinPointSelectorTest<T> {
+public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
     protected MethodJoinPointSelectorByReturnTypeTest(AjJoinPointType expectedJoinPointType) {
         super(expectedJoinPointType, TestSubject3.class);
@@ -46,18 +41,18 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest<T extends MethodJo
     @Test
     public void endReturnType() throws Exception {
         // act / when
-        final T instance = selectorBuilder.byReturnType(LogicalOperator.OR).endReturnType();
+        final MethodJoinPointSelector instance = selectorBuilder.byReturnType(LogicalOperator.OR).endReturnType();
 
         // assert / then
         assertThat("endReturnType() returns correct selector builder?", instance, sameInstance(selectorBuilder));
     }
 
     @Test
-    public void byClassWithoutReturnType() throws Exception {
+    public void byReturningVoid() throws Exception {
         // act / when
         selectorBuilder.byReturnType(LogicalOperator.OR)
-                                .byClass(void.class)
-                           .endReturnType();
+                    .byClass(void.class)
+                .endReturnType();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -71,6 +66,140 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest<T extends MethodJo
                 "public final native void java.lang.Object.notifyAll()",
                 "protected void java.lang.Object.finalize() throws java.lang.Throwable",
                 "private static native void java.lang.Object.registerNatives()"
+        );
+    }
+
+    @Test
+    public void byReturningClassName() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.OR)
+                    .byClassName("TestSub", StringMatcherType.STARTS_WITH)
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                // TestSubject3
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()",
+                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject3.getTestSubject2()",
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject3.getTestSubject1()"
+        );
+    }
+
+    @Test
+    public void byImplementingAnyOf() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.OR)
+                    .byImplementingAnyOf(AnyInterface.class, Serializable.class)
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()",
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject3.getTestSubject1()",
+                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject3.getTestSubject2()",
+                "public java.lang.String java.lang.Object.toString()",
+                "public final native java.lang.Class java.lang.Object.getClass()"
+        );
+    }
+
+    @Test
+    public void byExtending() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.OR)
+                    .byExtending(AbstractBaseClass.class)
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject3.getTestSubject1()"
+        );
+    }
+
+    @Test
+    public void byImplementingAllOf() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.OR)
+                    .byImplementingAllOf(AnyInterface.class, Serializable.class)
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()"
+        );
+    }
+
+    @Test
+    public void byReturnTypeOr() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.OR)
+                                    .byClass(void.class)
+                                    .byClass(int.class)
+                           .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                // TestSubject3
+                "public void org.failearly.ajunit.builder.TestSubject3.setAnyValue(int)",
+                "public int org.failearly.ajunit.builder.TestSubject3.getAnyValue()",
+                // java.lang.Object
+                "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
+                "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
+                "public final void java.lang.Object.wait() throws java.lang.InterruptedException",
+                "public final native void java.lang.Object.notify()",
+                "public final native void java.lang.Object.notifyAll()",
+                "protected void java.lang.Object.finalize() throws java.lang.Throwable",
+                "private static native void java.lang.Object.registerNatives()",
+                "public native int java.lang.Object.hashCode()"
+        );
+    }
+
+    @Test
+    public void byReturnTypeAnyOf() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.ANY_OF)
+                    .byClass(void.class)
+                    .byClass(int.class)
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                // TestSubject3
+                "public void org.failearly.ajunit.builder.TestSubject3.setAnyValue(int)",
+                "public int org.failearly.ajunit.builder.TestSubject3.getAnyValue()",
+                // java.lang.Object
+                "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
+                "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
+                "public final void java.lang.Object.wait() throws java.lang.InterruptedException",
+                "public final native void java.lang.Object.notify()",
+                "public final native void java.lang.Object.notifyAll()",
+                "protected void java.lang.Object.finalize() throws java.lang.Throwable",
+                "private static native void java.lang.Object.registerNatives()",
+                "public native int java.lang.Object.hashCode()"
+        );
+    }
+
+    @Test
+    public void byReturnTypeUnion() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.ANY_OF)
+                    .byClass(void.class)
+                    .byClass(int.class)
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                // TestSubject3
+                "public void org.failearly.ajunit.builder.TestSubject3.setAnyValue(int)",
+                "public int org.failearly.ajunit.builder.TestSubject3.getAnyValue()",
+                // java.lang.Object
+                "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
+                "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
+                "public final void java.lang.Object.wait() throws java.lang.InterruptedException",
+                "public final native void java.lang.Object.notify()",
+                "public final native void java.lang.Object.notifyAll()",
+                "protected void java.lang.Object.finalize() throws java.lang.Throwable",
+                "private static native void java.lang.Object.registerNatives()",
+                "public native int java.lang.Object.hashCode()"
         );
     }
 
