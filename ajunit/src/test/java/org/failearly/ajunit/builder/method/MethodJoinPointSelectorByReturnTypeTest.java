@@ -129,6 +129,27 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
     }
 
     @Test
+    public void byPackageName() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.OR)
+                    .byPackageName("org.failearly", StringMatcherType.STARTS_WITH)
+                    .byPackageName("java.lang", StringMatcherType.CONTAINS)
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()",
+                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject3.getTestSubject2()",
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject3.getTestSubject1()",
+                "public java.lang.String java.lang.Object.toString()",
+                "public final native java.lang.Class java.lang.Object.getClass()",
+                "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException"
+        );
+    }
+
+
+
+    @Test
     public void byReturnTypeOr() throws Exception {
         // act / when
         selectorBuilder.byReturnType(LogicalOperator.OR)
@@ -203,4 +224,162 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
         );
     }
 
+    @Test
+    public void byReturnTypeAnd() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.AND)
+                    .byImplementingAnyOf(Serializable.class)
+                    .byPackageName("org.failearly.ajunit.builder", StringMatcherType.EQUALS)
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()",
+                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject3.getTestSubject2()"
+        );
+    }
+
+    @Test
+    public void byReturnTypeIntersect() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.INTERSECT)
+                    .byImplementingAnyOf(Serializable.class)
+                    .byPackageName("org.failearly.ajunit.builder", StringMatcherType.EQUALS)
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()",
+                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject3.getTestSubject2()"
+        );
+    }
+
+    @Test
+    public void byReturnTypeAllOf() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.ALL_OF)
+                .byImplementingAnyOf(Serializable.class)
+                .byPackageName("org.failearly.ajunit.builder", StringMatcherType.EQUALS)
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()",
+                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject3.getTestSubject2()"
+        );
+    }
+
+    @Test
+    public void byReturnTypeNor() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.NOR)
+                    .byImplementingAnyOf(Serializable.class)
+                    .byClass(void.class)
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject3.getTestSubject1()",
+                "public int org.failearly.ajunit.builder.TestSubject3.getAnyValue()",
+                "public boolean java.lang.Object.equals(java.lang.Object)",
+                "public native int java.lang.Object.hashCode()",
+                "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException"
+        );
+    }
+
+    @Test
+    public void byReturnTypeNoneOf() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.NONE_OF)
+                .byImplementingAnyOf(Serializable.class)
+                .byClass(void.class)
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject3.getTestSubject1()",
+                "public int org.failearly.ajunit.builder.TestSubject3.getAnyValue()",
+                "public boolean java.lang.Object.equals(java.lang.Object)",
+                "public native int java.lang.Object.hashCode()",
+                "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException"
+        );
+    }
+
+    @Test
+    public void byReturnTypeComplement() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.COMPLEMENT)
+                    .byImplementingAnyOf(Serializable.class)
+                    .byClass(void.class)
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject3.getTestSubject1()",
+                "public int org.failearly.ajunit.builder.TestSubject3.getAnyValue()",
+                "public boolean java.lang.Object.equals(java.lang.Object)",
+                "public native int java.lang.Object.hashCode()",
+                "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException"
+        );
+    }
+
+    @Test
+    public void byReturnTypeComplexExpressionNoneOf() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.ANY_OF)
+                    .byPackageName("org.failearly.ajunit.builder", StringMatcherType.EQUALS)
+                    .noneOf()
+                        .byImplementingAnyOf(Serializable.class)
+                        .byClass(void.class)
+                    .end()
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public int org.failearly.ajunit.builder.TestSubject3.getAnyValue()",
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()",
+                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject3.getTestSubject2()",
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject3.getTestSubject1()",
+                "public boolean java.lang.Object.equals(java.lang.Object)",
+                "public native int java.lang.Object.hashCode()",
+                "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException"
+        );
+    }
+
+    @Test
+    public void byReturnTypeComplexExpressionAllOf() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.ANY_OF)
+                    .byPackageName("org.failearly.ajunit.builder", StringMatcherType.EQUALS)
+                    .allOf()
+                        .byImplementingAnyOf(Serializable.class)
+                    .end()
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()",
+                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject3.getTestSubject2()",
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject3.getTestSubject1()",
+                "public java.lang.String java.lang.Object.toString()",
+                "public final native java.lang.Class java.lang.Object.getClass()"
+        );
+    }
+
+    @Test
+    public void byReturnTypeComplexExpressionAnyOf() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.ALL_OF)
+                    .byPackageName("org.failearly.ajunit.builder", StringMatcherType.EQUALS)
+                    .anyOf()
+                        .byImplementingAnyOf(Serializable.class)
+                    .end()
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()",
+                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject3.getTestSubject2()"
+        );
+    }
 }
