@@ -142,6 +142,35 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
     }
 
     @Test
+    public void byNotExtending() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.OR)
+                    .byNotExtending(AbstractBaseClass.class)
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject3.setAnyValue(int)",
+                "public int org.failearly.ajunit.builder.TestSubject3.getAnyValue()",
+                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject3.getTestSubject2()",
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()",
+                // java.lang.Object
+                "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
+                "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
+                "public final void java.lang.Object.wait() throws java.lang.InterruptedException",
+                "public boolean java.lang.Object.equals(java.lang.Object)",
+                "public java.lang.String java.lang.Object.toString()",
+                "public native int java.lang.Object.hashCode()",
+                "public final native java.lang.Class java.lang.Object.getClass()",
+                "public final native void java.lang.Object.notify()",
+                "public final native void java.lang.Object.notifyAll()",
+                "protected void java.lang.Object.finalize() throws java.lang.Throwable",
+                "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException",
+                "private static native void java.lang.Object.registerNatives()"
+        );
+    }
+
+    @Test
     public void byImplementingAllOf() throws Exception {
         // act / when
         selectorBuilder.byReturnType(LogicalOperator.OR)

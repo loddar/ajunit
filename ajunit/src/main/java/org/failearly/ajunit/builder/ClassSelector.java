@@ -66,6 +66,20 @@ public interface ClassSelector<SB extends SelectorBuilder> extends SelectorBuild
     SB byExtending(Class<?> baseClass);
 
     /**
+     * Select joinpoints by class inheritance (<i>not</i> extending the specified baseClass).<br/>
+     * </br>
+     * AspectJ pointcut definition examples:
+     * <ul>
+     * <li><code>execution(* !(com.company.MyClass+).*(..))</code></li>
+     * <li><code>call(* !(com.company.MyBaseClass+).*(..))</code></li>
+     * </ul>
+     *
+     * @param baseClass the base class or the class itself.
+     * @return itself
+     */
+    SB byNotExtending(Class<?> baseClass);
+
+    /**
      * Select joinpoints by classes implementations (any of the specified interfaces).<br/>
      * </br>
      * AspectJ pointcut definition examples:

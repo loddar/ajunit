@@ -137,6 +137,7 @@ public abstract class MethodJoinPointSelectorByClassTest extends AbstractJoinPoi
                 "private void org.failearly.ajunit.builder.TestSubject1.otherMethod()"
         );
     }
+
     @Test
     public void byExtendingABaseClass() throws Exception {
         // act / when
@@ -165,6 +166,36 @@ public abstract class MethodJoinPointSelectorByClassTest extends AbstractJoinPoi
                 "protected abstract void org.failearly.ajunit.builder.TestSubject2.abstractMethod0()",
                 "protected synchronized void org.failearly.ajunit.builder.TestSubject2.syncMethod0()",
                 "protected strictfp void org.failearly.ajunit.builder.TestSubject2.strictMethod0()"
+        );
+    }
+
+    @Test
+    public void byNotExtendingABaseClass() throws Exception {
+        // act / when
+        selectorBuilder.byNotExtending(AbstractBaseClass.class);
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                // TestSubject2
+                "public void org.failearly.ajunit.builder.TestSubject2.anyMethod()",
+                "void org.failearly.ajunit.builder.TestSubject2.packagePrivateMethod()",
+                "private void org.failearly.ajunit.builder.TestSubject2.otherMethod()",
+                "protected abstract void org.failearly.ajunit.builder.TestSubject2.abstractMethod0()",
+                "protected synchronized void org.failearly.ajunit.builder.TestSubject2.syncMethod0()",
+                "protected strictfp void org.failearly.ajunit.builder.TestSubject2.strictMethod0()",
+                // java.lang.Object
+                "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
+                "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
+                "public final void java.lang.Object.wait() throws java.lang.InterruptedException",
+                "public boolean java.lang.Object.equals(java.lang.Object)",
+                "public java.lang.String java.lang.Object.toString()",
+                "public native int java.lang.Object.hashCode()",
+                "public final native java.lang.Class java.lang.Object.getClass()",
+                "public final native void java.lang.Object.notify()",
+                "public final native void java.lang.Object.notifyAll()",
+                "protected void java.lang.Object.finalize() throws java.lang.Throwable",
+                "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException",
+                "private static native void java.lang.Object.registerNatives()"
         );
     }
 

@@ -77,6 +77,11 @@ final class ReturnTypeSelectorImpl
     }
 
     @Override
+    public ReturnTypeSelector byNotExtending(Class<?> baseClass) {
+        return returnTypeSelector.byNotExtending(baseClass);
+    }
+
+    @Override
     public ReturnTypeSelector byImplementingAnyOf(Class<?>... interfaces) {
         return returnTypeSelector.byImplementingAnyOf(interfaces);
     }

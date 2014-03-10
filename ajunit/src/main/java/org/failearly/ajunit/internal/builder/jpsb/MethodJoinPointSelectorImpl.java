@@ -126,6 +126,11 @@ final class MethodJoinPointSelectorImpl
     }
 
     @Override
+    public MethodJoinPointSelector byNotExtending(Class<?> baseClass) {
+        return this.declaringClassSelector.byNotExtending(baseClass);
+    }
+
+    @Override
     public MethodJoinPointSelector byImplementingAnyOf(Class<?>... interfaces) {
         return this.declaringClassSelector.byImplementingAnyOf(interfaces);
     }

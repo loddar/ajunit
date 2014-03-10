@@ -58,6 +58,12 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
         );
     }
 
+    public T byNotExtending(Class<?> baseClass) {
+        return addPredicate(
+                LogicalPredicates.not(StandardPredicates.predicateIsSubclass(baseClass))
+        );
+    }
+
     public T byImplementingAnyOf(Class<?>... interfaces) {
         return addPredicate(
                 LogicalPredicates.or(createImplementingInterfacePredicates(interfaces))
