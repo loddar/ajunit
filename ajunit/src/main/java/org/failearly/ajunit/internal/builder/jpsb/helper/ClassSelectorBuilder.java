@@ -70,6 +70,12 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
         );
     }
 
+    public T byImplementingNoneOf(Class<?>... interfaces) {
+        return addPredicate(
+                LogicalPredicates.nor(createImplementingInterfacePredicates(interfaces))
+        );
+    }
+
     public T byPackageName(String packageNamePattern, StringMatcherType matcherType) {
         return addPredicate(
                 ClassTransformers.packageNameTransformer(),
@@ -84,5 +90,6 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
         }
         return predicates;
     }
+
 
 }

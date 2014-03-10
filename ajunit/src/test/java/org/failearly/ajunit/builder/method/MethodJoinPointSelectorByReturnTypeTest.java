@@ -103,6 +103,32 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
     }
 
     @Test
+    public void byImplementingNoneOf() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.OR)
+                    .byImplementingNoneOf(Serializable.class)
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject3.setAnyValue(int)",
+                "public int org.failearly.ajunit.builder.TestSubject3.getAnyValue()",
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject3.getTestSubject1()",
+                // java.lang.Object
+                "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
+                "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
+                "public final void java.lang.Object.wait() throws java.lang.InterruptedException",
+                "public boolean java.lang.Object.equals(java.lang.Object)",
+                "public native int java.lang.Object.hashCode()",
+                "public final native void java.lang.Object.notify()",
+                "public final native void java.lang.Object.notifyAll()",
+                "protected void java.lang.Object.finalize() throws java.lang.Throwable",
+                "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException",
+                "private static native void java.lang.Object.registerNatives()"
+        );
+    }
+
+    @Test
     public void byExtending() throws Exception {
         // act / when
         selectorBuilder.byReturnType(LogicalOperator.OR)

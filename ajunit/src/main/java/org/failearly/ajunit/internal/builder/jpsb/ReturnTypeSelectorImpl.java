@@ -87,6 +87,11 @@ final class ReturnTypeSelectorImpl
     }
 
     @Override
+    public ReturnTypeSelector byImplementingNoneOf(Class<?>... interfaces) {
+        return returnTypeSelector.byImplementingNoneOf(interfaces);
+    }
+
+    @Override
     public ReturnTypeSelector byPackageName(String packageNamePattern, StringMatcherType matcherType) {
         return returnTypeSelector.byPackageName(packageNamePattern, matcherType);
     }

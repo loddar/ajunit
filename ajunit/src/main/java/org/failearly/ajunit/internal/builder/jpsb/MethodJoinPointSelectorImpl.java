@@ -136,6 +136,11 @@ final class MethodJoinPointSelectorImpl
     }
 
     @Override
+    public MethodJoinPointSelector byImplementingNoneOf(Class<?>... interfaces) {
+        return this.declaringClassSelector.byImplementingNoneOf(interfaces);
+    }
+
+    @Override
     public MethodJoinPointSelector byPackageName(String packageNamePattern, StringMatcherType matcherType) {
         return this.declaringClassSelector.byPackageName(packageNamePattern, matcherType);
     }

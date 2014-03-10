@@ -74,7 +74,7 @@ public interface ClassSelector<SB extends SelectorBuilder> extends SelectorBuild
      * <li><code>call(* com.company.MyInterface+.*(..)) || call(* com.company.OtherInterface+.*(..))</code></li>
      * </ul>
      *
-     * @param interfaces the base class or the class itself.
+     * @param interfaces the interface(s).
      * @return itself
      */
     SB byImplementingAnyOf(Class<?>... interfaces);
@@ -88,10 +88,24 @@ public interface ClassSelector<SB extends SelectorBuilder> extends SelectorBuild
      * <li><code>call(* com.company.MyInterface+.*(..)) && call(* com.company.OtherInterface+.*(..))</code></li>
      * </ul>
      *
-     * @param interfaces the base class or the class itself.
+     * @param interfaces the interface(s).
      * @return itself
      */
     SB byImplementingAllOf(Class<?>... interfaces);
+
+    /**
+     * Select joinpoints by classes implementations (none of the specified interfaces).<br/>
+     * </br>
+     * AspectJ pointcut definition examples:
+     * <ul>
+     * <li><code>! execution(* com.company.MyInterface+.*(..)) && ! execution(* com.company.OtherInterface+.*(..))</code></li>
+     * <li><code>! call(* com.company.MyInterface+.*(..)) && ! call(* com.company.OtherInterface+.*(..))</code></li>
+     * </ul>
+     *
+     * @param interfaces the interface(s).
+     * @return itself
+     */
+    SB byImplementingNoneOf(Class<?>... interfaces);
 
     /**
      * Select joinpoints by package name (pattern).<br/>
