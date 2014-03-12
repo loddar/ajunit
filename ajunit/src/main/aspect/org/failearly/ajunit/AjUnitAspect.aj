@@ -75,7 +75,7 @@ public abstract class AjUnitAspect extends AjUnitAspectBase {
     /**
      * This pointcut definition does not select anything, has just a purpose as place holder.
      */
-    @Pointcut("allMethodExecution() && allMethodCall()")
+    @Pointcut("")
     protected void notYetSpecified() {}
 
     /**

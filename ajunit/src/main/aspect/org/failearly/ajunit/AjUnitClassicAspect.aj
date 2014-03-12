@@ -53,7 +53,7 @@ public abstract aspect AjUnitClassicAspect extends AjUnitAspectBase {
     /**
      * This pointcut definition does not select anything, has just a purpose as place holder.
      */
-    protected pointcut notYetSpecified() : call(* *(..)) && execution(* *(..));
+    protected pointcut notYetSpecified();
 
     /**
      * All method execution join points. May be a good starting point for develop your own point cut.
