@@ -57,19 +57,22 @@ public abstract class ClassTransformers {
             return convert(input.getAnnotations());
         }
     };
+    public static final Transformer ARRAY_DIMENSION_TRANSFORMER = new ArrayDimensionTransformer();
+    public static final Transformer ARRAY_COMPONENT_TYPE_TRANSFORMER = new ArrayComponentTypeTransformer();
+
 
     private ClassTransformers() {
     }
 
     /**
-     * The returned Transformer executes {@link Class#getSimpleName()}.
+     * The created Transformer executes {@link Class#getSimpleName()}.
      */
     public static Transformer classNameTransformer() {
         return CLASS_NAME_TRANSFORMER;
     }
 
     /**
-     * The returned Transformer executes {@link Class#getPackage()} and {@link Package#getName()}. The result is the package name or the empty string for the
+     * The created Transformer executes {@link Class#getPackage()} and {@link Package#getName()}. The result is the package name or the empty string for the
      * default package.
      */
     public static Transformer packageNameTransformer() {
@@ -77,7 +80,7 @@ public abstract class ClassTransformers {
     }
 
     /**
-     * The returned Transformer executes {@link Class#getModifiers()}.
+     * The created Transformer executes {@link Class#getModifiers()}.
      */
     public static Transformer classModifiers() {
         return CLASS_MODIFIERS_TRANSFORMER;
@@ -88,5 +91,19 @@ public abstract class ClassTransformers {
      */
     public static Transformer classAnnotations() {
         return CLASS_ANNOTATIONS_TRANSFORMER;
+    }
+
+    /**
+     * The created Transformer returns the number of Array dimension. If the class object is not an array, the value will be 0.
+     */
+    public static Transformer countArrayDimension() {
+        return ARRAY_DIMENSION_TRANSFORMER;
+    }
+
+    /**
+     * The created Transformer returns the component type of an array. If the class object is not an array, {@code null} will be returned.
+     */
+    public static Transformer arrayComponentType() {
+        return ARRAY_COMPONENT_TYPE_TRANSFORMER;
     }
 }
