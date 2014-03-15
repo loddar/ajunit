@@ -37,6 +37,7 @@ import org.failearly.ajunit.modifier.MethodModifier;
 final class MethodJoinPointSelectorImpl
         extends BuilderBase<JoinPointSelectorImpl, MethodJoinPointSelectorImpl> implements MethodJoinPointSelector {
 
+    public static final String ARRAY_SYMBOL = "[]";
     private final MethodSelectorBuilder<MethodJoinPointSelectorImpl> methodSelector;
     private final ClassSelectorBuilder<MethodJoinPointSelectorImpl>  declaringClassSelector;
     private final AjJoinPointType joinPointType;
@@ -205,7 +206,50 @@ final class MethodJoinPointSelectorImpl
         return createNewBuilderNode(
                 JoinPointSelectorUtils.createLogicalOperatorPredicate(logicalOperator),
                 getReturnTypeSelectorBuilderFactory()
-            );
+        );
+    }
+
+    @Override
+    public MethodJoinPointSelector byReturningVoid() {
+        return byReturnType(LogicalOperator.AND)
+                    .byVoid()
+               .endReturnType();
+    }
+
+    @Override
+    public MethodJoinPointSelector byReturning(Class<?> returnType) {
+        return byReturnType(LogicalOperator.AND)
+                    .byClass(returnType)
+                .endReturnType();
+    }
+
+    @Override
+    public MethodJoinPointSelector byReturningPrimitive() {
+        return byReturnType(LogicalOperator.AND)
+                    .byPrimitive()
+               .endReturnType();
+    }
+
+    @Override
+    public MethodJoinPointSelector byReturningEnum() {
+        return byReturnType(LogicalOperator.AND)
+                    .byEnum()
+                .endReturnType();
+    }
+
+
+    @Override
+    public MethodJoinPointSelector byReturningArray() {
+        return byReturnType(LogicalOperator.AND)
+                    .byArray()
+               .endReturnType();
+    }
+
+    @Override
+    public MethodJoinPointSelector byReturningCollection() {
+        return byReturnType(LogicalOperator.AND)
+                    .byCollection()
+                .endReturnType();
     }
 
     private

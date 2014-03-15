@@ -25,10 +25,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * NotNullPredicateTest contains tests for {@link StandardPredicates#predicateNotNull()}.
+ * NotNullPredicateTest contains tests for {@link StandardPredicates#notNull()}.
  */
 public class NotNullPredicateTest {
-    private final Predicate isNotNullPredicate = StandardPredicates.predicateNotNull();
+    private final Predicate isNotNullPredicate = StandardPredicates.notNull();
 
     @Test
     public void type() throws Exception {

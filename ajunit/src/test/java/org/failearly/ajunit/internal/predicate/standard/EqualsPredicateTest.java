@@ -28,7 +28,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * Tests for {@link org.failearly.ajunit.internal.predicate.standard.EqualsPredicate}.
  */
 public class EqualsPredicateTest {
-    private final Predicate equalsPredicate=StandardPredicates.predicateEquals("VALUE");
+    private final Predicate equalsPredicate=StandardPredicates.equalsPredicate("VALUE");
 
     @Test
     public void equals() throws Exception {

@@ -19,28 +19,24 @@
 package org.failearly.ajunit.builder;
 
 /**
- * ReturnTypeSelector provides selectors for {@link java.lang.reflect.Method#getReturnType()}.
+ * NamedDimension is used by {@link org.failearly.ajunit.builder.MethodJoinPointSelector#byReturningArrayType(NamedDimension)}.
  */
-public interface ReturnTypeSelector
-     extends ExtendedClassSelector<ReturnTypeSelector>,
-             LogicalSelector<ReturnTypeSelector>,
-             ArrayTypeSelector<ReturnTypeSelector,ReturnComponentTypeSelector> {
+public enum NamedDimension {
+    VECTOR(1),
+    LINE(1),
 
-    /**
-     * Selects method joinpoints the method's return type is {@code void}.
-     *
-     * Examples:<br/>
-     * <ul>
-     *     <li>{@code void setValue(int}</li>
-     * </ul>
-     * @return itself
-     */
-    ReturnTypeSelector byVoid();
+    MATRIX(2),
+    AREA(2),
 
-    /**
-     * Terminates the {@link MethodJoinPointSelector#byReturnType(LogicalOperator)}
-     * expression.
-     * @return the method join point selector.
-     */
-    MethodJoinPointSelector endReturnType();
+    THREE_DIM(3),
+    SPACE(3),
+
+    FOUR_DIM(4),
+    SPACE_TIME(4);
+
+    public final int value;
+
+    NamedDimension(int dimension) {
+        this.value = dimension;
+    }
 }

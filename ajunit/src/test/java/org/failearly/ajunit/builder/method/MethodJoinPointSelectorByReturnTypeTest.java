@@ -202,8 +202,7 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
         );
     }
 
-
-
+    // Tests of logical operators
     @Test
     public void byReturnTypeOr() throws Exception {
         // act / when

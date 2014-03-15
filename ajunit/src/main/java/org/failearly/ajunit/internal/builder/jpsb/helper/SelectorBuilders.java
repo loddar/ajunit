@@ -21,6 +21,7 @@ package org.failearly.ajunit.internal.builder.jpsb.helper;
 import org.failearly.ajunit.internal.builder.Builder;
 import org.failearly.ajunit.internal.transformer.Transformer;
 import org.failearly.ajunit.internal.transformer.ajp.AjpTransformers;
+import org.failearly.ajunit.internal.transformer.clazz.ClassTransformers;
 import org.failearly.ajunit.internal.transformer.method.MethodTransformers;
 import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
@@ -47,6 +48,16 @@ public class SelectorBuilders {
     }
 
 
+    public static <T extends Builder> ClassSelectorBuilder<T> createReturnComponentTypeSelectorBuilder(T predicateBuilder, AjJoinPointType joinPointType) {
+        return createClassSelectorBuilderHelper(predicateBuilder, joinPointType,
+                chain(
+                        AjpTransformers.methodTransformer(),
+                        MethodTransformers.methodReturnTypeTransformer(),
+                        ClassTransformers.arrayComponentType()
+                )
+        );
+    }
+
     private static <T extends Builder> ClassSelectorBuilder<T>
     createClassSelectorBuilderHelper(T predicateBuilder, AjJoinPointType joinPointType, Transformer ajJoinPointTransformer) {
         return new ClassSelectorBuilder<>(predicateBuilder, joinPointType, ajJoinPointTransformer);
@@ -56,4 +67,5 @@ public class SelectorBuilders {
     private static Transformer chain(Transformer... transformers) {
         return StandardTransformers.transformerComposition(transformers);
     }
+
 }

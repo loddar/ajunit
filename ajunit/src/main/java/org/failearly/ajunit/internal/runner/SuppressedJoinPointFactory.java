@@ -20,6 +20,7 @@ package org.failearly.ajunit.internal.runner;
 
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.predicate.clazz.ClassPredicates;
 import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.failearly.ajunit.internal.predicate.string.StringPredicates;
@@ -73,7 +74,7 @@ public abstract class SuppressedJoinPointFactory {
     protected static Predicate byDeclaringClass(Class<?> clazz) {
         return StandardPredicates.transformerPredicate(
                 AjpTransformers.declaringClassTransformer(),
-                StandardPredicates.predicateEquals(clazz)
+                ClassPredicates.isClass(clazz)
         );
     }
 
@@ -90,7 +91,7 @@ public abstract class SuppressedJoinPointFactory {
     private static CompositePredicate anyNameEquals(String[] names) {
         final CompositePredicate byAnyMethodName = LogicalPredicates.or();
         for (String name : names) {
-            byAnyMethodName.addPredicate(StandardPredicates.predicateEquals(name));
+            byAnyMethodName.addPredicate(StandardPredicates.equalsPredicate(name));
         }
         return byAnyMethodName;
     }

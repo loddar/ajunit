@@ -18,13 +18,12 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb;
 
-import org.failearly.ajunit.builder.MethodJoinPointSelector;
-import org.failearly.ajunit.builder.ReturnTypeSelector;
-import org.failearly.ajunit.builder.StringMatcherType;
+import org.failearly.ajunit.builder.*;
 import org.failearly.ajunit.internal.builder.BuilderBase;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
+import org.failearly.ajunit.internal.builder.jpsb.helper.JoinPointSelectorUtils;
 import org.failearly.ajunit.internal.builder.jpsb.helper.SelectorBuilders;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
@@ -102,6 +101,69 @@ final class ReturnTypeSelectorImpl
     }
 
     @Override
+    public ReturnTypeSelector byArray() {
+        return this.returnTypeSelector.byArray();
+    }
+
+    @Override
+    public ReturnTypeSelector byArrayDimension(int dimension, DimensionComparator dimensionComparator) {
+        return returnTypeSelector.byArrayDimension(dimension, dimensionComparator);
+    }
+
+    @Override
+    public ReturnTypeSelector byArrayDimension(NamedDimension dimension, DimensionComparator dimensionComparator) {
+        return this.byArrayDimension(dimension.value, dimensionComparator);
+    }
+
+    @Override
+    public ReturnComponentTypeSelector byComponentType(LogicalOperator logicalOperator) {
+        return createNewBuilderNode(
+                JoinPointSelectorUtils.createLogicalOperatorPredicate(logicalOperator),
+                getReturnComponentTypeSelectorBuilderFactory(this.joinPointType)
+        );
+    }
+
+    @Override
+    public ReturnTypeSelector byVoid() {
+        return returnTypeSelector.byVoid();
+    }
+
+    @Override
+    public ReturnTypeSelector byPrimitive() {
+        return returnTypeSelector.byPrimitive();
+    }
+
+    @Override
+    public ReturnTypeSelector byEnum() {
+        return returnTypeSelector.byEnum();
+    }
+
+    @Override
+    public ReturnTypeSelector byAnnotation() {
+        return returnTypeSelector.byAnnotation();
+    }
+
+    @Override
+    public ReturnTypeSelector byInterface() {
+        return returnTypeSelector.byInterface();
+    }
+
+    @Override
+    public ReturnTypeSelector byPrimitiveWrapperType() {
+        return returnTypeSelector.byPrimitiveWrapperType();
+    }
+
+    @Override
+    public ReturnTypeSelector byCollection() {
+        return returnTypeSelector.byCollection();
+    }
+
+    @Override
+    public ReturnTypeSelector byMap() {
+        return returnTypeSelector.byMap();
+    }
+
+    @Override
     public ReturnTypeSelector or() {
         return super.or(getReturnTypeSelectorBuilderFactory(this.joinPointType));
     }
@@ -154,6 +216,16 @@ final class ReturnTypeSelectorImpl
     @Override
     public ReturnTypeSelector end() {
         return super.doEndLogicalExpression(ReturnTypeSelector.class, false);
+    }
+
+    private static BuilderFactory<JoinPointSelectorImpl,ReturnTypeSelectorImpl,ReturnComponentTypeSelectorImpl>
+        getReturnComponentTypeSelectorBuilderFactory(final AjJoinPointType joinPointType) {
+        return new BuilderFactory<JoinPointSelectorImpl, ReturnTypeSelectorImpl, ReturnComponentTypeSelectorImpl>() {
+            @Override
+            public ReturnComponentTypeSelectorImpl createBuilder(JoinPointSelectorImpl root, ReturnTypeSelectorImpl parent, CompositePredicate compositePredicate) {
+                return new ReturnComponentTypeSelectorImpl(joinPointType, root, parent, compositePredicate);
+            }
+        };
     }
 
     private static BuilderFactory<JoinPointSelectorImpl,ReturnTypeSelectorImpl,ReturnTypeSelectorImpl>

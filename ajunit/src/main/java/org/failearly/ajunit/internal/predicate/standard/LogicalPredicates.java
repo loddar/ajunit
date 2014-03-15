@@ -109,6 +109,14 @@ public final class LogicalPredicates {
     /**
      * Creates an logical NOR predicate.
      */
+    public static Predicate nor(Predicate... predicates) {
+        return composite(nor(), predicates);
+    }
+
+
+    /**
+     * Creates an logical NOR predicate.
+     */
     public static Predicate nor(List<Predicate> predicates) {
         return not(composite(or(), predicates));
     }

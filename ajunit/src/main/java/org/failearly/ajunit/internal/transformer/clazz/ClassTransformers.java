@@ -94,7 +94,7 @@ public abstract class ClassTransformers {
     }
 
     /**
-     * The created Transformer returns the number of Array dimension. If the class object is not an array, the value will be 0.
+     * The created Transformer returns the number of Array value. If the class object is not an array, the value will be 0.
      */
     public static Transformer countArrayDimension() {
         return ARRAY_DIMENSION_TRANSFORMER;

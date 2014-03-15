@@ -116,7 +116,7 @@ public class ClassTransformersTest extends TransformersBaseTest {
         final Transformer transformer = ClassTransformers.countArrayDimension();
 
         // act / when
-        assertThat("Array dimension of " + clazz.getSimpleName() + "?", (Integer)transformer.transform(clazz), is(expectedDimension));
+        assertThat("Array value of " + clazz.getSimpleName() + "?", (Integer)transformer.transform(clazz), is(expectedDimension));
     }
 
 }

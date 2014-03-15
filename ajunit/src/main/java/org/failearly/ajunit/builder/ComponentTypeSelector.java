@@ -19,28 +19,21 @@
 package org.failearly.ajunit.builder;
 
 /**
- * ReturnTypeSelector provides selectors for {@link java.lang.reflect.Method#getReturnType()}.
+ * ComponentTypeSelector provides methods for selecting the component type of any array.<br/>
+ * This will be possible for:</br></br>
+ *
+ * <ul>
+ *     <li>{@link org.failearly.ajunit.builder.ReturnTypeSelector#byComponentType(LogicalOperator)}</li>
+ *     <li>{@link org.failearly.ajunit.builder.ExceptionTypeSelector} TODO: specify byComponentType</li>
+ *     <li>{@link org.failearly.ajunit.builder.ParameterTypeSelector} TODO: specify byComponentType</li>
+ * </ul>
+ *
+ *
+ * @see ArrayTypeSelector
+ * @see org.failearly.ajunit.builder.ReturnComponentTypeSelector
+ * @see Class#getComponentType()
  */
-public interface ReturnTypeSelector
-     extends ExtendedClassSelector<ReturnTypeSelector>,
-             LogicalSelector<ReturnTypeSelector>,
-             ArrayTypeSelector<ReturnTypeSelector,ReturnComponentTypeSelector> {
+public interface ComponentTypeSelector<PS extends SelectorBuilder, CS extends SelectorBuilder>  extends ExtendedClassSelector<CS> {
 
-    /**
-     * Selects method joinpoints the method's return type is {@code void}.
-     *
-     * Examples:<br/>
-     * <ul>
-     *     <li>{@code void setValue(int}</li>
-     * </ul>
-     * @return itself
-     */
-    ReturnTypeSelector byVoid();
-
-    /**
-     * Terminates the {@link MethodJoinPointSelector#byReturnType(LogicalOperator)}
-     * expression.
-     * @return the method join point selector.
-     */
-    MethodJoinPointSelector endReturnType();
+    PS endComponentType();
 }

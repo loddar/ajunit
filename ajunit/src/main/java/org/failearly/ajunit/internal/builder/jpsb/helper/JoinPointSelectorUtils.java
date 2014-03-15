@@ -18,10 +18,12 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb.helper;
 
+import org.failearly.ajunit.builder.DimensionComparator;
 import org.failearly.ajunit.builder.LogicalOperator;
 import org.failearly.ajunit.builder.StringMatcherType;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.predicate.number.IntegerPredicates;
 import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.failearly.ajunit.internal.predicate.string.StringPredicates;
@@ -30,14 +32,17 @@ import org.failearly.ajunit.internal.predicate.string.StringPredicates;
  * JoinPointSelectorUtilities is an utility class for shared functionality.
  */
 public final class JoinPointSelectorUtils {
-    private static final PredicateFactories<StringMatcherType,String> STRING_MATCHER_PREDICATES =new PredicateFactories<>();
-    private static final PredicateFactories<LogicalOperator,Void> LOGICAL_OPERATOR_PREDICATES =new PredicateFactories<>();
+    private static final PredicateFactories<StringMatcherType, String> STRING_MATCHER_PREDICATES = new PredicateFactories<>();
+    private static final PredicateFactories<LogicalOperator, Void> LOGICAL_OPERATOR_PREDICATES = new PredicateFactories<>();
+    private static final PredicateFactories<DimensionComparator, Integer> DIMENSION_COMPARATOR_PREDICATES = new PredicateFactories<>();
 
     static {
         createStringMatcherPredicates();
-
         createLogicalOperatorPredicates();
+        createDimensionComparatorPredicates();
     }
+
+    public static final int NO_ARRAY = 0;
 
     private static void createLogicalOperatorPredicates() {
         LOGICAL_OPERATOR_PREDICATES.addFactory(LogicalOperator.AND, new PredicateFactory<Void>() {
@@ -100,7 +105,7 @@ public final class JoinPointSelectorUtils {
         STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.EQUALS, new PredicateFactory<String>() {
             @Override
             public Predicate createPredicate(String input) {
-                return StandardPredicates.predicateEquals(input);
+                return StandardPredicates.equalsPredicate(input);
             }
         });
         STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.STARTS_WITH, new PredicateFactory<String>() {
@@ -129,12 +134,52 @@ public final class JoinPointSelectorUtils {
         });
     }
 
+    private static void createDimensionComparatorPredicates() {
+        DIMENSION_COMPARATOR_PREDICATES.addFactory(DimensionComparator.EQUALS, new PredicateFactory<Integer>() {
+            @Override
+            public Predicate createPredicate(Integer dimension) {
+                return StandardPredicates.equalsPredicate(dimension);
+            }
+        });
+        DIMENSION_COMPARATOR_PREDICATES.addFactory(DimensionComparator.GREATER_THEN, new PredicateFactory<Integer>() {
+            @Override
+            public Predicate createPredicate(Integer dimension) {
+                return IntegerPredicates.greaterThen(dimension);
+            }
+        });
+        DIMENSION_COMPARATOR_PREDICATES.addFactory(DimensionComparator.LESS_THEN, new PredicateFactory<Integer>() {
+            @Override
+            public Predicate createPredicate(Integer dimension) {
+                return LogicalPredicates.and(
+                        IntegerPredicates.greaterThen(NO_ARRAY),
+                        IntegerPredicates.lessThen(dimension)
+                );
+            }
+        });
+        DIMENSION_COMPARATOR_PREDICATES.addFactory(DimensionComparator.MAX, new PredicateFactory<Integer>() {
+            @Override
+            public Predicate createPredicate(Integer dimension) {
+                return LogicalPredicates.and(
+                        IntegerPredicates.greaterThen(NO_ARRAY),
+                        IntegerPredicates.lessEqualThen(dimension)
+                );
+            }
+        });
+        DIMENSION_COMPARATOR_PREDICATES.addFactory(DimensionComparator.MIN, new PredicateFactory<Integer>() {
+            @Override
+            public Predicate createPredicate(Integer dimension) {
+                return IntegerPredicates.greaterEqualThen(dimension);
+            }
+        });
+    }
+
     private JoinPointSelectorUtils() {
     }
 
     /**
      * Create string matcher predicate.
-     * @param pattern  the pattern String.
+     *
+     * @param pattern     the pattern String.
      * @param matcherType the matcher type.
      * @return the predicate.
      */
@@ -144,6 +189,7 @@ public final class JoinPointSelectorUtils {
 
     /**
      * Create a logical predicate.
+     *
      * @param logicalOperator the logical operator.
      * @return the logical predicate.
      */
@@ -151,7 +197,14 @@ public final class JoinPointSelectorUtils {
         return LOGICAL_OPERATOR_PREDICATES.createCompositePredicate(logicalOperator);
     }
 
-
-
-
+    /**
+     * Creates a value operator predicate.
+     *
+     * @param dimension           the value
+     * @param dimensionComparator the value comparator
+     * @return the predicate.
+     */
+    public static Predicate createDimensionComparatorPredicate(int dimension, DimensionComparator dimensionComparator) {
+        return DIMENSION_COMPARATOR_PREDICATES.createPredicate(dimensionComparator, dimension);
+    }
 }

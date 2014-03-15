@@ -53,15 +53,8 @@ public abstract class StandardPredicates {
     /**
      * Predicate applies {@link java.lang.Object#equals(Object)}.
      */
-    public static <T> Predicate predicateEquals(final T object) {
+    public static <T> Predicate equalsPredicate(final T object) {
         return new EqualsPredicate<>(object);
-    }
-
-    /**
-     * Predicate applies {@link java.lang.Class#isAssignableFrom(Class)}.
-     */
-    public static Predicate predicateIsSubclass(final Class<?> clazz) {
-        return new IsSubclassOfPredicate(clazz);
     }
 
     /**
@@ -79,7 +72,7 @@ public abstract class StandardPredicates {
     /**
      * Predicate checks if the object to evaluate is {@code not null}.
      */
-    public static Predicate predicateNotNull() {
+    public static Predicate notNull() {
         return P_NOT_NULL;
     }
 

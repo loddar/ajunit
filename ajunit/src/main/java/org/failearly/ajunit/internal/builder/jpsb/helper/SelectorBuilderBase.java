@@ -47,12 +47,12 @@ abstract class SelectorBuilderBase<T extends Builder> {
 
 
     protected final T addPredicate(Predicate predicate) {
-        predicateBuilder.addPredicate(createTransformingPredicate(predicate));
+        predicateBuilder.addPredicate(createPredicate(predicate));
         return predicateBuilder;
     }
 
 
-    private Predicate createTransformingPredicate(Transformer transformer, Predicate predicate) {
+    protected final Predicate createTransformingPredicate(Transformer transformer, Predicate predicate) {
         return StandardPredicates.transformerPredicate(
                 StandardTransformers.transformerComposition(
                         AjpTransformers.ajpJoinPointFilterTransformer(this.joinPointType),
@@ -63,7 +63,7 @@ abstract class SelectorBuilderBase<T extends Builder> {
         );
     }
 
-    private Predicate createTransformingPredicate(Predicate predicate) {
+    private Predicate createPredicate(Predicate predicate) {
         return StandardPredicates.transformerPredicate(
                 StandardTransformers.transformerComposition(
                         AjpTransformers.ajpJoinPointFilterTransformer(this.joinPointType),
@@ -72,5 +72,4 @@ abstract class SelectorBuilderBase<T extends Builder> {
                 predicate
         );
     }
-
 }

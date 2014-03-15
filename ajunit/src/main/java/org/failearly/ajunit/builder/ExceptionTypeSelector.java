@@ -19,28 +19,7 @@
 package org.failearly.ajunit.builder;
 
 /**
- * ReturnTypeSelector provides selectors for {@link java.lang.reflect.Method#getReturnType()}.
+ * TODO: ExceptionTypeSelector is responsible for ...
  */
-public interface ReturnTypeSelector
-     extends ExtendedClassSelector<ReturnTypeSelector>,
-             LogicalSelector<ReturnTypeSelector>,
-             ArrayTypeSelector<ReturnTypeSelector,ReturnComponentTypeSelector> {
-
-    /**
-     * Selects method joinpoints the method's return type is {@code void}.
-     *
-     * Examples:<br/>
-     * <ul>
-     *     <li>{@code void setValue(int}</li>
-     * </ul>
-     * @return itself
-     */
-    ReturnTypeSelector byVoid();
-
-    /**
-     * Terminates the {@link MethodJoinPointSelector#byReturnType(LogicalOperator)}
-     * expression.
-     * @return the method join point selector.
-     */
-    MethodJoinPointSelector endReturnType();
+public interface ExceptionTypeSelector {
 }

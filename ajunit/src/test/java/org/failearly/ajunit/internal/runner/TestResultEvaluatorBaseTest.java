@@ -71,7 +71,7 @@ public class TestResultEvaluatorBaseTest<T extends TestResultCollector> {
     private static Predicate byAnyName(String... names) {
         final CompositePredicate anyOf = LogicalPredicates.or();
         for (String name : names) {
-            anyOf.addPredicate(StandardPredicates.predicateEquals(name));
+            anyOf.addPredicate(StandardPredicates.equalsPredicate(name));
         }
         return anyOf;
     }

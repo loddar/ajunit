@@ -100,6 +100,57 @@ public interface MethodJoinPointSelector
      */
     ReturnTypeSelector byReturnType(LogicalOperator logicalOperator);
 
+    /**
+     * Convenient selector builder for methods with return type <code>void</code>.
+     * @return  itself
+     *
+     * @see ReturnTypeSelector#byVoid()
+     */
+    MethodJoinPointSelector byReturningVoid();
+
+    /**
+     * Convenient selector builder for methods with return type <code>returnType</code>.
+     * @param returnType the expected return type.
+     * @return  itself
+     *
+     * @see ReturnTypeSelector#byClass(Class)
+     */
+    MethodJoinPointSelector byReturning(Class<?> returnType);
+
+    /**
+     * Convenient selector builder for methods with any primitive return type (except {@code void}).
+     * @return  itself
+     * @see org.failearly.ajunit.builder.ReturnTypeSelector#byPrimitive()
+     */
+    MethodJoinPointSelector byReturningPrimitive();
+
+    /**
+     * Convenient selector builder for methods the return type implements {@link java.util.Collection} or {@link java.util.Map}.
+     * @return  itself
+     * @see ReturnTypeSelector#byCollection()
+     */
+    MethodJoinPointSelector byReturningCollection();
+
+    /**
+     * Convenient selector builder for methods the return type extends {@link java.lang.Enum}, thus <code>enum MyEnum</code>.
+     * @return  itself
+     * @see org.failearly.ajunit.builder.ReturnTypeSelector#byEnum()
+     */
+    MethodJoinPointSelector byReturningEnum();
+
+    /**
+     * Convenient selector builder for methods the return type is any array type.
+     * Examples:<br/>
+     * <ul>
+     *     <li>{@code int[] getArray()}</li>
+     *     <li>{@code int[][] getMatrix}</li>
+     *     <li>{@code String[] getStringArray}</li>
+     * </ul>
+     * @return itself
+     * @see ReturnTypeSelector#byArray()
+     */
+    MethodJoinPointSelector byReturningArray();
+
 //    MethodJoinPointSelector byAnyOfReturnTypes(Class<?>... classes);
 //    MethodJoinPointSelector byNoneOfReturnTypes(Class<?>... classes);
 //    MethodJoinPointSelector byReturnType(String className, StringMatcherType matcherType);
