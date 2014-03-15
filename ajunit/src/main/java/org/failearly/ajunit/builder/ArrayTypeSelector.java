@@ -53,19 +53,6 @@ public interface ArrayTypeSelector<SB extends SelectorBuilder, RT extends Extend
     SB byArrayDimension(int dimension, DimensionComparator dimensionComparator);
 
     /**
-     * Selector builder for methods the return type or parameter type or the field is an array type of {@code value}.
-     * Examples:<br/>
-     * <ul>
-     *     <li>{@code int[] getArray()}: value={@link org.failearly.ajunit.builder.NamedDimension#LINE}</li>
-     *     <li>{@code String[] getStringArray}: value={@link org.failearly.ajunit.builder.NamedDimension#VECTOR}</li>
-     *     <li>{@code int[][] getMatrix}: value={@link org.failearly.ajunit.builder.NamedDimension#MATRIX} </li>
-     * </ul>
-     * @param dimension the named value
-     * @return itself
-     */
-    SB byArrayDimension(NamedDimension dimension, DimensionComparator dimensionComparator);
-
-    /**
      * Starts a sub selector for array's component type.
      * @param logicalOperator
      * @return new component type selector.

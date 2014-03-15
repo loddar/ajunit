@@ -19,24 +19,9 @@
 package org.failearly.ajunit.builder;
 
 /**
- * NamedDimension is used by {@link org.failearly.ajunit.builder.MethodJoinPointSelector#byReturningArrayType(NamedDimension)}.
+ * AnyEnum is responsible for ...
  */
-public enum NamedDimension {
-    VECTOR(1),
-    LINE(1),
-
-    MATRIX(2),
-    AREA(2),
-
-    THREE_DIM(3),
-    SPACE(3),
-
-    FOUR_DIM(4),
-    SPACE_TIME(4);
-
-    public final int value;
-
-    NamedDimension(int dimension) {
-        this.value = dimension;
-    }
+public enum AnyEnum {
+    E_VAL1,
+    E_VAL2;
 }

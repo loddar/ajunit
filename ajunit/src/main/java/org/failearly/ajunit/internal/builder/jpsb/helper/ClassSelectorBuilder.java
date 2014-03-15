@@ -128,7 +128,7 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
     public T byPrimitiveWrapperType() {
         return addPredicate(
                 LogicalPredicates.and(
-                        createTransformingPredicate(ClassTransformers.packageNameTransformer(), StandardPredicates.equalsPredicate("java.lang")),
+                        transformerPredicate(ClassTransformers.packageNameTransformer(), StandardPredicates.equalsPredicate("java.lang")),
                         ClassPredicates.isSubclassOf(Number.class),
                         LogicalPredicates.nor(ClassPredicates.isClass(Void.class), ClassPredicates.isClass(Number.class))
                 )

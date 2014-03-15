@@ -111,11 +111,6 @@ final class ReturnTypeSelectorImpl
     }
 
     @Override
-    public ReturnTypeSelector byArrayDimension(NamedDimension dimension, DimensionComparator dimensionComparator) {
-        return this.byArrayDimension(dimension.value, dimensionComparator);
-    }
-
-    @Override
     public ReturnComponentTypeSelector byComponentType(LogicalOperator logicalOperator) {
         return createNewBuilderNode(
                 JoinPointSelectorUtils.createLogicalOperatorPredicate(logicalOperator),

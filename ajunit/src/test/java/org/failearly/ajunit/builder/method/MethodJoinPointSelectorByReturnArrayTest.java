@@ -30,7 +30,7 @@ import org.junit.Test;
 public abstract class MethodJoinPointSelectorByReturnArrayTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
     protected MethodJoinPointSelectorByReturnArrayTest(AjJoinPointType expectedJoinPointType) {
-        super(expectedJoinPointType, TestSubject4.class);
+        super(expectedJoinPointType, TestSubject5.class);
     }
 
     @Test
@@ -42,11 +42,43 @@ public abstract class MethodJoinPointSelectorByReturnArrayTest extends AbstractJ
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public java.lang.String[] org.failearly.ajunit.builder.TestSubject4.getStringArray()",
-                "public java.lang.String[][] org.failearly.ajunit.builder.TestSubject4.getStringMatrix()",
-                "public int[] org.failearly.ajunit.builder.TestSubject4.getIntArray()",
-                "public int[][] org.failearly.ajunit.builder.TestSubject4.getIntMatrix()"
+                "public java.lang.String[] org.failearly.ajunit.builder.TestSubject5.getStringArray()",
+                "public java.lang.String[][] org.failearly.ajunit.builder.TestSubject5.getStringMatrix()",
+                "public int[] org.failearly.ajunit.builder.TestSubject5.getIntArray()",
+                "public int[][] org.failearly.ajunit.builder.TestSubject5.getIntMatrix()",
+                "public org.failearly.ajunit.builder.AnyAnnotation[] org.failearly.ajunit.builder.TestSubject5.getAnnotationVector()",
+                "public org.failearly.ajunit.builder.AnyEnum[] org.failearly.ajunit.builder.TestSubject5.getEnumVector()",
+                "public org.failearly.ajunit.builder.AnyInterface[] org.failearly.ajunit.builder.TestSubject5.getAnyInterface()",
+                "public java.lang.Integer[][] org.failearly.ajunit.builder.TestSubject5.getIntegerMatrix()"
 
+        );
+    }
+
+    @Test
+    public void byNotArray() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.NONE_OF)
+                        .byArray()
+                    .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject5.setInt(int)",
+                "public boolean org.failearly.ajunit.builder.TestSubject5.getBoolean()",
+                "public java.lang.String org.failearly.ajunit.builder.TestSubject5.getString()",
+                // java.lang.Object
+                "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
+                "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
+                "public final void java.lang.Object.wait() throws java.lang.InterruptedException",
+                "public boolean java.lang.Object.equals(java.lang.Object)",
+                "public java.lang.String java.lang.Object.toString()",
+                "public native int java.lang.Object.hashCode()",
+                "public final native java.lang.Class java.lang.Object.getClass()",
+                "public final native void java.lang.Object.notify()",
+                "public final native void java.lang.Object.notifyAll()",
+                "protected void java.lang.Object.finalize() throws java.lang.Throwable",
+                "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException",
+                "private static native void java.lang.Object.registerNatives()"
         );
     }
 
@@ -54,13 +86,16 @@ public abstract class MethodJoinPointSelectorByReturnArrayTest extends AbstractJ
     public void byArrayVector() throws Exception {
         // act / when
         selectorBuilder.byReturnType(LogicalOperator.AND)
-                    .byArrayDimension(NamedDimension.VECTOR, DimensionComparator.EQUALS)
+                    .byArrayDimension(1, DimensionComparator.EQUALS)
                 .endReturnType();
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public java.lang.String[] org.failearly.ajunit.builder.TestSubject4.getStringArray()",
-                "public int[] org.failearly.ajunit.builder.TestSubject4.getIntArray()"
+                "public java.lang.String[] org.failearly.ajunit.builder.TestSubject5.getStringArray()",
+                "public int[] org.failearly.ajunit.builder.TestSubject5.getIntArray()",
+                "public org.failearly.ajunit.builder.AnyAnnotation[] org.failearly.ajunit.builder.TestSubject5.getAnnotationVector()",
+                "public org.failearly.ajunit.builder.AnyEnum[] org.failearly.ajunit.builder.TestSubject5.getEnumVector()",
+                "public org.failearly.ajunit.builder.AnyInterface[] org.failearly.ajunit.builder.TestSubject5.getAnyInterface()"
 
         );
     }
@@ -69,13 +104,14 @@ public abstract class MethodJoinPointSelectorByReturnArrayTest extends AbstractJ
     public void byArrayMatrix() throws Exception {
         // act / when
         selectorBuilder.byReturnType(LogicalOperator.AND)
-                    .byArrayDimension(NamedDimension.MATRIX, DimensionComparator.EQUALS)
+                    .byArrayDimension(2, DimensionComparator.EQUALS)
                 .endReturnType();
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public java.lang.String[][] org.failearly.ajunit.builder.TestSubject4.getStringMatrix()",
-                "public int[][] org.failearly.ajunit.builder.TestSubject4.getIntMatrix()"
+                "public java.lang.String[][] org.failearly.ajunit.builder.TestSubject5.getStringMatrix()",
+                "public int[][] org.failearly.ajunit.builder.TestSubject5.getIntMatrix()",
+                "public java.lang.Integer[][] org.failearly.ajunit.builder.TestSubject5.getIntegerMatrix()"
 
         );
     }
@@ -89,10 +125,14 @@ public abstract class MethodJoinPointSelectorByReturnArrayTest extends AbstractJ
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public java.lang.String[] org.failearly.ajunit.builder.TestSubject4.getStringArray()",
-                "public java.lang.String[][] org.failearly.ajunit.builder.TestSubject4.getStringMatrix()",
-                "public int[] org.failearly.ajunit.builder.TestSubject4.getIntArray()",
-                "public int[][] org.failearly.ajunit.builder.TestSubject4.getIntMatrix()"
+                "public java.lang.String[] org.failearly.ajunit.builder.TestSubject5.getStringArray()",
+                "public java.lang.String[][] org.failearly.ajunit.builder.TestSubject5.getStringMatrix()",
+                "public int[] org.failearly.ajunit.builder.TestSubject5.getIntArray()",
+                "public int[][] org.failearly.ajunit.builder.TestSubject5.getIntMatrix()",
+                "public org.failearly.ajunit.builder.AnyAnnotation[] org.failearly.ajunit.builder.TestSubject5.getAnnotationVector()",
+                "public org.failearly.ajunit.builder.AnyEnum[] org.failearly.ajunit.builder.TestSubject5.getEnumVector()",
+                "public org.failearly.ajunit.builder.AnyInterface[] org.failearly.ajunit.builder.TestSubject5.getAnyInterface()",
+                "public java.lang.Integer[][] org.failearly.ajunit.builder.TestSubject5.getIntegerMatrix()"
         );
     }
 
@@ -105,8 +145,9 @@ public abstract class MethodJoinPointSelectorByReturnArrayTest extends AbstractJ
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public java.lang.String[][] org.failearly.ajunit.builder.TestSubject4.getStringMatrix()",
-                "public int[][] org.failearly.ajunit.builder.TestSubject4.getIntMatrix()"
+                "public java.lang.String[][] org.failearly.ajunit.builder.TestSubject5.getStringMatrix()",
+                "public int[][] org.failearly.ajunit.builder.TestSubject5.getIntMatrix()",
+                "public java.lang.Integer[][] org.failearly.ajunit.builder.TestSubject5.getIntegerMatrix()"
         );
     }
 
@@ -114,13 +155,14 @@ public abstract class MethodJoinPointSelectorByReturnArrayTest extends AbstractJ
     public void byArrayGreaterThenVector() throws Exception {
         // act / when
         selectorBuilder.byReturnType(LogicalOperator.AND)
-                    .byArrayDimension(NamedDimension.VECTOR, DimensionComparator.GREATER_THEN)
+                    .byArrayDimension(1, DimensionComparator.GREATER_THEN)
                 .endReturnType();
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public java.lang.String[][] org.failearly.ajunit.builder.TestSubject4.getStringMatrix()",
-                "public int[][] org.failearly.ajunit.builder.TestSubject4.getIntMatrix()"
+                "public java.lang.String[][] org.failearly.ajunit.builder.TestSubject5.getStringMatrix()",
+                "public int[][] org.failearly.ajunit.builder.TestSubject5.getIntMatrix()",
+                "public java.lang.Integer[][] org.failearly.ajunit.builder.TestSubject5.getIntegerMatrix()"
         );
     }
 
@@ -128,15 +170,19 @@ public abstract class MethodJoinPointSelectorByReturnArrayTest extends AbstractJ
     public void byArrayMaxMatrix() throws Exception {
         // act / when
         selectorBuilder.byReturnType(LogicalOperator.AND)
-                    .byArrayDimension(NamedDimension.MATRIX, DimensionComparator.MAX)
+                    .byArrayDimension(2, DimensionComparator.MAX)
                 .endReturnType();
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public java.lang.String[] org.failearly.ajunit.builder.TestSubject4.getStringArray()",
-                "public java.lang.String[][] org.failearly.ajunit.builder.TestSubject4.getStringMatrix()",
-                "public int[] org.failearly.ajunit.builder.TestSubject4.getIntArray()",
-                "public int[][] org.failearly.ajunit.builder.TestSubject4.getIntMatrix()"
+                "public java.lang.String[] org.failearly.ajunit.builder.TestSubject5.getStringArray()",
+                "public java.lang.String[][] org.failearly.ajunit.builder.TestSubject5.getStringMatrix()",
+                "public int[] org.failearly.ajunit.builder.TestSubject5.getIntArray()",
+                "public int[][] org.failearly.ajunit.builder.TestSubject5.getIntMatrix()",
+                "public java.lang.Integer[][] org.failearly.ajunit.builder.TestSubject5.getIntegerMatrix()",
+                "public org.failearly.ajunit.builder.AnyAnnotation[] org.failearly.ajunit.builder.TestSubject5.getAnnotationVector()",
+                "public org.failearly.ajunit.builder.AnyEnum[] org.failearly.ajunit.builder.TestSubject5.getEnumVector()",
+                "public org.failearly.ajunit.builder.AnyInterface[] org.failearly.ajunit.builder.TestSubject5.getAnyInterface()"
         );
     }
 
@@ -144,13 +190,51 @@ public abstract class MethodJoinPointSelectorByReturnArrayTest extends AbstractJ
     public void byArrayLessThenMatrix() throws Exception {
         // act / when
         selectorBuilder.byReturnType(LogicalOperator.AND)
-                    .byArrayDimension(NamedDimension.MATRIX, DimensionComparator.LESS_THEN)
+                    .byArrayDimension(2, DimensionComparator.LESS_THEN)
                 .endReturnType();
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public java.lang.String[] org.failearly.ajunit.builder.TestSubject4.getStringArray()",
-                "public int[] org.failearly.ajunit.builder.TestSubject4.getIntArray()"
+                "public java.lang.String[] org.failearly.ajunit.builder.TestSubject5.getStringArray()",
+                "public int[] org.failearly.ajunit.builder.TestSubject5.getIntArray()",
+                "public org.failearly.ajunit.builder.AnyAnnotation[] org.failearly.ajunit.builder.TestSubject5.getAnnotationVector()",
+                "public org.failearly.ajunit.builder.AnyEnum[] org.failearly.ajunit.builder.TestSubject5.getEnumVector()",
+                "public org.failearly.ajunit.builder.AnyInterface[] org.failearly.ajunit.builder.TestSubject5.getAnyInterface()"
+
+        );
+    }
+
+    @Test
+    public void byArrayIntComponentType() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.AND)
+                        .byComponentType(LogicalOperator.AND)
+                            .byPrimitive()
+                        .endComponentType()
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public int[] org.failearly.ajunit.builder.TestSubject5.getIntArray()",
+                "public int[][] org.failearly.ajunit.builder.TestSubject5.getIntMatrix()"
+        );
+    }
+
+    @Test
+    public void byArrayPrimitiveOrWrapperComponentType() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.AND)
+                    .byComponentType(LogicalOperator.OR)
+                        .byPrimitive()
+                        .byPrimitiveWrapperType()
+                    .endComponentType()
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public int[] org.failearly.ajunit.builder.TestSubject5.getIntArray()",
+                "public int[][] org.failearly.ajunit.builder.TestSubject5.getIntMatrix()",
+                "public java.lang.Integer[][] org.failearly.ajunit.builder.TestSubject5.getIntegerMatrix()"
         );
     }
 

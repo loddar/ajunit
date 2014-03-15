@@ -27,7 +27,7 @@ import java.util.*;
 @SuppressWarnings("all")
 public class TestSubject4 {
     // void
-    public void setInt(int value) {
+    public void setAnyValue(int value) {
     }
 
     // primitiv
@@ -64,7 +64,7 @@ public class TestSubject4 {
         return false;
     }
 
-   public Integer getIntWrapper() {
+    public Integer getIntWrapper() {
         return 0;
     }
 
@@ -106,7 +106,9 @@ public class TestSubject4 {
     }
 
     // Enum Type
-    public LogicalOperator getEnum() { return null; }
+    public LogicalOperator getEnum() {
+        return null;
+    }
 
     // collection test
     public Map<String, String> getMap() {
@@ -142,15 +144,11 @@ public class TestSubject4 {
         return null;
     }
 
-    public int[][] getIntMatrix() {
-        return null;
-    }
-
     public String[] getStringArray() {
         return null;
     }
 
-    public String[][] getStringMatrix() {
-        return null;
-    }
+    public TestSubject3 getTestSubject3() { return null;}
+    public TestSubject2 getTestSubject2() { return null;}
+    public TestSubject1 getTestSubject1() { return null;}
 }

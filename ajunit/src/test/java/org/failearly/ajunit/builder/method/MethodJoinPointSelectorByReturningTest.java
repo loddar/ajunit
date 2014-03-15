@@ -48,7 +48,7 @@ public abstract class MethodJoinPointSelectorByReturningTest extends AbstractJoi
         // assert / then
         assertBuildJoinPointSelector(
                 // TestSubject4
-                "public void org.failearly.ajunit.builder.TestSubject4.setInt(int)",
+                "public void org.failearly.ajunit.builder.TestSubject4.setAnyValue(int)",
                 // java.lang.Object
                 "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
                 "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
@@ -122,10 +122,7 @@ public abstract class MethodJoinPointSelectorByReturningTest extends AbstractJoi
         assertBuildJoinPointSelector(
                 // TestSubject4
                 "public java.lang.String[] org.failearly.ajunit.builder.TestSubject4.getStringArray()",
-                "public java.lang.String[][] org.failearly.ajunit.builder.TestSubject4.getStringMatrix()",
-                "public int[] org.failearly.ajunit.builder.TestSubject4.getIntArray()",
-                "public int[][] org.failearly.ajunit.builder.TestSubject4.getIntMatrix()"
-                // java.lang.Object
+                "public int[] org.failearly.ajunit.builder.TestSubject4.getIntArray()"
 
         );
     }

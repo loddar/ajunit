@@ -23,6 +23,8 @@ import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
@@ -35,7 +37,7 @@ import static org.junit.Assert.assertThat;
 public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
     protected MethodJoinPointSelectorByReturnTypeTest(AjJoinPointType expectedJoinPointType) {
-        super(expectedJoinPointType, TestSubject3.class);
+        super(expectedJoinPointType, TestSubject4.class);
     }
 
     @Test
@@ -56,8 +58,8 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
 
         // assert / then
         assertBuildJoinPointSelector(
-                // TestSubject3
-                "public void org.failearly.ajunit.builder.TestSubject3.setAnyValue(int)",
+                // TestSubject4
+                "public void org.failearly.ajunit.builder.TestSubject4.setAnyValue(int)",
                 // java.lang.Object
                 "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
                 "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
@@ -78,10 +80,11 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
 
         // assert / then
         assertBuildJoinPointSelector(
-                // TestSubject3
-                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()",
-                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject3.getTestSubject2()",
-                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject3.getTestSubject1()"
+                // TestSubject4
+                "public org.failearly.ajunit.builder.TestSubject4 org.failearly.ajunit.builder.TestSubject4.getTestSubject4()",
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject4.getTestSubject3()",
+                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject4.getTestSubject2()",
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject4.getTestSubject1()"
         );
     }
 
@@ -89,16 +92,16 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
     public void byImplementingAnyOf() throws Exception {
         // act / when
         selectorBuilder.byReturnType(LogicalOperator.OR)
-                    .byImplementingAnyOf(AnyInterface.class, Serializable.class)
+                    .byImplementingAnyOf(AnyInterface.class, Map.class)
                 .endReturnType();
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()",
-                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject3.getTestSubject1()",
-                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject3.getTestSubject2()",
-                "public java.lang.String java.lang.Object.toString()",
-                "public final native java.lang.Class java.lang.Object.getClass()"
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject4.getTestSubject3()",
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject4.getTestSubject1()",
+                "public java.util.Map org.failearly.ajunit.builder.TestSubject4.getMap()",
+                "public java.util.HashMap org.failearly.ajunit.builder.TestSubject4.getHashMap()",
+                "public java.util.Hashtable org.failearly.ajunit.builder.TestSubject4.getHashTable()"
         );
     }
 
@@ -111,9 +114,18 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public void org.failearly.ajunit.builder.TestSubject3.setAnyValue(int)",
-                "public int org.failearly.ajunit.builder.TestSubject3.getAnyValue()",
-                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject3.getTestSubject1()",
+                "public void org.failearly.ajunit.builder.TestSubject4.setAnyValue(int)",
+                "public boolean org.failearly.ajunit.builder.TestSubject4.getBoolean()",
+                "public byte org.failearly.ajunit.builder.TestSubject4.getByte()",
+                "public short org.failearly.ajunit.builder.TestSubject4.getShort()",
+                "public int org.failearly.ajunit.builder.TestSubject4.getInt()",
+                "public long org.failearly.ajunit.builder.TestSubject4.getLong()",
+                "public float org.failearly.ajunit.builder.TestSubject4.getFloat()",
+                "public double org.failearly.ajunit.builder.TestSubject4.getDouble()",
+                "public org.failearly.ajunit.builder.TestSubject4 org.failearly.ajunit.builder.TestSubject4.getTestSubject4()",
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject4.getTestSubject1()",
+                "public java.util.Map org.failearly.ajunit.builder.TestSubject4.getMap()",
+                "public java.util.Collection org.failearly.ajunit.builder.TestSubject4.getCollection()",
                 // java.lang.Object
                 "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
                 "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
@@ -137,7 +149,7 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject3.getTestSubject1()"
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject4.getTestSubject1()"
         );
     }
 
@@ -145,27 +157,28 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
     public void byNotExtending() throws Exception {
         // act / when
         selectorBuilder.byReturnType(LogicalOperator.OR)
-                    .byNotExtending(AbstractBaseClass.class)
+                    .byNotExtending(Object.class)
                 .endReturnType();
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public void org.failearly.ajunit.builder.TestSubject3.setAnyValue(int)",
-                "public int org.failearly.ajunit.builder.TestSubject3.getAnyValue()",
-                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject3.getTestSubject2()",
-                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()",
+                "public void org.failearly.ajunit.builder.TestSubject4.setAnyValue(int)",
+                "public boolean org.failearly.ajunit.builder.TestSubject4.getBoolean()",
+                "public byte org.failearly.ajunit.builder.TestSubject4.getByte()",
+                "public short org.failearly.ajunit.builder.TestSubject4.getShort()",
+                "public int org.failearly.ajunit.builder.TestSubject4.getInt()",
+                "public long org.failearly.ajunit.builder.TestSubject4.getLong()",
+                "public float org.failearly.ajunit.builder.TestSubject4.getFloat()",
+                "public double org.failearly.ajunit.builder.TestSubject4.getDouble()",
                 // java.lang.Object
                 "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
                 "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
                 "public final void java.lang.Object.wait() throws java.lang.InterruptedException",
                 "public boolean java.lang.Object.equals(java.lang.Object)",
-                "public java.lang.String java.lang.Object.toString()",
                 "public native int java.lang.Object.hashCode()",
-                "public final native java.lang.Class java.lang.Object.getClass()",
                 "public final native void java.lang.Object.notify()",
                 "public final native void java.lang.Object.notifyAll()",
                 "protected void java.lang.Object.finalize() throws java.lang.Throwable",
-                "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException",
                 "private static native void java.lang.Object.registerNatives()"
         );
     }
@@ -179,7 +192,7 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()"
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject4.getTestSubject3()"
         );
     }
 
@@ -193,9 +206,21 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()",
-                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject3.getTestSubject2()",
-                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject3.getTestSubject1()",
+                "public org.failearly.ajunit.builder.TestSubject4 org.failearly.ajunit.builder.TestSubject4.getTestSubject4()",
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject4.getTestSubject3()",
+                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject4.getTestSubject2()",
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject4.getTestSubject1()",
+                "public java.lang.Number org.failearly.ajunit.builder.TestSubject4.getNumber()",
+                "public java.lang.Float org.failearly.ajunit.builder.TestSubject4.getFloatWrapper()",
+                "public java.lang.Double org.failearly.ajunit.builder.TestSubject4.getDoubleWrapper()",
+                "public java.lang.Long org.failearly.ajunit.builder.TestSubject4.getLongWrapper()",
+                "public java.lang.Boolean org.failearly.ajunit.builder.TestSubject4.getBooleanWrapper()",
+                "public java.lang.Integer org.failearly.ajunit.builder.TestSubject4.getIntWrapper()",
+                "public java.lang.Short org.failearly.ajunit.builder.TestSubject4.getShortWrapper()",
+                "public java.lang.Byte org.failearly.ajunit.builder.TestSubject4.getByteWrapper()",
+                "public java.lang.String org.failearly.ajunit.builder.TestSubject4.getString()",
+                "public org.failearly.ajunit.builder.LogicalOperator org.failearly.ajunit.builder.TestSubject4.getEnum()",
+                // java.lang.Object
                 "public java.lang.String java.lang.Object.toString()",
                 "public final native java.lang.Class java.lang.Object.getClass()",
                 "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException"
@@ -213,9 +238,9 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
 
         // assert / then
         assertBuildJoinPointSelector(
-                // TestSubject3
-                "public void org.failearly.ajunit.builder.TestSubject3.setAnyValue(int)",
-                "public int org.failearly.ajunit.builder.TestSubject3.getAnyValue()",
+                // TestSubject4
+                "public void org.failearly.ajunit.builder.TestSubject4.setAnyValue(int)",
+                "public int org.failearly.ajunit.builder.TestSubject4.getInt()",
                 // java.lang.Object
                 "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
                 "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
@@ -238,9 +263,9 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
 
         // assert / then
         assertBuildJoinPointSelector(
-                // TestSubject3
-                "public void org.failearly.ajunit.builder.TestSubject3.setAnyValue(int)",
-                "public int org.failearly.ajunit.builder.TestSubject3.getAnyValue()",
+                // TestSubject4
+                "public void org.failearly.ajunit.builder.TestSubject4.setAnyValue(int)",
+                "public int org.failearly.ajunit.builder.TestSubject4.getInt()",
                 // java.lang.Object
                 "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
                 "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
@@ -263,9 +288,9 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
 
         // assert / then
         assertBuildJoinPointSelector(
-                // TestSubject3
-                "public void org.failearly.ajunit.builder.TestSubject3.setAnyValue(int)",
-                "public int org.failearly.ajunit.builder.TestSubject3.getAnyValue()",
+                // TestSubject4
+                "public void org.failearly.ajunit.builder.TestSubject4.setAnyValue(int)",
+                "public int org.failearly.ajunit.builder.TestSubject4.getInt()",
                 // java.lang.Object
                 "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
                 "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
@@ -288,8 +313,9 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()",
-                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject3.getTestSubject2()"
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject4.getTestSubject3()",
+                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject4.getTestSubject2()",
+                "public org.failearly.ajunit.builder.LogicalOperator org.failearly.ajunit.builder.TestSubject4.getEnum()"
         );
     }
 
@@ -303,8 +329,9 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()",
-                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject3.getTestSubject2()"
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject4.getTestSubject3()",
+                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject4.getTestSubject2()",
+                "public org.failearly.ajunit.builder.LogicalOperator org.failearly.ajunit.builder.TestSubject4.getEnum()"
         );
     }
 
@@ -312,14 +339,15 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
     public void byReturnTypeAllOf() throws Exception {
         // act / when
         selectorBuilder.byReturnType(LogicalOperator.ALL_OF)
-                .byImplementingAnyOf(Serializable.class)
-                .byPackageName("org.failearly.ajunit.builder", StringMatcherType.EQUALS)
+                    .byImplementingAnyOf(Serializable.class)
+                    .byPackageName("org.failearly.ajunit.builder", StringMatcherType.EQUALS)
                 .endReturnType();
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()",
-                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject3.getTestSubject2()"
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject4.getTestSubject3()",
+                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject4.getTestSubject2()",
+                "public org.failearly.ajunit.builder.LogicalOperator org.failearly.ajunit.builder.TestSubject4.getEnum()"
         );
     }
 
@@ -333,8 +361,18 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject3.getTestSubject1()",
-                "public int org.failearly.ajunit.builder.TestSubject3.getAnyValue()",
+                "public boolean org.failearly.ajunit.builder.TestSubject4.getBoolean()",
+                "public byte org.failearly.ajunit.builder.TestSubject4.getByte()",
+                "public short org.failearly.ajunit.builder.TestSubject4.getShort()",
+                "public int org.failearly.ajunit.builder.TestSubject4.getInt()",
+                "public long org.failearly.ajunit.builder.TestSubject4.getLong()",
+                "public float org.failearly.ajunit.builder.TestSubject4.getFloat()",
+                "public double org.failearly.ajunit.builder.TestSubject4.getDouble()",
+                "public org.failearly.ajunit.builder.TestSubject4 org.failearly.ajunit.builder.TestSubject4.getTestSubject4()",
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject4.getTestSubject1()",
+                "public java.util.Map org.failearly.ajunit.builder.TestSubject4.getMap()",
+                "public java.util.Collection org.failearly.ajunit.builder.TestSubject4.getCollection()",
+                // java.lang.Object
                 "public boolean java.lang.Object.equals(java.lang.Object)",
                 "public native int java.lang.Object.hashCode()",
                 "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException"
@@ -345,14 +383,24 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
     public void byReturnTypeNoneOf() throws Exception {
         // act / when
         selectorBuilder.byReturnType(LogicalOperator.NONE_OF)
-                .byImplementingAnyOf(Serializable.class)
-                .byClass(void.class)
+                    .byImplementingAnyOf(Serializable.class)
+                    .byClass(void.class)
                 .endReturnType();
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject3.getTestSubject1()",
-                "public int org.failearly.ajunit.builder.TestSubject3.getAnyValue()",
+                "public boolean org.failearly.ajunit.builder.TestSubject4.getBoolean()",
+                "public byte org.failearly.ajunit.builder.TestSubject4.getByte()",
+                "public short org.failearly.ajunit.builder.TestSubject4.getShort()",
+                "public int org.failearly.ajunit.builder.TestSubject4.getInt()",
+                "public long org.failearly.ajunit.builder.TestSubject4.getLong()",
+                "public float org.failearly.ajunit.builder.TestSubject4.getFloat()",
+                "public double org.failearly.ajunit.builder.TestSubject4.getDouble()",
+                "public org.failearly.ajunit.builder.TestSubject4 org.failearly.ajunit.builder.TestSubject4.getTestSubject4()",
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject4.getTestSubject1()",
+                "public java.util.Map org.failearly.ajunit.builder.TestSubject4.getMap()",
+                "public java.util.Collection org.failearly.ajunit.builder.TestSubject4.getCollection()",
+                // java.lang.Object
                 "public boolean java.lang.Object.equals(java.lang.Object)",
                 "public native int java.lang.Object.hashCode()",
                 "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException"
@@ -369,8 +417,18 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject3.getTestSubject1()",
-                "public int org.failearly.ajunit.builder.TestSubject3.getAnyValue()",
+                "public boolean org.failearly.ajunit.builder.TestSubject4.getBoolean()",
+                "public byte org.failearly.ajunit.builder.TestSubject4.getByte()",
+                "public short org.failearly.ajunit.builder.TestSubject4.getShort()",
+                "public int org.failearly.ajunit.builder.TestSubject4.getInt()",
+                "public long org.failearly.ajunit.builder.TestSubject4.getLong()",
+                "public float org.failearly.ajunit.builder.TestSubject4.getFloat()",
+                "public double org.failearly.ajunit.builder.TestSubject4.getDouble()",
+                "public org.failearly.ajunit.builder.TestSubject4 org.failearly.ajunit.builder.TestSubject4.getTestSubject4()",
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject4.getTestSubject1()",
+                "public java.util.Map org.failearly.ajunit.builder.TestSubject4.getMap()",
+                "public java.util.Collection org.failearly.ajunit.builder.TestSubject4.getCollection()",
+                // java.lang.Object
                 "public boolean java.lang.Object.equals(java.lang.Object)",
                 "public native int java.lang.Object.hashCode()",
                 "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException"
@@ -385,17 +443,20 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
                     .noneOf()
                         .byImplementingAnyOf(Serializable.class)
                         .byClass(void.class)
+                        .byPrimitive()
+                        .byPrimitiveWrapperType()
                     .end()
                 .endReturnType();
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public int org.failearly.ajunit.builder.TestSubject3.getAnyValue()",
-                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()",
-                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject3.getTestSubject2()",
-                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject3.getTestSubject1()",
-                "public boolean java.lang.Object.equals(java.lang.Object)",
-                "public native int java.lang.Object.hashCode()",
+                "public org.failearly.ajunit.builder.TestSubject4 org.failearly.ajunit.builder.TestSubject4.getTestSubject4()",
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject4.getTestSubject3()",
+                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject4.getTestSubject2()",
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject4.getTestSubject1()",
+                "public org.failearly.ajunit.builder.LogicalOperator org.failearly.ajunit.builder.TestSubject4.getEnum()",
+                "public java.util.Collection org.failearly.ajunit.builder.TestSubject4.getCollection()",
+                "public java.util.Map org.failearly.ajunit.builder.TestSubject4.getMap()",
                 "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException"
         );
     }
@@ -407,14 +468,23 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
                     .byPackageName("org.failearly.ajunit.builder", StringMatcherType.EQUALS)
                     .allOf()
                         .byImplementingAnyOf(Serializable.class)
+                        .byNotExtending(Number.class)
+                        .byImplementingNoneOf(Collection.class, Map.class)
                     .end()
                 .endReturnType();
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()",
-                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject3.getTestSubject2()",
-                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject3.getTestSubject1()",
+                "public org.failearly.ajunit.builder.TestSubject4 org.failearly.ajunit.builder.TestSubject4.getTestSubject4()",
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject4.getTestSubject3()",
+                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject4.getTestSubject2()",
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject4.getTestSubject1()",
+                "public org.failearly.ajunit.builder.LogicalOperator org.failearly.ajunit.builder.TestSubject4.getEnum()",
+                "public java.lang.Boolean org.failearly.ajunit.builder.TestSubject4.getBooleanWrapper()",
+                "public java.lang.String org.failearly.ajunit.builder.TestSubject4.getString()",
+                "public java.lang.String[] org.failearly.ajunit.builder.TestSubject4.getStringArray()",
+                "public int[] org.failearly.ajunit.builder.TestSubject4.getIntArray()",
+
                 "public java.lang.String java.lang.Object.toString()",
                 "public final native java.lang.Class java.lang.Object.getClass()"
         );
@@ -432,8 +502,9 @@ public abstract class MethodJoinPointSelectorByReturnTypeTest extends AbstractJo
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject3.getTestSubject3()",
-                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject3.getTestSubject2()"
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject4.getTestSubject3()",
+                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject4.getTestSubject2()",
+                "public org.failearly.ajunit.builder.LogicalOperator org.failearly.ajunit.builder.TestSubject4.getEnum()"
         );
     }
 }

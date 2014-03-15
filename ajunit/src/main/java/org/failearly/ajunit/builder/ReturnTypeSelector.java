@@ -31,7 +31,8 @@ public interface ReturnTypeSelector
      *
      * Examples:<br/>
      * <ul>
-     *     <li>{@code void setValue(int}</li>
+     *     <li>{@code void setValue(int)}</li>
+     *     <li>{@code void run()}</li>
      * </ul>
      * @return itself
      */
