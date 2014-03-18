@@ -19,13 +19,26 @@
 package org.failearly.ajunit.internal.predicate.collection;
 
 import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
 
 import java.util.Collection;
+
+import static org.failearly.ajunit.internal.predicate.standard.LogicalPredicates.not;
 
 /**
  * CollectionPredicates provides factory methods for applying a single predicate on collection of objects.
  */
 public abstract class CollectionPredicates {
+
+    private static final Predicate P_IS_EMPTY = new CollectionPredicateBase<Collection>(Collection.class, "isEmpty") {
+        @Override
+        protected boolean doTypedEvaluate(Collection collection) {
+            return collection.isEmpty();
+        }
+    };
+
+    private static final Predicate P_IS_NOT_EMPTY = LogicalPredicates.not(P_IS_EMPTY);
+
     private CollectionPredicates() {
     }
 
@@ -51,5 +64,36 @@ public abstract class CollectionPredicates {
      */
     public static Predicate allOf(Predicate predicate) {
         return new CollectionPredicate<>(Collection.class, "AllOf", predicate, false);
+    }
+
+    /**
+     * The resulting predicate evaluates to {@code true},
+     * if none of the elements evaluates to {@code true} by using given {@code predicate}.
+     * If the collection is empty the predicate returns {@code false}.
+     *
+     * @param predicate the predicate to by applied on the collection element.
+     * @return new predicate.
+     */
+    public static Predicate noneOf(Predicate predicate) {
+        return LogicalPredicates.and(
+                isNotEmpty(),
+                not(new CollectionPredicate<>(Collection.class, "NoneOf", predicate, true))
+        );
+    }
+
+    /**
+     * The resulting predicate evaluates to {@code true}, if the collection is empty.
+     * @return new predicate.
+     */
+    public static Predicate isEmpty() {
+        return P_IS_EMPTY;
+    }
+
+    /**
+     * The resulting predicate evaluates to {@code true}, if the collection is not empty.
+     * @return new predicate.
+     */
+    public static Predicate isNotEmpty() {
+        return P_IS_NOT_EMPTY;
     }
 }

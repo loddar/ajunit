@@ -60,6 +60,41 @@ public class CollectionPredicatesTest {
     }
 
     @Test
+    public void noneOf() throws Exception {
+        // arrange / given
+        final Predicate predicate = CollectionPredicates.noneOf(StandardPredicates.booleanIdentity());
+
+        // assert / then
+        assertThat("{false,false}->true?", predicate.evaluate(toBooleanList(false, false)), is(true));
+        assertThat("{false,true}->false?", predicate.evaluate(toBooleanList(false, true)), is(false));
+        assertThat("{true,false}->false?", predicate.evaluate(toBooleanList(true, false)), is(false));
+        assertThat("{true,true}->false?", predicate.evaluate(toBooleanList(true, true)), is(false));
+        assertThat("{}->false?", predicate.evaluate(toBooleanList()), is(false));
+    }
+
+    @Test
+    public void isEmpty() throws Exception {
+        // arrange / given
+        final Predicate predicate = CollectionPredicates.isEmpty();
+
+        // assert / then
+        assertThat("{true, true}->false?", predicate.evaluate(toBooleanList(true, true)), is(false));
+        assertThat("{true}->false?", predicate.evaluate(toBooleanList(true)), is(false));
+        assertThat("{}->true?", predicate.evaluate(toBooleanList()), is(true));
+    }
+
+    @Test
+    public void isNotEmpty() throws Exception {
+        // arrange / given
+        final Predicate predicate = CollectionPredicates.isNotEmpty();
+
+        // assert / then
+        assertThat("{true, true}->true?", predicate.evaluate(toBooleanList(true, true)), is(true));
+        assertThat("{true}->true?", predicate.evaluate(toBooleanList(true)), is(true));
+        assertThat("{}->false?", predicate.evaluate(toBooleanList()), is(false));
+    }
+
+    @Test
     public void allOfAnyOf() throws Exception {
         // arrange / given
         final Predicate predicate = CollectionPredicates.allOf(

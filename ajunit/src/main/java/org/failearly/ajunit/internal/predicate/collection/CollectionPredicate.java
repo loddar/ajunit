@@ -19,14 +19,13 @@
 package org.failearly.ajunit.internal.predicate.collection;
 
 import org.failearly.ajunit.internal.predicate.Predicate;
-import org.failearly.ajunit.internal.predicate.TypedPredicate;
 
 import java.util.Collection;
 
 /**
  * Base class for all collection predicate.
  */
-final class CollectionPredicate<T extends Collection> extends TypedPredicate<T> {
+final class CollectionPredicate<T extends Collection> extends CollectionPredicateBase<T> {
     private final Predicate predicate;
     private final boolean breakingEvaluationResult;
 
