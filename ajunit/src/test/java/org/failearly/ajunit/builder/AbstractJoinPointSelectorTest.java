@@ -26,17 +26,14 @@ import org.failearly.ajunit.internal.universe.AjUniverse;
 import org.failearly.ajunit.internal.universe.impl.AjUniversesHolder;
 import org.failearly.ajunit.internal.util.AjUnitUtils;
 import org.failearly.ajunit.test.helper.StandardJoinPointVisitor;
+import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Before;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -88,13 +85,17 @@ public abstract class AbstractJoinPointSelectorTest<T extends SelectorBuilder> {
     protected abstract T createSelectorBuilderUnderTest(JoinPointSelector joinPointSelector);
 
     protected final void assertJoinPointType() {
-        assertThat("Join Point Type?", this.joinPointTypes, containsInAnyOrder(this.expectedJoinPointType));
+        assertThat("Join Point Type?", this.joinPointTypes, Matchers.containsInAnyOrder(this.expectedJoinPointType));
     }
 
     protected final void assertBuildJoinPointSelector(String... expectedJoinPoints) {
         final StandardJoinPointVisitor joinPointVisitor = new StandardJoinPointVisitor(this.joinPointSelectorBuilder.build(), JOIN_POINT_STRING_BUILDER);
         ajUniverse.visitJoinPoints(joinPointVisitor);
-        assertThat("Matching join points?", joinPointVisitor.getSelectedJoinPoints(), containsInAnyOrder(expectedJoinPoints));
+        assertThat("Matching join points?", joinPointVisitor.getSelectedJoinPoints(), Matchers.containsInAnyOrder(expectedJoinPoints));
+    }
+
+    protected final void assertBuildJoinPointSelector(List<String> expectedJoinPoints) {
+        assertBuildJoinPointSelector(toArray(expectedJoinPoints));
     }
 
     protected final void assertEndSpecificJoinPointBuilder(String methodName, JoinPointSelector joinPointSelector) {
@@ -116,4 +117,16 @@ public abstract class AbstractJoinPointSelectorTest<T extends SelectorBuilder> {
             return value;
         }
     };
+
+    protected static List<String> toList(String... expectedJoinPoints) {
+        return Arrays.asList(expectedJoinPoints);
+    }
+
+    protected static String[] toArray(Collection<String> stringCollection) {
+        return stringCollection.toArray(new String[stringCollection.size()]);
+    }
+
+    protected interface SubSelect<T extends SelectorBuilder> {
+        T subSelect(T selectBuilder);
+    }
 }

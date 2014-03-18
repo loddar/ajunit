@@ -29,7 +29,9 @@ import org.failearly.ajunit.internal.universe.AjJoinPointType;
 /**
  * SelectorBuilders provides factory methods for {@link org.failearly.ajunit.internal.builder.jpsb.helper.SelectorBuilderBase}.
  */
-public class SelectorBuilders {
+public abstract class SelectorBuilders {
+    private SelectorBuilders() {}
+
     public static <T extends Builder> MethodSelectorBuilder<T> createMethodSelectorBuilder(T predicateBuilder, AjJoinPointType joinPointType) {
         return new MethodSelectorBuilder<>(predicateBuilder, joinPointType);
     }
@@ -59,7 +61,7 @@ public class SelectorBuilders {
     }
 
     private static <T extends Builder> ClassSelectorBuilder<T>
-    createClassSelectorBuilderHelper(T predicateBuilder, AjJoinPointType joinPointType, Transformer ajJoinPointTransformer) {
+        createClassSelectorBuilderHelper(T predicateBuilder, AjJoinPointType joinPointType, Transformer ajJoinPointTransformer) {
         return new ClassSelectorBuilder<>(predicateBuilder, joinPointType, ajJoinPointTransformer);
     }
 

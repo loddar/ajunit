@@ -129,8 +129,12 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
         return addPredicate(
                 LogicalPredicates.and(
                         transformerPredicate(ClassTransformers.packageNameTransformer(), StandardPredicates.equalsPredicate("java.lang")),
-                        ClassPredicates.isSubclassOf(Number.class),
-                        LogicalPredicates.nor(ClassPredicates.isClass(Void.class), ClassPredicates.isClass(Number.class))
+                        LogicalPredicates.not(ClassPredicates.isClass(Number.class)),
+                        LogicalPredicates.or(
+                            ClassPredicates.isSubclassOf(Number.class),
+                            ClassPredicates.isClass(Void.class),
+                            ClassPredicates.isClass(Boolean.class)
+                        )
                 )
         );
     }

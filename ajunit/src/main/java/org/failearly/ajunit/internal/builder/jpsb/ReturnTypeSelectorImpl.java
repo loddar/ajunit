@@ -23,7 +23,6 @@ import org.failearly.ajunit.internal.builder.BuilderBase;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
-import org.failearly.ajunit.internal.builder.jpsb.helper.JoinPointSelectorUtils;
 import org.failearly.ajunit.internal.builder.jpsb.helper.SelectorBuilders;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
@@ -111,10 +110,9 @@ final class ReturnTypeSelectorImpl
     }
 
     @Override
-    public ReturnComponentTypeSelector byComponentType(LogicalOperator logicalOperator) {
-        return createNewBuilderNode(
-                JoinPointSelectorUtils.createLogicalOperatorPredicate(logicalOperator),
-                getReturnComponentTypeSelectorBuilderFactory(this.joinPointType)
+    public ReturnComponentTypeSelector byComponentType() {
+        return super.and(
+                getReturnComponentTypeSelectorBuilderFactory(this.joinPointType, this.returnTypeSelector)
         );
     }
 
@@ -214,11 +212,13 @@ final class ReturnTypeSelectorImpl
     }
 
     private static BuilderFactory<JoinPointSelectorImpl,ReturnTypeSelectorImpl,ReturnComponentTypeSelectorImpl>
-        getReturnComponentTypeSelectorBuilderFactory(final AjJoinPointType joinPointType) {
+        getReturnComponentTypeSelectorBuilderFactory(
+            final AjJoinPointType joinPointType, final ClassSelectorBuilder<ReturnTypeSelectorImpl> returnTypeSelector
+    ) {
         return new BuilderFactory<JoinPointSelectorImpl, ReturnTypeSelectorImpl, ReturnComponentTypeSelectorImpl>() {
             @Override
             public ReturnComponentTypeSelectorImpl createBuilder(JoinPointSelectorImpl root, ReturnTypeSelectorImpl parent, CompositePredicate compositePredicate) {
-                return new ReturnComponentTypeSelectorImpl(joinPointType, root, parent, compositePredicate);
+                return new ReturnComponentTypeSelectorImpl(joinPointType, root, parent, compositePredicate, returnTypeSelector);
             }
         };
     }

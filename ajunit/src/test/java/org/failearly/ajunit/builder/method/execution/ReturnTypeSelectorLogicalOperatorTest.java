@@ -16,24 +16,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder.method.call;
+package org.failearly.ajunit.builder.method.execution;
 
 import org.failearly.ajunit.builder.JoinPointSelector;
 import org.failearly.ajunit.builder.MethodJoinPointSelector;
-import org.failearly.ajunit.builder.method.MethodJoinPointSelectorLogicalOpsTest;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
- * MethodExecutionJoinPointSelectorLogicalOpsTest is responsible for ...
+ * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
  */
-public final class MethodCallJoinPointSelectorLogicalOpsTest extends MethodJoinPointSelectorLogicalOpsTest {
+public final class ReturnTypeSelectorLogicalOperatorTest extends org.failearly.ajunit.builder.method.ReturnTypeSelectorLogicalOperatorTest {
 
-    public MethodCallJoinPointSelectorLogicalOpsTest() {
-        super(AjJoinPointType.METHOD_CALL);
+    public ReturnTypeSelectorLogicalOperatorTest() {
+        super(AjJoinPointType.METHOD_EXECUTION);
     }
 
     @Override
     protected MethodJoinPointSelector createSelectorBuilderUnderTest(JoinPointSelector joinPointSelector) {
-        return joinPointSelector.methodCall();
+        return joinPointSelector.methodExecute();
     }
 }

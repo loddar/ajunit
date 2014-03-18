@@ -40,9 +40,15 @@ final class ReturnComponentTypeSelectorImpl
     private final ClassSelectorBuilder<ReturnComponentTypeSelectorImpl> returnComponentTypeSelector;
     private final AjJoinPointType joinPointType;
 
-    ReturnComponentTypeSelectorImpl(AjJoinPointType joinPointType, JoinPointSelectorImpl root, ReturnTypeSelectorImpl parent, CompositePredicate compositePredicate) {
+    ReturnComponentTypeSelectorImpl(
+            AjJoinPointType joinPointType,
+            JoinPointSelectorImpl root,
+            ReturnTypeSelectorImpl parent,
+            CompositePredicate compositePredicate,
+            ClassSelectorBuilder<ReturnTypeSelectorImpl> returnTypeSelector) {
         this(joinPointType);
-        init(LogicalStructureBuilder.createBuilder(root,parent,this,compositePredicate));
+        init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
+        returnTypeSelector.byArray();
     }
 
     /**

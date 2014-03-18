@@ -53,13 +53,15 @@ public interface ArrayTypeSelector<SB extends SelectorBuilder, RT extends Extend
     SB byArrayDimension(int dimension, DimensionComparator dimensionComparator);
 
     /**
-     * Starts a sub selector for array's component type.
-     * @param logicalOperator
+     * Starts a sub selector for array's component type. The basic logical operator is {@link org.failearly.ajunit.builder.LogicalOperator#AND}.
+     * Using this sub select, will only select arrays, even if no additional select has been applied - {@link #byArray()} will be added.
+     *
      * @return new component type selector.
      *
      * @see Class#getComponentType()
      * @see ReturnComponentTypeSelector#endComponentType()
+     * @see #byArray()
      */
-    RT byComponentType(LogicalOperator logicalOperator);
+    RT byComponentType();
 
 }

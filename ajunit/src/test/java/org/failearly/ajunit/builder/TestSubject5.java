@@ -18,6 +18,9 @@
  */
 package org.failearly.ajunit.builder;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+
 /**
  * TestSubject4 for convenient return type tester.
  */
@@ -67,6 +70,14 @@ public class TestSubject5 {
     }
 
     public AnyInterface[] getAnyInterface() {
+        return null;
+    }
+
+    public HashMap[][][] getHashMap() {
+        return null;
+    }
+
+    public LinkedList[][][] getLinkedList() {
         return null;
     }
 }

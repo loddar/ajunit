@@ -16,24 +16,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.method.execution;
+
+import org.failearly.ajunit.builder.JoinPointSelector;
+import org.failearly.ajunit.builder.MethodJoinPointSelector;
+import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
- * ComponentTypeSelector provides methods for selecting the component type of any array.<br/>
- * This will be possible for:</br></br>
- *
- * <ul>
- *     <li>{@link ArrayTypeSelector#byComponentType()}</li>
- *     <li>{@link org.failearly.ajunit.builder.ExceptionTypeSelector} TODO: specify byComponentType</li>
- *     <li>{@link org.failearly.ajunit.builder.ParameterTypeSelector} TODO: specify byComponentType</li>
- * </ul>
- *
- *
- * @see ArrayTypeSelector
- * @see org.failearly.ajunit.builder.ReturnComponentTypeSelector
- * @see Class#getComponentType()
+ * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
  */
-public interface ComponentTypeSelector<PS extends SelectorBuilder, CS extends SelectorBuilder>  extends ExtendedClassSelector<CS> {
+public final class ReturnTypeSelectorArrayTest extends org.failearly.ajunit.builder.method.ReturnTypeSelectorArrayTest {
 
-    PS endComponentType();
+    public ReturnTypeSelectorArrayTest() {
+        super(AjJoinPointType.METHOD_EXECUTION);
+    }
+
+    @Override
+    protected MethodJoinPointSelector createSelectorBuilderUnderTest(JoinPointSelector joinPointSelector) {
+        return joinPointSelector.methodExecute();
+    }
 }

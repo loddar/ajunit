@@ -101,7 +101,8 @@ public interface ExtendedClassSelector<SB extends SelectorBuilder> extends Class
      * <ul>
      * <li>extending {@link java.lang.Number} and is part of package {@code java.lang}</li>
      * <li>or is {@link java.lang.Boolean}</li>
-     * <li>excluding {@link java.lang.Number} or {@link java.lang.Void}</li>
+     * <li>or is {@link java.lang.Void}</li>
+     * <li>excluding {@link java.lang.Number}</li>
      * </ul>
      *
      * @return itself

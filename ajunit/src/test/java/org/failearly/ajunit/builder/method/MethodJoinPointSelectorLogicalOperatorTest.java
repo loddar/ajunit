@@ -39,9 +39,9 @@ import static org.junit.Assert.assertThat;
  * @see org.failearly.ajunit.builder.MethodJoinPointSelector#allOf()
  * @see org.failearly.ajunit.builder.MethodJoinPointSelector#intersect()
  */
-public abstract class MethodJoinPointSelectorLogicalOpsTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
+public abstract class MethodJoinPointSelectorLogicalOperatorTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
-    protected MethodJoinPointSelectorLogicalOpsTest(AjJoinPointType expectedJoinPointType) {
+    protected MethodJoinPointSelectorLogicalOperatorTest(AjJoinPointType expectedJoinPointType) {
         super(expectedJoinPointType, TestSubject1.class, TestSubject2.class);
     }
 
