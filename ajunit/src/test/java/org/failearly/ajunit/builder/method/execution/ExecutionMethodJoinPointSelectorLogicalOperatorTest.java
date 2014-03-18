@@ -20,16 +20,15 @@ package org.failearly.ajunit.builder.method.execution;
 
 import org.failearly.ajunit.builder.JoinPointSelector;
 import org.failearly.ajunit.builder.MethodJoinPointSelector;
-import org.failearly.ajunit.builder.method.MethodJoinPointSelectorByNoneOfMethodModifierTest;
+import org.failearly.ajunit.builder.method.MethodJoinPointSelectorLogicalOperatorTest;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
+ * ExecutionMethodJoinPointSelectorLogicalOperatorTest is responsible for ...
  */
-public final class MethodExecutionJoinPointSelectorByNoneOfMethodModifierTest
-        extends MethodJoinPointSelectorByNoneOfMethodModifierTest {
+public final class ExecutionMethodJoinPointSelectorLogicalOperatorTest extends MethodJoinPointSelectorLogicalOperatorTest {
 
-    public MethodExecutionJoinPointSelectorByNoneOfMethodModifierTest() {
+    public ExecutionMethodJoinPointSelectorLogicalOperatorTest() {
         super(AjJoinPointType.METHOD_EXECUTION);
     }
 

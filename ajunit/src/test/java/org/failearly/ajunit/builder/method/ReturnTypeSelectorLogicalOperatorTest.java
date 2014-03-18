@@ -140,7 +140,12 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
     }
 
     private static void defineComplexAndTests(List<Object> tests) {
-        addComplexExpressionAndTest(tests, "and", new SubSelect<ReturnTypeSelector>() {
+        final List<String> expectedJoinPoints = toList(
+                "public org.failearly.ajunit.builder.LogicalOperator org.failearly.ajunit.builder.TestSubject4.getEnum()",
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject4.getTestSubject3()",
+                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject4.getTestSubject2()"
+        );
+        addComplexExpressionAndTest(tests, "and", expectedJoinPoints, new SubSelect<ReturnTypeSelector>() {
             @Override
             public ReturnTypeSelector subSelect(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
@@ -153,7 +158,7 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
 
             }
         });
-        addComplexExpressionAndTest(tests, "allOf", new SubSelect<ReturnTypeSelector>() {
+        addComplexExpressionAndTest(tests, "allOf", expectedJoinPoints, new SubSelect<ReturnTypeSelector>() {
             @Override
             public ReturnTypeSelector subSelect(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
@@ -166,7 +171,7 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
 
             }
         });
-        addComplexExpressionAndTest(tests, "intersect", new SubSelect<ReturnTypeSelector>() {
+        addComplexExpressionAndTest(tests, "intersect", expectedJoinPoints, new SubSelect<ReturnTypeSelector>() {
             @Override
             public ReturnTypeSelector subSelect(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
@@ -182,7 +187,14 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
     }
 
     private static void defineComplexOrTests(List<Object> tests) {
-        addComplexExpressionOrTest(tests, "or", new SubSelect<ReturnTypeSelector>() {
+        final List<String> expectedJoinPoints = toList(
+                "public java.util.HashMap org.failearly.ajunit.builder.TestSubject4.getHashMap()",
+                "public java.util.Map org.failearly.ajunit.builder.TestSubject4.getMap()",
+                "public java.util.Hashtable org.failearly.ajunit.builder.TestSubject4.getHashTable()",
+                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject4.getTestSubject3()",
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject4.getTestSubject1()"
+        );
+        addComplexExpressionOrTest(tests, "or", expectedJoinPoints, new SubSelect<ReturnTypeSelector>() {
             @Override
             public ReturnTypeSelector subSelect(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
@@ -192,7 +204,7 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
                         .end();
             }
         });
-        addComplexExpressionOrTest(tests, "anyOf", new SubSelect<ReturnTypeSelector>() {
+        addComplexExpressionOrTest(tests, "anyOf", expectedJoinPoints, new SubSelect<ReturnTypeSelector>() {
             @Override
             public ReturnTypeSelector subSelect(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
@@ -202,7 +214,7 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
                         .end();
             }
         });
-        addComplexExpressionOrTest(tests, "union", new SubSelect<ReturnTypeSelector>() {
+        addComplexExpressionOrTest(tests, "union", expectedJoinPoints, new SubSelect<ReturnTypeSelector>() {
             @Override
             public ReturnTypeSelector subSelect(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
@@ -214,23 +226,11 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
         });
     }
 
-    private static void addComplexExpressionOrTest(List<Object> tests, String logicalOperatorName, SubSelect<ReturnTypeSelector> subSelect) {
-        final List<String> expectedJoinPoints = toList(
-                "public java.util.HashMap org.failearly.ajunit.builder.TestSubject4.getHashMap()",
-                "public java.util.Map org.failearly.ajunit.builder.TestSubject4.getMap()",
-                "public java.util.Hashtable org.failearly.ajunit.builder.TestSubject4.getHashTable()",
-                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject4.getTestSubject3()",
-                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject4.getTestSubject1()"
-        );
+    private static void addComplexExpressionOrTest(List<Object> tests, String logicalOperatorName, List<String> expectedJoinPoints, SubSelect<ReturnTypeSelector> subSelect) {
         tests.add(new Object[]{"Complex OR (" + logicalOperatorName + ")", LogicalOperator.AND, expectedJoinPoints, subSelect});
     }
 
-    private static void addComplexExpressionAndTest(List<Object> tests, String logicalOperatorName, SubSelect<ReturnTypeSelector> subSelect) {
-        final List<String> expectedJoinPoints = toList(
-                "public org.failearly.ajunit.builder.LogicalOperator org.failearly.ajunit.builder.TestSubject4.getEnum()",
-                "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject4.getTestSubject3()",
-                "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject4.getTestSubject2()"
-        );
+    private static void addComplexExpressionAndTest(List<Object> tests, String logicalOperatorName, List<String> expectedJoinPoints, SubSelect<ReturnTypeSelector> subSelect) {
         tests.add(new Object[]{"Complex AND (" + logicalOperatorName + ")", LogicalOperator.AND, expectedJoinPoints, subSelect});
     }
 

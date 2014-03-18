@@ -20,15 +20,15 @@ package org.failearly.ajunit.builder.method.call;
 
 import org.failearly.ajunit.builder.JoinPointSelector;
 import org.failearly.ajunit.builder.MethodJoinPointSelector;
-import org.failearly.ajunit.builder.method.MethodJoinPointSelectorByClassTest;
+import org.failearly.ajunit.builder.method.ReturnTypeSelectorTest;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
  * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
  */
-public final class MethodCallJoinPointSelectorByClassTest extends MethodJoinPointSelectorByClassTest {
+public final class CallReturnTypeSelectorTest extends ReturnTypeSelectorTest {
 
-    public MethodCallJoinPointSelectorByClassTest() {
+    public CallReturnTypeSelectorTest() {
         super(AjJoinPointType.METHOD_CALL);
     }
 

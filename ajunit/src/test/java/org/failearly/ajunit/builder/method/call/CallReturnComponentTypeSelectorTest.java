@@ -16,25 +16,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder.method.execution;
+package org.failearly.ajunit.builder.method.call;
 
 import org.failearly.ajunit.builder.JoinPointSelector;
-import org.failearly.ajunit.builder.MethodJoinPointSelector;
-import org.failearly.ajunit.builder.method.MethodJoinPointSelectorByNoneOfAccessModifierTest;
+import org.failearly.ajunit.builder.LogicalOperator;
+import org.failearly.ajunit.builder.ReturnComponentTypeSelector;
+import org.failearly.ajunit.builder.method.ReturnComponentTypeSelectorTest;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
  * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
  */
-public final class MethodExecutionJoinPointSelectorByNoneOfAccessModifierTest
-        extends MethodJoinPointSelectorByNoneOfAccessModifierTest {
+public final class CallReturnComponentTypeSelectorTest extends ReturnComponentTypeSelectorTest {
 
-    public MethodExecutionJoinPointSelectorByNoneOfAccessModifierTest() {
-        super(AjJoinPointType.METHOD_EXECUTION);
+    public CallReturnComponentTypeSelectorTest() {
+        super(AjJoinPointType.METHOD_CALL);
     }
 
     @Override
-    protected MethodJoinPointSelector createSelectorBuilderUnderTest(JoinPointSelector joinPointSelector) {
-        return joinPointSelector.methodExecute();
+    protected ReturnComponentTypeSelector createSelectorBuilderUnderTest(JoinPointSelector joinPointSelector) {
+        return joinPointSelector.methodExecute().byReturnType(LogicalOperator.AND).byComponentType();
     }
 }

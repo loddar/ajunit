@@ -19,20 +19,22 @@
 package org.failearly.ajunit.builder.method.execution;
 
 import org.failearly.ajunit.builder.JoinPointSelector;
-import org.failearly.ajunit.builder.MethodJoinPointSelector;
+import org.failearly.ajunit.builder.LogicalOperator;
+import org.failearly.ajunit.builder.ReturnComponentTypeSelector;
+import org.failearly.ajunit.builder.method.ReturnComponentTypeSelectorTest;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
  * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
  */
-public final class ReturnTypeSelectorTest extends org.failearly.ajunit.builder.method.ReturnTypeSelectorTest {
+public final class ExecutionReturnComponentTypeSelectorTest extends ReturnComponentTypeSelectorTest {
 
-    public ReturnTypeSelectorTest() {
+    public ExecutionReturnComponentTypeSelectorTest() {
         super(AjJoinPointType.METHOD_EXECUTION);
     }
 
     @Override
-    protected MethodJoinPointSelector createSelectorBuilderUnderTest(JoinPointSelector joinPointSelector) {
-        return joinPointSelector.methodExecute();
+    protected ReturnComponentTypeSelector createSelectorBuilderUnderTest(JoinPointSelector joinPointSelector) {
+        return joinPointSelector.methodExecute().byReturnType(LogicalOperator.AND).byComponentType();
     }
 }
