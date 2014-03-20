@@ -18,15 +18,30 @@
  */
 package org.failearly.ajunit.internal.predicate.collection;
 
-import org.failearly.ajunit.internal.predicate.TypedPredicate;
+import org.failearly.ajunit.internal.predicate.CompositePredicate;
+import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.predicate.TypedDelegateCompositePredicate;
 
 import java.util.Collection;
 
 /**
  * CollectionPredicateBase is responsible for ...
  */
-abstract class CollectionPredicateBase<T extends Collection> extends TypedPredicate<T> {
-    public CollectionPredicateBase(Class<T> parameterClass, String type) {
-        super(parameterClass, type);
+abstract class CollectionPredicateBase<T extends Collection>
+        extends  TypedDelegateCompositePredicate<T> {
+
+    CollectionPredicateBase(Class<T> parameterClass, String type, CompositePredicate compositePredicate) {
+        super(parameterClass, type, compositePredicate);
     }
+
+    @Override
+    protected final boolean doTypedEvaluate(T collection) {
+        if( collection.isEmpty() )
+            return false;
+
+        return doApplyPredicateOnCollection(collection, super.getDelegatePredicate());
+    }
+
+
+    protected abstract boolean doApplyPredicateOnCollection(T collection, Predicate predicate);
 }

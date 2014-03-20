@@ -46,7 +46,7 @@ public abstract class ReturnComponentTypeSelectorLogicalOperatorTest extends Abs
     public List<String> expectedJoinPoints;
 
     @Parameterized.Parameter(2)
-    public SubSelect<ReturnComponentTypeSelector> subSelect;
+    public SelectorFragment<ReturnComponentTypeSelector> selectorFragment;
 
     protected ReturnComponentTypeSelectorLogicalOperatorTest(AjJoinPointType expectedJoinPointType) {
         super(expectedJoinPointType, TestSubject5.class);
@@ -66,33 +66,33 @@ public abstract class ReturnComponentTypeSelectorLogicalOperatorTest extends Abs
                 "public int[] org.failearly.ajunit.builder.TestSubject5.getIntArray()",
                 "public int[][] org.failearly.ajunit.builder.TestSubject5.getIntMatrix()"
         );
-        norTest(tests, "nor", expectedJoinPoints, new SubSelect<ReturnComponentTypeSelector>() {
+        norTest(tests, "nor", expectedJoinPoints, new SelectorFragment<ReturnComponentTypeSelector>() {
             @Override
-            public ReturnComponentTypeSelector subSelect(ReturnComponentTypeSelector selectBuilder) {
+            public ReturnComponentTypeSelector select(ReturnComponentTypeSelector selectBuilder) {
                 return selectBuilder.nor()
                         .byExtending(Object.class)
                         .end();
             }
         });
-       norTest(tests, "neitherNor", expectedJoinPoints, new SubSelect<ReturnComponentTypeSelector>() {
+       norTest(tests, "neitherNor", expectedJoinPoints, new SelectorFragment<ReturnComponentTypeSelector>() {
             @Override
-            public ReturnComponentTypeSelector subSelect(ReturnComponentTypeSelector selectBuilder) {
+            public ReturnComponentTypeSelector select(ReturnComponentTypeSelector selectBuilder) {
                 return selectBuilder.neitherNor()
                         .byExtending(Object.class)
                         .end();
             }
         });
-       norTest(tests, "noneOf", expectedJoinPoints, new SubSelect<ReturnComponentTypeSelector>() {
+       norTest(tests, "noneOf", expectedJoinPoints, new SelectorFragment<ReturnComponentTypeSelector>() {
             @Override
-            public ReturnComponentTypeSelector subSelect(ReturnComponentTypeSelector selectBuilder) {
+            public ReturnComponentTypeSelector select(ReturnComponentTypeSelector selectBuilder) {
                 return selectBuilder.noneOf()
                         .byExtending(Object.class)
                         .end();
             }
         });
-       norTest(tests, "complement", expectedJoinPoints, new SubSelect<ReturnComponentTypeSelector>() {
+       norTest(tests, "complement", expectedJoinPoints, new SelectorFragment<ReturnComponentTypeSelector>() {
             @Override
-            public ReturnComponentTypeSelector subSelect(ReturnComponentTypeSelector selectBuilder) {
+            public ReturnComponentTypeSelector select(ReturnComponentTypeSelector selectBuilder) {
                 return selectBuilder.complement()
                         .byExtending(Object.class)
                         .end();
@@ -104,27 +104,27 @@ public abstract class ReturnComponentTypeSelectorLogicalOperatorTest extends Abs
         final List<String> expectedJoinPoints = toList(
                 "public java.util.LinkedList[][][] org.failearly.ajunit.builder.TestSubject5.getLinkedList()"
         );
-        andTest(tests, "and", expectedJoinPoints, new SubSelect<ReturnComponentTypeSelector>() {
+        andTest(tests, "and", expectedJoinPoints, new SelectorFragment<ReturnComponentTypeSelector>() {
             @Override
-            public ReturnComponentTypeSelector subSelect(ReturnComponentTypeSelector selectBuilder) {
+            public ReturnComponentTypeSelector select(ReturnComponentTypeSelector selectBuilder) {
                 return selectBuilder.and()
                             .byExtending(Object.class)
                             .byCollection()
                         .end();
             }
         });
-       andTest(tests, "allOf", expectedJoinPoints, new SubSelect<ReturnComponentTypeSelector>() {
+       andTest(tests, "allOf", expectedJoinPoints, new SelectorFragment<ReturnComponentTypeSelector>() {
             @Override
-            public ReturnComponentTypeSelector subSelect(ReturnComponentTypeSelector selectBuilder) {
+            public ReturnComponentTypeSelector select(ReturnComponentTypeSelector selectBuilder) {
                 return selectBuilder.allOf()
                             .byExtending(Object.class)
                             .byCollection()
                         .end();
             }
         });
-       andTest(tests, "intersect", expectedJoinPoints, new SubSelect<ReturnComponentTypeSelector>() {
+       andTest(tests, "intersect", expectedJoinPoints, new SelectorFragment<ReturnComponentTypeSelector>() {
             @Override
-            public ReturnComponentTypeSelector subSelect(ReturnComponentTypeSelector selectBuilder) {
+            public ReturnComponentTypeSelector select(ReturnComponentTypeSelector selectBuilder) {
                 return selectBuilder.intersect()
                             .byExtending(Object.class)
                             .byCollection()
@@ -147,27 +147,27 @@ public abstract class ReturnComponentTypeSelectorLogicalOperatorTest extends Abs
                 "public java.util.HashMap[][][] org.failearly.ajunit.builder.TestSubject5.getHashMap()",
                 "public java.util.LinkedList[][][] org.failearly.ajunit.builder.TestSubject5.getLinkedList()"
         );
-        orTest(tests, "or", expectedJoinPoints, new SubSelect<ReturnComponentTypeSelector>() {
+        orTest(tests, "or", expectedJoinPoints, new SelectorFragment<ReturnComponentTypeSelector>() {
             @Override
-            public ReturnComponentTypeSelector subSelect(ReturnComponentTypeSelector selectBuilder) {
+            public ReturnComponentTypeSelector select(ReturnComponentTypeSelector selectBuilder) {
                 return selectBuilder.or()
                         .byExtending(Object.class)
                         .byPrimitive()
                         .end();
             }
         });
-        orTest(tests, "anyOf", expectedJoinPoints, new SubSelect<ReturnComponentTypeSelector>() {
+        orTest(tests, "anyOf", expectedJoinPoints, new SelectorFragment<ReturnComponentTypeSelector>() {
             @Override
-            public ReturnComponentTypeSelector subSelect(ReturnComponentTypeSelector selectBuilder) {
+            public ReturnComponentTypeSelector select(ReturnComponentTypeSelector selectBuilder) {
                 return selectBuilder.anyOf()
                         .byExtending(Object.class)
                         .byPrimitive()
                         .end();
             }
         });
-        orTest(tests, "union", expectedJoinPoints, new SubSelect<ReturnComponentTypeSelector>() {
+        orTest(tests, "union", expectedJoinPoints, new SelectorFragment<ReturnComponentTypeSelector>() {
             @Override
-            public ReturnComponentTypeSelector subSelect(ReturnComponentTypeSelector selectBuilder) {
+            public ReturnComponentTypeSelector select(ReturnComponentTypeSelector selectBuilder) {
                 return selectBuilder.union()
                         .byExtending(Object.class)
                         .byPrimitive()
@@ -176,25 +176,25 @@ public abstract class ReturnComponentTypeSelectorLogicalOperatorTest extends Abs
         });
     }
 
-    private static void orTest(List<Object> tests, String logicalOperatorName, List<String> expectedJoinPoints, SubSelect<ReturnComponentTypeSelector> subSelect) {
+    private static void orTest(List<Object> tests, String logicalOperatorName, List<String> expectedJoinPoints, SelectorFragment<ReturnComponentTypeSelector> subSelect) {
         tests.add(new Object[]{"Complex OR (" + logicalOperatorName + ")", expectedJoinPoints, subSelect});
     }
 
-    private static void andTest(List<Object> tests, String logicalOperatorName, List<String> expectedJoinPoints, SubSelect<ReturnComponentTypeSelector> subSelect) {
+    private static void andTest(List<Object> tests, String logicalOperatorName, List<String> expectedJoinPoints, SelectorFragment<ReturnComponentTypeSelector> subSelect) {
         tests.add(new Object[]{"Complex AND (" + logicalOperatorName + ")", expectedJoinPoints, subSelect});
     }
 
-    private static void norTest(List<Object> tests, String logicalOperatorName, List<String> expectedJoinPoints, SubSelect<ReturnComponentTypeSelector> subSelect) {
+    private static void norTest(List<Object> tests, String logicalOperatorName, List<String> expectedJoinPoints, SelectorFragment<ReturnComponentTypeSelector> subSelect) {
         tests.add(new Object[]{"Complex NOR (" + logicalOperatorName + ")", expectedJoinPoints, subSelect});
     }
 
     @Test
     public void logicalOperatorTest() throws Exception {
-        assertLogicalExpression(this.subSelect, this.expectedJoinPoints);
+        assertLogicalExpression(this.selectorFragment, this.expectedJoinPoints);
     }
 
-    private void assertLogicalExpression(SubSelect<ReturnComponentTypeSelector> subSelect, List<String> expectedJoinPoints) {
-        subSelect.subSelect(
+    private void assertLogicalExpression(SelectorFragment<ReturnComponentTypeSelector> subSelect, List<String> expectedJoinPoints) {
+        subSelect.select(
                 selectorBuilder
         ).endComponentType();
 

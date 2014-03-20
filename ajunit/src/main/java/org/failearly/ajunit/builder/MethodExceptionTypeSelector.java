@@ -16,24 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.internal.predicate.standard;
-
-import org.failearly.ajunit.internal.predicate.TypedPredicate;
+package org.failearly.ajunit.builder;
 
 /**
- * IsSubclassOfPredicate evaluates to {@code true} if the object is a subclass of current class/interface.
+ * MethodExceptionTypeSelector provides selectors for {@link org.failearly.ajunit.builder.MethodJoinPointSelector#byExceptionTypes(ListLogicalOperator)}.
+ *
+ * @see java.lang.reflect.Method#getExceptionTypes()
  */
-final class IsSubclassOfPredicate extends TypedPredicate<Class<?>> {
-    private final Class<?> clazz;
-
-    @SuppressWarnings("unchecked")
-    IsSubclassOfPredicate(Class<?> clazz) {
-        super((Class<Class<?>>) clazz.getClass(),"IsSubclassOf("+clazz.getName()+")");
-        this.clazz = clazz;
-    }
-
-    @Override
-    protected boolean doTypedEvaluate(final Class<?> clazz) {
-        return this.clazz.isAssignableFrom(clazz);
-    }
+public interface MethodExceptionTypeSelector extends ExceptionTypeSelector<MethodJoinPointSelector, MethodExceptionTypeSelector> {
 }

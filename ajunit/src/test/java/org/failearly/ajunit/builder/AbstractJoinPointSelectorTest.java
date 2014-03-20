@@ -126,7 +126,7 @@ public abstract class AbstractJoinPointSelectorTest<T extends SelectorBuilder> {
         return stringCollection.toArray(new String[stringCollection.size()]);
     }
 
-    protected interface SubSelect<T extends SelectorBuilder> {
-        T subSelect(T selectBuilder);
+    protected interface SelectorFragment<T extends SelectorBuilder> {
+        T select(T selectBuilder);
     }
 }

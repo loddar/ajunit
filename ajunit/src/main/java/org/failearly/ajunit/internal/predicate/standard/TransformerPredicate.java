@@ -18,21 +18,28 @@
  */
 package org.failearly.ajunit.internal.predicate.standard;
 
+import org.failearly.ajunit.internal.predicate.CompositePredicate;
+import org.failearly.ajunit.internal.predicate.DelegateCompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
-import org.failearly.ajunit.internal.predicate.PredicateBase;
 import org.failearly.ajunit.internal.transformer.Transformer;
 
 /**
 * TransformerPredicate is a {@link org.failearly.ajunit.internal.predicate.Predicate} which executes <code>P(T(input))</code>.
 */
-final class TransformerPredicate extends PredicateBase {
+final class TransformerPredicate extends DelegateCompositePredicate {
     private final Transformer transformer;
     private final Predicate predicate;
 
-    public TransformerPredicate(Transformer transformer, Predicate predicate) {
+    TransformerPredicate(Transformer transformer, Predicate predicate) {
         super("TransformerPredicate("+predicate+")");
         this.transformer = transformer;
         this.predicate = predicate;
+    }
+
+    TransformerPredicate(Transformer transformer, CompositePredicate compositePredicate) {
+        super("TransformerPredicate("+compositePredicate+")", compositePredicate);
+        this.transformer = transformer;
+        this.predicate = compositePredicate;
     }
 
     @Override

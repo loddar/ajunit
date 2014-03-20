@@ -100,6 +100,9 @@ public interface MethodJoinPointSelector
      */
     ReturnTypeSelector byReturnType(LogicalOperator logicalOperator);
 
+
+    MethodExceptionTypeSelector byExceptionTypes(ListLogicalOperator listLogicalOperator);
+
     /**
      * Convenient selector builder for methods with return type <code>void</code>.
      * @return  itself

@@ -37,7 +37,6 @@ import org.failearly.ajunit.modifier.MethodModifier;
 final class MethodJoinPointSelectorImpl
         extends BuilderBase<JoinPointSelectorImpl, MethodJoinPointSelectorImpl> implements MethodJoinPointSelector {
 
-    public static final String ARRAY_SYMBOL = "[]";
     private final MethodSelectorBuilder<MethodJoinPointSelectorImpl> methodSelector;
     private final ClassSelectorBuilder<MethodJoinPointSelectorImpl>  declaringClassSelector;
     private final AjJoinPointType joinPointType;
@@ -65,6 +64,13 @@ final class MethodJoinPointSelectorImpl
         this.joinPointType = joinPointType;
         this.methodSelector = SelectorBuilders.createMethodSelectorBuilder(this, joinPointType);
         this.declaringClassSelector = SelectorBuilders.createDeclaringClassSelectorBuilder(this, joinPointType);
+    }
+
+
+
+    @Override
+    public MethodJoinPointSelector end() {
+        return super.doEndLogicalExpression(MethodJoinPointSelector.class, false);
     }
 
     @Override
@@ -153,7 +159,7 @@ final class MethodJoinPointSelectorImpl
 
     @Override
     public MethodJoinPointSelector or() {
-        return super.or(getMethodJoinPointSelectorBuilderFactory());
+        return super.or(getMethodJoinPointSelectorBuilderFactory(this.joinPointType));
     }
 
     @Override
@@ -168,7 +174,7 @@ final class MethodJoinPointSelectorImpl
 
     @Override
     public MethodJoinPointSelector and() {
-        return super.and(getMethodJoinPointSelectorBuilderFactory());
+        return super.and(getMethodJoinPointSelectorBuilderFactory(this.joinPointType));
     }
 
     @Override
@@ -183,7 +189,7 @@ final class MethodJoinPointSelectorImpl
 
     @Override
     public MethodJoinPointSelector nor() {
-        return super.nor(getMethodJoinPointSelectorBuilderFactory());
+        return super.nor(getMethodJoinPointSelectorBuilderFactory(this.joinPointType));
     }
 
     @Override
@@ -205,8 +211,13 @@ final class MethodJoinPointSelectorImpl
     public ReturnTypeSelector byReturnType(LogicalOperator logicalOperator) {
         return createNewBuilderNode(
                 JoinPointSelectorUtils.createLogicalOperatorPredicate(logicalOperator),
-                getReturnTypeSelectorBuilderFactory()
+                getReturnTypeSelectorBuilderFactory(this.joinPointType)
         );
+    }
+
+    @Override
+    public MethodExceptionTypeSelector byExceptionTypes(ListLogicalOperator listLogicalOperator) {
+        return super.or(getMethodExceptionTypeSelectorBuilderFactory(this.joinPointType, listLogicalOperator));
     }
 
     @Override
@@ -252,25 +263,32 @@ final class MethodJoinPointSelectorImpl
                 .endReturnType();
     }
 
-    private
+    private static
     BuilderFactory<JoinPointSelectorImpl,MethodJoinPointSelectorImpl,ReturnTypeSelectorImpl>
-        getReturnTypeSelectorBuilderFactory() {
+        getReturnTypeSelectorBuilderFactory(final AjJoinPointType joinPointType) {
         return new BuilderFactory<JoinPointSelectorImpl,MethodJoinPointSelectorImpl,ReturnTypeSelectorImpl>() {
             @Override
             public ReturnTypeSelectorImpl createBuilder(
                         JoinPointSelectorImpl root, MethodJoinPointSelectorImpl parent, CompositePredicate compositePredicate) {
-                return new ReturnTypeSelectorImpl(joinPointType, root, parent, compositePredicate);
+                return new ReturnTypeSelectorImpl(root, parent, compositePredicate, joinPointType);
             }
         };
     }
 
-    @Override
-    public MethodJoinPointSelector end() {
-        return super.doEndLogicalExpression(MethodJoinPointSelector.class, false);
+    private static
+    BuilderFactory<JoinPointSelectorImpl,MethodJoinPointSelectorImpl,MethodExceptionTypeSelectorImpl>
+        getMethodExceptionTypeSelectorBuilderFactory(final AjJoinPointType joinPointType, final ListLogicalOperator listLogicalOperator) {
+        return new BuilderFactory<JoinPointSelectorImpl, MethodJoinPointSelectorImpl, MethodExceptionTypeSelectorImpl>() {
+            @Override
+            public MethodExceptionTypeSelectorImpl createBuilder(JoinPointSelectorImpl root, MethodJoinPointSelectorImpl parent, CompositePredicate compositePredicate) {
+                return new MethodExceptionTypeSelectorImpl(root, parent, compositePredicate, joinPointType, listLogicalOperator);
+            }
+        };
     }
 
-    private BuilderFactory<JoinPointSelectorImpl,MethodJoinPointSelectorImpl,MethodJoinPointSelectorImpl>
-            getMethodJoinPointSelectorBuilderFactory() {
+    private static
+    BuilderFactory<JoinPointSelectorImpl,MethodJoinPointSelectorImpl,MethodJoinPointSelectorImpl>
+            getMethodJoinPointSelectorBuilderFactory(final AjJoinPointType joinPointType) {
         return new BuilderFactory<JoinPointSelectorImpl, MethodJoinPointSelectorImpl, MethodJoinPointSelectorImpl>() {
             @Override
             public MethodJoinPointSelectorImpl createBuilder(

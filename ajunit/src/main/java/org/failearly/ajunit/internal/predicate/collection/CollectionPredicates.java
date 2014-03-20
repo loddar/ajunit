@@ -18,19 +18,19 @@
  */
 package org.failearly.ajunit.internal.predicate.collection;
 
+import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.predicate.TypedPredicate;
 import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
 
 import java.util.Collection;
-
-import static org.failearly.ajunit.internal.predicate.standard.LogicalPredicates.not;
 
 /**
  * CollectionPredicates provides factory methods for applying a single predicate on collection of objects.
  */
 public abstract class CollectionPredicates {
 
-    private static final Predicate P_IS_EMPTY = new CollectionPredicateBase<Collection>(Collection.class, "isEmpty") {
+    private static final Predicate P_IS_EMPTY = new TypedPredicate <Collection>(Collection.class, "isEmpty") {
         @Override
         protected boolean doTypedEvaluate(Collection collection) {
             return collection.isEmpty();
@@ -43,27 +43,27 @@ public abstract class CollectionPredicates {
     }
 
     /**
-     * The resulting predicate evaluates to {@code true},
-     * if any of the elements evaluates to {@code true} by using given {@code predicate}.
-     * If the collection is empty the predicate returns {@code false}.
+     * The resulting compositePredicate evaluates to {@code true},
+     * if any of the elements evaluates to {@code true} by using given {@code compositePredicate}.
+     * If the collection is empty the compositePredicate returns {@code false}.
      *
-     * @param predicate the predicate to by applied on the collection element.
-     * @return new predicate.
+     * @param compositePredicate the compositePredicate to by applied on the collection element.
+     * @return new composite predicate.
      */
-    public static Predicate anyOf(Predicate predicate) {
-        return new CollectionPredicate<>(Collection.class, "AnyOf", predicate, true);
+    public static CompositePredicate anyOf(CompositePredicate compositePredicate) {
+        return new CollectionPredicate<>(Collection.class, "AnyOf", compositePredicate, true);
     }
 
     /**
-     * The resulting predicate evaluates to {@code true},
-     * if all of the elements evaluates to {@code true} by using given {@code predicate}.
-     * If the collection is empty the predicate returns {@code false}.
+     * The resulting compositePredicate evaluates to {@code true},
+     * if all of the elements evaluates to {@code true} by using given {@code compositePredicate}.
+     * If the collection is empty the compositePredicate returns {@code false}.
      *
-     * @param predicate the predicate to by applied on the collection element.
-     * @return new predicate.
+     * @param compositePredicate the compositePredicate to by applied on the collection element.
+     * @return new compositePredicate.
      */
-    public static Predicate allOf(Predicate predicate) {
-        return new CollectionPredicate<>(Collection.class, "AllOf", predicate, false);
+    public static CompositePredicate allOf(CompositePredicate compositePredicate) {
+        return new CollectionPredicate<>(Collection.class, "AllOf", compositePredicate, false);
     }
 
     /**
@@ -71,14 +71,11 @@ public abstract class CollectionPredicates {
      * if none of the elements evaluates to {@code true} by using given {@code predicate}.
      * If the collection is empty the predicate returns {@code false}.
      *
-     * @param predicate the predicate to by applied on the collection element.
+     * @param compositePredicate the predicate to by applied on the collection element.
      * @return new predicate.
      */
-    public static Predicate noneOf(Predicate predicate) {
-        return LogicalPredicates.and(
-                isNotEmpty(),
-                not(new CollectionPredicate<>(Collection.class, "NoneOf", predicate, true))
-        );
+    public static CompositePredicate noneOf(CompositePredicate compositePredicate) {
+        return new NoneOfCollectionPredicate<>(Collection.class, compositePredicate);
     }
 
     /**

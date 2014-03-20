@@ -54,7 +54,7 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
     public List<String> expectedJoinPoints;
 
     @Parameterized.Parameter(3)
-    public SubSelect<ReturnTypeSelector> subSelect;
+    public SelectorFragment<ReturnTypeSelector> subSelect;
 
     protected ReturnTypeSelectorLogicalOperatorTest(AjJoinPointType expectedJoinPointType) {
         super(expectedJoinPointType, TestSubject4.class);
@@ -89,9 +89,9 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
                 "public java.util.Collection org.failearly.ajunit.builder.TestSubject4.getCollection()",
                 "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException"
         );
-        addComplexExpressionNorTest(tests, "nor", expectedJoinPoints, new SubSelect<ReturnTypeSelector>() {
+        addComplexExpressionNorTest(tests, "nor", expectedJoinPoints, new SelectorFragment<ReturnTypeSelector>() {
             @Override
-            public ReturnTypeSelector subSelect(ReturnTypeSelector selectBuilder) {
+            public ReturnTypeSelector select(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
                         .nor()
                             .byImplementingAnyOf(Serializable.class)
@@ -101,9 +101,9 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
                         .end();
             }
         });
-        addComplexExpressionNorTest(tests, "noneOf", expectedJoinPoints, new SubSelect<ReturnTypeSelector>() {
+        addComplexExpressionNorTest(tests, "noneOf", expectedJoinPoints, new SelectorFragment<ReturnTypeSelector>() {
             @Override
-            public ReturnTypeSelector subSelect(ReturnTypeSelector selectBuilder) {
+            public ReturnTypeSelector select(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
                         .noneOf()
                             .byImplementingAnyOf(Serializable.class)
@@ -113,9 +113,9 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
                         .end();
             }
         });
-        addComplexExpressionNorTest(tests, "neitherNor", expectedJoinPoints, new SubSelect<ReturnTypeSelector>() {
+        addComplexExpressionNorTest(tests, "neitherNor", expectedJoinPoints, new SelectorFragment<ReturnTypeSelector>() {
             @Override
-            public ReturnTypeSelector subSelect(ReturnTypeSelector selectBuilder) {
+            public ReturnTypeSelector select(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
                         .neitherNor()
                             .byImplementingAnyOf(Serializable.class)
@@ -125,9 +125,9 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
                         .end();
             }
         });
-        addComplexExpressionNorTest(tests, "complement", expectedJoinPoints, new SubSelect<ReturnTypeSelector>() {
+        addComplexExpressionNorTest(tests, "complement", expectedJoinPoints, new SelectorFragment<ReturnTypeSelector>() {
             @Override
-            public ReturnTypeSelector subSelect(ReturnTypeSelector selectBuilder) {
+            public ReturnTypeSelector select(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
                         .complement()
                             .byImplementingAnyOf(Serializable.class)
@@ -145,9 +145,9 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
                 "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject4.getTestSubject3()",
                 "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject4.getTestSubject2()"
         );
-        addComplexExpressionAndTest(tests, "and", expectedJoinPoints, new SubSelect<ReturnTypeSelector>() {
+        addComplexExpressionAndTest(tests, "and", expectedJoinPoints, new SelectorFragment<ReturnTypeSelector>() {
             @Override
-            public ReturnTypeSelector subSelect(ReturnTypeSelector selectBuilder) {
+            public ReturnTypeSelector select(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
                         .byPackageName("org.failearly.ajunit.builder", StringMatcherType.EQUALS)
                         .and()
@@ -158,9 +158,9 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
 
             }
         });
-        addComplexExpressionAndTest(tests, "allOf", expectedJoinPoints, new SubSelect<ReturnTypeSelector>() {
+        addComplexExpressionAndTest(tests, "allOf", expectedJoinPoints, new SelectorFragment<ReturnTypeSelector>() {
             @Override
-            public ReturnTypeSelector subSelect(ReturnTypeSelector selectBuilder) {
+            public ReturnTypeSelector select(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
                         .byPackageName("org.failearly.ajunit.builder", StringMatcherType.EQUALS)
                         .allOf()
@@ -171,9 +171,9 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
 
             }
         });
-        addComplexExpressionAndTest(tests, "intersect", expectedJoinPoints, new SubSelect<ReturnTypeSelector>() {
+        addComplexExpressionAndTest(tests, "intersect", expectedJoinPoints, new SelectorFragment<ReturnTypeSelector>() {
             @Override
-            public ReturnTypeSelector subSelect(ReturnTypeSelector selectBuilder) {
+            public ReturnTypeSelector select(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
                         .byPackageName("org.failearly.ajunit.builder", StringMatcherType.EQUALS)
                         .intersect()
@@ -194,9 +194,9 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
                 "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject4.getTestSubject3()",
                 "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject4.getTestSubject1()"
         );
-        addComplexExpressionOrTest(tests, "or", expectedJoinPoints, new SubSelect<ReturnTypeSelector>() {
+        addComplexExpressionOrTest(tests, "or", expectedJoinPoints, new SelectorFragment<ReturnTypeSelector>() {
             @Override
-            public ReturnTypeSelector subSelect(ReturnTypeSelector selectBuilder) {
+            public ReturnTypeSelector select(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
                         .or()
                             .byImplementingAnyOf(AnyInterface.class)
@@ -204,9 +204,9 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
                         .end();
             }
         });
-        addComplexExpressionOrTest(tests, "anyOf", expectedJoinPoints, new SubSelect<ReturnTypeSelector>() {
+        addComplexExpressionOrTest(tests, "anyOf", expectedJoinPoints, new SelectorFragment<ReturnTypeSelector>() {
             @Override
-            public ReturnTypeSelector subSelect(ReturnTypeSelector selectBuilder) {
+            public ReturnTypeSelector select(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
                         .anyOf()
                             .byImplementingAnyOf(AnyInterface.class)
@@ -214,9 +214,9 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
                         .end();
             }
         });
-        addComplexExpressionOrTest(tests, "union", expectedJoinPoints, new SubSelect<ReturnTypeSelector>() {
+        addComplexExpressionOrTest(tests, "union", expectedJoinPoints, new SelectorFragment<ReturnTypeSelector>() {
             @Override
-            public ReturnTypeSelector subSelect(ReturnTypeSelector selectBuilder) {
+            public ReturnTypeSelector select(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
                         .union()
                             .byImplementingAnyOf(AnyInterface.class)
@@ -226,15 +226,15 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
         });
     }
 
-    private static void addComplexExpressionOrTest(List<Object> tests, String logicalOperatorName, List<String> expectedJoinPoints, SubSelect<ReturnTypeSelector> subSelect) {
+    private static void addComplexExpressionOrTest(List<Object> tests, String logicalOperatorName, List<String> expectedJoinPoints, SelectorFragment<ReturnTypeSelector> subSelect) {
         tests.add(new Object[]{"Complex OR (" + logicalOperatorName + ")", LogicalOperator.AND, expectedJoinPoints, subSelect});
     }
 
-    private static void addComplexExpressionAndTest(List<Object> tests, String logicalOperatorName, List<String> expectedJoinPoints, SubSelect<ReturnTypeSelector> subSelect) {
+    private static void addComplexExpressionAndTest(List<Object> tests, String logicalOperatorName, List<String> expectedJoinPoints, SelectorFragment<ReturnTypeSelector> subSelect) {
         tests.add(new Object[]{"Complex AND (" + logicalOperatorName + ")", LogicalOperator.AND, expectedJoinPoints, subSelect});
     }
 
-    private static void addComplexExpressionNorTest(List<Object> tests, String logicalOperatorName, List<String> expectedJoinPoints, SubSelect<ReturnTypeSelector> subSelect) {
+    private static void addComplexExpressionNorTest(List<Object> tests, String logicalOperatorName, List<String> expectedJoinPoints, SelectorFragment<ReturnTypeSelector> subSelect) {
         tests.add(new Object[]{"Complex NOR (" + logicalOperatorName + ")", LogicalOperator.AND, expectedJoinPoints, subSelect});
     }
 
@@ -252,9 +252,9 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
                 "private static native void java.lang.Object.registerNatives()",
                 "public native int java.lang.Object.hashCode()"
         );
-        tests.add(new Object[]{logicalOperator.toString(), logicalOperator, expectedJoinPoints, new SubSelect<ReturnTypeSelector>() {
+        tests.add(new Object[]{logicalOperator.toString(), logicalOperator, expectedJoinPoints, new SelectorFragment<ReturnTypeSelector>() {
             @Override
-            public ReturnTypeSelector subSelect(ReturnTypeSelector selectBuilder) {
+            public ReturnTypeSelector select(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
                         .byClass(void.class)
                         .byClass(int.class);
@@ -268,9 +268,9 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
                 "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject4.getTestSubject2()",
                 "public org.failearly.ajunit.builder.LogicalOperator org.failearly.ajunit.builder.TestSubject4.getEnum()"
         );
-        tests.add(new Object[]{logicalOperator.toString(), logicalOperator, expectedJoinPoints, new SubSelect<ReturnTypeSelector>() {
+        tests.add(new Object[]{logicalOperator.toString(), logicalOperator, expectedJoinPoints, new SelectorFragment<ReturnTypeSelector>() {
             @Override
-            public ReturnTypeSelector subSelect(ReturnTypeSelector selectBuilder) {
+            public ReturnTypeSelector select(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
                         .byImplementingAnyOf(Serializable.class)
                         .byPackageName("org.failearly.ajunit.builder", StringMatcherType.EQUALS);
@@ -296,9 +296,9 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
                 "public native int java.lang.Object.hashCode()",
                 "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException"
         );
-        tests.add(new Object[]{logicalOperator.toString(), logicalOperator, expectedJoinPoints, new SubSelect<ReturnTypeSelector>() {
+        tests.add(new Object[]{logicalOperator.toString(), logicalOperator, expectedJoinPoints, new SelectorFragment<ReturnTypeSelector>() {
             @Override
-            public ReturnTypeSelector subSelect(ReturnTypeSelector selectBuilder) {
+            public ReturnTypeSelector select(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
                         .byImplementingAnyOf(Serializable.class)
                         .byClass(void.class);
@@ -311,8 +311,8 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
         assertLogicalExpression(this.logicalOperator, this.subSelect, expectedJoinPoints);
     }
 
-    private void assertLogicalExpression(LogicalOperator logicalOperator, SubSelect<ReturnTypeSelector> subSelect, List<String> expectedJoinPoints) {
-        subSelect.subSelect(
+    private void assertLogicalExpression(LogicalOperator logicalOperator, SelectorFragment<ReturnTypeSelector> subSelect, List<String> expectedJoinPoints) {
+        subSelect.select(
                 selectorBuilder.byReturnType(logicalOperator)
         ).endReturnType();
 

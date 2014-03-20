@@ -19,7 +19,41 @@
 package org.failearly.ajunit.builder;
 
 /**
- * TODO: ExceptionTypeSelector is responsible for ...
+ * The ExceptionTypeSelector is responsible for selecting joinpoints based on the types of the exception list.
+ *
+ * @see java.lang.reflect.Method#getExceptionTypes()
+ * @see java.lang.reflect.Constructor#getExceptionTypes()
  */
-public interface ExceptionTypeSelector {
+public interface ExceptionTypeSelector<SB extends SelectorBuilder, CS extends ExceptionTypeSelector> extends ClassSelector<CS> {
+
+    /**
+     * Select method or constructor joinpoints the exception list contains <i>runtime or not checked exceptions</i>.
+     * @return itself (current selector builder)
+     *
+     * @see java.lang.RuntimeException
+     */
+    CS byRuntimeException();
+
+    /**
+     * Select method or constructor joinpoints the exception list contains <i>error exceptions</i>.
+     * @return itself (current selector builder)
+     *
+     * @see java.lang.Error
+     */
+    CS byError();
+
+    /**
+     * Select method or constructor joinpoints the exception list contains <i>checked exceptions</i>.
+     * @return itself (current selector builder)
+     *
+     * @see java.lang.Exception
+     */
+    CS byCheckedException();
+
+    /**
+     * Terminates the exception list expression.
+     * @return the parent expression.
+     */
+    SB endExceptionTypes();
+
 }

@@ -42,4 +42,8 @@ final class PredicateFactories<E,T> {
     CompositePredicate createCompositePredicate(E type) {
         return (CompositePredicate)predicateFactories.get(type).createPredicate(null);
     }
+
+    CompositePredicate createCompositePredicate(E type, T input) {
+        return (CompositePredicate)predicateFactories.get(type).createPredicate(input);
+    }
 }

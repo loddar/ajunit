@@ -18,6 +18,7 @@
  */
 package org.failearly.ajunit.internal.predicate.standard;
 
+import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.transformer.Transformer;
 
@@ -67,6 +68,18 @@ public abstract class StandardPredicates {
      */
     public static Predicate transformerPredicate(final Transformer transformer, final Predicate predicate) {
         return new TransformerPredicate(transformer, predicate);
+    }
+
+    /**
+     * The created Predicate, applies first the {@code transformer} and if the transformed object is {@code not null}, the
+     * {@code compositePredicate} will be applied. Briefly:  <code>CP(T(input))</code>.
+     *
+     * @param transformer the transformer
+     * @param compositePredicate the compositePredicate
+     * @return {@code false} if the transformer returns {@code null} or applies the {@code compositePredicate} on the transformed object.
+     */
+    public static CompositePredicate transformerPredicate(final Transformer transformer, final CompositePredicate compositePredicate) {
+        return new TransformerPredicate(transformer, compositePredicate);
     }
 
     /**

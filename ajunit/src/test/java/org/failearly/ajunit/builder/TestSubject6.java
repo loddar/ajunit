@@ -16,24 +16,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder.method.call;
-
-import org.failearly.ajunit.builder.JoinPointSelector;
-import org.failearly.ajunit.builder.MethodJoinPointSelector;
-import org.failearly.ajunit.builder.method.ReturnTypeSelectorArrayTest;
-import org.failearly.ajunit.internal.universe.AjJoinPointType;
+package org.failearly.ajunit.builder;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
+ * Just for {@link org.failearly.ajunit.builder.AbstractJoinPointSelectorTest}.
  */
-public final class CallReturnTypeSelectorArrayTest extends ReturnTypeSelectorArrayTest {
-
-    public CallReturnTypeSelectorArrayTest() {
-        super(AjJoinPointType.METHOD_CALL);
+@SuppressWarnings("all")
+public final class TestSubject6 extends AbstractBaseClass implements AnyInterface {
+    public void method0() throws Error {
     }
 
-    @Override
-    protected MethodJoinPointSelector createSelectorBuilderUnderTest(JoinPointSelector joinPointSelector) {
-        return joinPointSelector.methodCall();
+    public void method1() throws Throwable {
+    }
+
+    public void method2() throws Exception {
+    }
+
+    public void method3() throws RuntimeException {
+    }
+
+    public void method4() throws AnyException {
     }
 }

@@ -1,7 +1,7 @@
 /*
  * ajUnit - Unit Testing AspectJ.
  *
- * Copyright (C) 2013-2014 Marko Umek (http://fail-early.com/contact)
+ * Copyright (C) 2013-2014 marko (http://fail-early.com/contact)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,24 +24,21 @@ import org.failearly.ajunit.internal.predicate.Predicate;
 import java.util.Collection;
 
 /**
- * Base class for all collection predicate.
+ * NoneOfCollectionPredicate is responsible for ...
  */
-final class CollectionPredicate<T extends Collection> extends CollectionPredicateBase<T> {
-    private final boolean breakingEvaluationResult;
-
-    CollectionPredicate(Class<T> clazz,  String type, CompositePredicate predicate, boolean breakingEvaluationResult) {
-        super(clazz, type, predicate);
-        this.breakingEvaluationResult = breakingEvaluationResult;
+final class NoneOfCollectionPredicate<T extends Collection> extends CollectionPredicateBase<T> {
+    NoneOfCollectionPredicate(Class<T> clazz,  CompositePredicate compositePredicate) {
+        super(clazz, "NoneOf", compositePredicate);
     }
 
     @Override
     protected boolean doApplyPredicateOnCollection(T collection, Predicate predicate) {
         for (Object object : collection) {
-            if(breakingEvaluationResult == predicate.evaluate(object)) {
-                return breakingEvaluationResult;
+            if(predicate.evaluate(object)) {
+                return false;
             }
         }
 
-        return !breakingEvaluationResult;
+        return true;
     }
 }

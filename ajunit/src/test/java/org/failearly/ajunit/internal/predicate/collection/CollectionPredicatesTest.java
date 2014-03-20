@@ -18,7 +18,9 @@
  */
 package org.failearly.ajunit.internal.predicate.collection;
 
+import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.junit.Test;
 
@@ -36,7 +38,7 @@ public class CollectionPredicatesTest {
     @Test
     public void anyOf() throws Exception {
         // arrange / given
-        final Predicate predicate = CollectionPredicates.anyOf(StandardPredicates.booleanIdentity());
+        final Predicate predicate = CollectionPredicates.anyOf(booleanPredicate());
 
         // assert / then
         assertThat("{false,false}->false?", predicate.evaluate(toBooleanList(false, false)), is(false));
@@ -49,7 +51,7 @@ public class CollectionPredicatesTest {
     @Test
     public void allOf() throws Exception {
         // arrange / given
-        final Predicate predicate = CollectionPredicates.allOf(StandardPredicates.booleanIdentity());
+        final Predicate predicate = CollectionPredicates.allOf(booleanPredicate());
 
         // assert / then
         assertThat("{false,false}->false?", predicate.evaluate(toBooleanList(false, false)), is(false));
@@ -62,7 +64,7 @@ public class CollectionPredicatesTest {
     @Test
     public void noneOf() throws Exception {
         // arrange / given
-        final Predicate predicate = CollectionPredicates.noneOf(StandardPredicates.booleanIdentity());
+        final Predicate predicate = CollectionPredicates.noneOf(booleanPredicate());
 
         // assert / then
         assertThat("{false,false}->true?", predicate.evaluate(toBooleanList(false, false)), is(true));
@@ -99,7 +101,7 @@ public class CollectionPredicatesTest {
         // arrange / given
         final Predicate predicate = CollectionPredicates.allOf(
                                         CollectionPredicates.anyOf(
-                                            StandardPredicates.booleanIdentity()
+                                                booleanPredicate()
                                         )
                                     );
 
@@ -125,7 +127,7 @@ public class CollectionPredicatesTest {
         // arrange / given
         final Predicate predicate = CollectionPredicates.anyOf(
                                         CollectionPredicates.allOf(
-                                            StandardPredicates.booleanIdentity()
+                                                booleanPredicate()
                                         )
                                     );
 
@@ -161,5 +163,9 @@ public class CollectionPredicatesTest {
     @SafeVarargs
     private static Collection toCollectionsOfBooleanList(Collection<Boolean>... booleanList) {
         return Arrays.asList(booleanList);
+    }
+
+    private static CompositePredicate booleanPredicate() {
+        return LogicalPredicates.and().addPredicate(StandardPredicates.booleanIdentity());
     }
 }

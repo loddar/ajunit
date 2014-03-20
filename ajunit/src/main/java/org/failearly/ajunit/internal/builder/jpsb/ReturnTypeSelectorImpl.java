@@ -38,13 +38,13 @@ final class ReturnTypeSelectorImpl
     private final AjJoinPointType joinPointType;
 
     ReturnTypeSelectorImpl(
-            AjJoinPointType joinPointType, JoinPointSelectorImpl root, MethodJoinPointSelectorImpl parent, CompositePredicate compositePredicate) {
+            JoinPointSelectorImpl root, MethodJoinPointSelectorImpl parent, CompositePredicate compositePredicate, AjJoinPointType joinPointType) {
         this(joinPointType);
         init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
     }
 
     private ReturnTypeSelectorImpl(
-            AjJoinPointType joinPointType, JoinPointSelectorImpl root, ReturnTypeSelectorImpl parent, CompositePredicate compositePredicate) {
+            JoinPointSelectorImpl root, ReturnTypeSelectorImpl parent, CompositePredicate compositePredicate, AjJoinPointType joinPointType) {
         this(joinPointType);
         init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
     }
@@ -218,7 +218,7 @@ final class ReturnTypeSelectorImpl
         return new BuilderFactory<JoinPointSelectorImpl, ReturnTypeSelectorImpl, ReturnComponentTypeSelectorImpl>() {
             @Override
             public ReturnComponentTypeSelectorImpl createBuilder(JoinPointSelectorImpl root, ReturnTypeSelectorImpl parent, CompositePredicate compositePredicate) {
-                return new ReturnComponentTypeSelectorImpl(joinPointType, root, parent, compositePredicate, returnTypeSelector);
+                return new ReturnComponentTypeSelectorImpl(root, parent, compositePredicate, joinPointType, returnTypeSelector);
             }
         };
     }
@@ -228,7 +228,7 @@ final class ReturnTypeSelectorImpl
         return new BuilderFactory<JoinPointSelectorImpl, ReturnTypeSelectorImpl, ReturnTypeSelectorImpl>() {
             @Override
             public ReturnTypeSelectorImpl createBuilder(JoinPointSelectorImpl root, ReturnTypeSelectorImpl parent, CompositePredicate compositePredicate) {
-                return new ReturnTypeSelectorImpl(joinPointType, root, parent, compositePredicate);
+                return new ReturnTypeSelectorImpl(root, parent, compositePredicate, joinPointType);
             }
         };
     }

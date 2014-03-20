@@ -1,7 +1,7 @@
 /*
  * ajUnit - Unit Testing AspectJ.
  *
- * Copyright (C) 2013-2014 Marko Umek (http://fail-early.com/contact)
+ * Copyright (C) 2013-2014 marko (http://fail-early.com/contact)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,15 +20,14 @@ package org.failearly.ajunit.builder.method.call;
 
 import org.failearly.ajunit.builder.JoinPointSelector;
 import org.failearly.ajunit.builder.MethodJoinPointSelector;
-import org.failearly.ajunit.builder.method.ReturnTypeSelectorArrayTest;
+import org.failearly.ajunit.builder.method.MethodExceptionTypeSelectorTest;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
+ * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector#byExceptionTypes(org.failearly.ajunit.builder.ListLogicalOperator)}.
  */
-public final class CallReturnTypeSelectorArrayTest extends ReturnTypeSelectorArrayTest {
-
-    public CallReturnTypeSelectorArrayTest() {
+public class CallMethodExceptionTypeSelectorTest extends MethodExceptionTypeSelectorTest {
+    public CallMethodExceptionTypeSelectorTest() {
         super(AjJoinPointType.METHOD_CALL);
     }
 

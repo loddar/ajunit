@@ -16,24 +16,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder.method.call;
-
-import org.failearly.ajunit.builder.JoinPointSelector;
-import org.failearly.ajunit.builder.MethodJoinPointSelector;
-import org.failearly.ajunit.builder.method.ReturnTypeSelectorArrayTest;
-import org.failearly.ajunit.internal.universe.AjJoinPointType;
+package org.failearly.ajunit.builder;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
+ * Available logical operators for lists like method or constructor exception list.
+ *
+ * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byExceptionTypes(LogicalOperator)
  */
-public final class CallReturnTypeSelectorArrayTest extends ReturnTypeSelectorArrayTest {
+public enum ListLogicalOperator {
+    /**
+     * ANY OF the elements within the list matches.
+     */
+    ANY_OF,
 
-    public CallReturnTypeSelectorArrayTest() {
-        super(AjJoinPointType.METHOD_CALL);
-    }
+    /**
+     * All OF elements within the list matches.
+     */
+    ALL_OF,
 
-    @Override
-    protected MethodJoinPointSelector createSelectorBuilderUnderTest(JoinPointSelector joinPointSelector) {
-        return joinPointSelector.methodCall();
-    }
+    /**
+     * NONE OF elements within the list matches.
+     */
+    NONE_OF
 }

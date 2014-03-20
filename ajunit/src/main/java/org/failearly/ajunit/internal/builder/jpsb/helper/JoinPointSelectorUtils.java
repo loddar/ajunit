@@ -19,10 +19,12 @@
 package org.failearly.ajunit.internal.builder.jpsb.helper;
 
 import org.failearly.ajunit.builder.DimensionComparator;
+import org.failearly.ajunit.builder.ListLogicalOperator;
 import org.failearly.ajunit.builder.LogicalOperator;
 import org.failearly.ajunit.builder.StringMatcherType;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.predicate.collection.CollectionPredicates;
 import org.failearly.ajunit.internal.predicate.number.IntegerPredicates;
 import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
@@ -35,11 +37,34 @@ public final class JoinPointSelectorUtils {
     private static final PredicateFactories<StringMatcherType, String> STRING_MATCHER_PREDICATES = new PredicateFactories<>();
     private static final PredicateFactories<LogicalOperator, Void> LOGICAL_OPERATOR_PREDICATES = new PredicateFactories<>();
     private static final PredicateFactories<DimensionComparator, Integer> DIMENSION_COMPARATOR_PREDICATES = new PredicateFactories<>();
+    private static final PredicateFactories<ListLogicalOperator, CompositePredicate> LIST_LOGICAL_OPERATOR_PREDICATES = new PredicateFactories<>();
 
     static {
         createStringMatcherPredicates();
         createLogicalOperatorPredicates();
         createDimensionComparatorPredicates();
+        createListLogicalOperatorPredicates();
+    }
+
+    private static void createListLogicalOperatorPredicates() {
+        LIST_LOGICAL_OPERATOR_PREDICATES.addFactory(ListLogicalOperator.ANY_OF, new PredicateFactory<CompositePredicate>() {
+            @Override
+            public Predicate createPredicate(CompositePredicate predicate) {
+                return CollectionPredicates.anyOf(predicate);
+            }
+        });
+        LIST_LOGICAL_OPERATOR_PREDICATES.addFactory(ListLogicalOperator.ALL_OF, new PredicateFactory<CompositePredicate>() {
+            @Override
+            public Predicate createPredicate(CompositePredicate predicate) {
+                return CollectionPredicates.allOf(predicate);
+            }
+        });
+        LIST_LOGICAL_OPERATOR_PREDICATES.addFactory(ListLogicalOperator.NONE_OF, new PredicateFactory<CompositePredicate>() {
+            @Override
+            public Predicate createPredicate(CompositePredicate predicate) {
+                return CollectionPredicates.noneOf(predicate);
+            }
+        });
     }
 
     public static final int NO_ARRAY = 0;
@@ -206,5 +231,9 @@ public final class JoinPointSelectorUtils {
      */
     public static Predicate createDimensionComparatorPredicate(int dimension, DimensionComparator dimensionComparator) {
         return DIMENSION_COMPARATOR_PREDICATES.createPredicate(dimensionComparator, dimension);
+    }
+
+    public static CompositePredicate createListLogicalOperator(ListLogicalOperator listLogicalOperator, CompositePredicate compositePredicate) {
+        return LIST_LOGICAL_OPERATOR_PREDICATES.createCompositePredicate(listLogicalOperator, compositePredicate);
     }
 }
