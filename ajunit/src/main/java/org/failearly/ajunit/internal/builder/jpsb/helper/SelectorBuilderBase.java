@@ -20,60 +20,24 @@ package org.failearly.ajunit.internal.builder.jpsb.helper;
 
 import org.failearly.ajunit.internal.builder.Builder;
 import org.failearly.ajunit.internal.predicate.Predicate;
-import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.failearly.ajunit.internal.transformer.Transformer;
-import org.failearly.ajunit.internal.transformer.ajp.AjpTransformers;
-import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
-import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
  * SelectorBuilderBase is responsible for ...
  */
 abstract class SelectorBuilderBase<T extends Builder> {
-    private final T predicateBuilder;
-    private final Transformer ajJoinPointTransformer;
-    protected final AjJoinPointType joinPointType;
+    private PredicateAdder<T> predicateAdder;
 
-    SelectorBuilderBase(T predicateBuilder, AjJoinPointType joinPointType, Transformer ajJoinPointTransformer) {
-        this.predicateBuilder = predicateBuilder;
-        this.joinPointType = joinPointType;
-        this.ajJoinPointTransformer = ajJoinPointTransformer;
+    SelectorBuilderBase(PredicateAdder<T> predicateAdder) {
+        this.predicateAdder = predicateAdder;
     }
 
     protected final T addPredicate(Transformer transformer, Predicate predicate) {
-        predicateBuilder.addPredicate(createTransformingPredicate(transformer, predicate));
-        return predicateBuilder;
+        return predicateAdder.addTransformerPredicate(transformer, predicate);
     }
 
 
     protected final T addPredicate(Predicate predicate) {
-        predicateBuilder.addPredicate(createPredicate(predicate));
-        return predicateBuilder;
-    }
-
-
-    private Predicate createTransformingPredicate(Transformer transformer, Predicate predicate) {
-        return StandardPredicates.transformerPredicate(
-                StandardTransformers.transformerComposition(
-                        AjpTransformers.ajpJoinPointFilterTransformer(this.joinPointType),
-                        this.ajJoinPointTransformer,
-                        transformer
-                ),
-                predicate
-        );
-    }
-
-    private Predicate createPredicate(Predicate predicate) {
-        return StandardPredicates.transformerPredicate(
-                StandardTransformers.transformerComposition(
-                        AjpTransformers.ajpJoinPointFilterTransformer(this.joinPointType),
-                        this.ajJoinPointTransformer
-                ),
-                predicate
-        );
-    }
-
-    protected final Predicate transformerPredicate(Transformer transformer, Predicate predicate) {
-        return StandardPredicates.transformerPredicate(transformer, predicate);
+        return predicateAdder.addPredicate(predicate);
     }
 }

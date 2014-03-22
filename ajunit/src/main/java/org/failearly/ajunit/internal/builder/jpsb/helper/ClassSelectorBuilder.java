@@ -25,9 +25,7 @@ import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.clazz.ClassPredicates;
 import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
-import org.failearly.ajunit.internal.transformer.Transformer;
 import org.failearly.ajunit.internal.transformer.clazz.ClassTransformers;
-import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,8 +36,8 @@ import java.util.Map;
  * ClassSelectorBuilder is responsible for ...
  */
 public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuilderBase<T> {
-    ClassSelectorBuilder(T predicateBuilder, AjJoinPointType joinPointType, Transformer ajJoinPointTransformer) {
-        super(predicateBuilder, joinPointType, ajJoinPointTransformer);
+    ClassSelectorBuilder(PredicateAdder<T> predicateAdder) {
+        super(predicateAdder);
     }
 
     public T byClass(Class<?> declaringClass) {
@@ -128,7 +126,7 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
     public T byPrimitiveWrapperType() {
         return addPredicate(
                 LogicalPredicates.and(
-                        transformerPredicate(ClassTransformers.packageNameTransformer(), StandardPredicates.equalsPredicate("java.lang")),
+                        StandardPredicates.transformerPredicate(ClassTransformers.packageNameTransformer(), StandardPredicates.equalsPredicate("java.lang")),
                         LogicalPredicates.not(ClassPredicates.isClass(Number.class)),
                         LogicalPredicates.or(
                             ClassPredicates.isSubclassOf(Number.class),
@@ -155,7 +153,4 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
         }
         return predicates;
     }
-
-
-
 }

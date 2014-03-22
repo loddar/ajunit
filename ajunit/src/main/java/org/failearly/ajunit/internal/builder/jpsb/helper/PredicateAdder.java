@@ -1,7 +1,7 @@
 /*
  * ajUnit - Unit Testing AspectJ.
  *
- * Copyright (C) 2013-2014 Marko Umek (http://fail-early.com/contact)
+ * Copyright (C) 2013-2014 marko (http://fail-early.com/contact)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,18 +19,30 @@
 package org.failearly.ajunit.internal.builder.jpsb.helper;
 
 import org.failearly.ajunit.internal.builder.Builder;
+import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
+import org.failearly.ajunit.internal.transformer.Transformer;
 
 /**
- * MethodSelectorBuilder is responsible for ...
+ * PredicateAdder is responsible for ...
  */
-public final class MethodSelectorBuilder<T extends Builder> extends MemberSelectorBuilder<T> {
+class PredicateAdder<T extends Builder> {
+    private final T predicateBuilder;
 
-    MethodSelectorBuilder(PredicateAdder<T> predicateAdder) {
-        super(predicateAdder);
+    protected PredicateAdder(T predicateBuilder) {
+        this.predicateBuilder = predicateBuilder;
     }
 
-    public T anyMethod() {
-        return addPredicate(StandardPredicates.alwaysTrue());
+    protected T addPredicate(Predicate predicate) {
+        return addRawPredicate(predicate);
     }
+    protected T addTransformerPredicate(Transformer transformer, Predicate predicate) {
+        return addPredicate(StandardPredicates.transformerPredicate(transformer, predicate));
+    }
+
+    private T addRawPredicate(Predicate predicate) {
+        predicateBuilder.addPredicate(predicate);
+        return predicateBuilder;
+    }
+
 }

@@ -23,9 +23,7 @@ import org.failearly.ajunit.internal.builder.Builder;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.modifier.ModifierPredicate;
 import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
-import org.failearly.ajunit.internal.transformer.Transformer;
 import org.failearly.ajunit.internal.transformer.member.MemberTransformers;
-import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.failearly.ajunit.modifier.AccessModifier;
 import org.failearly.ajunit.modifier.MethodModifier;
 import org.failearly.ajunit.modifier.ModifierMatcher;
@@ -38,8 +36,8 @@ import java.util.List;
  */
 abstract class MemberSelectorBuilder<T extends Builder> extends SelectorBuilderBase<T> {
 
-    protected MemberSelectorBuilder(T predicateBuilder, AjJoinPointType joinPointType, Transformer ajJoinPointTransformer) {
-        super(predicateBuilder, joinPointType, ajJoinPointTransformer);
+    MemberSelectorBuilder(PredicateAdder<T> predicateAdder) {
+        super(predicateAdder);
     }
 
     public T byName(String namePattern, StringMatcherType matcherType) {
