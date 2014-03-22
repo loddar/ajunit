@@ -25,20 +25,15 @@ import org.failearly.ajunit.builder.StringMatcherType;
 import org.failearly.ajunit.internal.builder.BuilderBase;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
+import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.JoinPointSelectorUtils;
+import org.failearly.ajunit.internal.builder.jpsb.helper.SelectorBuilders;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
-import org.failearly.ajunit.internal.predicate.Predicate;
-import org.failearly.ajunit.internal.predicate.clazz.ClassPredicates;
-import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.failearly.ajunit.internal.transformer.ajp.AjpTransformers;
-import org.failearly.ajunit.internal.transformer.clazz.ClassTransformers;
 import org.failearly.ajunit.internal.transformer.method.MethodTransformers;
 import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The implementation of {@link org.failearly.ajunit.builder.MethodExceptionTypeSelector}.
@@ -48,6 +43,9 @@ final class MethodExceptionTypeSelectorImpl
         implements MethodExceptionTypeSelector {
 
 
+    private final ClassSelectorBuilder<MethodExceptionTypeSelectorImpl> methodExceptionTypeSelector;
+
+
     MethodExceptionTypeSelectorImpl(
             JoinPointSelectorImpl root,
             MethodJoinPointSelectorImpl parent,
@@ -55,11 +53,12 @@ final class MethodExceptionTypeSelectorImpl
             AjJoinPointType joinPointType,
             ListLogicalOperator listLogicalOperator) {
         init(LogicalStructureBuilder.createBuilder(root, parent, this, createCompositeNode(compositePredicate, joinPointType, listLogicalOperator)));
+        this.methodExceptionTypeSelector = SelectorBuilders.createMethodExceptionTypeSelector(this);
     }
 
     private MethodExceptionTypeSelectorImpl(JoinPointSelectorImpl root, MethodExceptionTypeSelectorImpl parent, CompositePredicate compositePredicate) {
         init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
-
+        this.methodExceptionTypeSelector = SelectorBuilders.createMethodExceptionTypeSelector(this);
     }
 
     private static CompositePredicate createCompositeNode(CompositePredicate compositePredicate, AjJoinPointType joinPointType, ListLogicalOperator listLogicalOperator) {
@@ -80,103 +79,62 @@ final class MethodExceptionTypeSelectorImpl
 
     @Override
     public MethodExceptionTypeSelector byRuntimeException() {
-        super.addPredicate(
-                ClassPredicates.isSubclassOf(RuntimeException.class)
-        );
-        return this;
+        return this.byExtending(RuntimeException.class);
     }
 
     @Override
     public MethodExceptionTypeSelector byError() {
-        super.addPredicate(ClassPredicates.isSubclassOf(Error.class));
-        return this;
+        return this.byExtending(Error.class);
     }
 
     @Override
     public MethodExceptionTypeSelector byCheckedException() {
-        super.addPredicate(
-                LogicalPredicates.and(
-                        ClassPredicates.isSubclassOf(Exception.class),
-                        LogicalPredicates.not(ClassPredicates.isSubclassOf(RuntimeException.class))
-                )
-            );
-        return this;
+        return this.and()
+                    .byExtending(Exception.class)
+                    .nor()
+                        .byExtending(RuntimeException.class)
+                    .end()
+               .end();
     }
 
     @Override
     public MethodExceptionTypeSelector byClass(Class<?> classType) {
-        super.addPredicate(
-                ClassPredicates.isClass(classType)
-        );
-        return this;
+        return methodExceptionTypeSelector.byClass(classType);
     }
 
     @Override
     public MethodExceptionTypeSelector byClassName(String classNamePattern, StringMatcherType matcherType) {
-        super.addPredicate(
-                StandardPredicates.transformerPredicate(
-                        ClassTransformers.classNameTransformer(),
-                        JoinPointSelectorUtils.createStringMatcherPredicate(classNamePattern, matcherType)
-                )
-        );
-        return this;
+        return methodExceptionTypeSelector.byClassName(classNamePattern, matcherType);
     }
 
     @Override
     public MethodExceptionTypeSelector byPackageName(String packageNamePattern, StringMatcherType matcherType) {
-        super.addPredicate(
-                StandardPredicates.transformerPredicate(
-                        ClassTransformers.packageNameTransformer(),
-                        JoinPointSelectorUtils.createStringMatcherPredicate(packageNamePattern, matcherType)
-                )
-        );
-        return this;
+        return methodExceptionTypeSelector.byPackageName(packageNamePattern, matcherType);
     }
 
     @Override
     public MethodExceptionTypeSelector byExtending(Class<?> baseClass) {
-        super.addPredicate(
-                ClassPredicates.isSubclassOf(baseClass)
-        );
-        return this;
+        return methodExceptionTypeSelector.byExtending(baseClass);
     }
 
     @Override
     public MethodExceptionTypeSelector byNotExtending(Class<?> baseClass) {
-        super.addPredicate(
-                LogicalPredicates.not(ClassPredicates.isSubclassOf(baseClass))
-        );
-        return this;
+        return methodExceptionTypeSelector.byNotExtending(baseClass);
     }
 
     @Override
     public MethodExceptionTypeSelector byImplementingAnyOf(Class<?>... interfaces) {
-        super.addPredicate(
-                LogicalPredicates.or(
-                        createIsSubClassOfPredicates(interfaces)
-                )
-        );
-        return this;
+        return methodExceptionTypeSelector.byImplementingAnyOf(interfaces);
     }
 
     @Override
     public MethodExceptionTypeSelector byImplementingAllOf(Class<?>... interfaces) {
-        super.addPredicate(
-                LogicalPredicates.and(
-                        createIsSubClassOfPredicates(interfaces)
-                )
-        );
-        return this;
+        return methodExceptionTypeSelector.byImplementingAllOf(interfaces);
     }
 
     @Override
     public MethodExceptionTypeSelector byImplementingNoneOf(Class<?>... interfaces) {
-        super.addPredicate(
-                LogicalPredicates.nor(
-                        createIsSubClassOfPredicates(interfaces)
-                )
-        );
-        return this;
+        return methodExceptionTypeSelector.byImplementingNoneOf(interfaces);
     }
 
     @Override
@@ -232,14 +190,6 @@ final class MethodExceptionTypeSelectorImpl
     @Override
     public MethodExceptionTypeSelector end() {
         return super.doEndLogicalExpression(MethodExceptionTypeSelector.class, false);
-    }
-
-    private static List<Predicate> createIsSubClassOfPredicates(Class<?>... interfaces) {
-        final List<Predicate> predicates = new ArrayList<>(interfaces.length);
-        for (Class<?> anInterface : interfaces) {
-            predicates.add(ClassPredicates.isSubclassOf(anInterface));
-        }
-        return predicates;
     }
 
     private static BuilderFactory<JoinPointSelectorImpl,MethodExceptionTypeSelectorImpl,MethodExceptionTypeSelectorImpl>

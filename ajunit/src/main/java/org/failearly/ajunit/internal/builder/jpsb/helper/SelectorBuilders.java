@@ -76,6 +76,10 @@ public abstract class SelectorBuilders {
         );
     }
 
+    public static <T extends Builder> ClassSelectorBuilder<T> createMethodExceptionTypeSelector(final T predicateBuilder) {
+        return new ClassSelectorBuilder<>(new PredicateAdder<>(predicateBuilder));
+    }
+
     private static <T extends Builder> PredicateAdder<T> createPredicateAdder(final T predicateBuilder, final Transformer baseTransformer) {
         return new PredicateAdder<T>(predicateBuilder) {
             @Override
