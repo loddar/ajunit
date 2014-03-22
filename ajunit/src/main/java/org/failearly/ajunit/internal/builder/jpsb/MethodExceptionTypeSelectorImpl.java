@@ -52,12 +52,16 @@ final class MethodExceptionTypeSelectorImpl
             CompositePredicate compositePredicate,
             AjJoinPointType joinPointType,
             ListLogicalOperator listLogicalOperator) {
+        this();
         init(LogicalStructureBuilder.createBuilder(root, parent, this, createCompositeNode(compositePredicate, joinPointType, listLogicalOperator)));
-        this.methodExceptionTypeSelector = SelectorBuilders.createMethodExceptionTypeSelector(this);
     }
 
     private MethodExceptionTypeSelectorImpl(JoinPointSelectorImpl root, MethodExceptionTypeSelectorImpl parent, CompositePredicate compositePredicate) {
+        this();
         init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
+    }
+
+    private MethodExceptionTypeSelectorImpl() {
         this.methodExceptionTypeSelector = SelectorBuilders.createMethodExceptionTypeSelector(this);
     }
 

@@ -86,12 +86,12 @@ public interface MethodJoinPointSelector
 
 
     /**
-     * Starts a complex logical expression based on the return types of the methods..<br/>
+     * Select methods by their return type.<br/>
      * </br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(void *.*(..))</code></li>
-     * <li><code>call(Object+ *.*())</code></li>
+     * <li><code>call(java.util.List+ *.*())</code></li>
      * </ul>
      * @param logicalOperator the logical operator.
      * @return the new return type selector using the logical operator.
@@ -99,9 +99,6 @@ public interface MethodJoinPointSelector
      * @see java.lang.reflect.Method#getReturnType()
      */
     ReturnTypeSelector byReturnType(LogicalOperator logicalOperator);
-
-
-    MethodExceptionTypeSelector byExceptionTypes(ListLogicalOperator listLogicalOperator);
 
     /**
      * Convenient selector builder for methods with return type <code>void</code>.
@@ -154,9 +151,20 @@ public interface MethodJoinPointSelector
      */
     MethodJoinPointSelector byReturningArray();
 
-//    MethodJoinPointSelector byAnyOfReturnTypes(Class<?>... classes);
-//    MethodJoinPointSelector byNoneOfReturnTypes(Class<?>... classes);
-//    MethodJoinPointSelector byReturnType(String className, StringMatcherType matcherType);
-
+    /**
+     * Select methods based by their declared exception types. The inner logical operator is {@link MethodExceptionTypeSelector#or()}<br/>
+     * </br>
+     * AspectJ pointcut definition examples:
+     * <ul>
+     * <li><code>execution(*.*(..) throws java.sql.SQLException)</code></li>
+     * <li><code>call(*.*(..) throws !java.lang.Error+)</code></li>
+     * </ul>
+     *
+     * @param listLogicalOperator the list logical operator is responsible, how the selectors of
+     *                  {@link org.failearly.ajunit.builder.MethodExceptionTypeSelector} should be applied on the entire list.
+     *
+     * @return the method exception type selector using the .
+     */
+    MethodExceptionTypeSelector byExceptionTypes(ListLogicalOperator listLogicalOperator);
 
 }
