@@ -18,6 +18,8 @@
  */
 package org.failearly.ajunit.builder;
 
+import java.sql.SQLException;
+
 /**
  * Just for {@link org.failearly.ajunit.builder.AbstractJoinPointSelectorTest}.
  */
@@ -36,5 +38,8 @@ public final class TestSubject6 extends AbstractBaseClass implements AnyInterfac
     }
 
     public void method4() throws AnyException {
+    }
+
+    public void method5() throws AnyException, SQLException {
     }
 }

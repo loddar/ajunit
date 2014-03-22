@@ -23,6 +23,7 @@ import org.failearly.ajunit.builder.MethodExceptionTypeSelector;
 import org.failearly.ajunit.builder.MethodJoinPointSelector;
 import org.failearly.ajunit.builder.StringMatcherType;
 import org.failearly.ajunit.internal.builder.BuilderBase;
+import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.JoinPointSelectorUtils;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
@@ -54,6 +55,11 @@ final class MethodExceptionTypeSelectorImpl
             AjJoinPointType joinPointType,
             ListLogicalOperator listLogicalOperator) {
         init(LogicalStructureBuilder.createBuilder(root, parent, this, createCompositeNode(compositePredicate, joinPointType, listLogicalOperator)));
+    }
+
+    private MethodExceptionTypeSelectorImpl(JoinPointSelectorImpl root, MethodExceptionTypeSelectorImpl parent, CompositePredicate compositePredicate) {
+        init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
+
     }
 
     private static CompositePredicate createCompositeNode(CompositePredicate compositePredicate, AjJoinPointType joinPointType, ListLogicalOperator listLogicalOperator) {
@@ -109,8 +115,8 @@ final class MethodExceptionTypeSelectorImpl
     public MethodExceptionTypeSelector byClassName(String classNamePattern, StringMatcherType matcherType) {
         super.addPredicate(
                 StandardPredicates.transformerPredicate(
-                    ClassTransformers.classNameTransformer(),
-                    JoinPointSelectorUtils.createStringMatcherPredicate(classNamePattern, matcherType)
+                        ClassTransformers.classNameTransformer(),
+                        JoinPointSelectorUtils.createStringMatcherPredicate(classNamePattern, matcherType)
                 )
         );
         return this;
@@ -147,7 +153,7 @@ final class MethodExceptionTypeSelectorImpl
     public MethodExceptionTypeSelector byImplementingAnyOf(Class<?>... interfaces) {
         super.addPredicate(
                 LogicalPredicates.or(
-                    createIsSubClassOfPredicates(interfaces)
+                        createIsSubClassOfPredicates(interfaces)
                 )
         );
         return this;
@@ -173,12 +179,78 @@ final class MethodExceptionTypeSelectorImpl
         return this;
     }
 
+    @Override
+    public MethodExceptionTypeSelector or() {
+        return super.or(getMethodExceptionTypeSelectorBuilderFactory());
+    }
+
+    @Override
+    public MethodExceptionTypeSelector union() {
+        return this.or();
+    }
+
+    @Override
+    public MethodExceptionTypeSelector anyOf() {
+        return this.or();
+    }
+
+    @Override
+    public MethodExceptionTypeSelector and() {
+        return super.and(getMethodExceptionTypeSelectorBuilderFactory());
+    }
+
+    @Override
+    public MethodExceptionTypeSelector intersect() {
+        return this.and();
+    }
+
+    @Override
+    public MethodExceptionTypeSelector allOf() {
+        return this.and();
+    }
+
+    @Override
+    public MethodExceptionTypeSelector nor() {
+        return super.nor(getMethodExceptionTypeSelectorBuilderFactory());
+    }
+
+    @Override
+    public MethodExceptionTypeSelector noneOf() {
+        return this.nor();
+    }
+
+    @Override
+    public MethodExceptionTypeSelector neitherNor() {
+        return this.nor();
+    }
+
+    @Override
+    public MethodExceptionTypeSelector complement() {
+        return this.nor();
+    }
+
+    @Override
+    public MethodExceptionTypeSelector end() {
+        return super.doEndLogicalExpression(MethodExceptionTypeSelector.class, false);
+    }
+
     private static List<Predicate> createIsSubClassOfPredicates(Class<?>... interfaces) {
         final List<Predicate> predicates = new ArrayList<>(interfaces.length);
         for (Class<?> anInterface : interfaces) {
             predicates.add(ClassPredicates.isSubclassOf(anInterface));
         }
         return predicates;
+    }
+
+    private static BuilderFactory<JoinPointSelectorImpl,MethodExceptionTypeSelectorImpl,MethodExceptionTypeSelectorImpl>
+        getMethodExceptionTypeSelectorBuilderFactory() {
+        return new BuilderFactory<JoinPointSelectorImpl, MethodExceptionTypeSelectorImpl, MethodExceptionTypeSelectorImpl>() {
+            @Override
+            public MethodExceptionTypeSelectorImpl createBuilder(
+                    JoinPointSelectorImpl root, MethodExceptionTypeSelectorImpl parent, CompositePredicate compositePredicate) {
+                return new MethodExceptionTypeSelectorImpl(root, parent, compositePredicate);
+            }
+        };
     }
 
 }

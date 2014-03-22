@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Tests for the logical operators or {@link org.failearly.ajunit.builder.ReturnTypeSelector} and their aliases.
+ * Tests for the logical operators on {@link org.failearly.ajunit.builder.ReturnTypeSelector} and their aliases.
  *
  * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byReturnType(org.failearly.ajunit.builder.LogicalOperator)
  * @see org.failearly.ajunit.builder.ReturnTypeSelector#or()

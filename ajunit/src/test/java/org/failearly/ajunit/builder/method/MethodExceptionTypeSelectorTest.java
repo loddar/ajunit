@@ -66,8 +66,8 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
         // assert / then
         assertBuildJoinPointSelector(
                 "public void org.failearly.ajunit.builder.TestSubject6.method3() throws java.lang.RuntimeException",
-                "public void org.failearly.ajunit.builder.TestSubject6.method4() throws org.failearly.ajunit.builder.AnyException"
-        );
+                "public void org.failearly.ajunit.builder.TestSubject6.method4() throws org.failearly.ajunit.builder.AnyException",
+                "public void org.failearly.ajunit.builder.TestSubject6.method5() throws org.failearly.ajunit.builder.AnyException,java.sql.SQLException"        );
     }
 
     @Test
@@ -82,7 +82,8 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
                 "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
                 "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
                 "public final void java.lang.Object.wait() throws java.lang.InterruptedException",
-                "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException"
+                "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException",
+                "public void org.failearly.ajunit.builder.TestSubject6.method5() throws org.failearly.ajunit.builder.AnyException,java.sql.SQLException"
         );
     }
 
@@ -107,7 +108,8 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
         // assert / then
         assertBuildJoinPointSelector(
                 "public void org.failearly.ajunit.builder.TestSubject6.method4() throws org.failearly.ajunit.builder.AnyException",
-                "public void org.failearly.ajunit.builder.TestSubject6.method3() throws java.lang.RuntimeException"
+                "public void org.failearly.ajunit.builder.TestSubject6.method3() throws java.lang.RuntimeException",
+                "public void org.failearly.ajunit.builder.TestSubject6.method5() throws org.failearly.ajunit.builder.AnyException,java.sql.SQLException"
         );
     }
 
@@ -119,6 +121,7 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
 
         // assert / then
         assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject6.method5() throws org.failearly.ajunit.builder.AnyException,java.sql.SQLException",
                 "public void org.failearly.ajunit.builder.TestSubject6.method4() throws org.failearly.ajunit.builder.AnyException"
         );
     }
@@ -171,7 +174,8 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public void org.failearly.ajunit.builder.TestSubject6.method4() throws org.failearly.ajunit.builder.AnyException"
+                "public void org.failearly.ajunit.builder.TestSubject6.method4() throws org.failearly.ajunit.builder.AnyException",
+                "public void org.failearly.ajunit.builder.TestSubject6.method5() throws org.failearly.ajunit.builder.AnyException,java.sql.SQLException"
         );
     }
 
@@ -183,7 +187,55 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
 
         // assert / then
         assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject6.method4() throws org.failearly.ajunit.builder.AnyException",
+                "public void org.failearly.ajunit.builder.TestSubject6.method5() throws org.failearly.ajunit.builder.AnyException,java.sql.SQLException"
+        );
+    }
+
+    @Test
+    public void logicalOperatorAnyOf() throws Exception {
+        // act / when
+        selectorBuilder.byExceptionTypes(ListLogicalOperator.ANY_OF).byError().byRuntimeException().endExceptionTypes();
+
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject6.method0() throws java.lang.Error",
+                "public void org.failearly.ajunit.builder.TestSubject6.method3() throws java.lang.RuntimeException",
+                "public void org.failearly.ajunit.builder.TestSubject6.method4() throws org.failearly.ajunit.builder.AnyException",
+                "public void org.failearly.ajunit.builder.TestSubject6.method5() throws org.failearly.ajunit.builder.AnyException,java.sql.SQLException"
+        );
+    }
+
+    @Test
+    public void logicalOperatorAllOf() throws Exception {
+        // act / when
+        selectorBuilder.byExceptionTypes(ListLogicalOperator.ALL_OF).byError().byRuntimeException().endExceptionTypes();
+
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject6.method0() throws java.lang.Error",
+                "public void org.failearly.ajunit.builder.TestSubject6.method3() throws java.lang.RuntimeException",
                 "public void org.failearly.ajunit.builder.TestSubject6.method4() throws org.failearly.ajunit.builder.AnyException"
+        );
+    }
+
+    @Test
+    public void logicalOperatorNoneOf() throws Exception {
+        // act / when
+        selectorBuilder.byExceptionTypes(ListLogicalOperator.NONE_OF).byError().byRuntimeException().endExceptionTypes();
+
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject6.method1() throws java.lang.Throwable",
+                "public void org.failearly.ajunit.builder.TestSubject6.method2() throws java.lang.Exception",
+                "protected void java.lang.Object.finalize() throws java.lang.Throwable",
+                "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
+                "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
+                "public final void java.lang.Object.wait() throws java.lang.InterruptedException",
+                "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException"
         );
     }
 

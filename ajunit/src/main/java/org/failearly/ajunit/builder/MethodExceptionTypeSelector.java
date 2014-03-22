@@ -23,5 +23,6 @@ package org.failearly.ajunit.builder;
  *
  * @see java.lang.reflect.Method#getExceptionTypes()
  */
-public interface MethodExceptionTypeSelector extends ExceptionTypeSelector<MethodJoinPointSelector, MethodExceptionTypeSelector> {
+public interface MethodExceptionTypeSelector
+        extends ExceptionTypeSelector<MethodJoinPointSelector, MethodExceptionTypeSelector> {
 }

@@ -24,7 +24,8 @@ package org.failearly.ajunit.builder;
  * @see java.lang.reflect.Method#getExceptionTypes()
  * @see java.lang.reflect.Constructor#getExceptionTypes()
  */
-public interface ExceptionTypeSelector<SB extends SelectorBuilder, CS extends ExceptionTypeSelector> extends ClassSelector<CS> {
+public interface ExceptionTypeSelector<SB extends SelectorBuilder, CS extends ExceptionTypeSelector>
+        extends ClassSelector<CS>, LogicalSelector<CS> {
 
     /**
      * Select method or constructor joinpoints the exception list contains <i>runtime or not checked exceptions</i>.
