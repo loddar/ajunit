@@ -41,7 +41,7 @@ public abstract class MethodTransformers {
             return input.getReturnType();
         }
     };
-    private static final Transformer METHOD_PARAMETERS_TRANSFORMER = new MethodListTransformerBase<Class<?>>() {
+    private static final Transformer METHOD_ARGUMENTS_TRANSFORMER = new MethodListTransformerBase<Class<?>>() {
         @Override
         protected List<Class<?>> doTypedTransform(Method input) {
             return convert(input.getParameterTypes());
@@ -67,8 +67,8 @@ public abstract class MethodTransformers {
     /**
      * The returned Transformer executes {@link java.lang.reflect.Method#getParameterTypes()}.
      */
-    public static Transformer methodParametersTransformer() {
-        return METHOD_PARAMETERS_TRANSFORMER;
+    public static Transformer methodArgumentsTransformer() {
+        return METHOD_ARGUMENTS_TRANSFORMER;
     }
 
     /**

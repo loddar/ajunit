@@ -152,7 +152,7 @@ public interface MethodJoinPointSelector
     MethodJoinPointSelector byReturningArray();
 
     /**
-     * Select methods based by their declared exception types. The inner logical operator is {@link MethodExceptionTypeSelector#or()}<br/>
+     * Select methods based by their declared exception types. The predefined inner logical operator is {@link MethodExceptionTypeSelector#or()}.<br/>
      * </br>
      * AspectJ pointcut definition examples:
      * <ul>
@@ -163,8 +163,26 @@ public interface MethodJoinPointSelector
      * @param listLogicalOperator the list logical operator is responsible, how the selectors of
      *                  {@link org.failearly.ajunit.builder.MethodExceptionTypeSelector} should be applied on the entire list.
      *
-     * @return the method exception type selector using the .
+     * @return a method exception type selector.
      */
     MethodExceptionTypeSelector byExceptionTypes(ListLogicalOperator listLogicalOperator);
+
+
+    /**
+     * Select methods based by their argument or parameter signature.<br/>
+     * </br>
+     * AspectJ pointcut definition examples:
+     * <ul>
+     * <li><code>execution(*.*())</code>: no arguments</li>
+     * <li><code>execution(*.*(*,..))</code>: number of arguments &ge; 1 </li>
+     * <li><code>execution(*.*(java.lang.String))</code>: using String as single argument</li>
+     * <li><code>call(*.*(*)</code>: exactly one argument</li>
+     * <li><code>call(*.*(..,MyClass,..)</code>: using MyClass argument</li>
+     * </ul>
+     *
+     * @param logicalOperator  logical the logical operator.
+     * @return a new method arguments selector.
+     */
+    MethodArgumentsSelector byArguments(LogicalOperator logicalOperator);
 
 }

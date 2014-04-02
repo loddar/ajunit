@@ -40,9 +40,9 @@ public class MethodTransformersTest extends TransformersBaseTest {
     }
 
     @Test
-    public void methodParameters() throws Exception {
+    public void methodArguments() throws Exception {
         // arrange / given
-        final Transformer transformer = MethodTransformers.methodParametersTransformer();
+        final Transformer transformer = MethodTransformers.methodArgumentsTransformer();
 
         // act / when
         final Object output = transformer.transform(resolveMethod());

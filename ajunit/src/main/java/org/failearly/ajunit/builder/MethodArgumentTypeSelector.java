@@ -1,7 +1,7 @@
 /*
  * ajUnit - Unit Testing AspectJ.
  *
- * Copyright (C) 2013-2014 Marko Umek (http://fail-early.com/contact)
+ * Copyright (C) 2013-2014 marko (http://fail-early.com/contact)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,12 +19,16 @@
 package org.failearly.ajunit.builder;
 
 /**
- * Used by {@link org.failearly.ajunit.builder.ArrayTypeSelector#byArrayDimension(int, DimensionComparator)}.
+ * MethodArgumentTypeSelector is responsible for selecting argument(s) of methods and constructors by argument type and position(s).
+ *
+ * @see org.failearly.ajunit.builder.MethodArgumentsSelector#byArgumentPosition(int)
  */
-public enum DimensionComparator {
-    EQUALS,
-    MIN,
-    MAX,
-    LESS_THEN,
-    GREATER_THEN
+public interface MethodArgumentTypeSelector extends SelectorBuilder {
+    /**
+     * Ends Argument position expression.
+     * @return previous {@link org.failearly.ajunit.builder.MethodArgumentsSelector}.
+     */
+    MethodArgumentsSelector endArgumentPosition();
+
+    MethodArgumentTypeSelector byClass(Class<?> argumentClass);
 }

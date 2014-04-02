@@ -70,7 +70,7 @@ final class MethodExceptionTypeSelectorImpl
                 StandardTransformers.transformerComposition(
                     AjpTransformers.ajpJoinPointFilterTransformer(joinPointType),
                     AjpTransformers.methodTransformer(),
-                     MethodTransformers.methodExceptionsTransformer()
+                    MethodTransformers.methodExceptionsTransformer()
                 ),
                 JoinPointSelectorUtils.createListLogicalOperator(listLogicalOperator, compositePredicate)
         );

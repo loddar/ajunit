@@ -1,7 +1,7 @@
 /*
  * ajUnit - Unit Testing AspectJ.
  *
- * Copyright (C) 2013-2014 Marko Umek (http://fail-early.com/contact)
+ * Copyright (C) 2013-2014 marko (http://fail-early.com/contact)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,12 @@
 package org.failearly.ajunit.builder;
 
 /**
- * TODO: ParameterTypeSelector is responsible for ...
+ * Used by {@link org.failearly.ajunit.builder.MethodArgumentsSelector#byNumberOfArguments(int, NumberComparator)}.
  */
-public interface ParameterTypeSelector {
+public enum NumberComparator {
+    EQUALS,
+    LESS_THEN,
+    LESS_EQUALS_THEN,
+    GREATER_THEN,
+    GREATER_EQUALS_THEN
 }

@@ -18,10 +18,7 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb.helper;
 
-import org.failearly.ajunit.builder.DimensionComparator;
-import org.failearly.ajunit.builder.ListLogicalOperator;
-import org.failearly.ajunit.builder.LogicalOperator;
-import org.failearly.ajunit.builder.StringMatcherType;
+import org.failearly.ajunit.builder.*;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.collection.CollectionPredicates;
@@ -37,13 +34,48 @@ public final class JoinPointSelectorUtils {
     private static final PredicateFactories<StringMatcherType, String> STRING_MATCHER_PREDICATES = new PredicateFactories<>();
     private static final PredicateFactories<LogicalOperator, Void> LOGICAL_OPERATOR_PREDICATES = new PredicateFactories<>();
     private static final PredicateFactories<DimensionComparator, Integer> DIMENSION_COMPARATOR_PREDICATES = new PredicateFactories<>();
+    private static final PredicateFactories<NumberComparator, Integer> NUMBER_COMPARATOR_PREDICATES = new PredicateFactories<>();
     private static final PredicateFactories<ListLogicalOperator, CompositePredicate> LIST_LOGICAL_OPERATOR_PREDICATES = new PredicateFactories<>();
 
     static {
         createStringMatcherPredicates();
         createLogicalOperatorPredicates();
         createDimensionComparatorPredicates();
+        createNumberComparatorPredicates();
         createListLogicalOperatorPredicates();
+    }
+
+    private static void createNumberComparatorPredicates() {
+        NUMBER_COMPARATOR_PREDICATES.addFactory(NumberComparator.EQUALS, new PredicateFactory<Integer>() {
+            @Override
+            public Predicate createPredicate(Integer input) {
+                return StandardPredicates.equalsPredicate(input);
+            }
+        });
+        NUMBER_COMPARATOR_PREDICATES.addFactory(NumberComparator.LESS_THEN, new PredicateFactory<Integer>() {
+            @Override
+            public Predicate createPredicate(Integer input) {
+                return IntegerPredicates.lessThen(input);
+            }
+        });
+        NUMBER_COMPARATOR_PREDICATES.addFactory(NumberComparator.LESS_EQUALS_THEN, new PredicateFactory<Integer>() {
+            @Override
+            public Predicate createPredicate(Integer input) {
+                return IntegerPredicates.lessEqualThen(input);
+            }
+        });
+        NUMBER_COMPARATOR_PREDICATES.addFactory(NumberComparator.GREATER_THEN, new PredicateFactory<Integer>() {
+            @Override
+            public Predicate createPredicate(Integer input) {
+                return IntegerPredicates.greaterThen(input);
+            }
+        });
+        NUMBER_COMPARATOR_PREDICATES.addFactory(NumberComparator.GREATER_EQUALS_THEN, new PredicateFactory<Integer>() {
+            @Override
+            public Predicate createPredicate(Integer input) {
+                return IntegerPredicates.greaterEqualThen(input);
+            }
+        });
     }
 
     private static void createListLogicalOperatorPredicates() {
@@ -223,16 +255,33 @@ public final class JoinPointSelectorUtils {
     }
 
     /**
-     * Creates a value operator predicate.
+     * Creates a dimension operator predicate.
      *
-     * @param dimension           the value
-     * @param dimensionComparator the value comparator
+     * @param dimension           the dimension value
+     * @param dimensionComparator the dimension comparator
      * @return the predicate.
      */
     public static Predicate createDimensionComparatorPredicate(int dimension, DimensionComparator dimensionComparator) {
         return DIMENSION_COMPARATOR_PREDICATES.createPredicate(dimensionComparator, dimension);
     }
 
+    /**
+     * Creates a number operator predicate.
+     *
+     * @param number           the number value
+     * @param numberComparator the number comparator
+     * @return the predicate.
+     */
+    public static Predicate createNumberComparatorPredicate(int number, NumberComparator numberComparator) {
+        return NUMBER_COMPARATOR_PREDICATES.createPredicate(numberComparator, number);
+    }
+
+    /**
+     * Create a list logical operator (composite) predicate.
+     * @param listLogicalOperator the list logical operator.
+     * @param compositePredicate the inner composite predicate to use.
+     * @return the composite predicate.
+     */
     public static CompositePredicate createListLogicalOperator(ListLogicalOperator listLogicalOperator, CompositePredicate compositePredicate) {
         return LIST_LOGICAL_OPERATOR_PREDICATES.createCompositePredicate(listLogicalOperator, compositePredicate);
     }

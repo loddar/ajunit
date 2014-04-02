@@ -80,7 +80,10 @@ public abstract class AbstractJoinPointSelectorTest<T extends SelectorBuilder> {
         joinPointTypes = new HashSet<>();
         joinPointSelectorBuilder = new JoinPointSelectorImpl(joinPointTypes);
         selectorBuilder=createSelectorBuilderUnderTest(this.joinPointSelectorBuilder);
+        doAdditionalSetup(selectorBuilder);
     }
+
+    protected void doAdditionalSetup(T selectorBuilder) {}
 
     protected abstract T createSelectorBuilderUnderTest(JoinPointSelector joinPointSelector);
 

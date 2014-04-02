@@ -1,7 +1,7 @@
 /*
  * ajUnit - Unit Testing AspectJ.
  *
- * Copyright (C) 2013-2014 Marko Umek (http://fail-early.com/contact)
+ * Copyright (C) 2013-2014 marko (http://fail-early.com/contact)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,12 +19,12 @@
 package org.failearly.ajunit.builder;
 
 /**
- * Used by {@link org.failearly.ajunit.builder.ArrayTypeSelector#byArrayDimension(int, DimensionComparator)}.
+ * TestSubject7 is responsible for ...
  */
-public enum DimensionComparator {
-    EQUALS,
-    MIN,
-    MAX,
-    LESS_THEN,
-    GREATER_THEN
+@SuppressWarnings("all")
+public class TestSubject7 {
+    public void method0() {}
+    public void method1(int p0) {}
+    public void method2(int p0, String p1) {}
+    public void method3(String p0, String p1, int p3) {}
 }
