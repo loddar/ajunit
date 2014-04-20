@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * ClassTransformers provides factory methods for {@link java.lang.Class} related transformations.
  */
-public abstract class ClassTransformers {
+public final class ClassTransformers {
 
     private static final Transformer CLASS_PACKAGE_NAME_TRANSFORMER = new ClassTransformerBase<String>() {
         @Override

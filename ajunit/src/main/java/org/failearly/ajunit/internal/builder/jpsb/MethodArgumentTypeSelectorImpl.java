@@ -70,4 +70,9 @@ final class MethodArgumentTypeSelectorImpl extends BuilderBase<JoinPointSelector
     public MethodArgumentTypeSelector byClass(Class<?> argumentClass) {
         return methodArgumentTypeSelectorBuilder.byClass(argumentClass);
     }
+
+    @Override
+    public MethodArgumentTypeSelector byPrimitive() {
+        return methodArgumentTypeSelectorBuilder.byPrimitive();
+    }
 }

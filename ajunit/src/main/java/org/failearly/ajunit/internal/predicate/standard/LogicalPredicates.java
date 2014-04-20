@@ -19,6 +19,7 @@
 package org.failearly.ajunit.internal.predicate.standard;
 
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
+import org.failearly.ajunit.internal.predicate.LogicalPredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
 
 import java.util.Arrays;
@@ -31,7 +32,7 @@ public final class LogicalPredicates {
     /**
      * Creates an (empty) logical AND predicate.
      */
-    public static CompositePredicate and() {
+    public static LogicalPredicate and() {
         return new AndPredicate();
     }
 
@@ -53,7 +54,7 @@ public final class LogicalPredicates {
     /**
      * Creates an (empty) logical OR predicate.
      */
-    public static CompositePredicate or() {
+    public static LogicalPredicate or() {
         return new OrPredicate();
     }
 
@@ -74,7 +75,7 @@ public final class LogicalPredicates {
     /**
      * Creates an (empty) logical XOR predicate.
      */
-    public static CompositePredicate xor() {
+    public static LogicalPredicate xor() {
         return new XorPredicate();
     }
 
@@ -88,21 +89,21 @@ public final class LogicalPredicates {
     /**
      * Negates the result of the composite predicate.
      */
-    public static CompositePredicate not(CompositePredicate predicate) {
+    public static LogicalPredicate not(CompositePredicate predicate) {
         return new NotCompositePredicate(predicate);
     }
 
     /**
      * Creates an (empty) logical NAND predicate.
      */
-    public static CompositePredicate nand() {
+    public static LogicalPredicate nand() {
         return not(and());
     }
 
     /**
      * Creates an (empty) logical NOR predicate.
      */
-    public static CompositePredicate nor() {
+    public static LogicalPredicate nor() {
         return not(or());
     }
 
@@ -121,15 +122,15 @@ public final class LogicalPredicates {
         return not(composite(or(), predicates));
     }
 
-    private static CompositePredicate composite(CompositePredicate compositePredicate, Predicate[] predicates) {
-        return composite(compositePredicate, Arrays.asList(predicates));
+    private static LogicalPredicate composite(LogicalPredicate logicalPredicate, Predicate[] predicates) {
+        return composite(logicalPredicate, Arrays.asList(predicates));
     }
 
-    private static CompositePredicate composite(CompositePredicate compositePredicate, Iterable<Predicate> predicates) {
+    private static LogicalPredicate composite(LogicalPredicate logicalPredicate, Iterable<Predicate> predicates) {
         for (Predicate predicate : predicates) {
-            compositePredicate.addPredicate(predicate);
+            logicalPredicate.addPredicate(predicate);
         }
 
-        return compositePredicate;
+        return logicalPredicate;
     }
 }

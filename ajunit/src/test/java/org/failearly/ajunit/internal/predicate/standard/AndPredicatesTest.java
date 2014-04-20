@@ -23,7 +23,7 @@ import org.junit.Test;
 /**
  * Tests for {@link org.failearly.ajunit.internal.predicate.standard.AndPredicate}.
  */
-public class AndPredicatesTest extends LogicalPredicatesTest {
+public class AndPredicatesTest extends AbstractLogicalPredicatesTest {
 
     public AndPredicatesTest() {
         super("AND", LogicalPredicates.and());

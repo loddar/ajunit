@@ -25,7 +25,7 @@ import org.failearly.ajunit.internal.transformer.Transformer;
 /**
  * StandardPredicates provides factory methods for some standard {@link Predicate}s.
  */
-public abstract class StandardPredicates {
+public final class StandardPredicates {
 
     private static final Predicate P_TRUE = new ConstantPredicate(true);
     private static final Predicate P_FALSE = new ConstantPredicate(false);
@@ -67,7 +67,7 @@ public abstract class StandardPredicates {
      * @return {@code false} if the transformer returns {@code null} or applies the {@code predicate} on the transformed object.
      */
     public static Predicate transformerPredicate(final Transformer transformer, final Predicate predicate) {
-        return new TransformerPredicate(transformer, predicate);
+        return new SimpleTransformerPredicate(transformer, predicate);
     }
 
     /**
@@ -79,7 +79,7 @@ public abstract class StandardPredicates {
      * @return {@code false} if the transformer returns {@code null} or applies the {@code compositePredicate} on the transformed object.
      */
     public static CompositePredicate transformerPredicate(final Transformer transformer, final CompositePredicate compositePredicate) {
-        return new TransformerPredicate(transformer, compositePredicate);
+        return new DelegatingTransformerPredicate(transformer, compositePredicate);
     }
 
     /**

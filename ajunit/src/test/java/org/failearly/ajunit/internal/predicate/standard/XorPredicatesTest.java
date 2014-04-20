@@ -23,7 +23,7 @@ import org.junit.Test;
 /**
  * Tests for {@link OrPredicate}.
  */
-public class XorPredicatesTest extends LogicalPredicatesTest {
+public class XorPredicatesTest extends AbstractLogicalPredicatesTest {
 
     public XorPredicatesTest() {
         super("XOR", LogicalPredicates.xor());

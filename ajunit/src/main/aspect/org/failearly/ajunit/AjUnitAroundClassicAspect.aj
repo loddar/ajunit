@@ -24,7 +24,7 @@ package org.failearly.ajunit;
 public abstract aspect AjUnitAroundClassicAspect extends AjUnitClassicAspect {
 
     Object around() : pointcutDefinition() {
-        doApply(thisJoinPoint);
+        super.applyJoinPoint(thisJoinPoint, thisEnclosingJoinPointStaticPart);
         return proceed();
     }
 }

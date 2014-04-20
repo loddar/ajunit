@@ -29,7 +29,7 @@ import java.lang.reflect.Method;
 /**
  * AjpTransformers is a utility class which provides factory methods for {@link org.failearly.ajunit.internal.universe.AjJoinPoint} transformers.
  */
-public abstract class AjpTransformers {
+public final class AjpTransformers {
 
     private static final Transformer AJP_METHOD_TRANSFORMER = new AjpTransformerBase<Method>() {
         @Override

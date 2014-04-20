@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * MethodTransformers provides factory methods for {@link java.lang.reflect.Method} related transformations.
  */
-public abstract class MethodTransformers {
+public final class MethodTransformers {
 
     private static final Transformer METHOD_DECLARED_ANNOTATIONS_TRANSFORMER = new MethodListTransformerBase<Annotation>() {
         @Override

@@ -32,7 +32,7 @@ import static org.junit.Assert.assertThat;
 /**
  * Base class for Logical {@link org.failearly.ajunit.internal.predicate.Predicate} tests.
  */
-public abstract class LogicalPredicatesTest {
+public abstract class AbstractLogicalPredicatesTest {
     protected static final Predicate TRUE= alwaysTrue();
     protected static final Predicate FALSE= alwaysFalse();
     private static final Object ANY_PARAMETER=Boolean.FALSE;
@@ -40,7 +40,7 @@ public abstract class LogicalPredicatesTest {
     private final CompositePredicate compositePredicate;
     private final String predicateName;
 
-    public LogicalPredicatesTest(String predicateName, CompositePredicate compositePredicate) {
+    public AbstractLogicalPredicatesTest(String predicateName, CompositePredicate compositePredicate) {
         this.compositePredicate = compositePredicate;
         this.predicateName = predicateName;
     }

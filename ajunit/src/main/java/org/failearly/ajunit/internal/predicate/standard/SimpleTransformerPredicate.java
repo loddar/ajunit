@@ -1,7 +1,7 @@
 /*
  * ajUnit - Unit Testing AspectJ.
  *
- * Copyright (C) 2013-2014 Marko Umek (http://fail-early.com/contact)
+ * Copyright (C) 2013-2014 marko (http://fail-early.com/contact)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,28 +18,21 @@
  */
 package org.failearly.ajunit.internal.predicate.standard;
 
-import org.failearly.ajunit.internal.predicate.CompositePredicate;
-import org.failearly.ajunit.internal.predicate.DelegateCompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.predicate.PredicateBase;
 import org.failearly.ajunit.internal.transformer.Transformer;
 
 /**
-* TransformerPredicate is a {@link org.failearly.ajunit.internal.predicate.Predicate} which executes <code>P(T(input))</code>.
-*/
-final class TransformerPredicate extends DelegateCompositePredicate {
+ * SimpleTransformerPredicate is responsible for ...
+ */
+final class SimpleTransformerPredicate extends PredicateBase {
     private final Transformer transformer;
     private final Predicate predicate;
 
-    TransformerPredicate(Transformer transformer, Predicate predicate) {
-        super("TransformerPredicate("+predicate+")");
+    SimpleTransformerPredicate(Transformer transformer, Predicate predicate) {
+        super("SimpleTransformerPredicate("+predicate+")");
         this.transformer = transformer;
         this.predicate = predicate;
-    }
-
-    TransformerPredicate(Transformer transformer, CompositePredicate compositePredicate) {
-        super("TransformerPredicate("+compositePredicate+")", compositePredicate);
-        this.transformer = transformer;
-        this.predicate = compositePredicate;
     }
 
     @Override

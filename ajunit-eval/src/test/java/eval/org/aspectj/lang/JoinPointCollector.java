@@ -36,6 +36,7 @@ public abstract class JoinPointCollector {
     private static final Map<Class<? extends JoinPointCollector>, JoinPoint> JOIN_POINTS = new HashMap<>();
     private static final Map<Class<? extends JoinPointCollector>, String> THIS_CONTEXTS = new HashMap<>();
     private static final Map<Class<? extends JoinPointCollector>, String> TARGET_CONTEXTS = new HashMap<>();
+    private static final Map<Class<? extends JoinPointCollector>, String> ENCLOSING_JP = new HashMap<>();
     private static int numCalledJoinPoints = 0;
 
     protected JoinPointCollector() {
@@ -67,11 +68,12 @@ public abstract class JoinPointCollector {
     }
 
 
-    protected void add(final JoinPoint joinPoint) {
+    protected void add(final JoinPoint joinPoint, JoinPoint.StaticPart enclosingJoinPoint) {
         LOGGER.info("Current join point is {}", joinPoint);
         JOIN_POINTS.put(this.getClass(), joinPoint);
         addContext("THIS", joinPoint.getThis(), THIS_CONTEXTS);
         addContext("TARGET", joinPoint.getTarget(), TARGET_CONTEXTS);
+        addContext("ENCJP", enclosingJoinPoint, ENCLOSING_JP);
         numCalledJoinPoints += 1;
     }
 

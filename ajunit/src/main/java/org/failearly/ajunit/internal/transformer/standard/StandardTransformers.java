@@ -25,7 +25,7 @@ import java.util.Arrays;
 /**
  * StandardTransformers provides factory methods for standard transformers.
  */
-public abstract class StandardTransformers {
+public final class StandardTransformers {
 
     public static final Transformer NULL_TRANSFORMER = new Transformer() {
         @Override

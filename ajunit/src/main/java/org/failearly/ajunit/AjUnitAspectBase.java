@@ -27,28 +27,133 @@ import org.failearly.ajunit.internal.util.MessageUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.*;
 
 /**
- * AjUnitAspectBase is THE base class for all ajUnit based aspects. The only provided method is {@link #doApply(org.aspectj.lang.JoinPoint)}.
+ * AjUnitAspectBase is THE base class for all ajUnit based aspects.
  * This method should be called by the aspect's {@code advice}.
  */
 public abstract class AjUnitAspectBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(AjUnitAspectBase.class);
+    private static final ContextBuilder NULL_CONTEXT_BUILDER =new ContextBuilder() {
+        @Override
+        public ContextBuilder addContext(String name, Object value) {
+            return this;
+        }
+
+        @Override
+        public void storeNamedContextValues(AjJoinPoint ajJoinPoint) {
+        }
+    };
+    private static final AjJoinPoint NULL_AJ_JOIN_POINT = new AjJoinPoint() {
+        @Override
+        public AjJoinPointType getJoinPointType() {
+            return null;
+        }
+
+        @Override
+        public Class<?> getDeclaringClass() {
+            return null;
+        }
+
+        @Override
+        public Method getMethod() {
+            return null;
+        }
+
+        @Override
+        public Field getField() {
+            return null;
+        }
+
+        @Override
+        public Constructor getConstructor() {
+            return null;
+        }
+
+        @Override
+        public int getNumApplications() {
+            return 0;
+        }
+
+        @Override
+        public void apply() {
+            LOGGER.info("Call apply on NULL_AJ_JOIN_POINT");
+        }
+
+        @Override
+        public String toShortString() {
+            return null;
+        }
+
+        @Override
+        public String toString(AjJoinPointStringBuilder stringBuilder) {
+            return null;
+        }
+
+        @Override
+        public void addContext(String name, Object value) {}
+
+        @Override
+        public Object getContext(String name) {
+            return null;
+        }
+    };
 
     protected AjUnitAspectBase() {
     }
 
     /**
-     * <i>Apply the join point</i>, means to find the associated ajUnit join point and then mark it as applied..
-     * @param joinPoint the AspectJ join point.
+     * Factory method for {@link org.failearly.ajunit.AjUnitAspectBase.ContextBuilder}.
+     * @return new ContextBuilder.
      */
-    final void doApply(final JoinPoint joinPoint) {
+    protected static ContextBuilder context() {
+        return new ContextBuilderImpl();
+    }
+
+    /**
+     * Convenient factory method for {@link org.failearly.ajunit.AjUnitAspectBase.ContextBuilder} with one named context.
+     * @return new ContextBuilder.
+     */
+    protected static ContextBuilder context(String name1, Object val1) {
+        return context().addContext(name1, val1);
+    }
+
+    /**
+     * Convenient factory method for {@link org.failearly.ajunit.AjUnitAspectBase.ContextBuilder} with two named context.
+     * @return new ContextBuilder.
+     */
+    protected static ContextBuilder context(String name1, Object val1, String name2, Object val2) {
+        return context().addContext(name1, val1).addContext(name2, val2);
+    }
+
+    /**
+     * <i>Apply the join point</i>, means to find the associated ajUnit join point and then mark it as applied.
+     * @param joinPoint the AspectJ join point ({@code thisJoinPoint}).
+     * @param enclosingJoinPoint the enclosing join point ({@code thisEnclosingJoinPointStaticPart})
+     */
+    protected final void applyJoinPoint(final JoinPoint joinPoint, final JoinPoint.StaticPart enclosingJoinPoint) {
+        this.applyJoinPoint(joinPoint, enclosingJoinPoint, NULL_CONTEXT_BUILDER);
+    }
+
+    /**
+     * <i>Apply the join point</i>, means to find the associated ajUnit join point and then mark it as applied.
+     * @param joinPoint the AspectJ join point ({@code thisJoinPoint}).
+     * @param enclosingJoinPoint the enclosing join point ({@code thisEnclosingJoinPointStaticPart})
+     * @param contextBuilder context builder.
+     *
+     * @see #context()
+     * @see #context(String, Object)
+     * @see #context(String, Object, String, Object)
+     */
+    protected final void applyJoinPoint(final JoinPoint joinPoint, final JoinPoint.StaticPart enclosingJoinPoint, final ContextBuilder contextBuilder) {
         final String universeName = AjUnitUtils.resolveUniverseName(this);
         LOGGER.info("ajUnit - {}: Apply AspectJ join point {}", universeName, joinPoint);
         final AjJoinPoint ajUnitJoinPoint=resolveAjJoinPoint(joinPoint, universeName);
+        contextBuilder.storeNamedContextValues(ajUnitJoinPoint);
         ajUnitJoinPoint.apply();
         LOGGER.debug("ajUnit - {}: Applied ajUnit join point {}", universeName, ajUnitJoinPoint);
     }
@@ -80,7 +185,7 @@ public abstract class AjUnitAspectBase {
             return joinPoints;
         }
 
-        return Arrays.asList(AjJoinPoint.NULL_OBJECT);
+        return Arrays.asList(NULL_AJ_JOIN_POINT);
     }
 
     private void validateResult(JoinPoint joinPoint, List<AjJoinPoint> joinPoints) {
@@ -102,5 +207,41 @@ public abstract class AjUnitAspectBase {
     private AjJoinPointMatcher resolveJoinPointMatcher(JoinPoint joinPoint) {
         final AjJoinPointType ajJoinPointType=AjJoinPointType.resolveFromJoinPoint(joinPoint);
         return ajJoinPointType.getJoinPointMatcher();
+    }
+
+    /**
+     * ContextBuilder is responsible for collecting (named) context values associated with current joint point.
+     */
+    protected interface ContextBuilder {
+        /**
+         * Add a (named) context value.
+         * @param name the context name.
+         * @param value the context value.
+         * @return itself.
+         */
+        ContextBuilder addContext(String name, Object value);
+
+        /**
+         * Internal use.
+         */
+        void storeNamedContextValues(AjJoinPoint ajJoinPoint);
+    }
+
+    private static final class ContextBuilderImpl implements ContextBuilder {
+        private final Map<String, Object> contextMap=new HashMap<>();
+        private ContextBuilderImpl() {}
+
+        @Override
+        public ContextBuilder addContext(final String name, Object value) {
+            this.contextMap.put(name, value);
+            return this;
+        }
+
+        @Override
+        public void storeNamedContextValues(final AjJoinPoint ajJoinPoint) {
+            for (Map.Entry<String, Object> context : contextMap.entrySet()) {
+                ajJoinPoint.addContext(context.getKey(), context.getValue());
+            }
+        }
     }
 }

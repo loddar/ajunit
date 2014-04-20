@@ -19,6 +19,7 @@
 package org.failearly.ajunit.internal.predicate.standard;
 
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
+import org.failearly.ajunit.internal.predicate.LogicalPredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.PredicateBase;
 
@@ -29,7 +30,7 @@ import org.failearly.ajunit.internal.predicate.PredicateBase;
  *     <li>P1, ..., Pn := any {@link org.failearly.ajunit.internal.predicate.Predicate} </li>
  * </ul>
  */
-final class NotCompositePredicate extends PredicateBase implements CompositePredicate {
+final class NotCompositePredicate extends PredicateBase implements LogicalPredicate {
 
     private final CompositePredicate compositePredicate;
 

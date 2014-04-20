@@ -23,7 +23,7 @@ import org.junit.Test;
 /**
  * Tests for {@link LogicalPredicates#nor()}.
  */
-public class NorPredicatesTest extends LogicalPredicatesTest {
+public class NorPredicatesTest extends AbstractLogicalPredicatesTest {
 
     public NorPredicatesTest() {
         super("NOR", LogicalPredicates.nor());

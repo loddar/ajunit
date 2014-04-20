@@ -23,7 +23,7 @@ import org.junit.Test;
 /**
  * Tests for {@link LogicalPredicates#nand()}.
  */
-public class NandPredicatesTest extends LogicalPredicatesTest {
+public class NandPredicatesTest extends AbstractLogicalPredicatesTest {
 
     public NandPredicatesTest() {
         super("NAND", LogicalPredicates.nand());

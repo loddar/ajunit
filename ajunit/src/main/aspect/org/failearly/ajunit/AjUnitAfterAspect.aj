@@ -16,21 +16,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit;
+
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 
 /**
- * MethodArgumentTypeSelector is responsible for selecting argument(s) of methods and constructors by argument type and position(s).
- *
- * @see org.failearly.ajunit.builder.MethodArgumentsSelector#byArgumentPosition(int)
+ * AfterAspect is responsible for ...
  */
-public interface MethodArgumentTypeSelector extends SelectorBuilder {
-    /**
-     * Ends Argument position expression.
-     * @return previous {@link org.failearly.ajunit.builder.MethodArgumentsSelector}.
-     */
-    MethodArgumentsSelector endArgumentPosition();
-
-    MethodArgumentTypeSelector byClass(Class<?> argumentClass);
-
-    MethodArgumentTypeSelector byPrimitive();
+public abstract aspect AjUnitAfterAspect extends AjUnitAspect {
+    @After("pointcutDefinition()")
+    public void afterSelectedJoinPoint(JoinPoint thisJoinPoint, JoinPoint.EnclosingStaticPart thisEnclosingJoinPointStaticPart) {
+        super.applyJoinPoint(thisJoinPoint, thisEnclosingJoinPointStaticPart);
+    }
 }

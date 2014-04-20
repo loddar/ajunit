@@ -29,7 +29,7 @@ import org.aspectj.lang.annotation.Before;
 public abstract class AjUnitBeforeAspect extends AjUnitAspect {
 
     @Before("pointcutDefinition()")
-    public void beforeSelectedJoinPoint(JoinPoint thisJoinPoint) {
-        super.doApply(thisJoinPoint);
+    public void beforeSelectedJoinPoint(JoinPoint thisJoinPoint, JoinPoint.EnclosingStaticPart thisEnclosingJoinPointStaticPart) {
+        super.applyJoinPoint(thisJoinPoint, thisEnclosingJoinPointStaticPart);
     }
 }

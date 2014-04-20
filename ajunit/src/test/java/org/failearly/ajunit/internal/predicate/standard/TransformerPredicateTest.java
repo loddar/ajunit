@@ -18,6 +18,7 @@
  */
 package org.failearly.ajunit.internal.predicate.standard;
 
+import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
 import org.junit.Test;
@@ -42,8 +43,8 @@ public class TransformerPredicateTest {
         // assert / then
         assertThat("Predicate result?", predicate.evaluate(ANY_PARAMETER), is(true));
     }
-    @Test
 
+    @Test
     public void transformerReturnsNull() throws Exception {
         // arrange / given
         final Predicate predicate = StandardPredicates.transformerPredicate(
@@ -54,4 +55,34 @@ public class TransformerPredicateTest {
         // assert / then
         assertThat("Predicate result?", predicate.evaluate(ANY_PARAMETER), is(false));
     }
+
+    @Test
+    public void compositeTransformerReturnsNotNull() throws Exception {
+        // arrange / given
+        final CompositePredicate predicate = StandardPredicates.transformerPredicate(
+                StandardTransformers.identityTransformer(String.class),
+                LogicalPredicates.and()
+        );
+
+        predicate.addPredicate(StandardPredicates.alwaysTrue());
+
+        // assert / then
+        assertThat("Predicate result?", predicate.evaluate(ANY_PARAMETER), is(true));
+    }
+
+    @Test
+    public void compositeTransformerReturnsNull() throws Exception {
+        // arrange / given
+        final CompositePredicate predicate = StandardPredicates.transformerPredicate(
+                StandardTransformers.nullTransformer(),
+                LogicalPredicates.and()
+        );
+
+        predicate.addPredicate(StandardPredicates.alwaysTrue());
+
+        // assert / then
+        assertThat("Predicate result?", predicate.evaluate(ANY_PARAMETER), is(false));
+    }
+
+
 }

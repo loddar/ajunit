@@ -26,7 +26,7 @@ import org.failearly.ajunit.internal.universe.AjJoinPointType;
  *
  * @see org.failearly.ajunit.internal.universe.AjJoinPointType#getJoinPointMatcher()
  */
-public abstract class JoinPointMatchers {
+public final class JoinPointMatchers {
 
     public static final AjJoinPointMatcher NULL_MATCHER = new NullMatcher();
 

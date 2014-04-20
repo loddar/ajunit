@@ -23,7 +23,7 @@ import org.junit.Test;
 /**
  * Tests for {@link org.failearly.ajunit.internal.predicate.standard.OrPredicate}.
  */
-public class OrPredicatesTest extends LogicalPredicatesTest {
+public class OrPredicatesTest extends AbstractLogicalPredicatesTest {
 
     public OrPredicatesTest() {
         super("OR", LogicalPredicates.or());

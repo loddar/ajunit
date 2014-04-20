@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * FieldTransformers provides factory methods for {@link java.lang.reflect.Field} related transformations.
  */
-public abstract class FieldTransformers {
+public final class FieldTransformers {
 
     private static final Transformer FIELD_TYPE_TRANSFORMER = new TypedTransformer<Field, Class<?>>(Field.class) {
         @Override

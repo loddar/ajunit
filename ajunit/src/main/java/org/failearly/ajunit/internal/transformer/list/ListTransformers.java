@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * ListTransformers provides factory methods for {@link java.util.List} related transformations.
  */
-public abstract class ListTransformers {
+public final class ListTransformers {
 
     private static final Transformer LIST_SIZE_TRANSFORMER = new ListTransformerBase<Integer>() {
         @Override

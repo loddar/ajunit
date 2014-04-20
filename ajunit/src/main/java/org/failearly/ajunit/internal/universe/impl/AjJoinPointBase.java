@@ -26,6 +26,8 @@ import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Base class for {@link org.failearly.ajunit.internal.universe.AjJoinPoint} implementations.
@@ -35,6 +37,7 @@ abstract class AjJoinPointBase implements AjJoinPoint {
     private final AjJoinPointType joinPointType;
     private final Class<?> declaringClass;
     private int numApplications = 0;
+    private final Map<String, Object> contextMap=new HashMap<>();
 
     AjJoinPointBase(final AjJoinPointType joinPointType, Class<?> declaringClass) {
         this.joinPointType = joinPointType;
@@ -75,6 +78,16 @@ abstract class AjJoinPointBase implements AjJoinPoint {
     @Override
     public final int getNumApplications() {
         return this.numApplications;
+    }
+
+    @Override
+    public final void addContext(String name, Object value) {
+        this.contextMap.put(name, value);
+    }
+
+    @Override
+    public final Object getContext(String name) {
+        return this.contextMap.get(name);
     }
 
     @Override

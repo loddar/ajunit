@@ -26,7 +26,7 @@ import java.lang.reflect.Member;
 /**
  * MemberTransformers provides factory methods for {@link java.lang.reflect.Member} related transformations.
  */
-public abstract class MemberTransformers {
+public final class MemberTransformers {
 
     private static final TypedTransformer<Member, String> MEMBER_NAME_TRANSFORMER = new TypedTransformer<Member, String>(Member.class) {
         @Override

@@ -41,14 +41,14 @@ public class AjUnitAspectTest {
     @AjUniverseName(UNIVERSE_NAME_1)
     private static class AjUnitAspect1 extends AjUnitAspectBase {
         void advice(JoinPoint jointPoint) {
-            doApply(jointPoint);
+            applyJoinPoint(jointPoint, null);
         }
     }
 
     @AjUniverseName(UNIVERSE_NAME_2)
     private static class AjUnitAspect2 extends AjUnitAspectBase {
         void advice(JoinPoint jointPoint) {
-            doApply(jointPoint);
+            applyJoinPoint(jointPoint, null);
         }
     }
 

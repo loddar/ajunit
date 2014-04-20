@@ -204,4 +204,20 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
         );
     }
 
+    @Test
+    public void byArgumentPositionsByPrimitive() throws Exception {
+        // act / when
+        methodArgumentsSelector.byArgumentPosition(0)
+                    .byPrimitive()
+                .endArgumentPosition();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject7.method1(int)",
+                "public void org.failearly.ajunit.builder.TestSubject7.method2(int,java.lang.String)",
+                "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
+                "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException"
+        );
+    }
+
 }

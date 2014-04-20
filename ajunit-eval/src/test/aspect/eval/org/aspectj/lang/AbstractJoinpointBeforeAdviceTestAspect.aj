@@ -26,7 +26,7 @@ abstract aspect AbstractJoinpointBeforeAdviceTestAspect extends AbstractJoinpoin
     abstract pointcut testPointcut();
 
     before() : testPointcut() {
-        super.add(thisJoinPoint);
+        super.add(thisJoinPoint, thisEnclosingJoinPointStaticPart);
     }
 
 }
