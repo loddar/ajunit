@@ -22,7 +22,6 @@ import org.failearly.ajunit.builder.MethodArgumentTypeSelector;
 import org.failearly.ajunit.builder.MethodArgumentsSelector;
 import org.failearly.ajunit.builder.MethodJoinPointSelector;
 import org.failearly.ajunit.builder.NumberComparator;
-import org.failearly.ajunit.internal.builder.BuilderBase;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.JoinPointSelectorUtils;
@@ -32,29 +31,24 @@ import org.failearly.ajunit.internal.transformer.ajp.AjpTransformers;
 import org.failearly.ajunit.internal.transformer.list.ListTransformers;
 import org.failearly.ajunit.internal.transformer.method.MethodTransformers;
 import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
-import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
  * The implementation of {@link org.failearly.ajunit.builder.MethodArgumentsSelector}.
  */
-final class MethodArgumentsSelectorImpl extends BuilderBase<JoinPointSelectorImpl,MethodArgumentsSelectorImpl> implements MethodArgumentsSelector {
+final class MethodArgumentsSelectorImpl extends JoinPointBuilderBase<MethodArgumentsSelectorImpl> implements MethodArgumentsSelector {
 
 
-    private final AjJoinPointType joinPointType;
 
     MethodArgumentsSelectorImpl(
             JoinPointSelectorImpl root,
             MethodJoinPointSelectorImpl parent,
-            CompositePredicate compositePredicate,
-            AjJoinPointType joinPointType) {
-        super.init(LogicalStructureBuilder.createBuilder(root, parent, this, createCompositeNode(compositePredicate, joinPointType)));
-        this.joinPointType = joinPointType;
+            CompositePredicate compositePredicate) {
+        super.init(LogicalStructureBuilder.createBuilder(root, parent, this, createCompositeNode(compositePredicate)));
     }
 
-    private static CompositePredicate createCompositeNode(CompositePredicate compositePredicate, AjJoinPointType joinPointType) {
+    private static CompositePredicate createCompositeNode(CompositePredicate compositePredicate) {
         return StandardPredicates.transformerPredicate(
                 StandardTransformers.transformerComposition(
-                        AjpTransformers.ajpJoinPointFilterTransformer(joinPointType),
                         AjpTransformers.methodTransformer(),
                         MethodTransformers.methodArgumentsTransformer()
                 ),

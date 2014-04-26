@@ -19,39 +19,35 @@
 package org.failearly.ajunit.internal.builder.jpsb;
 
 import org.failearly.ajunit.builder.*;
-import org.failearly.ajunit.internal.builder.BuilderBase;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.SelectorBuilders;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
-import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
  * The implementation of {@link org.failearly.ajunit.builder.ReturnTypeSelector}.
  */
 final class ReturnTypeSelectorImpl
-        extends BuilderBase<JoinPointSelectorImpl,ReturnTypeSelectorImpl>
+        extends JoinPointBuilderBase<ReturnTypeSelectorImpl>
         implements ReturnTypeSelector {
 
     private final ClassSelectorBuilder<ReturnTypeSelectorImpl> returnTypeSelector;
-    private final AjJoinPointType joinPointType;
 
     ReturnTypeSelectorImpl(
-            JoinPointSelectorImpl root, MethodJoinPointSelectorImpl parent, CompositePredicate compositePredicate, AjJoinPointType joinPointType) {
-        this(joinPointType);
+            JoinPointSelectorImpl root, MethodJoinPointSelectorImpl parent, CompositePredicate compositePredicate) {
+        this();
         init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
     }
 
     private ReturnTypeSelectorImpl(
-            JoinPointSelectorImpl root, ReturnTypeSelectorImpl parent, CompositePredicate compositePredicate, AjJoinPointType joinPointType) {
-        this(joinPointType);
+            JoinPointSelectorImpl root, ReturnTypeSelectorImpl parent, CompositePredicate compositePredicate) {
+        this();
         init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
     }
 
-    private ReturnTypeSelectorImpl(AjJoinPointType joinPointType) {
-        this.joinPointType = joinPointType;
-        this.returnTypeSelector = SelectorBuilders.createReturnTypeSelectorBuilder(this, joinPointType);
+    private ReturnTypeSelectorImpl() {
+        this.returnTypeSelector = SelectorBuilders.createReturnTypeSelectorBuilder(this);
     }
 
     @Override
@@ -112,7 +108,7 @@ final class ReturnTypeSelectorImpl
     @Override
     public ReturnComponentTypeSelector byComponentType() {
         return super.and(
-                getReturnComponentTypeSelectorBuilderFactory(this.joinPointType, this.returnTypeSelector)
+                getReturnComponentTypeSelectorBuilderFactory(this.returnTypeSelector)
         );
     }
 
@@ -158,7 +154,7 @@ final class ReturnTypeSelectorImpl
 
     @Override
     public ReturnTypeSelector or() {
-        return super.or(getReturnTypeSelectorBuilderFactory(this.joinPointType));
+        return super.or(getReturnTypeSelectorBuilderFactory());
     }
 
     @Override
@@ -173,7 +169,7 @@ final class ReturnTypeSelectorImpl
 
     @Override
     public ReturnTypeSelector and() {
-        return super.and(getReturnTypeSelectorBuilderFactory(this.joinPointType));
+        return super.and(getReturnTypeSelectorBuilderFactory());
     }
 
     @Override
@@ -188,7 +184,7 @@ final class ReturnTypeSelectorImpl
 
     @Override
     public ReturnTypeSelector nor() {
-        return super.nor(getReturnTypeSelectorBuilderFactory(this.joinPointType));
+        return super.nor(getReturnTypeSelectorBuilderFactory());
     }
 
     @Override
@@ -213,22 +209,22 @@ final class ReturnTypeSelectorImpl
 
     private static BuilderFactory<JoinPointSelectorImpl,ReturnTypeSelectorImpl,ReturnComponentTypeSelectorImpl>
         getReturnComponentTypeSelectorBuilderFactory(
-            final AjJoinPointType joinPointType, final ClassSelectorBuilder<ReturnTypeSelectorImpl> returnTypeSelector
+            final ClassSelectorBuilder<ReturnTypeSelectorImpl> returnTypeSelector
     ) {
         return new BuilderFactory<JoinPointSelectorImpl, ReturnTypeSelectorImpl, ReturnComponentTypeSelectorImpl>() {
             @Override
             public ReturnComponentTypeSelectorImpl createBuilder(JoinPointSelectorImpl root, ReturnTypeSelectorImpl parent, CompositePredicate compositePredicate) {
-                return new ReturnComponentTypeSelectorImpl(root, parent, compositePredicate, joinPointType, returnTypeSelector);
+                return new ReturnComponentTypeSelectorImpl(root, parent, compositePredicate, returnTypeSelector);
             }
         };
     }
 
     private static BuilderFactory<JoinPointSelectorImpl,ReturnTypeSelectorImpl,ReturnTypeSelectorImpl>
-        getReturnTypeSelectorBuilderFactory(final AjJoinPointType joinPointType) {
+        getReturnTypeSelectorBuilderFactory() {
         return new BuilderFactory<JoinPointSelectorImpl, ReturnTypeSelectorImpl, ReturnTypeSelectorImpl>() {
             @Override
             public ReturnTypeSelectorImpl createBuilder(JoinPointSelectorImpl root, ReturnTypeSelectorImpl parent, CompositePredicate compositePredicate) {
-                return new ReturnTypeSelectorImpl(root, parent, compositePredicate, joinPointType);
+                return new ReturnTypeSelectorImpl(root, parent, compositePredicate);
             }
         };
     }

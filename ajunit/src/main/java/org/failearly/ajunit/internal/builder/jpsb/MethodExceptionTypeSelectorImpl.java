@@ -22,7 +22,6 @@ import org.failearly.ajunit.builder.ListLogicalOperator;
 import org.failearly.ajunit.builder.MethodExceptionTypeSelector;
 import org.failearly.ajunit.builder.MethodJoinPointSelector;
 import org.failearly.ajunit.builder.StringMatcherType;
-import org.failearly.ajunit.internal.builder.BuilderBase;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
@@ -33,13 +32,12 @@ import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.failearly.ajunit.internal.transformer.ajp.AjpTransformers;
 import org.failearly.ajunit.internal.transformer.method.MethodTransformers;
 import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
-import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
  * The implementation of {@link org.failearly.ajunit.builder.MethodExceptionTypeSelector}.
  */
 final class MethodExceptionTypeSelectorImpl
-        extends BuilderBase<JoinPointSelectorImpl,MethodExceptionTypeSelectorImpl>
+        extends JoinPointBuilderBase<MethodExceptionTypeSelectorImpl>
         implements MethodExceptionTypeSelector {
 
 
@@ -50,10 +48,9 @@ final class MethodExceptionTypeSelectorImpl
             JoinPointSelectorImpl root,
             MethodJoinPointSelectorImpl parent,
             CompositePredicate compositePredicate,
-            AjJoinPointType joinPointType,
             ListLogicalOperator listLogicalOperator) {
         this();
-        init(LogicalStructureBuilder.createBuilder(root, parent, this, createCompositeNode(compositePredicate, joinPointType, listLogicalOperator)));
+        init(LogicalStructureBuilder.createBuilder(root, parent, this, createCompositeNode(compositePredicate, listLogicalOperator)));
     }
 
     private MethodExceptionTypeSelectorImpl(JoinPointSelectorImpl root, MethodExceptionTypeSelectorImpl parent, CompositePredicate compositePredicate) {
@@ -65,10 +62,9 @@ final class MethodExceptionTypeSelectorImpl
         this.methodExceptionTypeSelector = SelectorBuilders.createMethodExceptionTypeSelector(this);
     }
 
-    private static CompositePredicate createCompositeNode(CompositePredicate compositePredicate, AjJoinPointType joinPointType, ListLogicalOperator listLogicalOperator) {
+    private static CompositePredicate createCompositeNode(CompositePredicate compositePredicate, ListLogicalOperator listLogicalOperator) {
         return StandardPredicates.transformerPredicate(
                 StandardTransformers.transformerComposition(
-                    AjpTransformers.ajpJoinPointFilterTransformer(joinPointType),
                     AjpTransformers.methodTransformer(),
                     MethodTransformers.methodExceptionsTransformer()
                 ),

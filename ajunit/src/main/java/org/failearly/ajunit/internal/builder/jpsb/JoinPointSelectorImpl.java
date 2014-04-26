@@ -25,6 +25,8 @@ import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.RootBuilderBase;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
+import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
+import org.failearly.ajunit.internal.transformer.ajp.AjpTransformers;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 import java.util.Set;
@@ -62,10 +64,19 @@ public final class JoinPointSelectorImpl extends RootBuilderBase<JoinPointSelect
         return new BuilderFactory<JoinPointSelectorImpl, JoinPointSelectorImpl, MethodJoinPointSelectorImpl>() {
             @Override
             public MethodJoinPointSelectorImpl createBuilder(JoinPointSelectorImpl root,
-                                                                    JoinPointSelectorImpl parent,
-                                                                    CompositePredicate compositePredicate) {
-                return new MethodJoinPointSelectorImpl(root, parent, compositePredicate, joinPointType);
+                                                             JoinPointSelectorImpl parent,
+                                                             CompositePredicate compositePredicate) {
+                final CompositePredicate compositePredicate2=transformerPredicate(joinPointType, compositePredicate);
+                return new MethodJoinPointSelectorImpl(root, parent, compositePredicate2);
             }
         };
+    }
+
+
+    private static CompositePredicate transformerPredicate(AjJoinPointType joinPointType, CompositePredicate logicalPredicate) {
+        return StandardPredicates.transformerPredicate(
+                AjpTransformers.ajpJoinPointFilterTransformer(joinPointType),
+                logicalPredicate
+        );
     }
 }

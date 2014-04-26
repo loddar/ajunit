@@ -21,7 +21,6 @@ package org.failearly.ajunit.internal.builder.jpsb;
 import org.failearly.ajunit.builder.ListLogicalOperator;
 import org.failearly.ajunit.builder.MethodArgumentTypeSelector;
 import org.failearly.ajunit.builder.MethodArgumentsSelector;
-import org.failearly.ajunit.internal.builder.BuilderBase;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.JoinPointSelectorUtils;
@@ -34,7 +33,7 @@ import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
 /**
  * MethodArgumentTypeSelectorImpl is responsible for ...
  */
-final class MethodArgumentTypeSelectorImpl extends BuilderBase<JoinPointSelectorImpl,MethodArgumentTypeSelectorImpl>
+final class MethodArgumentTypeSelectorImpl extends JoinPointBuilderBase<MethodArgumentTypeSelectorImpl>
         implements MethodArgumentTypeSelector {
 
     private ClassSelectorBuilder<MethodArgumentTypeSelectorImpl> methodArgumentTypeSelectorBuilder;

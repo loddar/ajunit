@@ -26,12 +26,11 @@ import org.failearly.ajunit.internal.transformer.ajp.AjpTransformers;
 import org.failearly.ajunit.internal.transformer.clazz.ClassTransformers;
 import org.failearly.ajunit.internal.transformer.method.MethodTransformers;
 import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
-import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
  * SelectorBuilders provides factory methods for {@link org.failearly.ajunit.internal.builder.jpsb.helper.SelectorBuilderBase}.
  */
-public abstract class SelectorBuilders {
+public final class SelectorBuilders {
     private SelectorBuilders() {
     }
 
@@ -40,36 +39,26 @@ public abstract class SelectorBuilders {
      * the actually selectors excluding the logical structure builders.
      *
      * @param predicateBuilder the predicate builder instance
-     * @param joinPointType    the join point type
-     * @param <T>              the builder type
      * @return the new builder selector instance.
      */
-    public static <T extends Builder> MethodSelectorBuilder<T> createMethodSelectorBuilder(final T predicateBuilder, final AjJoinPointType joinPointType) {
-        return new MethodSelectorBuilder<>(createPredicateAdder(predicateBuilder, chain(
-                AjpTransformers.ajpJoinPointFilterTransformer(joinPointType),
-                AjpTransformers.methodTransformer()))
-        );
+    public static <T extends Builder> MethodSelectorBuilder<T> createMethodSelectorBuilder(final T predicateBuilder) {
+        return new MethodSelectorBuilder<>(createPredicateAdder(predicateBuilder, AjpTransformers.methodTransformer()));
     }
 
-    public static <T extends Builder> ClassSelectorBuilder<T> createDeclaringClassSelectorBuilder(T predicateBuilder, AjJoinPointType joinPointType) {
-        return new ClassSelectorBuilder<>(createPredicateAdder(predicateBuilder, chain(
-                AjpTransformers.ajpJoinPointFilterTransformer(joinPointType),
-                AjpTransformers.declaringClassTransformer()
-        )));
+    public static <T extends Builder> ClassSelectorBuilder<T> createDeclaringClassSelectorBuilder(T predicateBuilder) {
+        return new ClassSelectorBuilder<>(createPredicateAdder(predicateBuilder, AjpTransformers.declaringClassTransformer()));
     }
 
-    public static <T extends Builder> ClassSelectorBuilder<T> createReturnTypeSelectorBuilder(T predicateBuilder, AjJoinPointType joinPointType) {
+    public static <T extends Builder> ClassSelectorBuilder<T> createReturnTypeSelectorBuilder(T predicateBuilder) {
         return new ClassSelectorBuilder<>(createPredicateAdder(predicateBuilder, chain(
-                AjpTransformers.ajpJoinPointFilterTransformer(joinPointType),
                 AjpTransformers.methodTransformer(),
                 MethodTransformers.methodReturnTypeTransformer()))
         );
     }
 
 
-    public static <T extends Builder> ClassSelectorBuilder<T> createReturnComponentTypeSelectorBuilder(T predicateBuilder, AjJoinPointType joinPointType) {
+    public static <T extends Builder> ClassSelectorBuilder<T> createReturnComponentTypeSelectorBuilder(T predicateBuilder) {
         return new ClassSelectorBuilder<>(createPredicateAdder(predicateBuilder, chain(
-                AjpTransformers.ajpJoinPointFilterTransformer(joinPointType),
                 AjpTransformers.methodTransformer(),
                 MethodTransformers.methodReturnTypeTransformer(),
                 ClassTransformers.arrayComponentType()))
