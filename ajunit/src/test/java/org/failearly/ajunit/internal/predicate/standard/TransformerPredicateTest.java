@@ -83,6 +83,4 @@ public class TransformerPredicateTest {
         // assert / then
         assertThat("Predicate result?", predicate.evaluate(ANY_PARAMETER), is(false));
     }
-
-
 }

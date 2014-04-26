@@ -62,4 +62,8 @@ public final class StandardTransformers {
         return NULL_TRANSFORMER;
     }
 
+    public static Transformer reflection(Class<?> clazz, String methodName) {
+        return new ReflectionTransformer(clazz, methodName);
+    }
+
 }

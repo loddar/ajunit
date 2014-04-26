@@ -23,5 +23,5 @@ package org.failearly.ajunit.builder;
  */
 public enum AnyEnum {
     E_VAL1,
-    E_VAL2;
+    E_VAL2
 }
