@@ -97,7 +97,7 @@ public class TestResultEvaluatorBaseTest<T extends TestResultCollector> {
             @Override
             public void visit(AjJoinPoint joinPoint) {
                 if (predicate.evaluate(joinPoint)) {
-                    joinPoint.apply();
+                    joinPoint.applyJoinPoint(null);
                 }
             }
         });
@@ -111,7 +111,7 @@ public class TestResultEvaluatorBaseTest<T extends TestResultCollector> {
      * Initialize the test evaluator.
      * @param joinPointSelector the join point selector
      * @param aspectSimulationPredicate {@code null} or the aspect simulation predicate which will
-     *                                                call {@link org.failearly.ajunit.internal.universe.AjJoinPoint#apply()} on each selected join point.
+     *                                                call {@link org.failearly.ajunit.internal.universe.AjJoinPoint#applyJoinPoint(org.aspectj.lang.JoinPoint.StaticPart)} on each selected join point.
      * @param enableJoinPoint {@code true} if the join points selected by {@code joinPointSelector} is part of the selected joint points and
      *                                    not part of the suppressed join points like {@link Object#toString()}.
      */

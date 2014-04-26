@@ -28,5 +28,6 @@ public interface AjJoinPointMatcher {
     /**
      * Returns {@code true} if {@code aspectJoinPoint} matches {@code ajUnitJoinPoint}.
      */
-    boolean match(final JoinPoint aspectJoinPoint, final AjJoinPoint ajUnitJoinPoint);
+    boolean match(final JoinPoint.StaticPart thisJoinPointStaticPart, JoinPoint.StaticPart thisEnclosingJoinPointStaticPart, final AjJoinPoint ajUnitJoinPoint);
+
 }

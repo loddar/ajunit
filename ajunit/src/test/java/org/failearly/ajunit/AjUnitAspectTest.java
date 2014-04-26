@@ -40,14 +40,14 @@ public class AjUnitAspectTest {
 
     @AjUniverseName(UNIVERSE_NAME_1)
     private static class AjUnitAspect1 extends AjUnitAspectBase {
-        void advice(JoinPoint jointPoint) {
+        void simulateAdvice(JoinPoint.StaticPart jointPoint) {
             applyJoinPoint(jointPoint, null);
         }
     }
 
     @AjUniverseName(UNIVERSE_NAME_2)
     private static class AjUnitAspect2 extends AjUnitAspectBase {
-        void advice(JoinPoint jointPoint) {
+        void simulateAdvice(JoinPoint.StaticPart jointPoint) {
             applyJoinPoint(jointPoint, null);
         }
     }
@@ -65,10 +65,10 @@ public class AjUnitAspectTest {
     @Test
     public void onlyOneActiveUniverse() throws Exception {
         // arrange / given
-        final JoinPoint joinPoint=joinpoint();
+        final JoinPoint.StaticPart joinPoint=joinpoint();
 
         // act / when
-        new AjUnitAspect1().advice(joinPoint);
+        new AjUnitAspect1().simulateAdvice(joinPoint);
 
         // assert / then
         verifyJoinPointInteractions(joinPoint);
@@ -78,12 +78,12 @@ public class AjUnitAspectTest {
     public void twoActiveUniverse() throws Exception {
         // arrange / given
         AjUniversesHolder.createUniverseByClasses(UNIVERSE_NAME_2, Arrays.<Class<?>>asList(AnyClass.class));
-        final JoinPoint joinPoint1=joinpoint();
-        final JoinPoint joinPoint2=joinpoint();
+        final JoinPoint.StaticPart joinPoint1=joinpoint();
+        final JoinPoint.StaticPart joinPoint2=joinpoint();
 
         // act / when
-        new AjUnitAspect1().advice(joinPoint1);
-        new AjUnitAspect2().advice(joinPoint2);
+        new AjUnitAspect1().simulateAdvice(joinPoint1);
+        new AjUnitAspect2().simulateAdvice(joinPoint2);
 
         // assert / then
         verifyJoinPointInteractions(joinPoint1);
@@ -94,30 +94,30 @@ public class AjUnitAspectTest {
     @Test
     public void oneActiveAndOneInActiveUniverse() throws Exception {
         // arrange / given
-        final JoinPoint joinPoint1=joinpoint();
-        final JoinPoint joinPoint2=joinpoint();
+        final JoinPoint.StaticPart joinPoint1=joinpoint();
+        final JoinPoint.StaticPart joinPoint2=joinpoint();
 
         // act / when
-        new AjUnitAspect1().advice(joinPoint1);
-        new AjUnitAspect2().advice(joinPoint2);
+        new AjUnitAspect1().simulateAdvice(joinPoint1);
+        new AjUnitAspect2().simulateAdvice(joinPoint2);
 
         // assert / then
         verifyJoinPointInteractions(joinPoint1);
         verifyJoinPointInteractions(joinPoint2);
     }
 
-    private static void verifyJoinPointInteractions(JoinPoint joinPoint) {
+    private static void verifyJoinPointInteractions(JoinPoint.StaticPart joinPoint) {
         Mockito.verify(joinPoint, VerificationModeFactory.atLeastOnce()).getKind();
         Mockito.verify(joinPoint, VerificationModeFactory.atLeastOnce()).getSignature();
         Mockito.verifyNoMoreInteractions(joinPoint);
     }
 
-    private static JoinPoint joinpoint() throws NoSuchMethodException {
-        final JoinPoint joinPoint=Mockito.mock(JoinPoint.class);
-        Mockito.when(joinPoint.getKind()).thenReturn(JoinPoint.METHOD_EXECUTION);
+    private static JoinPoint.StaticPart joinpoint() throws NoSuchMethodException {
+        final JoinPoint.StaticPart joinPointStaticPart=Mockito.mock(JoinPoint.StaticPart.class);
+        Mockito.when(joinPointStaticPart.getKind()).thenReturn(JoinPoint.METHOD_EXECUTION);
         final MethodSignature methodSignature = getMethodSignature();
-        Mockito.when(joinPoint.getSignature()).thenReturn(methodSignature);
-        return joinPoint;
+        Mockito.when(joinPointStaticPart.getSignature()).thenReturn(methodSignature);
+        return joinPointStaticPart;
     }
 
     private static MethodSignature getMethodSignature() throws NoSuchMethodException {

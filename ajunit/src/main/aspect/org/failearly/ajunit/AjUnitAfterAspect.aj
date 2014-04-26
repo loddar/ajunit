@@ -26,7 +26,7 @@ import org.aspectj.lang.annotation.After;
  */
 public abstract aspect AjUnitAfterAspect extends AjUnitAspect {
     @After("pointcutDefinition()")
-    public void afterSelectedJoinPoint(JoinPoint thisJoinPoint, JoinPoint.EnclosingStaticPart thisEnclosingJoinPointStaticPart) {
-        super.applyJoinPoint(thisJoinPoint, thisEnclosingJoinPointStaticPart);
+    public void afterSelectedJoinPoint(JoinPoint.StaticPart thisJoinPointStaticPart, JoinPoint.EnclosingStaticPart thisEnclosingJoinPointStaticPart) {
+        super.applyJoinPoint(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart);
     }
 }

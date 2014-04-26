@@ -18,6 +18,7 @@
  */
 package org.failearly.ajunit.internal.universe.impl;
 
+import org.aspectj.lang.JoinPoint;
 import org.failearly.ajunit.internal.universe.AjJoinPoint;
 import org.failearly.ajunit.internal.universe.AjJoinPointStringBuilder;
 import org.failearly.ajunit.internal.universe.AjJoinPointStringBuilders;
@@ -71,7 +72,7 @@ abstract class AjJoinPointBase implements AjJoinPoint {
     }
 
     @Override
-    public final void apply() {
+    public final void applyJoinPoint(JoinPoint.StaticPart context) {
         this.numApplications++;
     }
 

@@ -47,11 +47,11 @@ public class ConstructorJoinPointMatcherTest {
     @Test
     public void sameConstructorAndJoinPointTypes() throws Exception {
         // arrange / given
-        final JoinPoint aspectJoinPoint = createAspectJoinPointMock(AjJoinPointType.CONSTRUCTOR_EXECUTION);
+        final JoinPoint.StaticPart aspectJoinPoint = createAspectJoinPointMock(AjJoinPointType.CONSTRUCTOR_EXECUTION);
         final AjJoinPoint ajJoinPoint = createAjUnitJoinPointMock(AjJoinPointType.CONSTRUCTOR_EXECUTION);
 
         // act / when
-        final boolean match = matcher.match(aspectJoinPoint, ajJoinPoint);
+        final boolean match = matcher.match(aspectJoinPoint, aspectJoinPoint, ajJoinPoint);
 
         // assert / then
         assertThat("Match?", match, is(true));
@@ -60,11 +60,11 @@ public class ConstructorJoinPointMatcherTest {
     @Test
     public void sameConstructorButDifferentJoinPointTypes() throws Exception {
         // arrange / given
-        final JoinPoint aspectJoinPoint = createAspectJoinPointMock(AjJoinPointType.CONSTRUCTOR_EXECUTION);
+        final JoinPoint.StaticPart aspectJoinPoint = createAspectJoinPointMock(AjJoinPointType.CONSTRUCTOR_EXECUTION);
         final AjJoinPoint ajJoinPoint = createAjUnitJoinPointMock(AjJoinPointType.CONSTRUCTOR_CALL);
 
         // act / when
-        final boolean match = matcher.match(aspectJoinPoint, ajJoinPoint);
+        final boolean match = matcher.match(aspectJoinPoint, aspectJoinPoint, ajJoinPoint);
 
         // assert / then
         assertThat("Match?", match, is(false));
@@ -73,11 +73,11 @@ public class ConstructorJoinPointMatcherTest {
     @Test
     public void differentConstructors() throws Exception {
         // arrange / given
-        final JoinPoint aspectJoinPoint = createAspectJoinPointMock(AjJoinPointType.CONSTRUCTOR_EXECUTION);
+        final JoinPoint.StaticPart aspectJoinPoint = createAspectJoinPointMock(AjJoinPointType.CONSTRUCTOR_EXECUTION);
         final AjJoinPoint ajJoinPoint = createAjUnitJoinPointMock(AjJoinPointType.CONSTRUCTOR_EXECUTION, int.class);
 
         // act / when
-        final boolean match = matcher.match(aspectJoinPoint, ajJoinPoint);
+        final boolean match = matcher.match(aspectJoinPoint, aspectJoinPoint, ajJoinPoint);
 
         // assert / then
         assertThat("Match?", match, is(false));
@@ -95,8 +95,8 @@ public class ConstructorJoinPointMatcherTest {
         return ajJoinPoint;
     }
 
-    private JoinPoint createAspectJoinPointMock(AjJoinPointType joinPointType, Class<?>... parameterClasses) {
-        final JoinPoint joinPoint = mock(JoinPoint.class);
+    private JoinPoint.StaticPart createAspectJoinPointMock(AjJoinPointType joinPointType, Class<?>... parameterClasses) {
+        final JoinPoint.StaticPart joinPoint = mock(JoinPoint.StaticPart.class);
         final Signature constructorSignatureMock = createConstructorSignatureMock(parameterClasses);
 
         when(joinPoint.getKind()).thenReturn(joinPointType.getJoinPointKind());

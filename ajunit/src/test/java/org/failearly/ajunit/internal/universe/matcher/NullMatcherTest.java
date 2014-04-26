@@ -28,18 +28,18 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Test for {@link org.failearly.ajunit.internal.universe.matcher.NullMatcher}.
+ * Test for {@link JoinPointMatchers#nullMatcher()}.
  */
 public class NullMatcherTest {
     @Test
     public void nullMatcherAlwaysReturnsFalse() throws Exception {
         // arrange / given
-        final JoinPoint aspectJoinPoint = mock(JoinPoint.class);
+        final JoinPoint.StaticPart aspectJoinPoint = mock(JoinPoint.StaticPart.class);
         final AjJoinPoint ajJoinPoint = mock(AjJoinPoint.class);
         final AjJoinPointMatcher matcher = JoinPointMatchers.nullMatcher();
 
         // act / when
-        final boolean match = matcher.match(aspectJoinPoint, ajJoinPoint);
+        final boolean match = matcher.match(aspectJoinPoint, aspectJoinPoint, ajJoinPoint);
 
         // assert / then
         assertThat("Match?", match, is(false));

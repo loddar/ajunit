@@ -18,6 +18,8 @@
  */
 package org.failearly.ajunit.internal.universe.matcher;
 
+import org.aspectj.lang.JoinPoint;
+import org.failearly.ajunit.internal.universe.AjJoinPoint;
 import org.failearly.ajunit.internal.universe.AjJoinPointMatcher;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
@@ -28,7 +30,12 @@ import org.failearly.ajunit.internal.universe.AjJoinPointType;
  */
 public final class JoinPointMatchers {
 
-    public static final AjJoinPointMatcher NULL_MATCHER = new NullMatcher();
+    public static final AjJoinPointMatcher NULL_MATCHER = new AjJoinPointMatcher() {
+        @Override
+        public boolean match(JoinPoint.StaticPart thisJoinPointStaticPart, JoinPoint.StaticPart thisEnclosingJoinPointStaticPart, AjJoinPoint ajUnitJoinPoint) {
+            return false;
+        }
+    };
 
     private JoinPointMatchers() {
     }
@@ -36,7 +43,6 @@ public final class JoinPointMatchers {
     public static AjJoinPointMatcher constructorMatcher(AjJoinPointType joinPointType) {
         return new ConstructorJoinPointMatcher(joinPointType);
     }
-
 
     public static AjJoinPointMatcher methodMatcher(AjJoinPointType joinPointType) {
         return new MethodJoinPointMatcher(joinPointType);

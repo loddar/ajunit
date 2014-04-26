@@ -39,9 +39,13 @@ abstract class AjJoinPointMatcherBase<T extends Signature> implements AjJoinPoin
     }
 
     @Override
-    public final boolean match(JoinPoint aspectJoinPoint, AjJoinPoint ajUnitJoinPoint) {
-        AjAssert.state(joinPointType.isSameKind(aspectJoinPoint),"Expect same join point type.");
-        return isSameJoinPointType(ajUnitJoinPoint) && doMatchSignature(castSignature(aspectJoinPoint.getSignature()), ajUnitJoinPoint);
+    public final boolean match(
+            JoinPoint.StaticPart thisJoinPointStaticPart,
+            JoinPoint.StaticPart thisEnclosingJoinPointStaticPart,
+            AjJoinPoint ajUnitJoinPoint) {
+        AjAssert.state(joinPointType.isSameKind(thisJoinPointStaticPart), "Expect same join point type.");
+        // TODO: It could depend on the join point type which of these join points will be used.
+        return isSameJoinPointType(ajUnitJoinPoint) && doMatchSignature(castSignature(thisJoinPointStaticPart.getSignature()), ajUnitJoinPoint);
     }
     
     protected abstract boolean doMatchSignature(final T signature, final AjJoinPoint ajUnitJoinPoint);

@@ -28,7 +28,7 @@ import org.aspectj.lang.annotation.Around;
 public abstract aspect AjUnitAroundAspect extends AjUnitAspect {
     @Around("pointcutDefinition()")
     public Object afterSelectedJoinPoint(ProceedingJoinPoint thisJoinPoint, JoinPoint.EnclosingStaticPart thisEnclosingJoinPointStaticPart) throws Throwable {
-        super.applyJoinPoint(thisJoinPoint, thisEnclosingJoinPointStaticPart);
+        super.applyJoinPoint(thisJoinPoint.getStaticPart(), thisEnclosingJoinPointStaticPart);
         return thisJoinPoint.proceed();
     }
 }

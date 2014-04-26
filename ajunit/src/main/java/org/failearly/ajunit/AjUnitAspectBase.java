@@ -80,7 +80,7 @@ public abstract class AjUnitAspectBase {
         }
 
         @Override
-        public void apply() {
+        public void applyJoinPoint(JoinPoint.StaticPart context) {
             LOGGER.info("Call apply on NULL_AJ_JOIN_POINT");
         }
 
@@ -132,51 +132,71 @@ public abstract class AjUnitAspectBase {
 
     /**
      * <i>Apply the join point</i>, means to find the associated ajUnit join point and then mark it as applied.
-     * @param joinPoint the AspectJ join point ({@code thisJoinPoint}).
-     * @param enclosingJoinPoint the enclosing join point ({@code thisEnclosingJoinPointStaticPart})
+     * @param thisJoinPointStaticPart the AspectJ join point.
+     * @param thisEnclosingJoinPointStaticPart the enclosing join point.
      */
-    protected final void applyJoinPoint(final JoinPoint joinPoint, final JoinPoint.StaticPart enclosingJoinPoint) {
-        this.applyJoinPoint(joinPoint, enclosingJoinPoint, NULL_CONTEXT_BUILDER);
+    protected final void applyJoinPoint(final JoinPoint.StaticPart thisJoinPointStaticPart, final JoinPoint.StaticPart thisEnclosingJoinPointStaticPart) {
+        this.applyJoinPoint(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart, NULL_CONTEXT_BUILDER);
     }
 
     /**
      * <i>Apply the join point</i>, means to find the associated ajUnit join point and then mark it as applied.
-     * @param joinPoint the AspectJ join point ({@code thisJoinPoint}).
-     * @param enclosingJoinPoint the enclosing join point ({@code thisEnclosingJoinPointStaticPart})
+     * @param thisJoinPointStaticPart the AspectJ join point ({@code thisJoinPoint}).
+     * @param thisEnclosingJoinPointStaticPart the enclosing join point ({@code thisEnclosingJoinPointStaticPart})
      * @param contextBuilder context builder.
      *
      * @see #context()
      * @see #context(String, Object)
      * @see #context(String, Object, String, Object)
      */
-    protected final void applyJoinPoint(final JoinPoint joinPoint, final JoinPoint.StaticPart enclosingJoinPoint, final ContextBuilder contextBuilder) {
+    protected final void applyJoinPoint(
+            final JoinPoint.StaticPart thisJoinPointStaticPart,
+            final JoinPoint.StaticPart thisEnclosingJoinPointStaticPart,
+            final ContextBuilder contextBuilder) {
         final String universeName = AjUnitUtils.resolveUniverseName(this);
-        LOGGER.info("ajUnit - {}: Apply AspectJ join point {}", universeName, joinPoint);
-        final AjJoinPoint ajUnitJoinPoint=resolveAjJoinPoint(joinPoint, universeName);
+        LOGGER.info("ajUnit - {}: Apply AspectJ join point {} (calling join point is {})",
+                        universeName,
+                        thisJoinPointStaticPart,
+                        thisEnclosingJoinPointStaticPart
+                );
+        final AjJoinPointType ajJoinPointType = AjJoinPointType.resolveFromJoinPoint(thisJoinPointStaticPart);
+        final AjJoinPoint ajUnitJoinPoint=resolveAjJoinPoint(ajJoinPointType, thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart, universeName);
         contextBuilder.storeNamedContextValues(ajUnitJoinPoint);
-        ajUnitJoinPoint.apply();
+        ajUnitJoinPoint.applyJoinPoint(ajJoinPointType.chooseContext(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart));
         LOGGER.debug("ajUnit - {}: Applied ajUnit join point {}", universeName, ajUnitJoinPoint);
     }
 
-    private AjJoinPoint resolveAjJoinPoint(final JoinPoint joinPoint, String universeName) {
-        final List<AjJoinPoint> joinPoints = lookupForJoinPointsInUniverse(joinPoint, universeName);
-        validateResult(joinPoint, joinPoints);
+    private AjJoinPoint resolveAjJoinPoint(
+            final AjJoinPointType ajJoinPointType,
+            final JoinPoint.StaticPart thisJoinPointStaticPart,
+            final JoinPoint.StaticPart thisEnclosingJoinPointStaticPart,
+            final String universeName) {
+        final List<AjJoinPoint> joinPoints = selectJoinPointsOfCurrentUniverse(ajJoinPointType, thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart, universeName);
+        validateResult(thisJoinPointStaticPart, joinPoints);
         return joinPoints.get(0);
     }
 
-    private List<AjJoinPoint> lookupForJoinPointsInUniverse(final JoinPoint joinPoint, String universeName) {
+    private List<AjJoinPoint> selectJoinPointsOfCurrentUniverse(
+            final AjJoinPointType ajJoinPointType,
+            final JoinPoint.StaticPart thisJoinPointStaticPart,
+            final JoinPoint.StaticPart thisEnclosingJoinPointStaticPart,
+            String universeName) {
         final AjUniverse universe = AjUniversesHolder.findUniverse(universeName);
-        return findAjJoinPointsInUniverse(joinPoint, universe);
+        return doSelectJoinPointsOfCurrentUniverse(ajJoinPointType, thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart, universe);
     }
 
-    private List<AjJoinPoint> findAjJoinPointsInUniverse(final JoinPoint joinPoint, AjUniverse universe) {
+    private List<AjJoinPoint> doSelectJoinPointsOfCurrentUniverse(
+            final AjJoinPointType ajJoinPointType,
+            final JoinPoint.StaticPart thisJoinPointStaticPart,
+            final JoinPoint.StaticPart thisEnclosingJoinPointStaticPart,
+            final AjUniverse universe) {
         if( universe !=null ) {
-            final AjJoinPointMatcher matcher = resolveJoinPointMatcher(joinPoint);
+            final AjJoinPointMatcher ajJoinPointMatcher=ajJoinPointType.getJoinPointMatcher();
             final List<AjJoinPoint> joinPoints=new ArrayList<>();
             universe.visitJoinPoints(new AjJoinPointVisitor() {
                 @Override
                 public void visit(AjJoinPoint ajJoinPoint) {
-                    if (matcher.match(joinPoint, ajJoinPoint)) {
+                    if (ajJoinPointMatcher.match(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart, ajJoinPoint)) {
                         joinPoints.add(ajJoinPoint);
                     }
                 }
@@ -188,7 +208,7 @@ public abstract class AjUnitAspectBase {
         return Arrays.asList(NULL_AJ_JOIN_POINT);
     }
 
-    private void validateResult(JoinPoint joinPoint, List<AjJoinPoint> joinPoints) {
+    private void validateResult(JoinPoint.StaticPart joinPoint, List<AjJoinPoint> joinPoints) {
         final int numAssociatedJoinPoints = joinPoints.size();
         AjAssert.assertCondition(
                 numAssociatedJoinPoints > 0,
@@ -204,7 +224,7 @@ public abstract class AjUnitAspectBase {
 
     }
 
-    private AjJoinPointMatcher resolveJoinPointMatcher(JoinPoint joinPoint) {
+    private AjJoinPointMatcher resolveJoinPointMatcher(JoinPoint.StaticPart joinPoint) {
         final AjJoinPointType ajJoinPointType=AjJoinPointType.resolveFromJoinPoint(joinPoint);
         return ajJoinPointType.getJoinPointMatcher();
     }

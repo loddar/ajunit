@@ -179,7 +179,7 @@ public enum AjJoinPointType {
     /**
      * resolve enum value from AspectJ join point.
      */
-    public static AjJoinPointType resolveFromJoinPoint(final JoinPoint joinPoint) {
+    public static AjJoinPointType resolveFromJoinPoint(final JoinPoint.StaticPart joinPoint) {
         return EnumUtils.defaultIfNotFound(SUPPORTED_JOIN_POINT_TYPES, joinPoint.getKind(), _UNKNOWN);
     }
 
@@ -205,8 +205,7 @@ public enum AjJoinPointType {
     }
 
     /**
-     * Returns the associated {@link AjJoinPointMatcher}.
-     * The default implementation returns the {@link org.failearly.ajunit.internal.universe.matcher.NullMatcher}.
+     * Returns the associated {@link AjJoinPointMatcher}. The default implementation returns the NullMatcher.
      *
      * @see org.failearly.ajunit.AjUnitAspectBase
      */
@@ -217,7 +216,7 @@ public enum AjJoinPointType {
     /**
      * Returns {@code true} if {@link org.aspectj.lang.JoinPoint#getKind()} is equal to {@link #joinPointKind}.
      */
-    public boolean isSameKind(JoinPoint joinPoint) {
+    public boolean isSameKind(JoinPoint.StaticPart joinPoint) {
         return this.joinPointKind.equals(joinPoint.getKind());
     }
 
@@ -229,10 +228,20 @@ public enum AjJoinPointType {
         return this.joinPointKind;
     }
 
-
     @Override
     public final String toString() {
         return this.joinPointKind;
+    }
+
+    /**
+     * Depending on the join point type the context will be chosen.
+     * @param thisJoinPointStaticPart  current join point
+     * @param thisEnclosingJoinPointStaticPart the enclosing join point (sometimes identical to {@code thisJoinPointStaticPart}).
+     * @return the context.
+     */
+    @SuppressWarnings("unused")
+    public JoinPoint.StaticPart chooseContext(JoinPoint.StaticPart thisJoinPointStaticPart, JoinPoint.StaticPart thisEnclosingJoinPointStaticPart) {
+        return thisEnclosingJoinPointStaticPart;
     }
 }
 

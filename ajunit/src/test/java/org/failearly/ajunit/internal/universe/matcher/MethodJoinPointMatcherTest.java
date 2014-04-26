@@ -47,11 +47,11 @@ public class MethodJoinPointMatcherTest {
     @Test
     public void sameMethodAndJoinPointTypes() throws Exception {
         // arrange / given
-        final JoinPoint aspectJoinPoint = createAspectJoinPointMock(AjJoinPointType.METHOD_EXECUTION, "anyMethod");
+        final JoinPoint.StaticPart aspectJoinPoint = createAspectJoinPointMock(AjJoinPointType.METHOD_EXECUTION, "anyMethod");
         final AjJoinPoint ajJoinPoint = createAjUnitJoinPointMock(AjJoinPointType.METHOD_EXECUTION, "anyMethod");
 
         // act / when
-        final boolean match = matcher.match(aspectJoinPoint, ajJoinPoint);
+        final boolean match = matcher.match(aspectJoinPoint, aspectJoinPoint, ajJoinPoint);
 
         // assert / then
         assertThat("Match?", match, is(true));
@@ -60,11 +60,11 @@ public class MethodJoinPointMatcherTest {
     @Test
     public void sameMethodButDifferentJoinPointTypes() throws Exception {
         // arrange / given
-        final JoinPoint aspectJoinPoint = createAspectJoinPointMock(AjJoinPointType.METHOD_EXECUTION, "anyMethod");
+        final JoinPoint.StaticPart aspectJoinPoint = createAspectJoinPointMock(AjJoinPointType.METHOD_EXECUTION, "anyMethod");
         final AjJoinPoint ajJoinPoint = createAjUnitJoinPointMock(AjJoinPointType.METHOD_CALL, "anyMethod");
 
         // act / when
-        final boolean match = matcher.match(aspectJoinPoint, ajJoinPoint);
+        final boolean match = matcher.match(aspectJoinPoint, aspectJoinPoint, ajJoinPoint);
 
         // assert / then
         assertThat("Match?", match, is(false));
@@ -73,11 +73,11 @@ public class MethodJoinPointMatcherTest {
     @Test
     public void differentMethods() throws Exception {
         // arrange / given
-        final JoinPoint aspectJoinPoint = createAspectJoinPointMock(AjJoinPointType.METHOD_EXECUTION, "anyMethod");
+        final JoinPoint.StaticPart aspectJoinPoint = createAspectJoinPointMock(AjJoinPointType.METHOD_EXECUTION, "anyMethod");
         final AjJoinPoint ajJoinPoint = createAjUnitJoinPointMock(AjJoinPointType.METHOD_EXECUTION, "otherMethod");
 
         // act / when
-        final boolean match = matcher.match(aspectJoinPoint, ajJoinPoint);
+        final boolean match = matcher.match(aspectJoinPoint, aspectJoinPoint, ajJoinPoint);
 
         // assert / then
         assertThat("Match?", match, is(false));
@@ -95,8 +95,8 @@ public class MethodJoinPointMatcherTest {
         return ajJoinPoint;
     }
 
-    private JoinPoint createAspectJoinPointMock(AjJoinPointType joinPointType, String methodName) {
-        final JoinPoint joinPoint = mock(JoinPoint.class);
+    private JoinPoint.StaticPart createAspectJoinPointMock(AjJoinPointType joinPointType, String methodName) {
+        final JoinPoint.StaticPart joinPoint = mock(JoinPoint.StaticPart.class);
         final Signature methodSignatureMock = createMethodSignatureMock(methodName);
 
         when(joinPoint.getKind()).thenReturn(joinPointType.getJoinPointKind());

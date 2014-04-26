@@ -47,11 +47,11 @@ public class FieldJoinPointMatcherTest {
     @Test
     public void sameFieldAndJoinPointTypes() throws Exception {
         // arrange / given
-        final JoinPoint aspectJoinPoint = createAspectJoinPointMock(AjJoinPointType.FIELD_GET, "field");
+        final JoinPoint.StaticPart aspectJoinPoint = createAspectJoinPointMock(AjJoinPointType.FIELD_GET, "field");
         final AjJoinPoint ajJoinPoint = createAjUnitJoinPointMock(AjJoinPointType.FIELD_GET, "field");
 
         // act / when
-        final boolean match = matcher.match(aspectJoinPoint, ajJoinPoint);
+        final boolean match = matcher.match(aspectJoinPoint, aspectJoinPoint, ajJoinPoint);
 
         // assert / then
         assertThat("Match?", match, is(true));
@@ -60,11 +60,11 @@ public class FieldJoinPointMatcherTest {
     @Test
     public void sameFieldButDifferentJoinPointTypes() throws Exception {
         // arrange / given
-        final JoinPoint aspectJoinPoint = createAspectJoinPointMock(AjJoinPointType.FIELD_GET, "field");
+        final JoinPoint.StaticPart aspectJoinPoint = createAspectJoinPointMock(AjJoinPointType.FIELD_GET, "field");
         final AjJoinPoint ajJoinPoint = createAjUnitJoinPointMock(AjJoinPointType.FIELD_SET, "field");
 
         // act / when
-        final boolean match = matcher.match(aspectJoinPoint, ajJoinPoint);
+        final boolean match = matcher.match(aspectJoinPoint, aspectJoinPoint, ajJoinPoint);
 
         // assert / then
         assertThat("Match?", match, is(false));
@@ -73,11 +73,11 @@ public class FieldJoinPointMatcherTest {
     @Test
     public void differentFields() throws Exception {
         // arrange / given
-        final JoinPoint aspectJoinPoint = createAspectJoinPointMock(AjJoinPointType.FIELD_GET, "field");
+        final JoinPoint.StaticPart aspectJoinPoint = createAspectJoinPointMock(AjJoinPointType.FIELD_GET, "field");
         final AjJoinPoint ajJoinPoint = createAjUnitJoinPointMock(AjJoinPointType.FIELD_GET, "otherField");
 
         // act / when
-        final boolean match = matcher.match(aspectJoinPoint, ajJoinPoint);
+        final boolean match = matcher.match(aspectJoinPoint, aspectJoinPoint, ajJoinPoint);
 
         // assert / then
         assertThat("Match?", match, is(false));
@@ -95,8 +95,8 @@ public class FieldJoinPointMatcherTest {
         return ajJoinPoint;
     }
 
-    private JoinPoint createAspectJoinPointMock(AjJoinPointType joinPointType, String fieldName) {
-        final JoinPoint joinPoint = mock(JoinPoint.class);
+    private JoinPoint.StaticPart createAspectJoinPointMock(AjJoinPointType joinPointType, String fieldName) {
+        final JoinPoint.StaticPart joinPoint = mock(JoinPoint.StaticPart.class);
         final Signature fieldSignatureMock = createFieldSignatureMock(fieldName);
 
         when(joinPoint.getKind()).thenReturn(joinPointType.getJoinPointKind());

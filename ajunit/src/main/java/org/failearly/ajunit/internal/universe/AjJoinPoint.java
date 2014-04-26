@@ -18,6 +18,8 @@
  */
 package org.failearly.ajunit.internal.universe;
 
+import org.aspectj.lang.JoinPoint;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -53,14 +55,15 @@ public interface AjJoinPoint {
     Constructor getConstructor();
 
     /**
-     * @return the number of applications (#executions of {@link #apply()}).
+     * @return the number of applications (#executions of {@link #applyJoinPoint(org.aspectj.lang.JoinPoint.StaticPart)}).
      */
     int getNumApplications();
 
     /**
      * Called by the ajUnit aspect.
+     * @param context almost ever the calling context.
      */
-    void apply();
+    void applyJoinPoint(JoinPoint.StaticPart context);
 
     /**
      * @return a short string representation of the joinpoint.
