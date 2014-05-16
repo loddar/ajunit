@@ -47,7 +47,7 @@ public class ComplexTransformerPredicateTest {
                 );
 
         // assert / then
-        assertThat("Predicate result?", predicate.evaluate(new A()), is(true));
+        assertThat("Predicate result?", predicate.test(new A()), is(true));
     }
 
     @Test
@@ -79,7 +79,7 @@ public class ComplexTransformerPredicateTest {
         );
 
         // assert / then
-        assertThat("Predicate result?", predicate.evaluate(new A()), is(true));
+        assertThat("Predicate result?", predicate.test(new A()), is(true));
     }
 
 

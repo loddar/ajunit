@@ -33,12 +33,12 @@ public class EqualsPredicateTest {
     @Test
     public void equals() throws Exception {
         // assert / then
-        assertThat("Equals evaluate to?", equalsPredicate.evaluate("VALUE"), is(true));
+        assertThat("Equals evaluate to?", equalsPredicate.test("VALUE"), is(true));
     }
 
     @Test
     public void notEquals() throws Exception {
         // assert / then
-        assertThat("Equals evaluate to?", equalsPredicate.evaluate("ANY-OTHER-VALUE"), is(false));
+        assertThat("Equals evaluate to?", equalsPredicate.test("ANY-OTHER-VALUE"), is(false));
     }
 }

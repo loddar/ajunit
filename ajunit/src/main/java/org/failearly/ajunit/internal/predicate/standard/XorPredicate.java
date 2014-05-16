@@ -35,7 +35,7 @@ final class XorPredicate extends LogicalPredicateBase {
     protected boolean doApplyPredicates(Collection<Predicate> predicates, Object object) {
         int countTrues=0;
         for (final Predicate predicate : predicates) {
-            if( predicate.evaluate(object) ) {
+            if( predicate.test(object) ) {
                 countTrues += 1;
             }
             if( countTrues>1 ) {

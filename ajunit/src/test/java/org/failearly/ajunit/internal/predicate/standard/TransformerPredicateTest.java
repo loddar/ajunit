@@ -41,7 +41,7 @@ public class TransformerPredicateTest {
                 );
 
         // assert / then
-        assertThat("Predicate result?", predicate.evaluate(ANY_PARAMETER), is(true));
+        assertThat("Predicate result?", predicate.test(ANY_PARAMETER), is(true));
     }
 
     @Test
@@ -53,7 +53,7 @@ public class TransformerPredicateTest {
         );
 
         // assert / then
-        assertThat("Predicate result?", predicate.evaluate(ANY_PARAMETER), is(false));
+        assertThat("Predicate result?", predicate.test(ANY_PARAMETER), is(false));
     }
 
     @Test
@@ -67,7 +67,7 @@ public class TransformerPredicateTest {
         predicate.addPredicate(StandardPredicates.alwaysTrue());
 
         // assert / then
-        assertThat("Predicate result?", predicate.evaluate(ANY_PARAMETER), is(true));
+        assertThat("Predicate result?", predicate.test(ANY_PARAMETER), is(true));
     }
 
     @Test
@@ -81,6 +81,6 @@ public class TransformerPredicateTest {
         predicate.addPredicate(StandardPredicates.alwaysTrue());
 
         // assert / then
-        assertThat("Predicate result?", predicate.evaluate(ANY_PARAMETER), is(false));
+        assertThat("Predicate result?", predicate.test(ANY_PARAMETER), is(false));
     }
 }

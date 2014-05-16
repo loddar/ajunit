@@ -42,7 +42,7 @@ public class NotPredicateTest {
         // act / when
 
         // assert / then
-        assertThat("Not predicate evaluates to?", notPredicate.evaluate(ANY_PARAMETER), is(false));
+        assertThat("Not predicate evaluates to?", notPredicate.test(ANY_PARAMETER), is(false));
     }
 
     @Test
@@ -53,7 +53,7 @@ public class NotPredicateTest {
         // act / when
 
         // assert / then
-        assertThat("Not predicate evaluates to?", notPredicate.evaluate(ANY_PARAMETER), is(true));
+        assertThat("Not predicate evaluates to?", notPredicate.test(ANY_PARAMETER), is(true));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -62,7 +62,7 @@ public class NotPredicateTest {
         final Predicate notPredicate = LogicalPredicates.not(TRUE);
 
         // act / when
-        notPredicate.evaluate(null);
+        notPredicate.test(null);
     }
 
 }

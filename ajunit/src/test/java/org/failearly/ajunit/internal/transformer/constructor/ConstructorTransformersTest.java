@@ -36,7 +36,7 @@ public class ConstructorTransformersTest extends TransformersBaseTest{
         final Object output = transformer.transform(resolveConstructor());
 
         // assert / then
-        assertTransformationResults(output, int.class);
+        assertTransformationResultList(output, int.class);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class ConstructorTransformersTest extends TransformersBaseTest{
         final Object output = transformer.transform(resolveConstructor());
 
         // assert / then
-        assertTransformationResults(output, IllegalArgumentException.class, ClassCastException.class);
+        assertTransformationResultList(output, IllegalArgumentException.class, ClassCastException.class);
     }
 
     @Test
@@ -62,7 +62,7 @@ public class ConstructorTransformersTest extends TransformersBaseTest{
         final Object output = transformer.transform(resolveConstructor());
 
         // assert / then
-        assertTransformationAnnotationsResults(output, TransformersBaseTest.AnyAnnotation.class, Deprecated.class);
+        assertTransformationAnnotationsResultList(output, TransformersBaseTest.AnyAnnotation.class, Deprecated.class);
     }
 
 }

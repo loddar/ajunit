@@ -33,14 +33,14 @@ public abstract class TypedDelegateCompositePredicate<T>
 
 
     @Override
-    protected final boolean doEvaluate(Object object) {
+    protected final boolean doTest(Object object) {
         return doTypedEvaluate(doCast(object));
     }
 
     /**
      * Does the actually (type safe) evaluate.
      * @param typedObject object already cast to T.
-     * @see org.failearly.ajunit.internal.predicate.Predicate#evaluate(Object).
+     * @see org.failearly.ajunit.internal.predicate.Predicate#test(Object).
      */
     protected abstract boolean doTypedEvaluate(final T typedObject);
 

@@ -47,6 +47,6 @@ public class FieldTransformersTest extends TransformersBaseTest {
         final Object output = transformer.transform(resolveField());
 
         // assert / then
-        assertTransformationAnnotationsResults(output, AnyAnnotation.class);
+        assertTransformationAnnotationsResultList(output, AnyAnnotation.class);
     }
 }

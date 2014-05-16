@@ -33,7 +33,7 @@ final class AndPredicate extends LogicalPredicateBase {
     @Override
     protected boolean doApplyPredicates(Collection<Predicate> predicates, Object object) {
         for (final Predicate predicate : predicates) {
-            if( ! predicate.evaluate(object) ) {
+            if( ! predicate.test(object) ) {
                 return false;
             }
         }

@@ -179,7 +179,7 @@ public class SuppressedJoinPointFactoryTest {
         this.ajUniverse.visitJoinPoints(new AjJoinPointVisitor() {
             @Override
             public void visit(AjJoinPoint joinPoint) {
-                if( predicate.evaluate(joinPoint) ) {
+                if( predicate.test(joinPoint) ) {
                     joinPoints.add(joinPoint.toString());
                 }
             }

@@ -77,7 +77,7 @@ public class ClassTransformersTest extends TransformersBaseTest {
         final Object output = transformer.transform(resolveClass());
 
         // assert / then
-        assertTransformationAnnotationsResults(output, AnyAnnotation.class);
+        assertTransformationAnnotationsResultList(output, AnyAnnotation.class);
     }
 
     @Test

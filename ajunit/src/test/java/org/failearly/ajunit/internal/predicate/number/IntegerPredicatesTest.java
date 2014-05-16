@@ -36,9 +36,9 @@ public class IntegerPredicatesTest {
         // act / when
 
         // assert / then
-        assertThat("7 > 5?", predicate.evaluate(7), is(true));
-        assertThat("4 > 5?", predicate.evaluate(4), is(false));
-        assertThat("5 > 5?", predicate.evaluate(5), is(false));
+        assertThat("7 > 5?", predicate.test(7), is(true));
+        assertThat("4 > 5?", predicate.test(4), is(false));
+        assertThat("5 > 5?", predicate.test(5), is(false));
     }
 
     @Test
@@ -49,9 +49,9 @@ public class IntegerPredicatesTest {
         // act / when
 
         // assert / then
-        assertThat("7 >= 5?", predicate.evaluate(7), is(true));
-        assertThat("4 >= 5?", predicate.evaluate(4), is(false));
-        assertThat("5 >= 5?", predicate.evaluate(5), is(true));
+        assertThat("7 >= 5?", predicate.test(7), is(true));
+        assertThat("4 >= 5?", predicate.test(4), is(false));
+        assertThat("5 >= 5?", predicate.test(5), is(true));
     }
 
     @Test
@@ -62,9 +62,9 @@ public class IntegerPredicatesTest {
         // act / when
 
         // assert / then
-        assertThat("4 < 5?", predicate.evaluate(4), is(true));
-        assertThat("7 < 5?", predicate.evaluate(7), is(false));
-        assertThat("5 < 5?", predicate.evaluate(5), is(false));
+        assertThat("4 < 5?", predicate.test(4), is(true));
+        assertThat("7 < 5?", predicate.test(7), is(false));
+        assertThat("5 < 5?", predicate.test(5), is(false));
     }
     @Test
     public void lessEqualThen() throws Exception {
@@ -74,8 +74,8 @@ public class IntegerPredicatesTest {
         // act / when
 
         // assert / then
-        assertThat("4 <= 5?", predicate.evaluate(4), is(true));
-        assertThat("7 <= 5?", predicate.evaluate(7), is(false));
-        assertThat("5 <= 5?", predicate.evaluate(5), is(true));
+        assertThat("4 <= 5?", predicate.test(4), is(true));
+        assertThat("7 <= 5?", predicate.test(7), is(false));
+        assertThat("5 <= 5?", predicate.test(5), is(true));
     }
 }

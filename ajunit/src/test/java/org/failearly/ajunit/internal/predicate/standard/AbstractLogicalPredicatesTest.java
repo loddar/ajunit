@@ -50,7 +50,7 @@ public abstract class AbstractLogicalPredicatesTest {
     }
 
     protected final void assertCompositePredicateEvaluatesTo(boolean expectedValue) {
-        assertThat("Logical predicate '" + predicateName + "' evaluates to?", compositePredicate.evaluate(ANY_PARAMETER), is(expectedValue));
+        assertThat("Logical predicate '" + predicateName + "' evaluates to?", compositePredicate.test(ANY_PARAMETER), is(expectedValue));
     }
 
     @Test
@@ -65,6 +65,6 @@ public abstract class AbstractLogicalPredicatesTest {
     @Test(expected = IllegalArgumentException.class)
     public void invalidInput() throws Exception {
         // act / when
-        compositePredicate.evaluate(null);
+        compositePredicate.test(null);
     }
 }

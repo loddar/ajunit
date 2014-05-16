@@ -19,7 +19,7 @@
 package org.failearly.ajunit.internal.predicate;
 
 /**
- * TypedPredicate is a type safe version base class for {@link org.failearly.ajunit.internal.predicate.Predicate}.
+ * TypedPredicate is the type safe version base class for {@link org.failearly.ajunit.internal.predicate.Predicate}.
  */
 public abstract class TypedPredicate<T> extends PredicateBase {
     private final Class<T> parameterClass;
@@ -31,16 +31,16 @@ public abstract class TypedPredicate<T> extends PredicateBase {
 
 
     @Override
-    protected final boolean doEvaluate(Object object) {
-        return doTypedEvaluate(doCast(object));
+    protected final boolean doTest(Object object) {
+        return doTypedTest(doCast(object));
     }
 
     /**
-     * Does the actually (type safe) evaluate.
+     * Does the actually (type safe) test.
      * @param typedObject object already cast to T.
-     * @see org.failearly.ajunit.internal.predicate.Predicate#evaluate(Object).
+     * @see org.failearly.ajunit.internal.predicate.Predicate#test(Object).
      */
-    protected abstract boolean doTypedEvaluate(final T typedObject);
+    protected abstract boolean doTypedTest(final T typedObject);
 
     private T doCast(Object object) {
         return parameterClass.cast(object);

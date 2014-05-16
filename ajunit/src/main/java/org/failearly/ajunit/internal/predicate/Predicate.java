@@ -20,19 +20,22 @@ package org.failearly.ajunit.internal.predicate;
 
 /**
  * Predicate is highly inspired by Predicate implementation in Jakarta commons collection.
+ *
+ * @see org.failearly.ajunit.internal.predicate.PredicateBase
+ * @see org.failearly.ajunit.internal.predicate.standard.NotNullPredicate
  */
 public interface Predicate {
     /**
      * Use the specified parameter ({@code object}) to perform a test that returns true or false.
      *
-     * @param object any object {@code not null}.
+     * @param object any object including {@code null}.
      *
      * @return {@code true} or {@code false}.
      *
      * @throws java.lang.ClassCastException if the input is the wrong class.
      * @throws java.lang.IllegalArgumentException if the input is invalid.
      */
-    boolean evaluate(final Object object);
+    boolean test(final Object object);
 
     /**
      * @return String representation (TYPE)

@@ -28,7 +28,7 @@ final class LessThenPredicate extends IntegerPredicateBase {
     }
 
     @Override
-    protected boolean doTypedEvaluate(final Integer value) {
+    protected boolean doTypedTest(final Integer value) {
         return value < baseValue;
     }
 }

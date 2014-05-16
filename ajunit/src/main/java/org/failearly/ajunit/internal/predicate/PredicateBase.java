@@ -21,7 +21,13 @@ package org.failearly.ajunit.internal.predicate;
 import org.failearly.ajunit.internal.util.AjAssert;
 
 /**
- * PredicateBase is the base implementation for all predicates. Checking that the given parameter {@code object} is {@code not null}.
+ * PredicateBase is the base implementation for almost all predicate implementation.
+ * <br/><br/>
+ * Testing on {@code null} is supported by
+ * <ul>
+ *     <li>{@link org.failearly.ajunit.internal.predicate.standard.StandardPredicates#isNull()} or </li>
+ *     <li>{@link org.failearly.ajunit.internal.predicate.standard.StandardPredicates#isNotNull()}</li>
+ * </ul>
  */
 public abstract class PredicateBase implements Predicate {
 
@@ -32,9 +38,9 @@ public abstract class PredicateBase implements Predicate {
     }
 
     @Override
-    public final boolean evaluate(Object object) {
+    public final boolean test(Object object) {
         AjAssert.parameterNotNull(object,"object");
-        return doEvaluate(object);
+        return doTest(object);
     }
 
     /**
@@ -42,7 +48,7 @@ public abstract class PredicateBase implements Predicate {
      * @param object {@code not null}
      * @return {@code true} or {@code false}.
      */
-    protected abstract boolean doEvaluate(final Object object);
+    protected abstract boolean doTest(final Object object);
 
     @Override
     public String toString() {

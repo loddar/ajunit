@@ -28,31 +28,31 @@ public abstract class ClassPredicates {
 
     private static final Predicate IS_PRIMITIVE = new ClassPredicateBase("Primitive") {
         @Override
-        protected boolean doTypedEvaluate(Class clazz) {
+        protected boolean doTypedTest(Class clazz) {
             return clazz.isPrimitive();
         }
     };
     private static final Predicate IS_ENUM = new ClassPredicateBase("Enum") {
         @Override
-        protected boolean doTypedEvaluate(Class clazz) {
+        protected boolean doTypedTest(Class clazz) {
             return clazz.isEnum();
         }
     };
     private static final Predicate IS_ARRAY = new ClassPredicateBase("Array") {
         @Override
-        protected boolean doTypedEvaluate(Class clazz) {
+        protected boolean doTypedTest(Class clazz) {
             return clazz.isArray();
         }
     };
     private static final Predicate IS_ANNOTATION = new ClassPredicateBase("Annotation") {
         @Override
-        protected boolean doTypedEvaluate(Class clazz) {
+        protected boolean doTypedTest(Class clazz) {
             return clazz.isAnnotation();
         }
     };
     private static final Predicate IS_INTERFACE = new ClassPredicateBase("Interface") {
         @Override
-        protected boolean doTypedEvaluate(Class clazz) {
+        protected boolean doTypedTest(Class clazz) {
             return clazz.isInterface();
         }
     };

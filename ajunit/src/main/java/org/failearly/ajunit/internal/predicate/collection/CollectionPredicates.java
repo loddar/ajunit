@@ -32,7 +32,7 @@ public abstract class CollectionPredicates {
 
     private static final Predicate P_IS_EMPTY = new TypedPredicate <Collection>(Collection.class, "isEmpty") {
         @Override
-        protected boolean doTypedEvaluate(Collection collection) {
+        protected boolean doTypedTest(Collection collection) {
             return collection.isEmpty();
         }
     };

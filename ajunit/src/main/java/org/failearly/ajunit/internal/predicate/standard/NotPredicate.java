@@ -33,7 +33,7 @@ final class NotPredicate extends PredicateBase {
     }
 
     @Override
-    protected boolean doEvaluate(Object object) {
-        return ! predicate.evaluate(object);
+    protected boolean doTest(Object object) {
+        return ! predicate.test(object);
     }
 }

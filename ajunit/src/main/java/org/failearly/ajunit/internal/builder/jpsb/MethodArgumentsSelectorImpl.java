@@ -84,11 +84,11 @@ final class MethodArgumentsSelectorImpl extends JoinPointBuilderBase<MethodArgum
 
     @Override
     public MethodArgumentTypeSelector byArgumentPositions(int... positions) {
-        return super.and(getMethodArgumentPositionSelectorBuilderFactory(positions));
+        return super.and(getMethodArgumentPositionsSelectorBuilderFactory(positions));
     }
 
     private BuilderFactory<JoinPointSelectorImpl,MethodArgumentsSelectorImpl,MethodArgumentTypeSelectorImpl>
-        getMethodArgumentPositionSelectorBuilderFactory(final int... positions) {
+    getMethodArgumentPositionsSelectorBuilderFactory(final int... positions) {
         return new BuilderFactory<JoinPointSelectorImpl, MethodArgumentsSelectorImpl, MethodArgumentTypeSelectorImpl>() {
             @Override
             public MethodArgumentTypeSelectorImpl createBuilder(JoinPointSelectorImpl root, MethodArgumentsSelectorImpl parent, CompositePredicate compositePredicate) {

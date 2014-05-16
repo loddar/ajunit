@@ -55,7 +55,7 @@ final class AjSuppressedJoinPoints extends SuppressedJoinPointFactory {
                     StandardTransformers.transformerComposition(
                             AjpTransformers.constructorTransformer()
                     ),
-                    StandardPredicates.notNull()
+                    StandardPredicates.isNotNull()
             )
     );
 

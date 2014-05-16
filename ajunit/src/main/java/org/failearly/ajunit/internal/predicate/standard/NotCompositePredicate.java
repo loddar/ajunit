@@ -56,8 +56,8 @@ final class NotCompositePredicate extends PredicateBase implements LogicalPredic
     }
 
     @Override
-    protected boolean doEvaluate(Object object) {
-        return noPredicates() || ! compositePredicate.evaluate(object);
+    protected boolean doTest(Object object) {
+        return noPredicates() || ! compositePredicate.test(object);
     }
 
 }

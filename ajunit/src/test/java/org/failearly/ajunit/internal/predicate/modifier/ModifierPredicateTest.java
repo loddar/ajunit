@@ -35,10 +35,10 @@ public class ModifierPredicateTest {
 
     @Test
     public void match() throws Exception {
-        assertThat("PUBLIC matches PUBLIC?", modifierPredicate.evaluate(Modifier.PUBLIC), is(true));
+        assertThat("PUBLIC matches PUBLIC?", modifierPredicate.test(Modifier.PUBLIC), is(true));
     }
     @Test
     public void notMatch() throws Exception {
-        assertThat("PUBLIC matches PROTECTED?", modifierPredicate.evaluate(Modifier.PROTECTED), is(false));
+        assertThat("PUBLIC matches PROTECTED?", modifierPredicate.test(Modifier.PROTECTED), is(false));
     }
 }

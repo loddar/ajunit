@@ -37,7 +37,7 @@ final class CollectionPredicate<T extends Collection> extends CollectionPredicat
     @Override
     protected boolean doApplyPredicateOnCollection(T collection, Predicate predicate) {
         for (Object object : collection) {
-            if(breakingEvaluationResult == predicate.evaluate(object)) {
+            if(breakingEvaluationResult == predicate.test(object)) {
                 return breakingEvaluationResult;
             }
         }

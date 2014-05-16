@@ -211,6 +211,6 @@ public class LogicalStructureBuilderTest {
 
         final Predicate predicate=topBuilder.build();
         assertThat("Expression build?", predicate.toString(), is(expectedExpression));
-        assertThat("Predicate build evaluates to?", predicate.evaluate(ANY_VALUE), is(expectedPredicateResult));
+        assertThat("Predicate build evaluates to?", predicate.test(ANY_VALUE), is(expectedPredicateResult));
     }
 }

@@ -37,61 +37,61 @@ public class StringPredicatesTest {
     @Test
     public void startsWith() throws Exception {
         // act/ assert / then
-        assertThat("Evaluates to?", startsWithPredicate.evaluate("any.prefix.and.additional.stuff"), is(true));
+        assertThat("Evaluates to?", startsWithPredicate.test("any.prefix.and.additional.stuff"), is(true));
     }
 
     @Test
     public void startsWithSameString() throws Exception {
         // act/ assert / then
-        assertThat("Evaluates to?", startsWithPredicate.evaluate("any.prefix"), is(true));
+        assertThat("Evaluates to?", startsWithPredicate.test("any.prefix"), is(true));
     }
 
     @Test
     public void startsWithNotPrefix() throws Exception {
         // act/ assert / then
-        assertThat("Evaluates to?", startsWithPredicate.evaluate("x.any.prefix.and.additional.stuff"), is(false));
+        assertThat("Evaluates to?", startsWithPredicate.test("x.any.prefix.and.additional.stuff"), is(false));
     }
 
     @Test
     public void endsWith() throws Exception {
         // act/ assert / then
-        assertThat("Evaluates to?", endsWithPredicate.evaluate("some.additional.stuff.and.any.suffix"), is(true));
+        assertThat("Evaluates to?", endsWithPredicate.test("some.additional.stuff.and.any.suffix"), is(true));
     }
 
     @Test
     public void endsWithSameString() throws Exception {
         // act/ assert / then
-        assertThat("Evaluates to?", endsWithPredicate.evaluate("any.suffix"), is(true));
+        assertThat("Evaluates to?", endsWithPredicate.test("any.suffix"), is(true));
     }
 
     @Test
     public void endsWithNotSuffix() throws Exception {
         // act/ assert / then
-        assertThat("Evaluates to?", endsWithPredicate.evaluate("some.additional.stuff.and.any.suffix.x"), is(false));
+        assertThat("Evaluates to?", endsWithPredicate.test("some.additional.stuff.and.any.suffix.x"), is(false));
     }
 
     @Test
     public void contains() throws Exception {
         // act/ assert / then
-        assertThat("Evaluates to?", containsPredicate.evaluate("some.stuff.any.infix.and.more"), is(true));
+        assertThat("Evaluates to?", containsPredicate.test("some.stuff.any.infix.and.more"), is(true));
     }
 
     @Test
     public void containsMissingInfix() throws Exception {
         // act/ assert / then
-        assertThat("Evaluates to?", containsPredicate.evaluate("some.stuff"), is(false));
+        assertThat("Evaluates to?", containsPredicate.test("some.stuff"), is(false));
     }
 
     @Test
     public void regex() throws Exception {
         // act/ assert / then
-        assertThat("Evaluates to?", regexPredicate.evaluate("some.stuff.any.infix.and.more"), is(true));
+        assertThat("Evaluates to?", regexPredicate.test("some.stuff.any.infix.and.more"), is(true));
     }
 
     @Test
     public void regexNotMatching() throws Exception {
         // act/ assert / then
-        assertThat("Evaluates to?", regexPredicate.evaluate("some.stuff.and.more"), is(false));
+        assertThat("Evaluates to?", regexPredicate.test("some.stuff.and.more"), is(false));
     }
 
 }

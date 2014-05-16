@@ -29,7 +29,7 @@ final class StringStartsWithPredicate extends StringPredicateBase {
     }
 
     @Override
-    protected boolean doTypedEvaluate(String value) {
+    protected boolean doTypedTest(String value) {
         return value.startsWith(prefix);
     }
 }

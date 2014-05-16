@@ -196,6 +196,6 @@ public class ClassPredicatesTest {
 
 
     private static void assertClassType(Predicate predicate, Class<?> clazz, boolean expectedResult) {
-        assertThat(predicate.getType()+": " + clazz.getSimpleName() + "?", predicate.evaluate(clazz), is(expectedResult));
+        assertThat(predicate.getType()+": " + clazz.getSimpleName() + "?", predicate.test(clazz), is(expectedResult));
     }
 }

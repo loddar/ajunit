@@ -31,7 +31,7 @@ final class StringRegexPredicate extends StringPredicateBase {
     }
 
     @Override
-    protected boolean doTypedEvaluate(String value) {
+    protected boolean doTypedTest(String value) {
         return pattern.matcher(value).matches();
     }
 }

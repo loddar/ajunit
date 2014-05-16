@@ -34,7 +34,7 @@ final class NoneOfCollectionPredicate<T extends Collection> extends CollectionPr
     @Override
     protected boolean doApplyPredicateOnCollection(T collection, Predicate predicate) {
         for (Object object : collection) {
-            if(predicate.evaluate(object)) {
+            if(predicate.test(object)) {
                 return false;
             }
         }

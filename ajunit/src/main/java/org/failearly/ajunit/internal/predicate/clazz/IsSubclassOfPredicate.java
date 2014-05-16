@@ -31,7 +31,7 @@ final class IsSubclassOfPredicate extends ClassPredicateBase {
     }
 
     @Override
-    protected boolean doTypedEvaluate(final Class clazz) {
+    protected boolean doTypedTest(final Class clazz) {
         return this.clazz.isAssignableFrom(clazz);
     }
 }

@@ -48,7 +48,7 @@ public class MethodTransformersTest extends TransformersBaseTest {
         final Object output = transformer.transform(resolveMethod());
 
         // assert / then
-        assertTransformationResults(output, int.class, String.class);
+        assertTransformationResultList(output, int.class, String.class);
     }
 
     @Test
@@ -60,7 +60,7 @@ public class MethodTransformersTest extends TransformersBaseTest {
         final Object output = transformer.transform(resolveMethod());
 
         // assert / then
-        assertTransformationResults(output, IllegalArgumentException.class, ClassCastException.class);
+        assertTransformationResultList(output, IllegalArgumentException.class, ClassCastException.class);
     }
 
     @Test
@@ -72,6 +72,6 @@ public class MethodTransformersTest extends TransformersBaseTest {
         final Object output = transformer.transform(resolveMethod());
 
         // assert / then
-        assertTransformationAnnotationsResults(output, Deprecated.class, AnyAnnotation.class);
+        assertTransformationAnnotationsResultList(output, Deprecated.class, AnyAnnotation.class);
     }
 }

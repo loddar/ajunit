@@ -37,7 +37,7 @@ abstract class CompositePredicateBase extends PredicateBase implements Composite
     }
 
     @Override
-    protected final boolean doEvaluate(final Object object) {
+    protected final boolean doTest(final Object object) {
         return noPredicates() || doApplyPredicates(predicates, object);
     }
 
@@ -63,7 +63,7 @@ abstract class CompositePredicateBase extends PredicateBase implements Composite
     /**
      * Apply the added predicates on the given parameter {@code object}.
      * @param predicates the added predicates.
-     * @param object the parameter of {@link #evaluate(Object)}.
+     * @param object the parameter of {@link #test(Object)}.
      * @return {@code true} or {@code false}.
      */
     protected abstract boolean doApplyPredicates(final Collection<Predicate> predicates, final Object object);

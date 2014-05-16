@@ -30,7 +30,7 @@ final class StringEndsWithPredicate extends StringPredicateBase {
     }
 
     @Override
-    protected boolean doTypedEvaluate(String value) {
+    protected boolean doTypedTest(String value) {
         return value.endsWith(suffix);
     }
 }

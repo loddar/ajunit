@@ -51,7 +51,7 @@ public class StandardJoinPointVisitor implements AjJoinPointVisitor {
 
     @Override
     public void visit(AjJoinPoint joinPoint) {
-        if (predicate.evaluate(joinPoint)) {
+        if (predicate.test(joinPoint)) {
             selectedJoinPoints.add(toString(joinPoint));
         }
     }

@@ -47,16 +47,6 @@ public final class ListTransformers {
 
 
     /**
-     * The returned transformer returns the element from list at {@code position}.
-     *
-     * @param position the position (from the first element) ({@code >=0}).
-     */
-    public static Transformer getElementListTransformer(final int position) {
-        checkPositions(position);
-        return new GetListElementTransformer(position);
-    }
-
-    /**
      * The returned transformer returns the element from list at {@code position} from the end of list.
      *
      * @param position the position (from the first element) ({@code >=0}).

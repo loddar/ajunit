@@ -20,6 +20,7 @@ package org.failearly.ajunit.internal.predicate.standard;
 
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.predicate.TypedPredicate;
 import org.failearly.ajunit.internal.transformer.Transformer;
 
 /**
@@ -29,8 +30,44 @@ public final class StandardPredicates {
 
     private static final Predicate P_TRUE = new ConstantPredicate(true);
     private static final Predicate P_FALSE = new ConstantPredicate(false);
-    private static final NotNullPredicate P_NOT_NULL = new NotNullPredicate();
-    private static final BooleanPredicate BOOLEAN_PREDICATE = new BooleanPredicate();
+    private static final Predicate P_IS_NULL = new Predicate() {
+        @Override
+        public boolean test(Object object) {
+            return object == null;
+        }
+
+        @Override
+        public String getType() {
+            return "IsNull";
+        }
+
+        @Override
+        public String toString() {
+            return getType();
+        }
+    };
+    private static final Predicate P_IS_NOT_NULL = new Predicate() {
+        @Override
+        public boolean test(Object object) {
+            return object != null;
+        }
+
+        @Override
+        public String getType() {
+            return "IsNotNull";
+        }
+
+        @Override
+        public String toString() {
+            return getType();
+        }
+    };
+    private static final TypedPredicate<Boolean> BOOLEAN_PREDICATE = new TypedPredicate<Boolean>(Boolean.class, "Boolean") {
+        @Override
+        protected boolean doTypedTest(Boolean value) {
+            return value;
+        }
+    };
 
     private StandardPredicates() {}
 
@@ -83,10 +120,17 @@ public final class StandardPredicates {
     }
 
     /**
-     * Predicate checks if the object to evaluate is {@code not null}.
+     * Predicate checks if the object to test is {@code not null}.
      */
-    public static Predicate notNull() {
-        return P_NOT_NULL;
+    public static Predicate isNotNull() {
+        return P_IS_NOT_NULL;
+    }
+
+    /**
+     * Predicate checks if the object to test is {@code null}.
+     */
+    public static Predicate isNull() {
+        return P_IS_NULL;
     }
 
     /**

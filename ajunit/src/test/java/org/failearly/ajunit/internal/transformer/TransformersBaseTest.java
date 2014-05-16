@@ -64,14 +64,14 @@ public class TransformersBaseTest {
 
 
     @SafeVarargs
-    protected static <O> void assertTransformationResults(final Object output, final O... expectedOutputs) {
-        assertThat("Transformation result?", output, is((Object) Arrays.asList(expectedOutputs)));
+    protected static <O> void assertTransformationResultList(final Object output, final O... expectedOutputs) {
+        assertThat("Transformation result list?", output, is((Object) Arrays.asList(expectedOutputs)));
     }
 
     @SafeVarargs
-    protected static void assertTransformationAnnotationsResults(Object output, Class<? extends Annotation>... expectedAnnotationClasses) {
+    protected static void assertTransformationAnnotationsResultList(Object output, Class<? extends Annotation>... expectedAnnotationClasses) {
         final List<Class<? extends Annotation>> outputAnnotationClasses = toAnnotationClasses(output);
-        assertTransformationResults(outputAnnotationClasses, expectedAnnotationClasses);
+        assertTransformationResultList(outputAnnotationClasses, expectedAnnotationClasses);
     }
 
     @SuppressWarnings("unchecked")

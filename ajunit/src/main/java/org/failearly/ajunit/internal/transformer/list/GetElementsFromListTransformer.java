@@ -51,6 +51,7 @@ final class GetElementsFromListTransformer extends ListTransformerBase<List> {
 
     }
 
+    @SuppressWarnings("unchecked")
     private List pickPositionsFromInput(List input) {
         final int size=input.size();
         final List result=new LinkedList();

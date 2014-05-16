@@ -78,7 +78,7 @@ final class ApplyJoinPointSelector implements AjJoinPointVisitor {
     @Override
     public void visit(AjJoinPoint joinPoint) {
         if( isNotSuppressed(joinPoint) ) {
-            if (joinPointSelector.evaluate(joinPoint)) {
+            if (joinPointSelector.test(joinPoint)) {
                 LOGGER.debug("ajUnit - Join Point belongs to SELECTED: '{}'", joinPoint);
                 selectedJoinPoints.add(joinPoint);
             }
@@ -94,12 +94,12 @@ final class ApplyJoinPointSelector implements AjJoinPointVisitor {
     }
 
     private boolean isNotSuppressed(AjJoinPoint joinPoint) {
-        if( enabledJoinPointsPredicate.evaluate(joinPoint) ) {
+        if( enabledJoinPointsPredicate.test(joinPoint) ) {
             LOGGER.debug("ajUnit - A Suppressed Join Point has been enabled: '{}'", joinPoint);
             return true;
         }
 
-        return ! SUPPRESSED_JOIN_POINTS.evaluate(joinPoint);
+        return ! SUPPRESSED_JOIN_POINTS.test(joinPoint);
     }
 
     List<AjJoinPoint> getSelectedJoinPoints() {

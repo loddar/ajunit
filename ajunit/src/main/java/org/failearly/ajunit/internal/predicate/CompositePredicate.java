@@ -57,5 +57,5 @@ public interface CompositePredicate extends Predicate {
      * @throws java.lang.ClassCastException if the input is the wrong class.
      * @throws java.lang.IllegalArgumentException if the input is invalid.
      */
-    boolean evaluate(final Object object);
+    boolean test(final Object object);
 }

@@ -32,7 +32,7 @@ final class ConstantPredicate extends PredicateBase {
     }
 
     @Override
-    protected boolean doEvaluate(Object object) {
+    protected boolean doTest(Object object) {
         return constant;
     }
 }

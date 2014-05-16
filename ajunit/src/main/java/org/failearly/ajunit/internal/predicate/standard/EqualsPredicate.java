@@ -33,7 +33,7 @@ final class EqualsPredicate<T> extends TypedPredicate<T> {
     }
 
     @Override
-    protected boolean doTypedEvaluate(final T typedObject) {
+    protected boolean doTypedTest(final T typedObject) {
         return this.object.equals(typedObject);
     }
 }

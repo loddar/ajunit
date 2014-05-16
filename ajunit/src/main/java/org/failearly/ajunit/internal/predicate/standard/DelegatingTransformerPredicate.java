@@ -37,8 +37,8 @@ final class DelegatingTransformerPredicate extends DelegateCompositePredicate {
     }
 
     @Override
-    protected boolean doEvaluate(Object object) {
+    protected boolean doTest(Object object) {
         final Object transformed= transformer.transform(object);
-        return transformed != null && predicate.evaluate(transformed);
+        return transformed != null && predicate.test(transformed);
     }
 }

@@ -45,7 +45,7 @@ public final class ModifierPredicate extends TypedPredicate<Integer> {
 
 
     @Override
-    protected boolean doTypedEvaluate(final Integer modifiers) {
+    protected boolean doTypedTest(final Integer modifiers) {
         return modifierMatcher.match(modifiers);
     }
 }

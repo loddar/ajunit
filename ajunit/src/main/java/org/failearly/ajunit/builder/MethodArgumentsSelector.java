@@ -67,7 +67,7 @@ public interface MethodArgumentsSelector extends SelectorBuilder {
      * Selects the arguments on given {@code positions} for inspecting the arguments by their type. If there is no argument at any positions the
      * entire expression will evaluate to {@code false}.
      *
-     * @param positions the position values starting with {@code 0}.
+     * @param positions the positions values starting with {@code 0}.
      * @return a new MethodArgumentTypeSelector instance.
      */
     MethodArgumentTypeSelector byArgumentPositions(int... positions);

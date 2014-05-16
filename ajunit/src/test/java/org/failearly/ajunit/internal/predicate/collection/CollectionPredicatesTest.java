@@ -41,11 +41,11 @@ public class CollectionPredicatesTest {
         final Predicate predicate = CollectionPredicates.anyOf(booleanPredicate());
 
         // assert / then
-        assertThat("{false,false}->false?", predicate.evaluate(toBooleanList(false, false)), is(false));
-        assertThat("{false,true}->true?", predicate.evaluate(toBooleanList(false, true)), is(true));
-        assertThat("{true,false}->true?", predicate.evaluate(toBooleanList(true, false)), is(true));
-        assertThat("{true,false}->true?", predicate.evaluate(toBooleanList(true, true)), is(true));
-        assertThat("{}->false?", predicate.evaluate(toBooleanList()), is(false));
+        assertThat("{false,false}->false?", predicate.test(toBooleanList(false, false)), is(false));
+        assertThat("{false,true}->true?", predicate.test(toBooleanList(false, true)), is(true));
+        assertThat("{true,false}->true?", predicate.test(toBooleanList(true, false)), is(true));
+        assertThat("{true,false}->true?", predicate.test(toBooleanList(true, true)), is(true));
+        assertThat("{}->false?", predicate.test(toBooleanList()), is(false));
     }
 
     @Test
@@ -54,11 +54,11 @@ public class CollectionPredicatesTest {
         final Predicate predicate = CollectionPredicates.allOf(booleanPredicate());
 
         // assert / then
-        assertThat("{false,false}->false?", predicate.evaluate(toBooleanList(false, false)), is(false));
-        assertThat("{false,true}->false?", predicate.evaluate(toBooleanList(false, true)), is(false));
-        assertThat("{true,false}->false?", predicate.evaluate(toBooleanList(true, false)), is(false));
-        assertThat("{true,true}->true?", predicate.evaluate(toBooleanList(true, true)), is(true));
-        assertThat("{}->false?", predicate.evaluate(toBooleanList()), is(false));
+        assertThat("{false,false}->false?", predicate.test(toBooleanList(false, false)), is(false));
+        assertThat("{false,true}->false?", predicate.test(toBooleanList(false, true)), is(false));
+        assertThat("{true,false}->false?", predicate.test(toBooleanList(true, false)), is(false));
+        assertThat("{true,true}->true?", predicate.test(toBooleanList(true, true)), is(true));
+        assertThat("{}->false?", predicate.test(toBooleanList()), is(false));
     }
 
     @Test
@@ -67,11 +67,11 @@ public class CollectionPredicatesTest {
         final Predicate predicate = CollectionPredicates.noneOf(booleanPredicate());
 
         // assert / then
-        assertThat("{false,false}->true?", predicate.evaluate(toBooleanList(false, false)), is(true));
-        assertThat("{false,true}->false?", predicate.evaluate(toBooleanList(false, true)), is(false));
-        assertThat("{true,false}->false?", predicate.evaluate(toBooleanList(true, false)), is(false));
-        assertThat("{true,true}->false?", predicate.evaluate(toBooleanList(true, true)), is(false));
-        assertThat("{}->false?", predicate.evaluate(toBooleanList()), is(false));
+        assertThat("{false,false}->true?", predicate.test(toBooleanList(false, false)), is(true));
+        assertThat("{false,true}->false?", predicate.test(toBooleanList(false, true)), is(false));
+        assertThat("{true,false}->false?", predicate.test(toBooleanList(true, false)), is(false));
+        assertThat("{true,true}->false?", predicate.test(toBooleanList(true, true)), is(false));
+        assertThat("{}->false?", predicate.test(toBooleanList()), is(false));
     }
 
     @Test
@@ -80,9 +80,9 @@ public class CollectionPredicatesTest {
         final Predicate predicate = CollectionPredicates.isEmpty();
 
         // assert / then
-        assertThat("{true, true}->false?", predicate.evaluate(toBooleanList(true, true)), is(false));
-        assertThat("{true}->false?", predicate.evaluate(toBooleanList(true)), is(false));
-        assertThat("{}->true?", predicate.evaluate(toBooleanList()), is(true));
+        assertThat("{true, true}->false?", predicate.test(toBooleanList(true, true)), is(false));
+        assertThat("{true}->false?", predicate.test(toBooleanList(true)), is(false));
+        assertThat("{}->true?", predicate.test(toBooleanList()), is(true));
     }
 
     @Test
@@ -91,9 +91,9 @@ public class CollectionPredicatesTest {
         final Predicate predicate = CollectionPredicates.isNotEmpty();
 
         // assert / then
-        assertThat("{true, true}->true?", predicate.evaluate(toBooleanList(true, true)), is(true));
-        assertThat("{true}->true?", predicate.evaluate(toBooleanList(true)), is(true));
-        assertThat("{}->false?", predicate.evaluate(toBooleanList()), is(false));
+        assertThat("{true, true}->true?", predicate.test(toBooleanList(true, true)), is(true));
+        assertThat("{true}->true?", predicate.test(toBooleanList(true)), is(true));
+        assertThat("{}->false?", predicate.test(toBooleanList()), is(false));
     }
 
     @Test
@@ -106,19 +106,19 @@ public class CollectionPredicatesTest {
                                     );
 
         // assert / then
-        assertThat("{true,true}->true?", predicate.evaluate(
-                        toCollectionsOfBooleanList(
-                            toBooleanList(false,true),
-                            toBooleanList(true, true)
+        assertThat("{true,true}->true?", predicate.test(
+                toCollectionsOfBooleanList(
+                        toBooleanList(false, true),
+                        toBooleanList(true, true)
 
-                        )
-                ), is(true));
-        assertThat("{true,false}->false?", predicate.evaluate(
-                        toCollectionsOfBooleanList(
-                            toBooleanList(true, false),
-                            toBooleanList(false)
-                        )
-                ), is(false));
+                )
+        ), is(true));
+        assertThat("{true,false}->false?", predicate.test(
+                toCollectionsOfBooleanList(
+                        toBooleanList(true, false),
+                        toBooleanList(false)
+                )
+        ), is(false));
     }
 
 
@@ -132,25 +132,25 @@ public class CollectionPredicatesTest {
                                     );
 
         // assert / then
-        assertThat("{true,true}->true?", predicate.evaluate(
-                        toCollectionsOfBooleanList(
-                            toBooleanList(true, true),
-                            toBooleanList(true)
+        assertThat("{true,true}->true?", predicate.test(
+                toCollectionsOfBooleanList(
+                        toBooleanList(true, true),
+                        toBooleanList(true)
 
-                        )
-                ), is(true));
-        assertThat("{false,true}->true?", predicate.evaluate(
-                        toCollectionsOfBooleanList(
-                            toBooleanList(false),
-                            toBooleanList(true)
-                        )
-                ), is(true));
-        assertThat("{false,false}->false?", predicate.evaluate(
-                        toCollectionsOfBooleanList(
-                                toBooleanList(false),
-                                toBooleanList(false)
-                        )
-                ), is(false));
+                )
+        ), is(true));
+        assertThat("{false,true}->true?", predicate.test(
+                toCollectionsOfBooleanList(
+                        toBooleanList(false),
+                        toBooleanList(true)
+                )
+        ), is(true));
+        assertThat("{false,false}->false?", predicate.test(
+                toCollectionsOfBooleanList(
+                        toBooleanList(false),
+                        toBooleanList(false)
+                )
+        ), is(false));
     }
 
 

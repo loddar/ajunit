@@ -61,19 +61,19 @@ public class ListTransformersTest extends TransformersBaseTest {
     @Test
     public void getElementListFromNoneEmptyList() throws Exception {
         // arrange / given
-        final Transformer listTransformer = ListTransformers.getElementListTransformer(1);
+        final Transformer listTransformer = ListTransformers.getElementsFromList(1);
 
         // act / when
         final Object output = listTransformer.transform(THREE_ELEMENT_LIST);
 
         // assert / then
-        assertTransformationResult(output, "10");
+        assertTransformationResultList(output, "10");
     }
 
     @Test
     public void getElementListOutOfBounds() throws Exception {
         // arrange / given
-        final Transformer listTransformer = ListTransformers.getElementListTransformer(3);
+        final Transformer listTransformer = ListTransformers.getElementsFromList(3);
 
         // act / when
         final Object output = listTransformer.transform(THREE_ELEMENT_LIST);
@@ -85,7 +85,7 @@ public class ListTransformersTest extends TransformersBaseTest {
     @Test(expected = java.lang.IllegalArgumentException.class)
     public void createGetElementListTransformerWithInvalidPosition() throws Exception {
         // act / when
-        ListTransformers.getElementListTransformer(-2);
+        ListTransformers.getElementsFromList(-2);
     }
 
     @Test

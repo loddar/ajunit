@@ -25,23 +25,21 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * NotNullPredicateTest contains tests for {@link StandardPredicates#notNull()}.
+ * NullPredicateTest tests {@link StandardPredicates#isNotNull()} and {@link StandardPredicates#isNull()}.
  */
-public class NotNullPredicateTest {
-    private final Predicate isNotNullPredicate = StandardPredicates.notNull();
-
+public class NullPredicatesTest {
     @Test
-    public void type() throws Exception {
-        assertThat("IsNotNull type?", isNotNullPredicate.getType(), is("NotNull"));
+    public void isNotNull() throws Exception {
+        final Predicate isNotNullPredicate = StandardPredicates.isNotNull();
+        assertThat("IsNotNull(not null) evaluates to?", isNotNullPredicate.test("VALUE"), is(true));
+        assertThat("IsNotNull(null) evaluates to?", isNotNullPredicate.test(null), is(false));
+        assertThat("IsNotNull type?", isNotNullPredicate.getType(), is("IsNotNull"));
     }
-
-    @Test
-    public void notNull() throws Exception {
-        assertThat("IsNotNull evaluates to?", isNotNullPredicate.evaluate("VALUE"), is(true));
-    }
-
     @Test
     public void isNull() throws Exception {
-        assertThat("IsNotNull evaluates to?", isNotNullPredicate.evaluate(null), is(false));
+        final Predicate isNullPredicate = StandardPredicates.isNull();
+        assertThat("IsNull(not null) evaluates to?", isNullPredicate.test("VALUE"), is(false));
+        assertThat("IsNull(null) evaluates to?", isNullPredicate.test(null), is(true));
+        assertThat("IsNull type?", isNullPredicate.getType(), is("IsNull"));
     }
 }
