@@ -18,6 +18,7 @@
  */
 package org.failearly.ajunit.internal.predicate.standard;
 
+import org.failearly.ajunit.internal.predicate.AbstractPredicate;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.TypedPredicate;
@@ -30,36 +31,16 @@ public final class StandardPredicates {
 
     private static final Predicate P_TRUE = new ConstantPredicate(true);
     private static final Predicate P_FALSE = new ConstantPredicate(false);
-    private static final Predicate P_IS_NULL = new Predicate() {
+    private static final Predicate P_IS_NULL = new AbstractPredicate("IsNull") {
         @Override
         public boolean test(Object object) {
             return object == null;
         }
-
-        @Override
-        public String getType() {
-            return "IsNull";
-        }
-
-        @Override
-        public String toString() {
-            return getType();
-        }
     };
-    private static final Predicate P_IS_NOT_NULL = new Predicate() {
+    private static final Predicate P_IS_NOT_NULL = new AbstractPredicate("IsNotNull") {
         @Override
         public boolean test(Object object) {
             return object != null;
-        }
-
-        @Override
-        public String getType() {
-            return "IsNotNull";
-        }
-
-        @Override
-        public String toString() {
-            return getType();
         }
     };
     private static final TypedPredicate<Boolean> BOOLEAN_PREDICATE = new TypedPredicate<Boolean>(Boolean.class, "Boolean") {
@@ -74,7 +55,6 @@ public final class StandardPredicates {
 
     /**
      * Predicate evaluates always to {@code true}.
-     * FOR TESTING PURPOSES ONLY.
      */
     public static Predicate alwaysTrue() {
         return P_TRUE;
@@ -82,7 +62,6 @@ public final class StandardPredicates {
 
     /**
      * Predicate evaluates always to {@code false}.
-     * FOR TESTING PURPOSES ONLY.
      */
     public static Predicate alwaysFalse() {
         return P_FALSE;

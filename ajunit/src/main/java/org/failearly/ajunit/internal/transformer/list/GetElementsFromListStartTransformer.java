@@ -18,25 +18,17 @@
  */
 package org.failearly.ajunit.internal.transformer.list;
 
-import java.util.List;
-
 /**
- * GetListElementFromEndTransformer is responsible for ...
+ * GetElementsFromListStartTransformer picks elements from the first position of the list.
  */
-final class GetListElementFromEndTransformer extends ListTransformerBase<Object> {
-    private final int position;
-
-    GetListElementFromEndTransformer(final int position) {
-        this.position = position;
+final class GetElementsFromListStartTransformer extends AbstractGetElementsFromListTransformer {
+    GetElementsFromListStartTransformer(int... positions) {
+        super(positions);
     }
 
     @Override
-    protected Object doTypedTransform(final List list) {
-        final int lastPositionOfCurrentList = list.size() - 1;
-        if( position > lastPositionOfCurrentList ) {
-            return null;
-        }
-
-        return list.get(lastPositionOfCurrentList - position);
+    int index(int position, int lastPositionOfList) {
+        return position;
     }
+
 }

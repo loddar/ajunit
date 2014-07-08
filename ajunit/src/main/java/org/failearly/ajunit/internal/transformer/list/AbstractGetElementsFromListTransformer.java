@@ -1,7 +1,7 @@
 /*
  * ajUnit - Unit Testing AspectJ.
  *
- * Copyright (C) 2013-2014 Marko Umek (http://fail-early.com/contact)
+ * Copyright (C) 2013-2014 marko (http://fail-early.com/contact)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,17 +18,21 @@
  */
 package org.failearly.ajunit.internal.transformer.list;
 
-import java.util.LinkedList;
+import org.failearly.ajunit.internal.util.AjAssert;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * GetElementsFromListTransformer is responsible for ...
+ * AbstractGetElementsFromListTransformer is the base implementation for picking elements from a list of values.
+ * The only difference is the calculation of the {@link #index(int, int)}.
  */
-final class GetElementsFromListTransformer extends ListTransformerBase<List> {
+abstract class AbstractGetElementsFromListTransformer extends ListTransformerBase<List> {
     private final int[] positions;
     private final int maxPosition;
 
-    GetElementsFromListTransformer(int... positions) {
+    AbstractGetElementsFromListTransformer(int... positions) {
+        checkPositions(positions);
         this.positions=positions;
         this.maxPosition = max(positions);
     }
@@ -41,6 +45,13 @@ final class GetElementsFromListTransformer extends ListTransformerBase<List> {
         return maxValue;
     }
 
+    private static void checkPositions(int... positions) {
+        for (int position : positions) {
+            AjAssert.parameter(position >= 0, "position >= 0");
+        }
+    }
+
+
     @Override
     @SuppressWarnings("unchecked")
     protected List doTypedTransform(List input) {
@@ -48,18 +59,23 @@ final class GetElementsFromListTransformer extends ListTransformerBase<List> {
             return pickPositionsFromInput(input);
         }
         return null;
-
     }
 
     @SuppressWarnings("unchecked")
     private List pickPositionsFromInput(List input) {
         final int size=input.size();
-        final List result=new LinkedList();
+        final int lastPositionOfList = size-1;
+        final List result=new ArrayList(positions.length);
         for (int position : positions) {
-            if(position<size) {
-                result.add(input.get(position));
-            }
+            result.add(input.get(index(position, lastPositionOfList)));
         }
         return result;
     }
+
+    /**
+     * Calculate the index.
+     * @param position one position of {@link #positions}
+     * @param lastPositionOfList the last position of the list to be transformed.
+     */
+    abstract int index(int position, int lastPositionOfList);
 }

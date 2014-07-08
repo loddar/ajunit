@@ -54,7 +54,7 @@ final class MethodArgumentTypeSelectorImpl extends JoinPointBuilderBase<MethodAr
             ListLogicalOperator listLogicalOperator, int... positions) {
         return StandardPredicates.transformerPredicate(
                 StandardTransformers.transformerComposition(
-                        ListTransformers.getElementsFromList(positions)
+                        ListTransformers.getElementsFromListStartTransformer(positions)
                 ),
                 JoinPointSelectorUtils.createListLogicalOperator(listLogicalOperator, compositePredicate)
         );

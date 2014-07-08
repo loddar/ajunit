@@ -29,12 +29,10 @@ import org.failearly.ajunit.internal.util.AjAssert;
  *     <li>{@link org.failearly.ajunit.internal.predicate.standard.StandardPredicates#isNotNull()}</li>
  * </ul>
  */
-public abstract class PredicateBase implements Predicate {
-
-    private final String type;
+public abstract class PredicateBase extends AbstractPredicate {
 
     protected PredicateBase(String type) {
-        this.type = type;
+        super(type);
     }
 
     @Override
@@ -50,13 +48,4 @@ public abstract class PredicateBase implements Predicate {
      */
     protected abstract boolean doTest(final Object object);
 
-    @Override
-    public String toString() {
-        return type;
-    }
-
-    @Override
-    public final String getType() {
-        return type;
-    }
 }

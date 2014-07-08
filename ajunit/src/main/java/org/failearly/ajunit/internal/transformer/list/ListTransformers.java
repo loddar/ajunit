@@ -19,7 +19,6 @@
 package org.failearly.ajunit.internal.transformer.list;
 
 import org.failearly.ajunit.internal.transformer.Transformer;
-import org.failearly.ajunit.internal.util.AjAssert;
 
 import java.util.List;
 
@@ -47,31 +46,28 @@ public final class ListTransformers {
 
 
     /**
-     * The returned transformer returns the element from list at {@code position} from the end of list.
+     * The returned transformer returns a new list which contains the values from the input list at given {@code positions} from the start of the list.
      *
-     * @param position the position (from the first element) ({@code >=0}).
-     */
-    public static Transformer getElementListFromEndTransformer(final int position) {
-        checkPositions(position);
-        return new GetListElementFromEndTransformer(position);
-    }
-
-    /**
-     * The returned transformer returns a new list which contains the values from the input list at given {@code positions}.
      * If the input list is smaller then the max value of {@code positions} then the transformer returns {@code null}.
      *
      * @param positions the positions (from the first element) ({@code >=0}).
      *
      * @see java.util.List#get(int)
      */
-    public static Transformer getElementsFromList(int... positions) {
-        checkPositions(positions);
-        return new GetElementsFromListTransformer(positions);
+    public static Transformer getElementsFromListStartTransformer(int... positions) {
+        return new GetElementsFromListStartTransformer(positions);
     }
 
-    private static void checkPositions(int... positions) {
-        for (int position : positions) {
-            AjAssert.parameter(position>=0, "position >= 0");
-        }
+    /**
+     * The returned transformer returns a new list which contains the values from the input list at given {@code positions} from the end of the list.
+     *
+     * If the input list is smaller then the max value of {@code positions} then the transformer returns {@code null}.
+     *
+     * @param positions the positions (from the last element) ({@code >=0}).
+     *
+     * @see java.util.List#get(int)
+     */
+    public static Transformer getElementsFromListEndTransformer(int... positions) {
+        return new GetElementsFromListEndTransformer(positions);
     }
 }

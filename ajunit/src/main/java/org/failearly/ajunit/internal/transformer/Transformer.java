@@ -19,7 +19,11 @@
 package org.failearly.ajunit.internal.transformer;
 
 /**
- * Transformer transforms the {@code input}.
+ * Transformer is a functor which transforms the {@code input}. The Transformer reduces the number of necessary
+ * {@link org.failearly.ajunit.internal.predicate.Predicate}s. There are bridges
+ * {@link org.failearly.ajunit.internal.predicate.standard.DelegatingTransformerPredicate} and
+ * {@link org.failearly.ajunit.internal.predicate.standard.SimpleTransformerPredicate}.
+ *
  */
 public interface Transformer {
     /**

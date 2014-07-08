@@ -22,7 +22,6 @@ package org.failearly.ajunit.internal.predicate;
  * Predicate is highly inspired by Predicate implementation in Jakarta commons collection.
  *
  * @see org.failearly.ajunit.internal.predicate.PredicateBase
- * @see org.failearly.ajunit.internal.predicate.standard.NotNullPredicate
  */
 public interface Predicate {
     /**
