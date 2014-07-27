@@ -21,7 +21,7 @@ package org.failearly.ajunit.internal.util;
 /**
  * MessageUtils provides factory methods for {@link org.failearly.ajunit.internal.util.MessageBuilder}.
  */
-public abstract class MessageUtils {
+public final class MessageUtils {
 
     private MessageUtils() {}
 

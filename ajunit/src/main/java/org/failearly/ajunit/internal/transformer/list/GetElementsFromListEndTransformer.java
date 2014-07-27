@@ -28,6 +28,6 @@ final class GetElementsFromListEndTransformer extends AbstractGetElementsFromLis
     }
 
     int index(int position, int lastPositionOfList) {
-        return lastPositionOfList -position;
+        return lastPositionOfList-position;
     }
 }

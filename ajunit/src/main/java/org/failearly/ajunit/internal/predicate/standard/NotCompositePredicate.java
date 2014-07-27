@@ -47,7 +47,8 @@ final class NotCompositePredicate extends PredicateBase implements LogicalPredic
 
     @Override
     public CompositePredicate addPredicates(Iterable<Predicate> predicates) {
-        return this.compositePredicate.addPredicates(predicates);
+        this.compositePredicate.addPredicates(predicates);
+        return this;
     }
 
     @Override

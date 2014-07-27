@@ -29,6 +29,8 @@ import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.modifier.AccessModifier;
 import org.failearly.ajunit.modifier.MethodModifier;
 
+import java.lang.annotation.Annotation;
+
 /**
  * MethodJoinPointSelectorImpl is the implementation of {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
  */
@@ -150,6 +152,36 @@ final class MethodJoinPointSelectorImpl
     public MethodJoinPointSelector byPackageName(String packageNamePattern, StringMatcherType matcherType) {
         return this.declaringClassSelector.byPackageName(packageNamePattern, matcherType);
     }
+
+    @Override
+    public MethodJoinPointSelector byTypeAnnotation(Class<? extends Annotation> annotationClass) {
+        return this.byTypeAnnotations(LogicalOperator.ALL_OF, annotationClass);
+    }
+
+    @Override
+    @SafeVarargs
+    public final MethodJoinPointSelector byTypeAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotationClasses) {
+        return this.declaringClassSelector.byTypeAnnotations(logicalOperator, annotationClasses);
+    }
+
+    @Override
+    @SafeVarargs
+    public final MethodJoinPointSelector byAnyTypeAnnotations(Class<? extends Annotation>... annotationClasses) {
+        return this.byTypeAnnotations(LogicalOperator.ANY_OF, annotationClasses);
+    }
+
+    @Override
+    @SafeVarargs
+    public final MethodJoinPointSelector byAllTypeAnnotations(Class<? extends Annotation>... annotationClasses) {
+        return this.byTypeAnnotations(LogicalOperator.ALL_OF, annotationClasses);
+    }
+
+    @Override
+    @SafeVarargs
+    public final MethodJoinPointSelector byNoneOfTypeAnnotations(Class<? extends Annotation>... annotationClasses) {
+        return this.byTypeAnnotations(LogicalOperator.NONE_OF, annotationClasses);
+    }
+
 
     @Override
     public ReturnTypeSelector byReturnType(LogicalOperator logicalOperator) {

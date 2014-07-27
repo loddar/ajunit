@@ -20,6 +20,10 @@ package org.failearly.ajunit.internal.predicate.clazz;
 
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
+import org.failearly.ajunit.internal.util.AjAssert;
+import org.failearly.ajunit.internal.util.MessageUtils;
+
+import java.lang.annotation.Annotation;
 
 /**
  * ClassPredicates provides factory methods on {@link java.lang.Class} object.
@@ -121,6 +125,16 @@ public abstract class ClassPredicates {
      */
     public static Predicate isSubclassOf(Class<?> clazz) {
         return new IsSubclassOfPredicate(clazz);
+    }
+
+    /**
+     * Predicate checks if the {@code annotationClass} is present on given type.
+     * @param annotationClass the annotation class.
+     * @see Class#isAnnotationPresent(Class)
+     */
+    public static Predicate isAnnotationPresent(Class<? extends Annotation> annotationClass) {
+        AjAssert.assertCondition(annotationClass.isAnnotation(), MessageUtils.message("Only annotation class expected: ").arg(annotationClass));
+        return new IsTypeAnnotationPresentPredicate(annotationClass);
     }
 
     /**

@@ -25,6 +25,8 @@ import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.SelectorBuilders;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 
+import java.lang.annotation.Annotation;
+
 /**
  * The implementation of {@link org.failearly.ajunit.builder.ReturnTypeSelector}.
  */
@@ -93,6 +95,32 @@ final class ReturnTypeSelectorImpl
     @Override
     public ReturnTypeSelector byPackageName(String packageNamePattern, StringMatcherType matcherType) {
         return returnTypeSelector.byPackageName(packageNamePattern, matcherType);
+    }
+
+    @Override
+    public ReturnTypeSelector byTypeAnnotation(Class<? extends Annotation> annotationClass) {
+        return null;
+    }
+
+    @Override
+    public ReturnTypeSelector byTypeAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotationClasses) {
+        return null;
+    }
+
+    @Override
+    @SafeVarargs
+    public final ReturnTypeSelector byAnyTypeAnnotations(Class<? extends Annotation>... annotations) {
+        return null;
+    }
+
+    @Override
+    public ReturnTypeSelector byAllTypeAnnotations(Class<? extends Annotation>... annotations) {
+        return null;
+    }
+
+    @Override
+    public ReturnTypeSelector byNoneOfTypeAnnotations(Class<? extends Annotation>... annotationClasses) {
+        return null;
     }
 
     @Override

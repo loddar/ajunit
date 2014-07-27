@@ -16,16 +16,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.internal.predicate.clazz;
+
+import java.lang.annotation.Annotation;
 
 /**
- * TestSubject7 is responsible for ...
+ * IsTypeAnnotationPresentPredicate checks if the annotation class is present on a given class object.
  */
-@SuppressWarnings("all")
-@AnyOtherAnnotation
-public class TestSubject7 {
-    public void method0() {}
-    public void method1(int p0) {}
-    public void method2(int p0, String p1) {}
-    public void method3(String p0, String p1, int p3) {}
+final class IsTypeAnnotationPresentPredicate extends ClassPredicateBase {
+    private final Class<? extends Annotation> annotationClass;
+
+    IsTypeAnnotationPresentPredicate(Class<? extends Annotation> annotationClass) {
+        super("IsTypeAnnotationPresent("+annotationClass.getName()+")");
+        this.annotationClass = annotationClass;
+    }
+
+    @Override
+    protected boolean doTypedTest(final Class clazz) {
+        return clazz.isAnnotationPresent(this.annotationClass);
+    }
 }

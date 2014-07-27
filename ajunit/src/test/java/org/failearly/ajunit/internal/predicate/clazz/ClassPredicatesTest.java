@@ -18,6 +18,8 @@
  */
 package org.failearly.ajunit.internal.predicate.clazz;
 
+import org.failearly.ajunit.builder.AnyAnnotation;
+import org.failearly.ajunit.builder.TestSubject1;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.junit.Test;
 
@@ -194,6 +196,15 @@ public class ClassPredicatesTest {
         assertClassType(predicate, Retention.class, false);
     }
 
+    @Test
+    public void isAnnotationPresent() throws Exception {
+        // arrange / given
+        final Predicate predicate = ClassPredicates.isAnnotationPresent(AnyAnnotation.class);
+
+        // assert / then
+        assertClassType(predicate, int.class, false);
+        assertClassType(predicate, TestSubject1.class, true);
+    }
 
     private static void assertClassType(Predicate predicate, Class<?> clazz, boolean expectedResult) {
         assertThat(predicate.getType()+": " + clazz.getSimpleName() + "?", predicate.test(clazz), is(expectedResult));

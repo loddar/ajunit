@@ -19,6 +19,7 @@
 package org.failearly.ajunit.internal.builder.jpsb.helper;
 
 import org.failearly.ajunit.builder.DimensionComparator;
+import org.failearly.ajunit.builder.LogicalOperator;
 import org.failearly.ajunit.builder.StringMatcherType;
 import org.failearly.ajunit.internal.builder.Builder;
 import org.failearly.ajunit.internal.predicate.Predicate;
@@ -26,7 +27,10 @@ import org.failearly.ajunit.internal.predicate.clazz.ClassPredicates;
 import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.failearly.ajunit.internal.transformer.clazz.ClassTransformers;
+import org.failearly.ajunit.internal.util.AjAssert;
+import org.failearly.ajunit.internal.util.MessageUtils;
 
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -91,6 +95,17 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
         );
     }
 
+    @SafeVarargs
+    public final T byTypeAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotations) {
+        return addPredicate(
+                JoinPointSelectorUtils.createLogicalOperatorPredicate(logicalOperator)
+                        .addPredicates(createAnnotationsPredicates(annotations))
+        );
+    }
+
+
+
+
     public T byArrayDimension(int dimension, DimensionComparator dimensionComparator) {
         return addPredicate(
                 ClassTransformers.countArrayDimension(),
@@ -150,6 +165,19 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
         final List<Predicate> predicates = new ArrayList<>(interfaces.length);
         for (Class<?> anInterface : interfaces) {
             predicates.add(ClassPredicates.isSubclassOf(anInterface));
+        }
+        return predicates;
+    }
+
+    @SafeVarargs
+    private static List<Predicate> createAnnotationsPredicates(Class<? extends Annotation>... annotations) {
+        AjAssert.assertCondition(
+                    annotations.length>0,
+                    MessageUtils.message("At least one annotation should be provided.")
+            );
+        final List<Predicate> predicates = new ArrayList<>(annotations.length);
+        for (Class<? extends Annotation> anAnnotation : annotations) {
+            predicates.add(ClassPredicates.isAnnotationPresent(anAnnotation));
         }
         return predicates;
     }

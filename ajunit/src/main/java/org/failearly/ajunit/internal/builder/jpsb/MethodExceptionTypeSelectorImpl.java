@@ -18,10 +18,7 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb;
 
-import org.failearly.ajunit.builder.ListLogicalOperator;
-import org.failearly.ajunit.builder.MethodExceptionTypeSelector;
-import org.failearly.ajunit.builder.MethodJoinPointSelector;
-import org.failearly.ajunit.builder.StringMatcherType;
+import org.failearly.ajunit.builder.*;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
@@ -32,6 +29,8 @@ import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.failearly.ajunit.internal.transformer.ajp.AjpTransformers;
 import org.failearly.ajunit.internal.transformer.method.MethodTransformers;
 import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
+
+import java.lang.annotation.Annotation;
 
 /**
  * The implementation of {@link org.failearly.ajunit.builder.MethodExceptionTypeSelector}.
@@ -110,6 +109,32 @@ final class MethodExceptionTypeSelectorImpl
     @Override
     public MethodExceptionTypeSelector byPackageName(String packageNamePattern, StringMatcherType matcherType) {
         return methodExceptionTypeSelector.byPackageName(packageNamePattern, matcherType);
+    }
+
+    @Override
+    public MethodExceptionTypeSelector byTypeAnnotation(Class<? extends Annotation> annotationClass) {
+        return null;
+    }
+
+    @Override
+    public MethodExceptionTypeSelector byTypeAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotationClasses) {
+        return null;
+    }
+
+    @Override
+    @SafeVarargs
+    public final MethodExceptionTypeSelector byAnyTypeAnnotations(Class<? extends Annotation>... annotations) {
+        return null;
+    }
+
+    @Override
+    public MethodExceptionTypeSelector byAllTypeAnnotations(Class<? extends Annotation>... annotations) {
+        return null;
+    }
+
+    @Override
+    public MethodExceptionTypeSelector byNoneOfTypeAnnotations(Class<? extends Annotation>... annotationClasses) {
+        return null;
     }
 
     @Override

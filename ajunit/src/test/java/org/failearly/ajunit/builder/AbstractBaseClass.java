@@ -21,5 +21,6 @@ package org.failearly.ajunit.builder;
 /**
  * Just for {@link AbstractJoinPointSelectorTest}.
  */
+@AnyAnnotation @AnyOtherAnnotation
 public abstract class AbstractBaseClass {
 }

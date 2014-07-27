@@ -28,7 +28,7 @@ import java.util.Collection;
 /**
  * CollectionPredicates provides factory methods for applying a single predicate on collection of objects.
  */
-public abstract class CollectionPredicates {
+public final class CollectionPredicates {
 
     private static final Predicate P_IS_EMPTY = new TypedPredicate <Collection>(Collection.class, "isEmpty") {
         @Override
