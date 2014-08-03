@@ -19,6 +19,7 @@
 package org.failearly.ajunit.internal.builder.jpsb;
 
 import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.internal.annotation.NotYetImplemented;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
@@ -112,28 +113,36 @@ final class MethodExceptionTypeSelectorImpl
     }
 
     @Override
+    @NotYetImplemented
     public MethodExceptionTypeSelector byTypeAnnotation(Class<? extends Annotation> annotationClass) {
         return null;
     }
 
     @Override
-    public MethodExceptionTypeSelector byTypeAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotationClasses) {
+    @SafeVarargs
+    @NotYetImplemented
+    public final MethodExceptionTypeSelector byTypeAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotationClasses) {
         return null;
     }
 
     @Override
     @SafeVarargs
+    @NotYetImplemented
     public final MethodExceptionTypeSelector byAnyTypeAnnotations(Class<? extends Annotation>... annotations) {
         return null;
     }
 
     @Override
-    public MethodExceptionTypeSelector byAllTypeAnnotations(Class<? extends Annotation>... annotations) {
+    @SafeVarargs
+    @NotYetImplemented
+    public final MethodExceptionTypeSelector byAllTypeAnnotations(Class<? extends Annotation>... annotations) {
         return null;
     }
 
     @Override
-    public MethodExceptionTypeSelector byNoneOfTypeAnnotations(Class<? extends Annotation>... annotationClasses) {
+    @SafeVarargs
+    @NotYetImplemented
+    public final MethodExceptionTypeSelector byNoneOfTypeAnnotations(Class<? extends Annotation>... annotationClasses) {
         return null;
     }
 

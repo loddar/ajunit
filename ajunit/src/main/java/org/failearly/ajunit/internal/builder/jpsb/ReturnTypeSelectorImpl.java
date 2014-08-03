@@ -19,6 +19,7 @@
 package org.failearly.ajunit.internal.builder.jpsb;
 
 import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.internal.annotation.NotYetImplemented;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
@@ -98,28 +99,36 @@ final class ReturnTypeSelectorImpl
     }
 
     @Override
+    @NotYetImplemented
     public ReturnTypeSelector byTypeAnnotation(Class<? extends Annotation> annotationClass) {
         return null;
     }
 
     @Override
-    public ReturnTypeSelector byTypeAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotationClasses) {
+    @SafeVarargs
+    @NotYetImplemented
+    public final ReturnTypeSelector byTypeAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotationClasses) {
         return null;
     }
 
     @Override
     @SafeVarargs
+    @NotYetImplemented
     public final ReturnTypeSelector byAnyTypeAnnotations(Class<? extends Annotation>... annotations) {
         return null;
     }
 
     @Override
-    public ReturnTypeSelector byAllTypeAnnotations(Class<? extends Annotation>... annotations) {
+    @SafeVarargs
+    @NotYetImplemented
+    public final ReturnTypeSelector byAllTypeAnnotations(Class<? extends Annotation>... annotations) {
         return null;
     }
 
     @Override
-    public ReturnTypeSelector byNoneOfTypeAnnotations(Class<? extends Annotation>... annotationClasses) {
+    @SafeVarargs
+    @NotYetImplemented
+    public final ReturnTypeSelector byNoneOfTypeAnnotations(Class<? extends Annotation>... annotationClasses) {
         return null;
     }
 
