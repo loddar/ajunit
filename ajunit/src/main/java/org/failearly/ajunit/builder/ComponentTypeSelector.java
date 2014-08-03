@@ -24,7 +24,7 @@ package org.failearly.ajunit.builder;
  *
  * <ul>
  *     <li>{@link ArrayTypeSelector#byComponentType()}</li>
- *     <li>{@link org.failearly.ajunit.builder.ParameterTypeSelector} TODO: specify byComponentType</li>
+ *     <li>TODO: specify byComponentType</li>
  * </ul>
  *
  *

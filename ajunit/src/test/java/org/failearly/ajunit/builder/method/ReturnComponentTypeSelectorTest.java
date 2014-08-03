@@ -39,7 +39,7 @@ public abstract class ReturnComponentTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byPrimitive() throws Exception {
         // act / when
-        selectorBuilder.byPrimitive();
+        selectorBuilder.byPrimitive().endComponentType();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -51,7 +51,7 @@ public abstract class ReturnComponentTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byPrimitiveWrapperType() throws Exception {
         // act / when
-        selectorBuilder.byPrimitiveWrapperType();
+        selectorBuilder.byPrimitiveWrapperType().endComponentType();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -62,7 +62,7 @@ public abstract class ReturnComponentTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byEnum() throws Exception {
         // act / when
-        selectorBuilder.byEnum();
+        selectorBuilder.byEnum().endComponentType();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -73,7 +73,7 @@ public abstract class ReturnComponentTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byAnnotation() throws Exception {
         // act / when
-        selectorBuilder.byAnnotation();
+        selectorBuilder.byAnnotation().endComponentType();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -84,7 +84,7 @@ public abstract class ReturnComponentTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byInterface() throws Exception {
         // act / when
-        selectorBuilder.byInterface();
+        selectorBuilder.byInterface().endComponentType();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -112,7 +112,7 @@ public abstract class ReturnComponentTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byClass() throws Exception {
         // act / when
-        selectorBuilder.byClass(String.class);
+        selectorBuilder.byClass(String.class).endComponentType();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -124,7 +124,7 @@ public abstract class ReturnComponentTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byExtending() throws Exception {
         // act / when
-        selectorBuilder.byExtending(String.class);
+        selectorBuilder.byExtending(String.class).endComponentType();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -136,7 +136,7 @@ public abstract class ReturnComponentTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byNotExtending() throws Exception {
         // act / when
-        selectorBuilder.byNotExtending(Object.class);
+        selectorBuilder.byNotExtending(Object.class).endComponentType();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -148,7 +148,7 @@ public abstract class ReturnComponentTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byImplementingAnyOf() throws Exception {
         // act / when
-        selectorBuilder.byImplementingAnyOf(AnyInterface.class, Serializable.class);
+        selectorBuilder.byImplementingAnyOf(AnyInterface.class, Serializable.class).endComponentType();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -176,7 +176,7 @@ public abstract class ReturnComponentTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byImplementingNoneOf() throws Exception {
         // act / when
-        selectorBuilder.byImplementingNoneOf(Map.class, Serializable.class);
+        selectorBuilder.byImplementingNoneOf(Map.class, Serializable.class).endComponentType();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -201,12 +201,23 @@ public abstract class ReturnComponentTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byPackageName() throws Exception {
         // act / when
-        selectorBuilder.byPackageName("java.util", StringMatcherType.EQUALS);
+        selectorBuilder.byPackageName("java.util", StringMatcherType.EQUALS).endComponentType();
 
         // assert / then
         assertBuildJoinPointSelector(
                 "public java.util.HashMap[][][] org.failearly.ajunit.builder.TestSubject5.getHashMap()",
                 "public java.util.LinkedList[][][] org.failearly.ajunit.builder.TestSubject5.getLinkedList()"
+        );
+    }
+
+    @Test
+    public void byTypeAnnotation() throws Exception {
+        // act / when
+        selectorBuilder.byTypeAnnotation(AnyAnnotation.class).endComponentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public org.failearly.ajunit.builder.AnyInterface[] org.failearly.ajunit.builder.TestSubject5.getAnyInterface()"
         );
     }
 

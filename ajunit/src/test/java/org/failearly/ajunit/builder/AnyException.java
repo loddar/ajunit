@@ -21,5 +21,6 @@ package org.failearly.ajunit.builder;
 /**
  * AnyException is responsible for ...
  */
+@AnyAnnotation
 public class AnyException extends RuntimeException implements AnyInterface {
 }

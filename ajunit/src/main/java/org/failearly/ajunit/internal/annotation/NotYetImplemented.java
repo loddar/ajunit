@@ -21,12 +21,12 @@ package org.failearly.ajunit.internal.annotation;
 import java.lang.annotation.*;
 
 /**
- * Documentation annotation.
+ * Documentation annotation for not yet implemented classes, methods and constructors.
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target({ElementType.TYPE,ElementType.METHOD,ElementType.CONSTRUCTOR})
 @Documented
 public @interface NotYetImplemented {
-    String value() default "";
-    String version() default "not defined";
+    String description() default "";
+    String plannedForVersion() default "not defined";
 }

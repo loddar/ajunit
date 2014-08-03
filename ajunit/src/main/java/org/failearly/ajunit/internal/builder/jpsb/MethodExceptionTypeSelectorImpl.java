@@ -18,8 +18,10 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb;
 
-import org.failearly.ajunit.builder.*;
-import org.failearly.ajunit.internal.annotation.NotYetImplemented;
+import org.failearly.ajunit.builder.ListLogicalOperator;
+import org.failearly.ajunit.builder.MethodExceptionTypeSelector;
+import org.failearly.ajunit.builder.MethodJoinPointSelector;
+import org.failearly.ajunit.builder.StringMatcherType;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
@@ -113,37 +115,8 @@ final class MethodExceptionTypeSelectorImpl
     }
 
     @Override
-    @NotYetImplemented
     public MethodExceptionTypeSelector byTypeAnnotation(Class<? extends Annotation> annotationClass) {
-        return null;
-    }
-
-    @Override
-    @SafeVarargs
-    @NotYetImplemented
-    public final MethodExceptionTypeSelector byTypeAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotationClasses) {
-        return null;
-    }
-
-    @Override
-    @SafeVarargs
-    @NotYetImplemented
-    public final MethodExceptionTypeSelector byAnyTypeAnnotations(Class<? extends Annotation>... annotations) {
-        return null;
-    }
-
-    @Override
-    @SafeVarargs
-    @NotYetImplemented
-    public final MethodExceptionTypeSelector byAllTypeAnnotations(Class<? extends Annotation>... annotations) {
-        return null;
-    }
-
-    @Override
-    @SafeVarargs
-    @NotYetImplemented
-    public final MethodExceptionTypeSelector byNoneOfTypeAnnotations(Class<? extends Annotation>... annotationClasses) {
-        return null;
+        return methodExceptionTypeSelector.byTypeAnnotation(annotationClass);
     }
 
     @Override

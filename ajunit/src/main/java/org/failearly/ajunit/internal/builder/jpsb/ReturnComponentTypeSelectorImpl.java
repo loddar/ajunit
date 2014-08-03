@@ -18,11 +18,9 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb;
 
-import org.failearly.ajunit.builder.LogicalOperator;
 import org.failearly.ajunit.builder.ReturnComponentTypeSelector;
 import org.failearly.ajunit.builder.ReturnTypeSelector;
 import org.failearly.ajunit.builder.StringMatcherType;
-import org.failearly.ajunit.internal.annotation.NotYetImplemented;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
@@ -108,39 +106,9 @@ final class ReturnComponentTypeSelectorImpl
     }
 
     @Override
-    @NotYetImplemented
     public ReturnComponentTypeSelector byTypeAnnotation(Class<? extends Annotation> annotationClass) {
-        return null;
+        return returnComponentTypeSelector.byTypeAnnotation(annotationClass);
     }
-
-    @Override
-    @SafeVarargs
-    @NotYetImplemented
-    public final ReturnComponentTypeSelector byTypeAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotationClasses) {
-        return null;
-    }
-
-    @Override
-    @SafeVarargs
-    @NotYetImplemented
-    public final ReturnComponentTypeSelector byAnyTypeAnnotations(Class<? extends Annotation>... annotations) {
-        return null;
-    }
-
-    @Override
-    @SafeVarargs
-    @NotYetImplemented
-    public final ReturnComponentTypeSelector byAllTypeAnnotations(Class<? extends Annotation>... annotations) {
-        return null;
-    }
-
-    @Override
-    @SafeVarargs
-    @NotYetImplemented
-    public final ReturnComponentTypeSelector byNoneOfTypeAnnotations(Class<? extends Annotation>... annotationClasses) {
-        return null;
-    }
-
 
     @Override
     public ReturnComponentTypeSelector byPrimitive() {

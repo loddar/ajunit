@@ -155,7 +155,7 @@ final class MethodJoinPointSelectorImpl
 
     @Override
     public MethodJoinPointSelector byTypeAnnotation(Class<? extends Annotation> annotationClass) {
-        return this.byTypeAnnotations(LogicalOperator.ALL_OF, annotationClass);
+        return this.declaringClassSelector.byTypeAnnotation(annotationClass);
     }
 
     @Override

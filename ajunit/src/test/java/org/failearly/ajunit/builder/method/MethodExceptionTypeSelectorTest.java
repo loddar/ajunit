@@ -193,6 +193,21 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
     }
 
     @Test
+    public void byTypeAnnotation() throws Exception {
+        // act / when
+        selectorBuilder.byExceptionTypes(ListLogicalOperator.ANY_OF)
+                            .byTypeAnnotation(AnyAnnotation.class)
+                        .endExceptionTypes();
+
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject6.method4() throws org.failearly.ajunit.builder.AnyException",
+                "public void org.failearly.ajunit.builder.TestSubject6.method5() throws org.failearly.ajunit.builder.AnyException,java.sql.SQLException"
+        );
+    }
+
+    @Test
     public void logicalOperatorAnyOf() throws Exception {
         // act / when
         selectorBuilder.byExceptionTypes(ListLogicalOperator.ANY_OF).byError().byRuntimeException().endExceptionTypes();

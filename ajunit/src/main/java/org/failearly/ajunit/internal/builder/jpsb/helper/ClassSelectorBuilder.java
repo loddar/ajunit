@@ -103,7 +103,11 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
         );
     }
 
-
+    public T byTypeAnnotation(Class<? extends Annotation> annotation) {
+        return addPredicate(
+            ClassPredicates.isAnnotationPresent(annotation)
+        );
+    }
 
 
     public T byArrayDimension(int dimension, DimensionComparator dimensionComparator) {

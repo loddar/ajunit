@@ -347,4 +347,28 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
                 "public java.util.Hashtable org.failearly.ajunit.builder.TestSubject4.getHashTable()"
         );
     }
+
+    @Test
+    public void byTypeAnnotationWithAnnotationInheritance() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.OR)
+                    .byTypeAnnotation(AnyAnnotation.class)
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public org.failearly.ajunit.builder.TestSubject1 org.failearly.ajunit.builder.TestSubject4.getTestSubject1()"
+        );
+    }
+
+    @Test
+    public void byTypeAnnotationWithoutAnnotationInheritance() throws Exception {
+        // act / when
+        selectorBuilder.byReturnType(LogicalOperator.OR)
+                    .byTypeAnnotation(AnyOtherAnnotation.class)
+                .endReturnType();
+
+        // assert / then
+        assertBuildJoinPointSelector();
+    }
 }
