@@ -20,7 +20,6 @@ package org.failearly.ajunit.internal.transformer.method;
 
 import org.failearly.ajunit.internal.transformer.Transformer;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -29,12 +28,6 @@ import java.util.List;
  */
 public final class MethodTransformers {
 
-    private static final Transformer METHOD_DECLARED_ANNOTATIONS_TRANSFORMER = new MethodListTransformerBase<Annotation>() {
-        @Override
-        protected List<Annotation> doTypedTransform(Method input) {
-            return convert(input.getDeclaredAnnotations());
-        }
-    };
     private static final Transformer METHOD_RETURN_TYPE_TRANSFORMER = new MethodTransformerBase<Class<?>>() {
         @Override
         protected Class<?> doTypedTransform(final Method input) {
@@ -78,10 +71,4 @@ public final class MethodTransformers {
         return METHOD_EXCEPTIONS_TRANSFORMER;
     }
 
-    /**
-     * The returned Transformer executes {@link java.lang.reflect.Method#getDeclaredAnnotations()}.
-     */
-    public static Transformer methodDeclaredAnnotationsTransformer() {
-        return METHOD_DECLARED_ANNOTATIONS_TRANSFORMER;
-    }
 }

@@ -104,6 +104,17 @@ final class MethodJoinPointSelectorImpl
     }
 
     @Override
+    public MethodJoinPointSelector byMethodAnnotation(Class<? extends Annotation> annotationClass) {
+        return methodSelector.byMethodAnnotation(annotationClass);
+    }
+
+    @Override
+    @SafeVarargs
+    public final MethodJoinPointSelector byMethodAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotationClasses) {
+        return methodSelector.byMethodAnnotations(logicalOperator, annotationClasses);
+    }
+
+    @Override
     public MethodJoinPointSelector byClass(Class<?> classType) {
         return this.declaringClassSelector.byClass(classType);
     }
@@ -163,25 +174,6 @@ final class MethodJoinPointSelectorImpl
     public final MethodJoinPointSelector byTypeAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotationClasses) {
         return this.declaringClassSelector.byTypeAnnotations(logicalOperator, annotationClasses);
     }
-
-    @Override
-    @SafeVarargs
-    public final MethodJoinPointSelector byAnyTypeAnnotations(Class<? extends Annotation>... annotationClasses) {
-        return this.byTypeAnnotations(LogicalOperator.ANY_OF, annotationClasses);
-    }
-
-    @Override
-    @SafeVarargs
-    public final MethodJoinPointSelector byAllTypeAnnotations(Class<? extends Annotation>... annotationClasses) {
-        return this.byTypeAnnotations(LogicalOperator.ALL_OF, annotationClasses);
-    }
-
-    @Override
-    @SafeVarargs
-    public final MethodJoinPointSelector byNoneOfTypeAnnotations(Class<? extends Annotation>... annotationClasses) {
-        return this.byTypeAnnotations(LogicalOperator.NONE_OF, annotationClasses);
-    }
-
 
     @Override
     public ReturnTypeSelector byReturnType(LogicalOperator logicalOperator) {

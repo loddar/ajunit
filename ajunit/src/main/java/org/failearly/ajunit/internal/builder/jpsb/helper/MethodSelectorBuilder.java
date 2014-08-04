@@ -18,8 +18,17 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb.helper;
 
+import org.failearly.ajunit.builder.LogicalOperator;
 import org.failearly.ajunit.internal.builder.Builder;
+import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.predicate.method.MethodPredicates;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
+import org.failearly.ajunit.internal.util.AjAssert;
+import org.failearly.ajunit.internal.util.MessageUtils;
+
+import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * MethodSelectorBuilder is responsible for ...
@@ -33,4 +42,31 @@ public final class MethodSelectorBuilder<T extends Builder> extends MemberSelect
     public T anyMethod() {
         return addPredicate(StandardPredicates.alwaysTrue());
     }
+
+    public T byMethodAnnotation(Class<? extends Annotation> annotationClass) {
+        return addPredicate(
+                MethodPredicates.isAnnotationPresent(annotationClass)
+        );
+    }
+
+    public T byMethodAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>[] annotationClasses) {
+        return addPredicate(
+                JoinPointSelectorUtils.createLogicalOperatorPredicate(logicalOperator)
+                        .addPredicates(createMethodAnnotationsPredicates(annotationClasses))
+
+        );
+    }
+
+    private static List<Predicate> createMethodAnnotationsPredicates(Class<? extends Annotation>[] annotations) {
+        AjAssert.assertCondition(
+                annotations.length > 0,
+                MessageUtils.message("At least one annotation should be provided.")
+        );
+        final List<Predicate> predicates = new ArrayList<>(annotations.length);
+        for (Class<? extends Annotation> anAnnotation : annotations) {
+            predicates.add(MethodPredicates.isAnnotationPresent(anAnnotation));
+        }
+        return predicates;
+    }
+
 }

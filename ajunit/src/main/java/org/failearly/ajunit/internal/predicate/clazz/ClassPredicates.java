@@ -28,7 +28,8 @@ import java.lang.annotation.Annotation;
 /**
  * ClassPredicates provides factory methods on {@link java.lang.Class} object.
  */
-public abstract class ClassPredicates {
+public final class ClassPredicates {
+
 
     private static final Predicate IS_PRIMITIVE = new ClassPredicateBase("Primitive") {
         @Override

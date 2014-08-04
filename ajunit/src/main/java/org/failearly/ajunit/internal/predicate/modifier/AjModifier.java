@@ -18,6 +18,8 @@
  */
 package org.failearly.ajunit.internal.predicate.modifier;
 
+import org.failearly.ajunit.modifier.ModifierMatcher;
+
 import java.lang.reflect.Modifier;
 
 /**
@@ -25,7 +27,7 @@ import java.lang.reflect.Modifier;
  *
  * @see java.lang.reflect.Modifier
  */
-public enum AjModifier implements org.failearly.ajunit.modifier.ModifierMatcher {
+public enum AjModifier implements ModifierMatcher {
     PUBLIC(Modifier.PUBLIC),
     PROTECTED(Modifier.PROTECTED),
     PACKAGE(Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE) {

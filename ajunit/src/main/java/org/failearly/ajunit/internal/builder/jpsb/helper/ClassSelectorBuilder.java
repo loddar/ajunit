@@ -99,13 +99,13 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
     public final T byTypeAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotations) {
         return addPredicate(
                 JoinPointSelectorUtils.createLogicalOperatorPredicate(logicalOperator)
-                        .addPredicates(createAnnotationsPredicates(annotations))
+                        .addPredicates(createTypeAnnotationsPredicates(annotations))
         );
     }
 
     public T byTypeAnnotation(Class<? extends Annotation> annotation) {
         return addPredicate(
-            ClassPredicates.isAnnotationPresent(annotation)
+                ClassPredicates.isAnnotationPresent(annotation)
         );
     }
 
@@ -173,16 +173,16 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
         return predicates;
     }
 
-    @SafeVarargs
-    private static List<Predicate> createAnnotationsPredicates(Class<? extends Annotation>... annotations) {
+    private static List<Predicate> createTypeAnnotationsPredicates(Class<? extends Annotation>[] annotations) {
         AjAssert.assertCondition(
-                    annotations.length>0,
-                    MessageUtils.message("At least one annotation should be provided.")
-            );
+                annotations.length > 0,
+                MessageUtils.message("At least one annotation should be provided.")
+        );
         final List<Predicate> predicates = new ArrayList<>(annotations.length);
         for (Class<? extends Annotation> anAnnotation : annotations) {
             predicates.add(ClassPredicates.isAnnotationPresent(anAnnotation));
         }
         return predicates;
     }
+
 }

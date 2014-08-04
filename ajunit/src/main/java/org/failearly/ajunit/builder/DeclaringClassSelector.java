@@ -64,42 +64,4 @@ public interface DeclaringClassSelector<SB extends SelectorBuilder> extends Clas
      */
     @SuppressWarnings("all")
     SB byTypeAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotationClasses);
-
-    /**
-     * Classes have been annotated by <b>any</b> of given {@code annotationClasses}.
-     * Alias for
-     * <code>
-     *     byTypeAnnotations(LogicalOperator.ALL_OF, Anno1.class, Anno2.class)
-     * </code>
-     * @param annotationClasses the annotationClasses (at least one should be provided).
-     * @return itself
-     */
-    @SuppressWarnings("all")
-    SB byAnyTypeAnnotations(Class<? extends Annotation>... annotationClasses);
-
-    /**
-     * Classes have been annotated by all of given {@code annotationClasses}.
-     * Alias for
-     * <code>
-     *     byTypeAnnotations(LogicalOperator.ALL_OF, Anno1.class, Anno2.class)
-     * </code>
-     * @param annotationClasses the annotationClasses (at least one should be provided).
-     * @return itself
-     */
-    @SuppressWarnings("all")
-    SB byAllTypeAnnotations(Class<? extends Annotation>... annotationClasses);
-
-    /**
-     * Classes have been annotated by none of given {@code annotationClasses}.
-     * Alias for
-     * <code>
-     *     byTypeAnnotations(LogicalOperator.NONE_OF, Anno1.class, Anno2.class)
-     * </code>
-     * @param annotationClasses the annotationClasses (at least one should be provided).
-     * @return itself
-     */
-    @SuppressWarnings("all")
-    SB byNoneOfTypeAnnotations(Class<? extends Annotation>... annotationClasses);
-
-
 }

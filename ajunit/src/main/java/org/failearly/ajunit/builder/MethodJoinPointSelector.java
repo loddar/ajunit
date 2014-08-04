@@ -20,6 +20,8 @@ package org.failearly.ajunit.builder;
 
 import org.failearly.ajunit.modifier.MethodModifier;
 
+import java.lang.annotation.Annotation;
+
 /**
  * MethodJoinPointSelector is the builder for method join point selector expression.
  * <br/><br/>
@@ -73,6 +75,29 @@ public interface MethodJoinPointSelector
      */
     MethodJoinPointSelector byNoneOfMethodModifiers(MethodModifier... methodModifiers);
 
+    /**
+     * Select methods annotated by the {@code annotationClass}..<br/>
+     * </br>
+     * AspectJ pointcut definition examples: (TODO: examples)
+     * <ul>
+     * <li><code>execution(* *.*(..))</code></li>
+     * <li><code>call(* *.*(..))</code></li>
+     * </ul>
+     * @param annotationClass an annotation class.
+     * @return itself
+     *
+     * @see java.lang.reflect.Method#isAnnotationPresent(Class)
+     */
+    MethodJoinPointSelector byMethodAnnotation(Class<? extends Annotation> annotationClass);
+
+    /**
+     * The selector selects classes which has been annotated (depends on {@code logicalOperator}).
+     * @param logicalOperator the logical operator to be used.
+     * @param annotationClasses the annotation classes (at least one should be provided).
+     * @return itself
+     */
+    @SuppressWarnings("all")
+    MethodJoinPointSelector byMethodAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotationClasses);
 
     /**
      * End the method execution/call expression(s) end return to join point selector builder. It's like ending a
@@ -167,7 +192,6 @@ public interface MethodJoinPointSelector
      */
     MethodExceptionTypeSelector byExceptionTypes(ListLogicalOperator listLogicalOperator);
 
-
     /**
      * Select methods based by their argument or parameter signature.<br/>
      * </br>
@@ -184,5 +208,7 @@ public interface MethodJoinPointSelector
      * @return a new method arguments selector.
      */
     MethodArgumentsSelector byArguments(LogicalOperator logicalOperator);
+
+
 
 }

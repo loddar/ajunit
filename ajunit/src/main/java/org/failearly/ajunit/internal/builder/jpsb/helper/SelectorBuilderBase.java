@@ -40,4 +40,6 @@ abstract class SelectorBuilderBase<T extends Builder> {
     protected final T addPredicate(Predicate predicate) {
         return predicateAdder.addPredicate(predicate);
     }
+
+
 }

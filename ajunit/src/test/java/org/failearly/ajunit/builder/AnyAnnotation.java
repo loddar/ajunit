@@ -21,7 +21,7 @@ package org.failearly.ajunit.builder;
 import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE})
+@Target({ElementType.TYPE,ElementType.METHOD})
 @Inherited
 public @interface AnyAnnotation {
 }

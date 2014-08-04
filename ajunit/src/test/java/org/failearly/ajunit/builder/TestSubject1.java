@@ -23,12 +23,16 @@ package org.failearly.ajunit.builder;
  */
 @SuppressWarnings("all")
 public final class TestSubject1 extends AbstractBaseClass implements AnyInterface {
+
+    @AnyAnnotation @AnyOtherAnnotation
     public void anyMethod() {
     }
 
+    @AnyOtherAnnotation
     void packagePrivateMethod() {
     }
 
+    @AnyAnnotation
     private void otherMethod() {
     }
 }

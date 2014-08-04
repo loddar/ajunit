@@ -62,16 +62,4 @@ public class MethodTransformersTest extends TransformersBaseTest {
         // assert / then
         assertTransformationResultList(output, IllegalArgumentException.class, ClassCastException.class);
     }
-
-    @Test
-    public void methodDeclaredAnnotations() throws Exception {
-        // arrange / given
-        final Transformer transformer = MethodTransformers.methodDeclaredAnnotationsTransformer();
-
-        // act / when
-        final Object output = transformer.transform(resolveMethod());
-
-        // assert / then
-        assertTransformationAnnotationsResultList(output, Deprecated.class, AnyAnnotation.class);
-    }
 }

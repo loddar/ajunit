@@ -64,7 +64,9 @@ public abstract class MethodJoinPointSelectorByAnnotationsTest extends AbstractJ
     public void byAnyOfTwoAnnotations() throws Exception {
         // act / when
         //noinspection unchecked
-        selectorBuilder.byAnyTypeAnnotations(AnyAnnotation.class, AnyOtherAnnotation.class);
+        selectorBuilder
+                .byTypeAnnotations(LogicalOperator.ANY_OF, AnyAnnotation.class, AnyOtherAnnotation.class)
+            .endMethod();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -85,7 +87,9 @@ public abstract class MethodJoinPointSelectorByAnnotationsTest extends AbstractJ
     public void byAllOfTypeAnnotations() throws Exception {
         // act / when
         //noinspection unchecked
-        selectorBuilder.byAllTypeAnnotations(AnyAnnotation.class, AnyOtherAnnotation.class);
+        selectorBuilder
+                    .byTypeAnnotations(LogicalOperator.ALL_OF, AnyAnnotation.class, AnyOtherAnnotation.class)
+                .endMethod();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -97,7 +101,9 @@ public abstract class MethodJoinPointSelectorByAnnotationsTest extends AbstractJ
     public void byNoneOfTypeAnnotations() throws Exception {
         // act / when
         //noinspection unchecked
-        selectorBuilder.byNoneOfTypeAnnotations(AnyAnnotation.class, AnyOtherAnnotation.class);
+        selectorBuilder
+                    .byTypeAnnotations(LogicalOperator.NONE_OF, AnyAnnotation.class, AnyOtherAnnotation.class)
+                .endMethod();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -124,4 +130,90 @@ public abstract class MethodJoinPointSelectorByAnnotationsTest extends AbstractJ
 
         );
     }
+
+
+    @Test
+    public void byMethodAnnotation() throws Exception {
+        // act / when
+        selectorBuilder.byMethodAnnotation(AnyAnnotation.class).endMethod();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                // TestSubject1
+                "public void org.failearly.ajunit.builder.TestSubject1.anyMethod()",
+                "private void org.failearly.ajunit.builder.TestSubject1.otherMethod()"
+        );
+    }
+
+
+    @Test
+    public void byAnyOfMethodAnnotations() throws Exception {
+        // act / when
+        //noinspection unchecked
+        selectorBuilder
+                .byMethodAnnotations(LogicalOperator.ANY_OF, AnyAnnotation.class, AnyOtherAnnotation.class)
+            .endMethod();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                // TestSubject1
+                "public void org.failearly.ajunit.builder.TestSubject1.anyMethod()",
+                "void org.failearly.ajunit.builder.TestSubject1.packagePrivateMethod()",
+                "private void org.failearly.ajunit.builder.TestSubject1.otherMethod()"
+        );
+    }
+
+    @Test
+    public void byAllOfMethodAnnotations() throws Exception {
+        // act / when
+        //noinspection unchecked
+        selectorBuilder
+                .byMethodAnnotations(LogicalOperator.ALL_OF, AnyAnnotation.class, AnyOtherAnnotation.class)
+            .endMethod();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                // TestSubject1
+                "public void org.failearly.ajunit.builder.TestSubject1.anyMethod()"
+        );
+    }
+
+    @Test
+    public void byNoneOfMethodAnnotations() throws Exception {
+        // act / when
+        //noinspection unchecked
+        selectorBuilder
+                .byMethodAnnotations(LogicalOperator.NONE_OF, AnyAnnotation.class, AnyOtherAnnotation.class)
+            .endMethod();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                // TestSubject7
+                "public void org.failearly.ajunit.builder.TestSubject7.method0()",
+                "public void org.failearly.ajunit.builder.TestSubject7.method1(int)",
+                "public void org.failearly.ajunit.builder.TestSubject7.method2(int,java.lang.String)",
+                "public void org.failearly.ajunit.builder.TestSubject7.method3(java.lang.String,java.lang.String,int)",
+                // TestSubject2
+                "public void org.failearly.ajunit.builder.TestSubject2.anyMethod()",
+                "void org.failearly.ajunit.builder.TestSubject2.packagePrivateMethod()",
+                "private void org.failearly.ajunit.builder.TestSubject2.otherMethod()",
+                "protected abstract void org.failearly.ajunit.builder.TestSubject2.abstractMethod0()",
+                "protected synchronized void org.failearly.ajunit.builder.TestSubject2.syncMethod0()",
+                "protected strictfp void org.failearly.ajunit.builder.TestSubject2.strictMethod0()",
+                // java.lang.Object
+                "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
+                "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
+                "public final void java.lang.Object.wait() throws java.lang.InterruptedException",
+                "public boolean java.lang.Object.equals(java.lang.Object)",
+                "public java.lang.String java.lang.Object.toString()",
+                "public native int java.lang.Object.hashCode()",
+                "public final native java.lang.Class java.lang.Object.getClass()",
+                "public final native void java.lang.Object.notify()",
+                "public final native void java.lang.Object.notifyAll()",
+                "protected void java.lang.Object.finalize() throws java.lang.Throwable",
+                "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException",
+                "private static native void java.lang.Object.registerNatives()"
+        );
+    }
+
 }
