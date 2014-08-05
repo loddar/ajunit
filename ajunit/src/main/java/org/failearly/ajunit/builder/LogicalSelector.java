@@ -21,70 +21,70 @@ package org.failearly.ajunit.builder;
 /**
  * LogicalSelector provides logical operations.
  */
-public interface LogicalSelector<B extends SelectorBuilder> extends SelectorBuilder {
+public interface LogicalSelector<SB extends SelectorBuilder> extends SelectorBuilder {
     /**
      * Logical OR. The expression will be closed by {@link #end()}.
      * @return next logical selector
      */
-    B or();
+    SB or();
 
     /**
      * Alias for {@link #or()}.
      * @return next logical selector
      */
-    B union();
+    SB union();
 
     /**
      * Alias for {@link #or()}.
      * @return next logical selector
      */
-    B anyOf();
+    SB anyOf();
 
     /**
      * Logical AND. The expression should be closed by {@link #end()}.
      * @return next logical selector
      */
-    B and();
+    SB and();
 
     /**
      * Alias for {@link #and()}.
      * @return next logical selector
      */
-    B intersect();
+    SB intersect();
 
     /**
      * Alias for {@link #and()}.
      * @return next logical selector
      */
-    B allOf();
+    SB allOf();
 
     /**
      * Logical NOT(OR). The expression should be closed by {@link #end()}.
      * @return next logical selector
      */
-    B nor();
+    SB nor();
 
     /**
      * Alias for {@link #nor()}.
      * @return next logical operator
      */
-    B noneOf();
+    SB noneOf();
 
     /**
      * Alias for {@link #nor()}.
      * @return next logical operator
      */
-    B neitherNor();
+    SB neitherNor();
 
     /**
      * Alias for {@link #nor()}.
      * @return next logical operator
      */
-    B complement();
+    SB complement();
 
     /**
      * Closes previous created logical expression and returns previous (parent) selector.
      * @return the parent selector.
      */
-    B end();
+    SB end();
 }

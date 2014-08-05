@@ -19,12 +19,12 @@
 package org.failearly.ajunit.builder.method.execution;
 
 import org.failearly.ajunit.builder.JoinPointSelector;
-import org.failearly.ajunit.builder.MethodJoinPointSelector;
+import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
 import org.failearly.ajunit.builder.method.ReturnTypeSelectorLogicalOperatorTest;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
+ * Tests for {@link org.failearly.ajunit.builder.method.MethodJoinPointSelector}.
  */
 public final class ExecutionReturnTypeSelectorLogicalOperatorTest extends ReturnTypeSelectorLogicalOperatorTest {
 

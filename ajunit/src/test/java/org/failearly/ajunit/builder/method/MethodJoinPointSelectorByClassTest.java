@@ -25,13 +25,13 @@ import org.junit.Test;
 import java.io.Serializable;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
+ * Tests for {@link MethodJoinPointSelector}.
  *
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byDeclaringClass(Class)
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byDeclaringClassName(String, org.failearly.ajunit.builder.StringMatcherType)
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byExtending(Class)
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byImplementingAllOf(Class[])
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byImplementingAnyOf(Class[])
+ * @see MethodJoinPointSelector#byDeclaringClass(Class)
+ * @see MethodJoinPointSelector#byDeclaringClassName(String, org.failearly.ajunit.builder.StringMatcherType)
+ * @see MethodJoinPointSelector#byExtending(Class)
+ * @see MethodJoinPointSelector#byImplementingAllOf(Class[])
+ * @see MethodJoinPointSelector#byImplementingAnyOf(Class[])
  */
 public abstract class MethodJoinPointSelectorByClassTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 

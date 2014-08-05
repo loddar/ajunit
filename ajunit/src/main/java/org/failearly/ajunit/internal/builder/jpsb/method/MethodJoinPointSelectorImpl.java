@@ -16,11 +16,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.internal.builder.jpsb;
+package org.failearly.ajunit.internal.builder.jpsb.method;
 
-import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.builder.JoinPointSelector;
+import org.failearly.ajunit.builder.ListLogicalOperator;
+import org.failearly.ajunit.builder.LogicalOperator;
+import org.failearly.ajunit.builder.StringMatcherType;
+import org.failearly.ajunit.builder.method.MethodArgumentsSelector;
+import org.failearly.ajunit.builder.method.MethodExceptionTypeSelector;
+import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
+import org.failearly.ajunit.builder.method.ReturnTypeSelector;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
+import org.failearly.ajunit.internal.builder.jpsb.JoinPointBuilderBase;
+import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.JoinPointSelectorUtils;
 import org.failearly.ajunit.internal.builder.jpsb.helper.MethodSelectorBuilder;
@@ -32,15 +41,15 @@ import org.failearly.ajunit.modifier.MethodModifier;
 import java.lang.annotation.Annotation;
 
 /**
- * MethodJoinPointSelectorImpl is the implementation of {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
+ * MethodJoinPointSelectorImpl is the implementation of {@link org.failearly.ajunit.builder.method.MethodJoinPointSelector}.
  */
-final class MethodJoinPointSelectorImpl
+public final class MethodJoinPointSelectorImpl
         extends JoinPointBuilderBase<MethodJoinPointSelectorImpl> implements MethodJoinPointSelector {
 
     private final MethodSelectorBuilder<MethodJoinPointSelectorImpl> methodSelector;
     private final ClassSelectorBuilder<MethodJoinPointSelectorImpl>  declaringClassSelector;
 
-    MethodJoinPointSelectorImpl(
+    public MethodJoinPointSelectorImpl(
             JoinPointSelectorImpl root,
             JoinPointSelectorImpl parent,
             CompositePredicate compositePredicate) {

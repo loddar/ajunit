@@ -21,7 +21,7 @@ package org.failearly.ajunit.builder;
 /**
  * Available logical operators.
  *
- * @see MethodJoinPointSelector#byReturnType(LogicalOperator)
+ * @see org.failearly.ajunit.builder.method.MethodJoinPointSelector#byReturnType(LogicalOperator)
  */
 public enum LogicalOperator {
     OR,

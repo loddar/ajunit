@@ -16,14 +16,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.internal.builder.jpsb;
+package org.failearly.ajunit.internal.builder.jpsb.method;
 
 import org.failearly.ajunit.builder.ListLogicalOperator;
-import org.failearly.ajunit.builder.MethodExceptionTypeSelector;
-import org.failearly.ajunit.builder.MethodJoinPointSelector;
 import org.failearly.ajunit.builder.StringMatcherType;
+import org.failearly.ajunit.builder.method.MethodExceptionTypeSelector;
+import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
+import org.failearly.ajunit.internal.builder.jpsb.JoinPointBuilderBase;
+import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.JoinPointSelectorUtils;
 import org.failearly.ajunit.internal.builder.jpsb.helper.SelectorBuilders;
@@ -36,7 +38,7 @@ import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
 import java.lang.annotation.Annotation;
 
 /**
- * The implementation of {@link org.failearly.ajunit.builder.MethodExceptionTypeSelector}.
+ * The implementation of {@link org.failearly.ajunit.builder.method.MethodExceptionTypeSelector}.
  */
 final class MethodExceptionTypeSelectorImpl
         extends JoinPointBuilderBase<MethodExceptionTypeSelectorImpl>

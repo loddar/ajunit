@@ -1,7 +1,7 @@
 /*
  * ajUnit - Unit Testing AspectJ.
  *
- * Copyright (C) 2013-2014 marko (http://fail-early.com/contact)
+ * Copyright (C) 2013-2014 Marko Umek (http://fail-early.com/contact)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,13 +16,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.internal.builder.jpsb;
+package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.internal.builder.Builder;
-import org.failearly.ajunit.internal.builder.BuilderBase;
+import org.failearly.ajunit.builder.ComponentTypeSelector;
+import org.failearly.ajunit.builder.LogicalSelector;
 
 /**
- * JoinPointBuilderBase is responsible for ...
+ * ReturnComponentTypeSelector provides selectors for {@link Class#getComponentType()}.
  */
-public abstract class JoinPointBuilderBase<C extends Builder> extends BuilderBase<JoinPointSelectorImpl,C> {
+public interface ReturnComponentTypeSelector
+        extends ComponentTypeSelector<ReturnTypeSelector,ReturnComponentTypeSelector>,
+        LogicalSelector<ReturnComponentTypeSelector> {
 }

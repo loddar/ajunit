@@ -29,9 +29,9 @@ import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
+ * Tests for {@link MethodJoinPointSelector}.
  *
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byReturnType(org.failearly.ajunit.builder.LogicalOperator)
+ * @see MethodJoinPointSelector#byReturnType(org.failearly.ajunit.builder.LogicalOperator)
  */
 public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 

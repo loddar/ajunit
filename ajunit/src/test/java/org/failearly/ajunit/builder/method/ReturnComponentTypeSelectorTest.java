@@ -26,9 +26,9 @@ import java.io.Serializable;
 import java.util.Map;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
+ * Tests for {@link MethodJoinPointSelector}.
  *
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byReturnType(org.failearly.ajunit.builder.LogicalOperator)
+ * @see MethodJoinPointSelector#byReturnType(org.failearly.ajunit.builder.LogicalOperator)
  */
 public abstract class ReturnComponentTypeSelectorTest extends AbstractJoinPointSelectorTest<ReturnComponentTypeSelector> {
 

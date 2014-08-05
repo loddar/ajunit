@@ -18,6 +18,8 @@
  */
 package org.failearly.ajunit.builder;
 
+import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
+
 /**
  * JoinPointSelector is responsible for ...
  */

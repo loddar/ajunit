@@ -19,7 +19,7 @@
 package org.failearly.ajunit.builder;
 
 /**
- * Used by {@link org.failearly.ajunit.builder.MethodArgumentsSelector#byNumberOfArguments(int, NumberComparator)}.
+ * Used by {@link org.failearly.ajunit.builder.method.MethodArgumentsSelector#byNumberOfArguments(int, NumberComparator)}.
  */
 public enum NumberComparator {
     EQUALS,

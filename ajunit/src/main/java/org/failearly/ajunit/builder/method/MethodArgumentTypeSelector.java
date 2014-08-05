@@ -16,13 +16,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.internal.builder.jpsb;
+package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.internal.builder.Builder;
-import org.failearly.ajunit.internal.builder.BuilderBase;
+import org.failearly.ajunit.builder.ArgumentTypeSelector;
 
 /**
- * JoinPointBuilderBase is responsible for ...
+ * MethodArgumentTypeSelector is responsible for selecting argument(s) of methods and constructors by argument type and position(s).
+ *
+ * @see MethodArgumentsSelector#byArgumentPosition(int)
  */
-public abstract class JoinPointBuilderBase<C extends Builder> extends BuilderBase<JoinPointSelectorImpl,C> {
+public interface MethodArgumentTypeSelector
+        extends ArgumentTypeSelector<MethodArgumentTypeSelector,MethodArgumentComponentTypeSelector,MethodArgumentsSelector> {
 }

@@ -19,7 +19,6 @@
 package org.failearly.ajunit.builder.method;
 
 import org.failearly.ajunit.builder.AbstractJoinPointSelectorTest;
-import org.failearly.ajunit.builder.MethodJoinPointSelector;
 import org.failearly.ajunit.builder.TestSubject1;
 import org.failearly.ajunit.builder.TestSubject2;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
@@ -29,9 +28,9 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
+ * Tests for {@link MethodJoinPointSelector}.
  *
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#endMethod()
+ * @see MethodJoinPointSelector#endMethod()
  */
 public abstract class MethodJoinPointSelectorTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 

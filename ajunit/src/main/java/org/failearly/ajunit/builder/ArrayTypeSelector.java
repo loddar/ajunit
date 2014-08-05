@@ -59,7 +59,7 @@ public interface ArrayTypeSelector<SB extends SelectorBuilder, RT extends Extend
      * @return new component type selector.
      *
      * @see Class#getComponentType()
-     * @see ReturnComponentTypeSelector#endComponentType()
+     * @see org.failearly.ajunit.builder.method.ReturnComponentTypeSelector#endComponentType()
      * @see #byArray()
      */
     RT byComponentType();

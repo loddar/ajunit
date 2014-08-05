@@ -19,18 +19,17 @@
 package org.failearly.ajunit.builder;
 
 /**
- * MethodArgumentTypeSelector is responsible for selecting argument(s) of methods and constructors by argument type and position(s).
+ * ArgumentTypeSelector is responsible for selecting argument(s) of methods and constructors by argument type and position(s).
  *
- * @see org.failearly.ajunit.builder.MethodArgumentsSelector#byArgumentPosition(int)
+ * @see org.failearly.ajunit.builder.ArgumentsSelector#byArgumentTypes(Position, int...)
  */
-public interface MethodArgumentTypeSelector extends SelectorBuilder {
+public interface ArgumentTypeSelector<ATB extends ArgumentTypeSelector, CTB extends ComponentTypeSelector, RB extends ArgumentsSelector>
+        extends ExtendedClassSelector<ATB>,
+        LogicalSelector<ATB>,
+        ArrayTypeSelector<ATB,CTB> {
     /**
-     * Ends Argument position expression.
-     * @return previous {@link org.failearly.ajunit.builder.MethodArgumentsSelector}.
+     * Ends argument position expression.
+     * @return previous {@link org.failearly.ajunit.builder.ArgumentsSelector}.
      */
-    MethodArgumentsSelector endArgumentPosition();
-
-    MethodArgumentTypeSelector byClass(Class<?> argumentClass);
-
-    MethodArgumentTypeSelector byPrimitive();
+    RB endArgumentPositions();
 }

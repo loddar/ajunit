@@ -1,7 +1,7 @@
 /*
  * ajUnit - Unit Testing AspectJ.
  *
- * Copyright (C) 2013-2014 Marko Umek (http://fail-early.com/contact)
+ * Copyright (C) 2013-2014 marko (http://fail-early.com/contact)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,9 +19,10 @@
 package org.failearly.ajunit.builder;
 
 /**
- * ReturnComponentTypeSelector provides selectors for {@link Class#getComponentType()}.
+ * RelativePosition is used by {@link org.failearly.ajunit.builder.ArgumentsSelector} for selecting argument types or annotations by their absolute
+ * position.
  */
-public interface ReturnComponentTypeSelector
-        extends ComponentTypeSelector<ReturnTypeSelector,ReturnComponentTypeSelector>,
-                LogicalSelector<ReturnComponentTypeSelector> {
+public enum Position {
+    FIRST,
+    LAST
 }

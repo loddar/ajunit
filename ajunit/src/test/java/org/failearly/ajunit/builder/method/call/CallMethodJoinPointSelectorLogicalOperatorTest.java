@@ -19,7 +19,7 @@
 package org.failearly.ajunit.builder.method.call;
 
 import org.failearly.ajunit.builder.JoinPointSelector;
-import org.failearly.ajunit.builder.MethodJoinPointSelector;
+import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
 import org.failearly.ajunit.builder.method.MethodJoinPointSelectorLogicalOperatorTest;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 

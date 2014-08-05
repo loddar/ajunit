@@ -1,7 +1,7 @@
 /*
  * ajUnit - Unit Testing AspectJ.
  *
- * Copyright (C) 2013-2014 Marko Umek (http://fail-early.com/contact)
+ * Copyright (C) 2013-2014 marko (http://fail-early.com/contact)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,13 +16,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.method;
+
+import org.failearly.ajunit.builder.ArgumentAnnotationSelector;
 
 /**
- * MethodExceptionTypeSelector provides selectors for {@link org.failearly.ajunit.builder.MethodJoinPointSelector#byExceptionTypes(ListLogicalOperator)}.
+ * MethodArgumentAnnotationSelector is responsible for selecting methods by argument/parameter annotations.
  *
- * @see java.lang.reflect.Method#getExceptionTypes()
+ * @see org.failearly.ajunit.builder.method.MethodArgumentsSelector
  */
-public interface MethodExceptionTypeSelector
-        extends ExceptionTypeSelector<MethodJoinPointSelector, MethodExceptionTypeSelector> {
+public interface MethodsArgumentAnnotationSelector
+                        extends ArgumentAnnotationSelector<MethodsArgumentAnnotationSelector,MethodArgumentsSelector> {
 }

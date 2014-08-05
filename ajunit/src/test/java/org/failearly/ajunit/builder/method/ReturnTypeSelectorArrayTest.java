@@ -18,14 +18,17 @@
  */
 package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.builder.AbstractJoinPointSelectorTest;
+import org.failearly.ajunit.builder.DimensionComparator;
+import org.failearly.ajunit.builder.LogicalOperator;
+import org.failearly.ajunit.builder.TestSubject5;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
+ * Tests for {@link MethodJoinPointSelector}.
  *
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byReturnType(org.failearly.ajunit.builder.LogicalOperator)
+ * @see MethodJoinPointSelector#byReturnType(org.failearly.ajunit.builder.LogicalOperator)
  */
 public abstract class ReturnTypeSelectorArrayTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 

@@ -29,7 +29,7 @@ package org.failearly.ajunit.builder;
  *
  *
  * @see ArrayTypeSelector
- * @see org.failearly.ajunit.builder.ReturnComponentTypeSelector
+ * @see org.failearly.ajunit.builder.method.ReturnComponentTypeSelector
  * @see Class#getComponentType()
  */
 public interface ComponentTypeSelector<PS extends SelectorBuilder, CS extends SelectorBuilder>  extends ExtendedClassSelector<CS> {

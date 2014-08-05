@@ -19,7 +19,6 @@
 package org.failearly.ajunit.builder.method;
 
 import org.failearly.ajunit.builder.AbstractJoinPointSelectorTest;
-import org.failearly.ajunit.builder.MethodJoinPointSelector;
 import org.failearly.ajunit.builder.TestSubject1;
 import org.failearly.ajunit.builder.TestSubject2;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
@@ -27,7 +26,7 @@ import org.failearly.ajunit.modifier.MethodModifier;
 import org.junit.Test;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector#byNoneOfMethodModifiers(org.failearly.ajunit.modifier.MethodModifier...)}.
+ * Tests for {@link MethodJoinPointSelector#byNoneOfMethodModifiers(org.failearly.ajunit.modifier.MethodModifier...)}.
  */
 public abstract class MethodJoinPointSelectorByNoneOfMethodModifierTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 

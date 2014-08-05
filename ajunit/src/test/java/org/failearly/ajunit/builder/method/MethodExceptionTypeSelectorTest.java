@@ -26,9 +26,9 @@ import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.MethodExceptionTypeSelector}.
+ * Tests for {@link MethodExceptionTypeSelector}.
  *
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byExceptionTypes(org.failearly.ajunit.builder.ListLogicalOperator)
+ * @see MethodJoinPointSelector#byExceptionTypes(org.failearly.ajunit.builder.ListLogicalOperator)
  */
 public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 

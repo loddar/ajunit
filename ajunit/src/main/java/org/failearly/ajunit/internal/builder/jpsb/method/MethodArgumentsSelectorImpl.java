@@ -16,14 +16,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.internal.builder.jpsb;
+package org.failearly.ajunit.internal.builder.jpsb.method;
 
-import org.failearly.ajunit.builder.MethodArgumentTypeSelector;
-import org.failearly.ajunit.builder.MethodArgumentsSelector;
-import org.failearly.ajunit.builder.MethodJoinPointSelector;
+import org.failearly.ajunit.builder.ListLogicalOperator;
 import org.failearly.ajunit.builder.NumberComparator;
+import org.failearly.ajunit.builder.Position;
+import org.failearly.ajunit.builder.method.MethodArgumentTypeSelector;
+import org.failearly.ajunit.builder.method.MethodArgumentsSelector;
+import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
+import org.failearly.ajunit.builder.method.MethodsArgumentAnnotationSelector;
+import org.failearly.ajunit.internal.annotation.NotYetImplemented;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
+import org.failearly.ajunit.internal.builder.jpsb.JoinPointBuilderBase;
+import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
 import org.failearly.ajunit.internal.builder.jpsb.helper.JoinPointSelectorUtils;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
@@ -33,11 +39,11 @@ import org.failearly.ajunit.internal.transformer.method.MethodTransformers;
 import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
 
 /**
- * The implementation of {@link org.failearly.ajunit.builder.MethodArgumentsSelector}.
+ * The implementation of {@link org.failearly.ajunit.builder.method.MethodArgumentsSelector}.
+ *
+ * @see org.failearly.ajunit.builder.method.MethodJoinPointSelector#byArguments(org.failearly.ajunit.builder.LogicalOperator)
  */
 final class MethodArgumentsSelectorImpl extends JoinPointBuilderBase<MethodArgumentsSelectorImpl> implements MethodArgumentsSelector {
-
-
 
     MethodArgumentsSelectorImpl(
             JoinPointSelectorImpl root,
@@ -78,22 +84,101 @@ final class MethodArgumentsSelectorImpl extends JoinPointBuilderBase<MethodArgum
     }
 
     @Override
-    public MethodArgumentTypeSelector byArgumentPosition(int position) {
-        return this.byArgumentPositions(position);
-    }
-
-    @Override
-    public MethodArgumentTypeSelector byArgumentPositions(int... positions) {
-        return super.and(getMethodArgumentPositionsSelectorBuilderFactory(positions));
+    public MethodArgumentTypeSelector byArgumentTypes(Position relativeTo, int... positions) {
+        return super.and(getMethodArgumentPositionsSelectorBuilderFactory(relativeTo, positions));
     }
 
     private BuilderFactory<JoinPointSelectorImpl,MethodArgumentsSelectorImpl,MethodArgumentTypeSelectorImpl>
-    getMethodArgumentPositionsSelectorBuilderFactory(final int... positions) {
+    getMethodArgumentPositionsSelectorBuilderFactory(final Position relativeTo, final int... positions) {
         return new BuilderFactory<JoinPointSelectorImpl, MethodArgumentsSelectorImpl, MethodArgumentTypeSelectorImpl>() {
             @Override
             public MethodArgumentTypeSelectorImpl createBuilder(JoinPointSelectorImpl root, MethodArgumentsSelectorImpl parent, CompositePredicate compositePredicate) {
-                return new MethodArgumentTypeSelectorImpl(root, parent, compositePredicate, positions);
+                return new MethodArgumentTypeSelectorImpl(root, parent, compositePredicate, relativeTo, positions);
             }
         };
+    }
+
+    @Override
+    @NotYetImplemented
+    public MethodArgumentTypeSelector byArgumentTypes(ListLogicalOperator listLogicalOperator) {
+        return null;
+    }
+
+    @Override
+    @NotYetImplemented
+    public MethodsArgumentAnnotationSelector byArgumentAnnotations(Position relativeTo, int... positions) {
+        return null;
+    }
+
+    @Override
+    @NotYetImplemented
+    public MethodsArgumentAnnotationSelector byArgumentAnnotations(ListLogicalOperator listLogicalOperator) {
+        return null;
+    }
+
+    @Override
+    @NotYetImplemented
+    public MethodArgumentsSelector or() {
+        return null;
+    }
+
+    @Override
+    @NotYetImplemented
+    public MethodArgumentsSelector union() {
+        return null;
+    }
+
+    @Override
+    @NotYetImplemented
+    public MethodArgumentsSelector anyOf() {
+        return null;
+    }
+
+    @Override
+    @NotYetImplemented
+    public MethodArgumentsSelector and() {
+        return null;
+    }
+
+    @Override
+    @NotYetImplemented
+    public MethodArgumentsSelector intersect() {
+        return null;
+    }
+
+    @Override
+    @NotYetImplemented
+    public MethodArgumentsSelector allOf() {
+        return null;
+    }
+
+    @Override
+    @NotYetImplemented
+    public MethodArgumentsSelector nor() {
+        return null;
+    }
+
+    @Override
+    @NotYetImplemented
+    public MethodArgumentsSelector noneOf() {
+        return null;
+    }
+
+    @Override
+    @NotYetImplemented
+    public MethodArgumentsSelector neitherNor() {
+        return null;
+    }
+
+    @Override
+    @NotYetImplemented
+    public MethodArgumentsSelector complement() {
+        return null;
+    }
+
+    @Override
+    @NotYetImplemented
+    public MethodArgumentsSelector end() {
+        return null;
     }
 }

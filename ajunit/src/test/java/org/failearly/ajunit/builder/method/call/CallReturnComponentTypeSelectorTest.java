@@ -20,12 +20,12 @@ package org.failearly.ajunit.builder.method.call;
 
 import org.failearly.ajunit.builder.JoinPointSelector;
 import org.failearly.ajunit.builder.LogicalOperator;
-import org.failearly.ajunit.builder.ReturnComponentTypeSelector;
+import org.failearly.ajunit.builder.method.ReturnComponentTypeSelector;
 import org.failearly.ajunit.builder.method.ReturnComponentTypeSelectorTest;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
+ * Tests for {@link org.failearly.ajunit.builder.method.MethodJoinPointSelector}.
  */
 public final class CallReturnComponentTypeSelectorTest extends ReturnComponentTypeSelectorTest {
 

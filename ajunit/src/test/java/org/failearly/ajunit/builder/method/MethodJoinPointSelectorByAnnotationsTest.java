@@ -23,7 +23,7 @@ import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector#byPackageName(String, org.failearly.ajunit.builder.StringMatcherType)}.
+ * Tests for {@link MethodJoinPointSelector#byPackageName(String, org.failearly.ajunit.builder.StringMatcherType)}.
  */
 public abstract class MethodJoinPointSelectorByAnnotationsTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 

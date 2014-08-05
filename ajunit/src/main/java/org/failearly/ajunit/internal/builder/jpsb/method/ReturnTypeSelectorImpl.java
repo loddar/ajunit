@@ -16,11 +16,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.internal.builder.jpsb;
+package org.failearly.ajunit.internal.builder.jpsb.method;
 
-import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.builder.DimensionComparator;
+import org.failearly.ajunit.builder.StringMatcherType;
+import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
+import org.failearly.ajunit.builder.method.ReturnComponentTypeSelector;
+import org.failearly.ajunit.builder.method.ReturnTypeSelector;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
+import org.failearly.ajunit.internal.builder.jpsb.JoinPointBuilderBase;
+import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.SelectorBuilders;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
@@ -28,7 +34,7 @@ import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import java.lang.annotation.Annotation;
 
 /**
- * The implementation of {@link org.failearly.ajunit.builder.ReturnTypeSelector}.
+ * The implementation of {@link org.failearly.ajunit.builder.method.ReturnTypeSelector}.
  */
 final class ReturnTypeSelectorImpl
         extends JoinPointBuilderBase<ReturnTypeSelectorImpl>

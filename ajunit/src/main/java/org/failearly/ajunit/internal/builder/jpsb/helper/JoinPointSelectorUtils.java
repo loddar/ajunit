@@ -26,6 +26,8 @@ import org.failearly.ajunit.internal.predicate.number.IntegerPredicates;
 import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.failearly.ajunit.internal.predicate.string.StringPredicates;
+import org.failearly.ajunit.internal.transformer.Transformer;
+import org.failearly.ajunit.internal.transformer.list.ListTransformers;
 
 /**
  * JoinPointSelectorUtilities is an utility class for shared functionality.
@@ -284,5 +286,13 @@ public final class JoinPointSelectorUtils {
      */
     public static CompositePredicate createListLogicalOperator(ListLogicalOperator listLogicalOperator, CompositePredicate compositePredicate) {
         return LIST_LOGICAL_OPERATOR_PREDICATES.createCompositePredicate(listLogicalOperator, compositePredicate);
+    }
+
+    public static Transformer createArgumentPositionTransformer(Position relativeTo, int... positions) {
+        if(relativeTo==Position.LAST) {
+            return  ListTransformers.getElementsFromListEndTransformer(positions);
+        }
+
+        return  ListTransformers.getElementsFromListStartTransformer(positions);
     }
 }

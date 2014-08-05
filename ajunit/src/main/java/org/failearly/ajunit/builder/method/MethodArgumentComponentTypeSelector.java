@@ -16,13 +16,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.internal.builder.jpsb;
+package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.internal.builder.Builder;
-import org.failearly.ajunit.internal.builder.BuilderBase;
+import org.failearly.ajunit.builder.ComponentTypeSelector;
+import org.failearly.ajunit.builder.LogicalSelector;
 
 /**
- * JoinPointBuilderBase is responsible for ...
+ * MethodArgumentComponentTypeSelector provides selectors for {@link Class#getComponentType()} on method arguments.
  */
-public abstract class JoinPointBuilderBase<C extends Builder> extends BuilderBase<JoinPointSelectorImpl,C> {
+public interface MethodArgumentComponentTypeSelector
+        extends ComponentTypeSelector<MethodArgumentTypeSelector,MethodArgumentComponentTypeSelector>,
+        LogicalSelector<MethodArgumentComponentTypeSelector> {
 }

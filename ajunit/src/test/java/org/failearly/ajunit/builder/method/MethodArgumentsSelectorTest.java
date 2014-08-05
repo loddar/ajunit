@@ -26,7 +26,7 @@ import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.MethodArgumentsSelector}.
+ * Tests for {@link MethodArgumentsSelector}.
  */
 public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
@@ -160,18 +160,9 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     }
 
     @Test
-    public void byArgumentPositionEndArgumentPosition() throws Exception {
+    public void endArgumentPosition() throws Exception {
         // act / when
-        final MethodArgumentsSelector instance = methodArgumentsSelector.byArgumentPosition(0).endArgumentPosition();
-
-        // assert / then
-        assertThat("endArgumentsSelector() returns correct selector builder?", instance, sameInstance(methodArgumentsSelector));
-    }
-
-    @Test
-    public void byArgumentPositionsEndArgumentPosition() throws Exception {
-        // act / when
-        final MethodArgumentsSelector instance = methodArgumentsSelector.byArgumentPositions(0,1).endArgumentPosition();
+        final MethodArgumentsSelector instance = methodArgumentsSelector.byArgumentTypes(Position.FIRST, 0, 1).endArgumentPositions();
 
         // assert / then
         assertThat("endArgumentsSelector() returns correct selector builder?", instance, sameInstance(methodArgumentsSelector));
@@ -180,9 +171,9 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byArgumentPositionByClass() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentPosition(0)
+        methodArgumentsSelector.byArgumentTypes(Position.FIRST, 0)
                     .byClass(int.class)
-                .endArgumentPosition();
+                .endArgumentPositions();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -194,9 +185,9 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byArgumentPositionsByClass() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentPositions(0,1)
+        methodArgumentsSelector.byArgumentTypes(Position.FIRST, 0, 1)
                     .byClass(String.class)
-                .endArgumentPosition();
+                .endArgumentPositions();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -207,9 +198,9 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byArgumentPositionsByPrimitive() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentPosition(0)
+        methodArgumentsSelector.byArgumentTypes(Position.FIRST, 0)
                     .byPrimitive()
-                .endArgumentPosition();
+                .endArgumentPositions();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -217,6 +208,21 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
                 "public void org.failearly.ajunit.builder.TestSubject7.method2(int,java.lang.String)",
                 "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
                 "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException"
+        );
+    }
+
+    @Test
+    public void byArgumentPositionsLast() throws Exception {
+        // act / when
+        methodArgumentsSelector.byArgumentTypes(Position.LAST, 0)
+                .byClass(int.class)
+                .endArgumentPositions();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject7.method1(int)",
+                "public void org.failearly.ajunit.builder.TestSubject7.method3(java.lang.String,java.lang.String,int)",
+                "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException"
         );
     }
 

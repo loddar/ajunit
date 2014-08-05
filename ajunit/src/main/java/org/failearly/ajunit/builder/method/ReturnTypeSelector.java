@@ -16,15 +16,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.method;
+
+import org.failearly.ajunit.builder.ArrayTypeSelector;
+import org.failearly.ajunit.builder.ExtendedClassSelector;
+import org.failearly.ajunit.builder.LogicalSelector;
 
 /**
  * ReturnTypeSelector provides selectors for {@link java.lang.reflect.Method#getReturnType()}.
  */
 public interface ReturnTypeSelector
      extends ExtendedClassSelector<ReturnTypeSelector>,
-             LogicalSelector<ReturnTypeSelector>,
-             ArrayTypeSelector<ReturnTypeSelector,ReturnComponentTypeSelector> {
+        LogicalSelector<ReturnTypeSelector>,
+        ArrayTypeSelector<ReturnTypeSelector,ReturnComponentTypeSelector> {
 
     /**
      * Selects method joinpoints the method's return type is {@code void}.
@@ -39,7 +43,7 @@ public interface ReturnTypeSelector
     ReturnTypeSelector byVoid();
 
     /**
-     * Terminates the {@link MethodJoinPointSelector#byReturnType(LogicalOperator)}
+     * Terminates the {@link MethodJoinPointSelector#byReturnType(org.failearly.ajunit.builder.LogicalOperator)}
      * expression.
      * @return the method join point selector.
      */

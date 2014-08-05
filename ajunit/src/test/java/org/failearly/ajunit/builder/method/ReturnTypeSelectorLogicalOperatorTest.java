@@ -31,12 +31,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Tests for the logical operators on {@link org.failearly.ajunit.builder.ReturnTypeSelector} and their aliases.
+ * Tests for the logical operators on {@link ReturnTypeSelector} and their aliases.
  *
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byReturnType(org.failearly.ajunit.builder.LogicalOperator)
- * @see org.failearly.ajunit.builder.ReturnTypeSelector#or()
- * @see org.failearly.ajunit.builder.ReturnTypeSelector#and()
- * @see org.failearly.ajunit.builder.ReturnTypeSelector#nor()
+ * @see MethodJoinPointSelector#byReturnType(org.failearly.ajunit.builder.LogicalOperator)
+ * @see ReturnTypeSelector#or()
+ * @see ReturnTypeSelector#and()
+ * @see ReturnTypeSelector#nor()
  * @see org.failearly.ajunit.builder.LogicalOperator
  */
 @RunWith(Parameterized.class)

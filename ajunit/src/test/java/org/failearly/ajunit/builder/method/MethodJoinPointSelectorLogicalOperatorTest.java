@@ -18,7 +18,10 @@
  */
 package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.builder.AbstractJoinPointSelectorTest;
+import org.failearly.ajunit.builder.StringMatcherType;
+import org.failearly.ajunit.builder.TestSubject1;
+import org.failearly.ajunit.builder.TestSubject2;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.failearly.ajunit.modifier.AccessModifier;
 import org.failearly.ajunit.modifier.MethodModifier;
@@ -29,15 +32,15 @@ import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
+ * Tests for {@link MethodJoinPointSelector}.
  *
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#end()
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#or()
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#anyOf()
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#union()
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#and()
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#allOf()
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#intersect()
+ * @see MethodJoinPointSelector#end()
+ * @see MethodJoinPointSelector#or()
+ * @see MethodJoinPointSelector#anyOf()
+ * @see MethodJoinPointSelector#union()
+ * @see MethodJoinPointSelector#and()
+ * @see MethodJoinPointSelector#allOf()
+ * @see MethodJoinPointSelector#intersect()
  */
 public abstract class MethodJoinPointSelectorLogicalOperatorTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 

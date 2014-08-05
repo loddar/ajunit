@@ -16,8 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.method;
 
+import org.failearly.ajunit.builder.*;
 import org.failearly.ajunit.modifier.MethodModifier;
 
 import java.lang.annotation.Annotation;
@@ -145,7 +146,7 @@ public interface MethodJoinPointSelector
     /**
      * Convenient selector builder for methods with any primitive return type (except {@code void}).
      * @return  itself
-     * @see org.failearly.ajunit.builder.ReturnTypeSelector#byPrimitive()
+     * @see ReturnTypeSelector#byPrimitive()
      */
     MethodJoinPointSelector byReturningPrimitive();
 
@@ -159,7 +160,7 @@ public interface MethodJoinPointSelector
     /**
      * Convenient selector builder for methods the return type extends {@link java.lang.Enum}, thus <code>enum MyEnum</code>.
      * @return  itself
-     * @see org.failearly.ajunit.builder.ReturnTypeSelector#byEnum()
+     * @see ReturnTypeSelector#byEnum()
      */
     MethodJoinPointSelector byReturningEnum();
 
@@ -186,7 +187,7 @@ public interface MethodJoinPointSelector
      * </ul>
      *
      * @param listLogicalOperator the list logical operator is responsible, how the selectors of
-     *                  {@link org.failearly.ajunit.builder.MethodExceptionTypeSelector} should be applied on the entire list.
+     *                  {@link MethodExceptionTypeSelector} should be applied on the entire list.
      *
      * @return a method exception type selector.
      */

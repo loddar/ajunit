@@ -19,20 +19,19 @@
 package org.failearly.ajunit.builder.method;
 
 import org.failearly.ajunit.builder.AbstractJoinPointSelectorTest;
-import org.failearly.ajunit.builder.MethodJoinPointSelector;
 import org.failearly.ajunit.builder.TestSubject4;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.MethodJoinPointSelector}.
+ * Tests for {@link MethodJoinPointSelector}.
  *
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byReturningVoid()
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byReturningPrimitive()
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byReturningCollection()
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byReturningEnum()
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byReturningArray()
- * @see org.failearly.ajunit.builder.MethodJoinPointSelector#byReturning(Class)
+ * @see MethodJoinPointSelector#byReturningVoid()
+ * @see MethodJoinPointSelector#byReturningPrimitive()
+ * @see MethodJoinPointSelector#byReturningCollection()
+ * @see MethodJoinPointSelector#byReturningEnum()
+ * @see MethodJoinPointSelector#byReturningArray()
+ * @see MethodJoinPointSelector#byReturning(Class)
  */
 public abstract class MethodJoinPointSelectorByReturningTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 

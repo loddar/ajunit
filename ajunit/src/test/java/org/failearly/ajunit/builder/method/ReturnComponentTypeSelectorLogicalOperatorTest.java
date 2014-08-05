@@ -19,7 +19,6 @@
 package org.failearly.ajunit.builder.method;
 
 import org.failearly.ajunit.builder.AbstractJoinPointSelectorTest;
-import org.failearly.ajunit.builder.ReturnComponentTypeSelector;
 import org.failearly.ajunit.builder.TestSubject5;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
@@ -31,9 +30,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.ReturnComponentTypeSelector}.
+ * Tests for {@link ReturnComponentTypeSelector}.
  *
- * @see org.failearly.ajunit.builder.ReturnTypeSelector#byComponentType()
+ * @see ReturnTypeSelector#byComponentType()
  */
 @RunWith(Parameterized.class)
 public abstract class ReturnComponentTypeSelectorLogicalOperatorTest extends AbstractJoinPointSelectorTest<ReturnComponentTypeSelector> {
