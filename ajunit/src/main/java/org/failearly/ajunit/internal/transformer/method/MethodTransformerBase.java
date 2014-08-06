@@ -26,7 +26,7 @@ import java.lang.reflect.Method;
  * ConstructorTransformerBase is the base class for {@link java.lang.reflect.Method} based transformers.
  */
 abstract class MethodTransformerBase<O> extends TypedTransformer<Method,O> {
-    protected MethodTransformerBase() {
-        super(Method.class);
+    protected MethodTransformerBase(String name) {
+        super(Method.class, name);
     }
 }

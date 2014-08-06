@@ -71,7 +71,7 @@ public class TypedTransformerTest {
 
 
     private static Transformer createMyClassTransformer() {
-        return new TypedTransformer<MyClass,Integer>(MyClass.class) {
+        return new TypedTransformer<MyClass,Integer>(MyClass.class,"MyClass2Value") {
             @Override
             protected Integer doTypedTransform(MyClass input) {
                 return input.getValue();

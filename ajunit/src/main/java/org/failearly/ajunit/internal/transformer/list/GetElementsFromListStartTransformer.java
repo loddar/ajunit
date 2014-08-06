@@ -23,7 +23,7 @@ package org.failearly.ajunit.internal.transformer.list;
  */
 final class GetElementsFromListStartTransformer extends AbstractGetElementsFromListTransformer {
     GetElementsFromListStartTransformer(int... positions) {
-        super(positions);
+        super("GetElementsFromListStart", positions);
     }
 
     @Override

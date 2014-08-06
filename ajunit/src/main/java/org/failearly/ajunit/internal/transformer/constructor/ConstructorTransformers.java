@@ -29,19 +29,19 @@ import java.util.List;
  */
 public final class ConstructorTransformers {
 
-    private static final Transformer CONSTRUCTOR_ANNOTATIONS_TRANSFORMER = new ConstructorListTransformerBase<Annotation>() {
+    private static final Transformer CONSTRUCTOR_ANNOTATIONS_TRANSFORMER = new ConstructorListTransformerBase<Annotation>("ConstructorAnnotations") {
         @Override
         protected List<Annotation> doTypedTransform(final Constructor input) {
             return convert(input.getAnnotations());
         }
     };
-    private static final Transformer CONSTRUCTOR_PARAMETERS_TRANSFORMER = new ConstructorListTransformerBase<Class<?>>() {
+    private static final Transformer CONSTRUCTOR_PARAMETERS_TRANSFORMER = new ConstructorListTransformerBase<Class<?>>("ConstructorParameters") {
         @Override
         protected List<Class<?>> doTypedTransform(final Constructor input) {
             return convert(input.getParameterTypes());
         }
     };
-    private static final Transformer CONSTRUCTOR_EXCEPTIONS_TRANSFORMER = new ConstructorListTransformerBase<Class<?>>() {
+    private static final Transformer CONSTRUCTOR_EXCEPTIONS_TRANSFORMER = new ConstructorListTransformerBase<Class<?>>("ConstructorExceptions") {
         @Override
         protected List<Class<?>> doTypedTransform(final Constructor input) {
             return convert(input.getExceptionTypes());

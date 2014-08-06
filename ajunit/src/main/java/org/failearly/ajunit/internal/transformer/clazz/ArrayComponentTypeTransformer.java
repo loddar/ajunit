@@ -25,6 +25,10 @@ package org.failearly.ajunit.internal.transformer.clazz;
  * @see Class#isArray()
  */
 final class ArrayComponentTypeTransformer extends ClassTransformerBase<Class> {
+    ArrayComponentTypeTransformer() {
+        super("ArrayComponentType");
+    }
+
     @Override
     protected Class doTypedTransform(Class input) {
         if(! input.isArray())

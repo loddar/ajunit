@@ -85,7 +85,7 @@ final class MethodArgumentsSelectorImpl extends JoinPointBuilderBase<MethodArgum
 
     @Override
     public MethodArgumentTypeSelector byArgumentTypes(Position relativeTo, int... positions) {
-        return super.and(getMethodArgumentPositionsSelectorBuilderFactory(relativeTo, positions));
+        return super.or(getMethodArgumentPositionsSelectorBuilderFactory(relativeTo, positions));
     }
 
     private BuilderFactory<JoinPointSelectorImpl,MethodArgumentsSelectorImpl,MethodArgumentTypeSelectorImpl>
@@ -99,10 +99,20 @@ final class MethodArgumentsSelectorImpl extends JoinPointBuilderBase<MethodArgum
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector byArgumentTypes(ListLogicalOperator listLogicalOperator) {
-        return null;
+        return super.or(getMethodArgumentPositionsSelectorBuilderFactory(listLogicalOperator));
     }
+
+    private BuilderFactory<JoinPointSelectorImpl, MethodArgumentsSelectorImpl, MethodArgumentTypeSelectorImpl>
+    getMethodArgumentPositionsSelectorBuilderFactory(final ListLogicalOperator listLogicalOperator) {
+        return new BuilderFactory<JoinPointSelectorImpl, MethodArgumentsSelectorImpl, MethodArgumentTypeSelectorImpl>() {
+            @Override
+            public MethodArgumentTypeSelectorImpl createBuilder(JoinPointSelectorImpl root, MethodArgumentsSelectorImpl parent, CompositePredicate compositePredicate) {
+                return new MethodArgumentTypeSelectorImpl(root, parent, compositePredicate, listLogicalOperator);
+            }
+        };
+    }
+
 
     @Override
     @NotYetImplemented

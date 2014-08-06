@@ -28,6 +28,7 @@ import org.failearly.ajunit.internal.universe.AjJoinPointType;
 final class AjpJoinPointTypeFilter extends AjpTransformerBase<AjJoinPoint> {
     private final AjJoinPointType joinPointType;
     AjpJoinPointTypeFilter(AjJoinPointType joinPointType) {
+        super("AjpJoinPointTypeFilter");
         this.joinPointType = joinPointType;
     }
 

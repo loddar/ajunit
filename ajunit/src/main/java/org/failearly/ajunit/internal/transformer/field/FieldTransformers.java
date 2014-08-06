@@ -31,13 +31,13 @@ import java.util.List;
  */
 public final class FieldTransformers {
 
-    private static final Transformer FIELD_TYPE_TRANSFORMER = new TypedTransformer<Field, Class<?>>(Field.class) {
+    private static final Transformer FIELD_TYPE_TRANSFORMER = new TypedTransformer<Field, Class<?>>(Field.class,"FieldType") {
         @Override
         protected Class<?> doTypedTransform(Field input) {
             return input.getType();
         }
     };
-    private static final Transformer FIELD_DECLARED_ANNOTATIONS_TRANSFORMER = new TypedListTransformer<Field, Annotation>(Field.class) {
+    private static final Transformer FIELD_DECLARED_ANNOTATIONS_TRANSFORMER = new TypedListTransformer<Field, Annotation>(Field.class,"FieldAnnotations") {
         @Override
         protected List<Annotation> doTypedTransform(Field input) {
             return convert(input.getDeclaredAnnotations());

@@ -24,7 +24,7 @@ import org.failearly.ajunit.internal.transformer.TypedTransformer;
  * ClassTransformerBase is responsible for ...
  */
 abstract class ClassTransformerBase<O> extends TypedTransformer<Class,O> {
-    protected ClassTransformerBase() {
-        super(Class.class);
+    protected ClassTransformerBase(String name) {
+        super(Class.class, name);
     }
 }

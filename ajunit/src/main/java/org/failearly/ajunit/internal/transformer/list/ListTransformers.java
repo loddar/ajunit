@@ -27,7 +27,7 @@ import java.util.List;
  */
 public final class ListTransformers {
 
-    private static final Transformer LIST_SIZE_TRANSFORMER = new ListTransformerBase<Integer>() {
+    private static final Transformer LIST_SIZE_TRANSFORMER = new ListTransformerBase<Integer>("ListSize") {
         @Override
         protected Integer doTypedTransform(final List input) {
             return input.size();

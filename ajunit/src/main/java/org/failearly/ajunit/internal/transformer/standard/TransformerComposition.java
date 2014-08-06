@@ -31,7 +31,20 @@ final class TransformerComposition extends TransformerBase {
     private final List<Transformer> transformers=new LinkedList<>();
 
     TransformerComposition(final List<Transformer> transformers) {
+        super("Composition("+ toString(transformers) +")");
         this.transformers.addAll(transformers);
+    }
+
+    private static String toString(List<Transformer> transformers) {
+        final StringBuilder result=new StringBuilder();
+        if(! transformers.isEmpty()) {
+            for (Transformer transformer : transformers) {
+                result.append(transformer.toString()).append(",");
+            }
+
+            result.setLength(result.length() - 1);
+        }
+        return result.toString();
     }
 
 

@@ -24,7 +24,7 @@ package org.failearly.ajunit.internal.transformer.list;
 final class GetElementsFromListEndTransformer extends AbstractGetElementsFromListTransformer {
 
     GetElementsFromListEndTransformer(int... positions) {
-        super(positions);
+        super("GetElementsFromListEnd", positions);
     }
 
     int index(int position, int lastPositionOfList) {

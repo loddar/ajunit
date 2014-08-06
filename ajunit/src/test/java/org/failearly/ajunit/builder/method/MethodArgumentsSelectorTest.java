@@ -38,7 +38,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
 
     @Override
     protected void doAdditionalSetup(MethodJoinPointSelector selectorBuilder) {
-        methodArgumentsSelector = selectorBuilder.byArguments(LogicalOperator.AND);
+        methodArgumentsSelector = selectorBuilder.byArguments(LogicalOperator.OR);
     }
 
     @Test
@@ -226,4 +226,35 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
         );
     }
 
+    @Test
+    public void byAnyOfArgumentTypes() throws Exception {
+        // act / when
+        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+                    .byClass(int.class)
+                    .byClass(String.class)
+                .endArgumentPositions();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject7.method1(int)",
+                "public void org.failearly.ajunit.builder.TestSubject7.method2(int,java.lang.String)",
+                "public void org.failearly.ajunit.builder.TestSubject7.method3(java.lang.String,java.lang.String,int)",
+                "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException"
+        );
+    }
+    @Test
+    public void byAllOfArgumentTypes() throws Exception {
+        // act / when
+        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ALL_OF)
+                    .byClass(int.class)
+                    .byClass(String.class)
+                .endArgumentPositions();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject7.method1(int)",
+                "public void org.failearly.ajunit.builder.TestSubject7.method2(int,java.lang.String)",
+                "public void org.failearly.ajunit.builder.TestSubject7.method3(java.lang.String,java.lang.String,int)"
+        );
+    }
 }

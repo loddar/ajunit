@@ -25,7 +25,7 @@ import org.failearly.ajunit.internal.transformer.TypedTransformer;
 */
 final class IdentityTransformer<T> extends TypedTransformer<T,T> {
     public IdentityTransformer(Class<T> clazz) {
-        super(clazz);
+        super(clazz, "Identity");
     }
 
     @Override

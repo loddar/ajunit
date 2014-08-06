@@ -46,16 +46,20 @@ final class MethodArgumentTypeSelectorImpl extends JoinPointBuilderBase<MethodAr
 
     private ClassSelectorBuilder<MethodArgumentTypeSelectorImpl> methodArgumentTypeSelectorBuilder;
 
+    private MethodArgumentTypeSelectorImpl() {
+        methodArgumentTypeSelectorBuilder = SelectorBuilders.createMethodArgumentTypeSelectorBuilder(this);
+    }
+
     MethodArgumentTypeSelectorImpl(
             JoinPointSelectorImpl root,
             MethodArgumentsSelectorImpl parent,
             CompositePredicate compositePredicate,
             Position relativeTo,
             int... positions) {
+        this();
         super.init(LogicalStructureBuilder.createBuilder(
                 root, parent, this, createCompositeNode(compositePredicate, ListLogicalOperator.ALL_OF, relativeTo, positions))
             );
-        methodArgumentTypeSelectorBuilder = SelectorBuilders.createMethodArgumentTypeSelectorBuilder(this);
     }
 
     private static CompositePredicate createCompositeNode(
@@ -67,6 +71,17 @@ final class MethodArgumentTypeSelectorImpl extends JoinPointBuilderBase<MethodAr
                 ),
                 JoinPointSelectorUtils.createListLogicalOperator(listLogicalOperator, compositePredicate)
         );
+    }
+
+    MethodArgumentTypeSelectorImpl(
+            JoinPointSelectorImpl root,
+            MethodArgumentsSelectorImpl parent,
+            CompositePredicate compositePredicate,
+            ListLogicalOperator listLogicalOperator) {
+        this();
+        super.init(LogicalStructureBuilder.createBuilder(
+                root, parent, this, JoinPointSelectorUtils.createListLogicalOperator(listLogicalOperator, compositePredicate))
+            );
     }
 
     @Override

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public final class ClassTransformers {
 
-    private static final Transformer CLASS_PACKAGE_NAME_TRANSFORMER = new ClassTransformerBase<String>() {
+    private static final Transformer CLASS_PACKAGE_NAME_TRANSFORMER = new ClassTransformerBase<String>("ClassPackage") {
         @Override
         protected String doTypedTransform(Class input) {
             final Package thePackage = input.getPackage();
@@ -39,19 +39,19 @@ public final class ClassTransformers {
             return thePackage.getName();
         }
     };
-    private static final Transformer CLASS_MODIFIERS_TRANSFORMER = new ClassTransformerBase<Integer>() {
+    private static final Transformer CLASS_MODIFIERS_TRANSFORMER = new ClassTransformerBase<Integer>("ClassModifiers") {
         @Override
         protected Integer doTypedTransform(Class input) {
             return input.getModifiers();
         }
     };
-    private static final Transformer CLASS_NAME_TRANSFORMER = new ClassTransformerBase<String>() {
+    private static final Transformer CLASS_NAME_TRANSFORMER = new ClassTransformerBase<String>("ClassName") {
         @Override
         protected String doTypedTransform(Class input) {
             return input.getSimpleName();
         }
     };
-    private static final Transformer CLASS_ANNOTATIONS_TRANSFORMER = new TypedListTransformer<Class, Annotation>(Class.class) {
+    private static final Transformer CLASS_ANNOTATIONS_TRANSFORMER = new TypedListTransformer<Class, Annotation>(Class.class,"ClassAnnotations") {
         @Override
         protected List<Annotation> doTypedTransform(Class input) {
             return convert(input.getAnnotations());

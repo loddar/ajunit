@@ -26,7 +26,8 @@ public abstract class TypedTransformer<I, O> extends TransformerBase {
 
     private final Class<I> inputClass;
 
-    protected TypedTransformer(Class<I> inputClass) {
+    protected TypedTransformer(Class<I> inputClass, String name) {
+        super(name);
         this.inputClass = inputClass;
     }
 

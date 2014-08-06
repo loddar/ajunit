@@ -22,6 +22,12 @@ package org.failearly.ajunit.internal.transformer;
  * TransformerBase is the base class for all transformer which handles {@code null} input value.
  */
 public abstract class TransformerBase implements Transformer {
+    private final String name;
+
+    protected TransformerBase(String name) {
+        this.name = name;
+    }
+
     @Override
     public final Object transform(Object input) {
         if( input==null ) {
@@ -36,4 +42,9 @@ public abstract class TransformerBase implements Transformer {
      * @return {@code null} or the transformed {@code input}.
      */
     protected abstract Object doTransform(final Object input);
+
+    @Override
+    public String toString() {
+        return "T"+name;
+    }
 }

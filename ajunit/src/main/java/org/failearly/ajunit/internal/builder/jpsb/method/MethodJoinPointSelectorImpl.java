@@ -323,7 +323,7 @@ public final class MethodJoinPointSelectorImpl
 
     private static
     BuilderFactory<JoinPointSelectorImpl,MethodJoinPointSelectorImpl,MethodJoinPointSelectorImpl>
-            getMethodJoinPointSelectorBuilderFactory() {
+        getMethodJoinPointSelectorBuilderFactory() {
         return new BuilderFactory<JoinPointSelectorImpl, MethodJoinPointSelectorImpl, MethodJoinPointSelectorImpl>() {
             @Override
             public MethodJoinPointSelectorImpl createBuilder(
@@ -333,7 +333,9 @@ public final class MethodJoinPointSelectorImpl
         };
     }
 
-    private static BuilderFactory<JoinPointSelectorImpl,MethodJoinPointSelectorImpl,MethodArgumentsSelectorImpl> getMethodArgumentsSelectorBuilderFactory() {
+    private static
+    BuilderFactory<JoinPointSelectorImpl,MethodJoinPointSelectorImpl,MethodArgumentsSelectorImpl>
+        getMethodArgumentsSelectorBuilderFactory() {
         return new BuilderFactory<JoinPointSelectorImpl, MethodJoinPointSelectorImpl, MethodArgumentsSelectorImpl>() {
             @Override
             public MethodArgumentsSelectorImpl createBuilder(JoinPointSelectorImpl root, MethodJoinPointSelectorImpl parent, CompositePredicate compositePredicate) {

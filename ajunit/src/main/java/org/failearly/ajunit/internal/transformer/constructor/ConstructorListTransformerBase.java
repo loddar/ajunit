@@ -26,7 +26,7 @@ import java.lang.reflect.Constructor;
  * ConstructorTransformerBase is the base class for {@link java.lang.reflect.Constructor} based transformers.
  */
 abstract class ConstructorListTransformerBase<O> extends TypedListTransformer<Constructor,O> {
-    protected ConstructorListTransformerBase() {
-        super(Constructor.class);
+    protected ConstructorListTransformerBase(String name) {
+        super(Constructor.class, name);
     }
 }

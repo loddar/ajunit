@@ -28,19 +28,19 @@ import java.util.List;
  */
 public final class MethodTransformers {
 
-    private static final Transformer METHOD_RETURN_TYPE_TRANSFORMER = new MethodTransformerBase<Class<?>>() {
+    private static final Transformer METHOD_RETURN_TYPE_TRANSFORMER = new MethodTransformerBase<Class<?>>("MethodReturnType") {
         @Override
         protected Class<?> doTypedTransform(final Method input) {
             return input.getReturnType();
         }
     };
-    private static final Transformer METHOD_ARGUMENTS_TRANSFORMER = new MethodListTransformerBase<Class<?>>() {
+    private static final Transformer METHOD_ARGUMENTS_TRANSFORMER = new MethodListTransformerBase<Class<?>>("MethodParameters") {
         @Override
         protected List<Class<?>> doTypedTransform(Method input) {
             return convert(input.getParameterTypes());
         }
     };
-    private static final Transformer METHOD_EXCEPTIONS_TRANSFORMER = new MethodListTransformerBase<Class<?>>() {
+    private static final Transformer METHOD_EXCEPTIONS_TRANSFORMER = new MethodListTransformerBase<Class<?>>("MethodExceptions") {
         @Override
         protected List<Class<?>> doTypedTransform(Method input) {
             return convert(input.getExceptionTypes());

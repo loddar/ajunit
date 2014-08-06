@@ -28,13 +28,13 @@ import java.lang.reflect.Member;
  */
 public final class MemberTransformers {
 
-    private static final TypedTransformer<Member, String> MEMBER_NAME_TRANSFORMER = new TypedTransformer<Member, String>(Member.class) {
+    private static final TypedTransformer<Member, String> MEMBER_NAME_TRANSFORMER = new TypedTransformer<Member, String>(Member.class,"MemberName") {
         @Override
         protected String doTypedTransform(final Member input) {
             return input.getName();
         }
     };
-    private static final TypedTransformer<Member, Integer> MEMBER_MODIFIERS_TRANSFORMER = new TypedTransformer<Member, Integer>(Member.class) {
+    private static final TypedTransformer<Member, Integer> MEMBER_MODIFIERS_TRANSFORMER = new TypedTransformer<Member, Integer>(Member.class,"MemberModifiers") {
         @Override
         protected Integer doTypedTransform(final Member input) {
             return input.getModifiers();

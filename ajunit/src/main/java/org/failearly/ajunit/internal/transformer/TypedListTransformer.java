@@ -25,8 +25,8 @@ import java.util.List;
  * TypedListTransformer is a base class which could be used for one input value and a {@link java.util.List} of the output values.
  */
 public abstract class TypedListTransformer<I,O> extends TypedTransformer<I,List<O>> {
-    protected TypedListTransformer(Class<I> inputClass) {
-        super(inputClass);
+    protected TypedListTransformer(Class<I> inputClass, String name) {
+        super(inputClass, name);
     }
 
     protected List<O> convert(O[] output) {

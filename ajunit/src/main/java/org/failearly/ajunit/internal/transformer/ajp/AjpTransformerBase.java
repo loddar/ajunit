@@ -25,8 +25,8 @@ import org.failearly.ajunit.internal.universe.AjJoinPoint;
  * AjpTransformerBase is the base class for {@link org.failearly.ajunit.internal.universe.AjJoinPoint} based transformers.
  */
 abstract class AjpTransformerBase<T> extends TypedTransformer<AjJoinPoint,T> {
-    AjpTransformerBase() {
-        super(AjJoinPoint.class);
+    AjpTransformerBase(String name) {
+        super(AjJoinPoint.class, name);
     }
 
 }

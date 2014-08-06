@@ -22,6 +22,12 @@ package org.failearly.ajunit.internal.transformer.clazz;
  * ArrayDimensionTransformer is responsible for ...
  */
 final class ArrayDimensionTransformer extends ClassTransformerBase<Integer> {
+
+
+    protected ArrayDimensionTransformer() {
+        super("ArrayDimension");
+    }
+
     @Override
     protected Integer doTypedTransform(Class input) {
         return countArrayDimension(input);

@@ -31,31 +31,31 @@ import java.lang.reflect.Method;
  */
 public final class AjpTransformers {
 
-    private static final Transformer AJP_METHOD_TRANSFORMER = new AjpTransformerBase<Method>() {
+    private static final Transformer AJP_METHOD_TRANSFORMER = new AjpTransformerBase<Method>("Ajp2Method") {
         @Override
         protected Method doTypedTransform(final AjJoinPoint input) {
             return input.getMethod();
         }
     };
-    private static final Transformer AJP_FIELD_TRANSFORMER = new AjpTransformerBase<Field>() {
+    private static final Transformer AJP_FIELD_TRANSFORMER = new AjpTransformerBase<Field>("Ajp2Field") {
         @Override
         protected Field doTypedTransform(AjJoinPoint input) {
             return input.getField();
         }
     };
-    private static final Transformer AJP_CONSTRUCTOR_TRANSFORMER = new AjpTransformerBase<Constructor<?>>() {
+    private static final Transformer AJP_CONSTRUCTOR_TRANSFORMER = new AjpTransformerBase<Constructor<?>>("Ajp2Ctor") {
         @Override
         protected Constructor<?> doTypedTransform(AjJoinPoint input) {
             return input.getConstructor();
         }
     };
-    private static final Transformer AJP_DECLARING_CLASS_TRANSFORMER = new AjpTransformerBase<Class<?>>() {
+    private static final Transformer AJP_DECLARING_CLASS_TRANSFORMER = new AjpTransformerBase<Class<?>>("Ajp2DeclaringClass") {
         @Override
         protected Class<?> doTypedTransform(AjJoinPoint input) {
             return input.getDeclaringClass();
         }
     };
-    private static final Transformer AJP_NUMBER_OF_APPLICATIONS_TRANSFORMER = new AjpTransformerBase<Integer>() {
+    private static final Transformer AJP_NUMBER_OF_APPLICATIONS_TRANSFORMER = new AjpTransformerBase<Integer>("Ajp2NumApplications") {
         @Override
         protected Integer doTypedTransform(AjJoinPoint input) {
             return input.getNumApplications();

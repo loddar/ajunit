@@ -126,7 +126,7 @@ public class TransformerCompositionTest {
      * @return Transformer executing {@link org.failearly.ajunit.internal.transformer.standard.TransformerCompositionTest.OtherClass#getMyClass()}
      */
     private static Transformer createOtherClassTransformer() {
-        return new TypedTransformer<OtherClass,MyClass>(OtherClass.class) {
+        return new TypedTransformer<OtherClass,MyClass>(OtherClass.class,"OtherClass2MyClass") {
             @Override
             protected MyClass doTypedTransform(final OtherClass input) {
                 return input.getMyClass();
@@ -138,7 +138,7 @@ public class TransformerCompositionTest {
      * @return Transformer executing {@link org.failearly.ajunit.internal.transformer.standard.TransformerCompositionTest.MyClass#getValue()}
      */
     private static Transformer createMyClassTransformer() {
-        return new TypedTransformer<MyClass,Integer>(MyClass.class) {
+        return new TypedTransformer<MyClass,Integer>(MyClass.class,"MyClass2Value") {
             @Override
             protected Integer doTypedTransform(final MyClass input) {
                 return input.getValue();

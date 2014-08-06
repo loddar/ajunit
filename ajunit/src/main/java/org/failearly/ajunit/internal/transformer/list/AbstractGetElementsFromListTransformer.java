@@ -31,7 +31,8 @@ abstract class AbstractGetElementsFromListTransformer extends ListTransformerBas
     private final int[] positions;
     private final int maxPosition;
 
-    AbstractGetElementsFromListTransformer(int... positions) {
+    AbstractGetElementsFromListTransformer(String name, int... positions) {
+        super(name);
         checkPositions(positions);
         this.positions=positions;
         this.maxPosition = max(positions);

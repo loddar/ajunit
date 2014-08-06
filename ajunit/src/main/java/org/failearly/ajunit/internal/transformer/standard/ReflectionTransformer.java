@@ -33,6 +33,7 @@ final class ReflectionTransformer extends TransformerBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(ReflectionTransformer.class);
     private Method method=null;
     ReflectionTransformer(Class<?> clazz, String methodName) {
+        super("Reflection@"+methodName);
         this.method = getDeclaredMethod(clazz, methodName);
         if( this.method==null ) {
             this.method = lookupMethod(clazz, methodName);

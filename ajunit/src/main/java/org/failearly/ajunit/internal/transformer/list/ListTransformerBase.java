@@ -26,7 +26,7 @@ import java.util.List;
  * Base class for {@link java.util.List} transformers.
  */
 abstract class ListTransformerBase<O> extends TypedTransformer<List,O> {
-    protected ListTransformerBase() {
-        super(List.class);
+    protected ListTransformerBase(String name) {
+        super(List.class, name);
     }
 }
