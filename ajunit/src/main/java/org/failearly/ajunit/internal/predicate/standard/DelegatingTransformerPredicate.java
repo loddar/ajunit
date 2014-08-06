@@ -31,7 +31,7 @@ final class DelegatingTransformerPredicate extends DelegateCompositePredicate {
     private final Predicate predicate;
 
     DelegatingTransformerPredicate(Transformer transformer, CompositePredicate compositePredicate) {
-        super("DelegatingTransformerPredicate("+compositePredicate+")", compositePredicate);
+        super("DelegatingTransformerPredicate("+transformer+"->"+compositePredicate+")", compositePredicate);
         this.transformer = transformer;
         this.predicate = compositePredicate;
     }
