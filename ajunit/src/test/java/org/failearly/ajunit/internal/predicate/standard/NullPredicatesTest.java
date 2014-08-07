@@ -33,13 +33,13 @@ public class NullPredicatesTest {
         final Predicate isNotNullPredicate = StandardPredicates.isNotNull();
         assertThat("IsNotNull(not null) evaluates to?", isNotNullPredicate.test("VALUE"), is(true));
         assertThat("IsNotNull(null) evaluates to?", isNotNullPredicate.test(null), is(false));
-        assertThat("IsNotNull type?", isNotNullPredicate.getType(), is("IsNotNull"));
+        assertThat("IsNotNull type?", isNotNullPredicate.getName(), is("IsNotNull"));
     }
     @Test
     public void isNull() throws Exception {
         final Predicate isNullPredicate = StandardPredicates.isNull();
         assertThat("IsNull(not null) evaluates to?", isNullPredicate.test("VALUE"), is(false));
         assertThat("IsNull(null) evaluates to?", isNullPredicate.test(null), is(true));
-        assertThat("IsNull type?", isNullPredicate.getType(), is("IsNull"));
+        assertThat("IsNull type?", isNullPredicate.getName(), is("IsNull"));
     }
 }

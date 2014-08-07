@@ -30,7 +30,7 @@ final class SimpleTransformerPredicate extends PredicateBase {
     private final Predicate predicate;
 
     SimpleTransformerPredicate(Transformer transformer, Predicate predicate) {
-        super("TransformerPredicate("+transformer+"->"+predicate+")");
+        super("TransformerPredicate");
         this.transformer = transformer;
         this.predicate = predicate;
     }
@@ -40,4 +40,10 @@ final class SimpleTransformerPredicate extends PredicateBase {
         final Object transformed= transformer.transform(object);
         return transformed != null && predicate.test(transformed);
     }
+
+    @Override
+    protected String getName0() {
+        return "TransformerPredicate("+transformer+"->"+predicate+")";
+    }
+
 }

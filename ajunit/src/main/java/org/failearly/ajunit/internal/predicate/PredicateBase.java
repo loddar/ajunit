@@ -31,8 +31,8 @@ import org.failearly.ajunit.internal.util.AjAssert;
  */
 public abstract class PredicateBase extends AbstractPredicate {
 
-    protected PredicateBase(String type) {
-        super(type);
+    protected PredicateBase(String name) {
+        super(name);
     }
 
     @Override

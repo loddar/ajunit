@@ -18,24 +18,14 @@
  */
 package org.failearly.ajunit.internal.predicate;
 
+import org.failearly.ajunit.internal.Named;
+
 /**
  * AbstractPredicate is the abstract base class for all predicates implementations, which also accepts {@code null} as
  * input.
  */
-public abstract class AbstractPredicate implements Predicate {
-    protected final String type;
-
-    protected AbstractPredicate(String type) {
-        this.type = type;
-    }
-
-    @Override
-    public String toString() {
-        return type;
-    }
-
-    @Override
-    public final String getType() {
-        return type;
+public abstract class AbstractPredicate extends Named implements Predicate {
+    protected AbstractPredicate(String name) {
+        super(name);
     }
 }

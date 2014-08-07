@@ -16,28 +16,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.internal.predicate;
+package org.failearly.ajunit.internal;
 
 /**
- * Predicate is highly inspired by Predicate implementation in Jakarta commons collection.
- *
- * @see org.failearly.ajunit.internal.predicate.PredicateBase
+ * Named is responsible for giving a class
+ * ({@link org.failearly.ajunit.internal.predicate.Predicate} or {@link org.failearly.ajunit.internal.transformer.Transformer}) a name.
  */
-public interface Predicate {
-    /**
-     * Use the specified parameter ({@code object}) to perform a test that returns true or false.
-     *
-     * @param object any object including {@code null}.
-     *
-     * @return {@code true} or {@code false}.
-     *
-     * @throws java.lang.ClassCastException if the input is the wrong class.
-     * @throws java.lang.IllegalArgumentException if the input is invalid.
-     */
-    boolean test(final Object object);
+public abstract class Named {
+    private final String name;
 
-    /**
-     * @return  Type or name of the predicate.
-     */
-    String getName();
+    protected Named() {
+        name = this.getClass().getSimpleName();
+    }
+
+    protected Named(String name) {
+        this.name = name;
+    }
+
+    public final String getName() {
+        return name;
+    }
+
+    protected String getName0() {
+        return name;
+    }
+
+    @Override
+    public final String toString() {
+        return this.getName0();
+    }
 }

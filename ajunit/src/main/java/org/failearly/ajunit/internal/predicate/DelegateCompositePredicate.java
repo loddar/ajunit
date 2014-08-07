@@ -27,12 +27,9 @@ public abstract class DelegateCompositePredicate
 
     private final CompositePredicate compositePredicate;
 
-    protected DelegateCompositePredicate(String type, CompositePredicate compositePredicate) {
-        super(type);
+    protected DelegateCompositePredicate(CompositePredicate compositePredicate, String name) {
+        super(name);
         this.compositePredicate = compositePredicate;
-    }
-    protected DelegateCompositePredicate(String type) {
-        this(type, null);
     }
 
     @Override

@@ -27,7 +27,7 @@ public abstract class TypedDelegateCompositePredicate<T>
     private final Class<T> parameterClass;
 
     protected TypedDelegateCompositePredicate(Class<T> parameterClass, String type, CompositePredicate compositePredicate) {
-        super(type, compositePredicate);
+        super(compositePredicate, type);
         this.parameterClass = parameterClass;
     }
 

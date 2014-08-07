@@ -24,7 +24,7 @@ import org.failearly.ajunit.internal.predicate.LogicalPredicate;
  * LogicalPredicateBase the base class for logical predicates.
  */
 abstract class LogicalPredicateBase extends CompositePredicateBase implements LogicalPredicate {
-    protected LogicalPredicateBase(String type) {
-        super(type);
+    protected LogicalPredicateBase(String name) {
+        super(name);
     }
 }

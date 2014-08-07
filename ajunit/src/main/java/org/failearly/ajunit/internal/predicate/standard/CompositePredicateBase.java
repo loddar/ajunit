@@ -32,8 +32,8 @@ import java.util.LinkedList;
 abstract class CompositePredicateBase extends PredicateBase implements CompositePredicate {
     private final Collection<Predicate> predicates=new LinkedList<>();
 
-    protected CompositePredicateBase(String type) {
-        super(type);
+    protected CompositePredicateBase(String name) {
+        super(name);
     }
 
     @Override
@@ -70,8 +70,8 @@ abstract class CompositePredicateBase extends PredicateBase implements Composite
 
 
     @Override
-    public String toString() {
-        final StringBuilder stringBuilder=new StringBuilder(getType());
+    protected String getName0() {
+        final StringBuilder stringBuilder=new StringBuilder(getName());
         boolean first=true;
         stringBuilder.append("(");
         for (Predicate predicate : predicates) {

@@ -31,7 +31,7 @@ final class DelegatingTransformerPredicate extends DelegateCompositePredicate {
     private final Predicate predicate;
 
     DelegatingTransformerPredicate(Transformer transformer, CompositePredicate compositePredicate) {
-        super("DelegatingTransformerPredicate("+transformer+"->"+compositePredicate+")", compositePredicate);
+        super(compositePredicate, "DelegatingTransformerPredicate");
         this.transformer = transformer;
         this.predicate = compositePredicate;
     }
@@ -40,5 +40,10 @@ final class DelegatingTransformerPredicate extends DelegateCompositePredicate {
     protected boolean doTest(Object object) {
         final Object transformed= transformer.transform(object);
         return transformed != null && predicate.test(transformed);
+    }
+
+    @Override
+    protected String getName0() {
+        return "DelegatingTransformerPredicate("+transformer+"->"+predicate+")";
     }
 }

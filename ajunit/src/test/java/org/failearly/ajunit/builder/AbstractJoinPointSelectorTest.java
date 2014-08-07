@@ -19,6 +19,7 @@
 package org.failearly.ajunit.builder;
 
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
+import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.universe.AjJoinPointStringBuilder;
 import org.failearly.ajunit.internal.universe.AjJoinPointStringBuilderBase;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
@@ -29,6 +30,8 @@ import org.failearly.ajunit.test.helper.StandardJoinPointVisitor;
 import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Before;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -40,6 +43,9 @@ import static org.junit.Assert.assertThat;
  * Base class for all {@link org.failearly.ajunit.builder.JoinPointSelector} Tests.
  */
 public abstract class AbstractJoinPointSelectorTest<T extends SelectorBuilder> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractJoinPointSelectorTest.class);
+
     private static final String UNIVERSE_NAME = "AbstractJoinPointSelectorTest$Universe";
     private AjUniverse ajUniverse;
     private final AjJoinPointType expectedJoinPointType;
@@ -92,7 +98,9 @@ public abstract class AbstractJoinPointSelectorTest<T extends SelectorBuilder> {
     }
 
     protected final void assertBuildJoinPointSelector(String... expectedJoinPoints) {
-        final StandardJoinPointVisitor joinPointVisitor = new StandardJoinPointVisitor(this.joinPointSelectorBuilder.build(), JOIN_POINT_STRING_BUILDER);
+        final Predicate predicate=this.joinPointSelectorBuilder.build();
+        LOGGER.info("Created predicate is " + predicate);
+        final StandardJoinPointVisitor joinPointVisitor = new StandardJoinPointVisitor(predicate, JOIN_POINT_STRING_BUILDER);
         ajUniverse.visitJoinPoints(joinPointVisitor);
         assertThat("Matching join points?", joinPointVisitor.getSelectedJoinPoints(), Matchers.containsInAnyOrder(expectedJoinPoints));
     }

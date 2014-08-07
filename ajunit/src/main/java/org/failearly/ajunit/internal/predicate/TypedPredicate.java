@@ -24,8 +24,8 @@ package org.failearly.ajunit.internal.predicate;
 public abstract class TypedPredicate<T> extends PredicateBase {
     private final Class<T> parameterClass;
 
-    protected TypedPredicate(final Class<T> parameterClass, String type) {
-        super(type);
+    protected TypedPredicate(final Class<T> parameterClass, String name) {
+        super(name);
         this.parameterClass = parameterClass;
     }
 
