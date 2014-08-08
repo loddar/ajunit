@@ -252,7 +252,6 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public void org.failearly.ajunit.builder.TestSubject7.method1(int)",
                 "public void org.failearly.ajunit.builder.TestSubject7.method2(int,java.lang.String)",
                 "public void org.failearly.ajunit.builder.TestSubject7.method3(java.lang.String,java.lang.String,int)"
         );

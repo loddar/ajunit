@@ -19,12 +19,20 @@
 package org.failearly.ajunit.internal;
 
 /**
- * Named is responsible for giving a class
- * ({@link org.failearly.ajunit.internal.predicate.Predicate} or {@link org.failearly.ajunit.internal.transformer.Transformer}) a name.
+ * Named gives any derived class a name. There are two possibilities:<br>
+ * <br>
+ * <ul>
+ *     <li>Fixed by providing the name by constructor.</li>
+ *     <li>Dynamic by overriding {@link #toString0()}.</li>
+ * </ul>
+ * <br>
  */
 public abstract class Named {
     private final String name;
 
+    /**
+     * Uses {@link Class#getSimpleName()} for name.
+     */
     protected Named() {
         name = this.getClass().getSimpleName();
     }
@@ -33,16 +41,23 @@ public abstract class Named {
         this.name = name;
     }
 
+    /**
+     * @return The origin name.
+     */
     public final String getName() {
         return name;
     }
 
-    protected String getName0() {
+    /**
+     * Used by {@link #toString()}. Override if there is a more sophisticated name. If not overridden, it returns {@link #name}.
+     * @return the name.
+     */
+    protected String toString0() {
         return name;
     }
 
     @Override
     public final String toString() {
-        return this.getName0();
+        return this.toString0();
     }
 }

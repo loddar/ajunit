@@ -42,7 +42,7 @@ final class SimpleTransformerPredicate extends PredicateBase {
     }
 
     @Override
-    protected String getName0() {
+    protected String toString0() {
         return "TransformerPredicate("+transformer+"->"+predicate+")";
     }
 

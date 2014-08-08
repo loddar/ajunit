@@ -18,14 +18,18 @@
  */
 package org.failearly.ajunit.internal.transformer;
 
+import org.failearly.ajunit.internal.Named;
+
 /**
  * TransformerBase is the base class for all transformer which handles {@code null} input value.
  */
-public abstract class TransformerBase implements Transformer {
-    private final String name;
+public abstract class TransformerBase extends Named implements Transformer {
 
     protected TransformerBase(String name) {
-        this.name = name;
+        super(name);
+    }
+
+    protected TransformerBase() {
     }
 
     @Override
@@ -43,8 +47,4 @@ public abstract class TransformerBase implements Transformer {
      */
     protected abstract Object doTransform(final Object input);
 
-    @Override
-    public String toString() {
-        return "T"+name;
-    }
 }

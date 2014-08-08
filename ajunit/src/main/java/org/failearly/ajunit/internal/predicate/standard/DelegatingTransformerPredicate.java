@@ -43,7 +43,7 @@ final class DelegatingTransformerPredicate extends DelegateCompositePredicate {
     }
 
     @Override
-    protected String getName0() {
+    protected String toString0() {
         return "DelegatingTransformerPredicate("+transformer+"->"+predicate+")";
     }
 }

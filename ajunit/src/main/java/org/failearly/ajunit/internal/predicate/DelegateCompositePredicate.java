@@ -50,4 +50,9 @@ public abstract class DelegateCompositePredicate
     protected final Predicate getDelegatePredicate() {
         return compositePredicate;
     }
+
+    @Override
+    protected String toString0() {
+        return this.getName() + "(" + compositePredicate + ")";
+    }
 }
