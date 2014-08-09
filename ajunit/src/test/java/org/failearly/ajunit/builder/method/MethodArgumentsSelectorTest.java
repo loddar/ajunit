@@ -242,6 +242,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
                 "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException"
         );
     }
+
     @Test
     public void byAllOfArgumentTypes() throws Exception {
         // act / when
@@ -252,8 +253,26 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
 
         // assert / then
         assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject7.method1(int)",
                 "public void org.failearly.ajunit.builder.TestSubject7.method2(int,java.lang.String)",
                 "public void org.failearly.ajunit.builder.TestSubject7.method3(java.lang.String,java.lang.String,int)"
+        );
+    }
+
+
+    @Test
+    public void byNoneOfArgumentTypes() throws Exception {
+        // act / when
+        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.NONE_OF)
+                    .byClass(int.class)
+                    .byClass(String.class)
+                .endArgumentPositions();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                // java.lang.Object
+                "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
+                "public boolean java.lang.Object.equals(java.lang.Object)"
         );
     }
 }

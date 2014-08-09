@@ -73,10 +73,12 @@ abstract class CompositePredicateBase extends PredicateBase implements Composite
     protected String toString0() {
         final StringBuilder stringBuilder=new StringBuilder(getName());
         stringBuilder.append("(");
-        for (Predicate predicate : predicates) {
-            stringBuilder.append(predicate).append(",");
+        if( ! predicates.isEmpty() ) {
+            for (Predicate predicate : predicates) {
+                stringBuilder.append(predicate).append(",");
+            }
+            stringBuilder.setLength(stringBuilder.length() - 1);
         }
-        stringBuilder.setLength(stringBuilder.length()-1);
         stringBuilder.append(")");
         return stringBuilder.toString();
     }

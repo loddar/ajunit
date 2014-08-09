@@ -84,7 +84,7 @@ public final class MethodJoinPointSelectorImpl
     }
 
     private MethodJoinPointSelector anyMethod() {
-        return this.methodSelector.anyMethod();
+        return null; // this.methodSelector.anyMethod();
     }
 
     @Override
