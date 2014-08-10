@@ -100,33 +100,28 @@ final class MethodArgumentTypeSelectorImpl extends JoinPointBuilderBase<MethodAr
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector byClassName(String classNamePattern, StringMatcherType matcherType) {
-        return null;
+        return methodArgumentTypeSelectorBuilder.byClassName(classNamePattern, matcherType);
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector byExtending(Class<?> baseClass) {
-        return null;
+        return methodArgumentTypeSelectorBuilder.byExtending(baseClass);
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector byNotExtending(Class<?> baseClass) {
-        return null;
+        return methodArgumentTypeSelectorBuilder.byNotExtending(baseClass);
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector byImplementingAnyOf(Class<?>... interfaces) {
-        return null;
+        return methodArgumentTypeSelectorBuilder.byImplementingAnyOf(interfaces);
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector byImplementingAllOf(Class<?>... interfaces) {
-        return null;
+        return methodArgumentTypeSelectorBuilder.byImplementingAllOf(interfaces);
     }
 
     @Override
