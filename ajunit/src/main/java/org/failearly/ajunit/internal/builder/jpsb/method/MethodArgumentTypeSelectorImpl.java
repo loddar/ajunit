@@ -85,7 +85,7 @@ final class MethodArgumentTypeSelectorImpl extends JoinPointBuilderBase<MethodAr
     }
 
     @Override
-    public MethodArgumentsSelector endArgumentPositions() {
+    public MethodArgumentsSelector endArgumentType() {
         return super.doEndLogicalExpression(MethodArgumentsSelector.class, true);
     }
 
@@ -125,9 +125,8 @@ final class MethodArgumentTypeSelectorImpl extends JoinPointBuilderBase<MethodAr
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector byImplementingNoneOf(Class<?>... interfaces) {
-        return null;
+        return methodArgumentTypeSelectorBuilder.byImplementingNoneOf(interfaces);
     }
 
     @Override

@@ -22,8 +22,6 @@ import org.failearly.ajunit.builder.*;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
-import java.io.Serializable;
-
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
@@ -164,7 +162,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void endArgumentPosition() throws Exception {
         // act / when
-        final MethodArgumentsSelector instance = methodArgumentsSelector.byArgumentTypes(Position.FIRST, 0, 1).endArgumentPositions();
+        final MethodArgumentsSelector instance = methodArgumentsSelector.byArgumentTypes(Position.FIRST, 0, 1).endArgumentType();
 
         // assert / then
         assertThat("endArgumentsSelector() returns correct selector builder?", instance, sameInstance(methodArgumentsSelector));
@@ -175,7 +173,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
         // act / when
         methodArgumentsSelector.byArgumentTypes(Position.FIRST, 0)
                     .byClass(int.class)
-                .endArgumentPositions();
+                .endArgumentType();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -189,7 +187,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
         // act / when
         methodArgumentsSelector.byArgumentTypes(Position.FIRST, 0, 1)
                     .byClass(String.class)
-                .endArgumentPositions();
+                .endArgumentType();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -202,7 +200,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
         // act / when
         methodArgumentsSelector.byArgumentTypes(Position.FIRST, 0)
                     .byPrimitive()
-                .endArgumentPositions();
+                .endArgumentType();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -217,8 +215,8 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     public void byArgumentPositionsLast() throws Exception {
         // act / when
         methodArgumentsSelector.byArgumentTypes(Position.LAST, 0)
-                .byClass(int.class)
-                .endArgumentPositions();
+                    .byClass(int.class)
+                .endArgumentType();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -234,7 +232,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
         methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
                     .byClass(int.class)
                     .byClass(String.class)
-                .endArgumentPositions();
+                .endArgumentType();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -251,7 +249,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
         methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ALL_OF)
                     .byClass(int.class)
                     .byClass(String.class)
-                .endArgumentPositions();
+                .endArgumentType();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -268,7 +266,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
         methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.NONE_OF)
                     .byClass(int.class)
                     .byClass(String.class)
-                .endArgumentPositions();
+                .endArgumentType();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -276,78 +274,4 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
                 "public boolean java.lang.Object.equals(java.lang.Object)"
         );
     }
-
-    @Test
-    public void byClassName() throws Exception {
-        // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
-                    .byClassName("Str", StringMatcherType.STARTS_WITH)
-                .endArgumentPositions();
-
-        // assert / then
-        assertBuildJoinPointSelector(
-                "public void org.failearly.ajunit.builder.TestSubject7.method2(int,java.lang.String)",
-                "public void org.failearly.ajunit.builder.TestSubject7.method3(java.lang.String,java.lang.String,int)"
-        );
-    }
-
-    @Test
-    public void byExtending() throws Exception {
-        // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
-                    .byExtending(Object.class)
-                .endArgumentPositions();
-
-        // assert / then
-        assertBuildJoinPointSelector(
-                "public void org.failearly.ajunit.builder.TestSubject7.method2(int,java.lang.String)",
-                "public void org.failearly.ajunit.builder.TestSubject7.method3(java.lang.String,java.lang.String,int)",
-                "public boolean java.lang.Object.equals(java.lang.Object)"
-        );
-    }
-
-    @Test
-    public void byNotExtending() throws Exception {
-        // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ALL_OF)
-                    .byNotExtending(Object.class)
-                .endArgumentPositions();
-
-        // assert / then
-        assertBuildJoinPointSelector(
-                "public void org.failearly.ajunit.builder.TestSubject7.method1(int)",
-                "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
-                "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException"
-        );
-    }
-
-    @Test
-    public void byImplementingAnyOf() throws Exception {
-        // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
-                    .byImplementingAnyOf(Serializable.class)
-                .endArgumentPositions();
-
-        // assert / then
-        assertBuildJoinPointSelector(
-                "public void org.failearly.ajunit.builder.TestSubject7.method2(int,java.lang.String)",
-                "public void org.failearly.ajunit.builder.TestSubject7.method3(java.lang.String,java.lang.String,int)"
-        );
-    }
-
-    @Test
-    public void byImplementingAllOf() throws Exception {
-        // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
-                    .byImplementingAllOf(Serializable.class)
-                .endArgumentPositions();
-
-        // assert / then
-        assertBuildJoinPointSelector(
-                "public void org.failearly.ajunit.builder.TestSubject7.method2(int,java.lang.String)",
-                "public void org.failearly.ajunit.builder.TestSubject7.method3(java.lang.String,java.lang.String,int)"
-        );
-    }
-
-
 }
