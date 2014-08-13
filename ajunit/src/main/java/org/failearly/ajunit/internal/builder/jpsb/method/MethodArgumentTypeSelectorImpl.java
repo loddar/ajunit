@@ -130,21 +130,18 @@ final class MethodArgumentTypeSelectorImpl extends JoinPointBuilderBase<MethodAr
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector byPackageName(String packageNamePattern, StringMatcherType matcherType) {
-        return null;
+        return methodArgumentTypeSelectorBuilder.byPackageName(packageNamePattern, matcherType);
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector byTypeAnnotation(Class<? extends Annotation> annotationClass) {
-        return null;
+        return methodArgumentTypeSelectorBuilder.byTypeAnnotation(annotationClass);
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector byEnum() {
-        return null;
+        return methodArgumentTypeSelectorBuilder.byEnum();
     }
 
     @Override

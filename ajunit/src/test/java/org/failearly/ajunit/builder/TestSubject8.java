@@ -28,4 +28,6 @@ public class TestSubject8 {
     public void method1(int p0) {}
     public void method2(int p0, String p1) {}
     public void method3(String p0, String p1, int p3) {}
+    public void method4(AnyEnum p0) {}
+    public void method5(TestSubject1 p0) {}
 }

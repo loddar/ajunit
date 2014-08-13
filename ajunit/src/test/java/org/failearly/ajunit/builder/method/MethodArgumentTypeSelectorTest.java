@@ -20,6 +20,7 @@ package org.failearly.ajunit.builder.method;
 
 import org.failearly.ajunit.builder.*;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.Serializable;
@@ -79,6 +80,8 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
         assertBuildJoinPointSelector(
                 "public void org.failearly.ajunit.builder.TestSubject8.method2(int,java.lang.String)",
                 "public void org.failearly.ajunit.builder.TestSubject8.method3(java.lang.String,java.lang.String,int)",
+                "public void org.failearly.ajunit.builder.TestSubject8.method4(org.failearly.ajunit.builder.AnyEnum)",
+                "public void org.failearly.ajunit.builder.TestSubject8.method5(org.failearly.ajunit.builder.TestSubject1)",
                 "public boolean java.lang.Object.equals(java.lang.Object)"
         );
     }
@@ -108,7 +111,8 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
         // assert / then
         assertBuildJoinPointSelector(
                 "public void org.failearly.ajunit.builder.TestSubject8.method2(int,java.lang.String)",
-                "public void org.failearly.ajunit.builder.TestSubject8.method3(java.lang.String,java.lang.String,int)"
+                "public void org.failearly.ajunit.builder.TestSubject8.method3(java.lang.String,java.lang.String,int)",
+                "public void org.failearly.ajunit.builder.TestSubject8.method4(org.failearly.ajunit.builder.AnyEnum)"
         );
     }
 
@@ -122,7 +126,8 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
         // assert / then
         assertBuildJoinPointSelector(
                 "public void org.failearly.ajunit.builder.TestSubject8.method2(int,java.lang.String)",
-                "public void org.failearly.ajunit.builder.TestSubject8.method3(java.lang.String,java.lang.String,int)"
+                "public void org.failearly.ajunit.builder.TestSubject8.method3(java.lang.String,java.lang.String,int)",
+                "public void org.failearly.ajunit.builder.TestSubject8.method4(org.failearly.ajunit.builder.AnyEnum)"
         );
     }
 
@@ -136,9 +141,80 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
         // assert / then
         assertBuildJoinPointSelector(
                 "public void org.failearly.ajunit.builder.TestSubject8.method1(int)",
+                "public void org.failearly.ajunit.builder.TestSubject8.method5(org.failearly.ajunit.builder.TestSubject1)",
                 "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
                 "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
                 "public boolean java.lang.Object.equals(java.lang.Object)"
+        );
+    }
+
+    @Test
+    public void byPackageName() throws Exception {
+        // act / when
+        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+                    .byPackageName("lang", StringMatcherType.CONTAINS)
+                .endArgumentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject8.method2(int,java.lang.String)",
+                "public void org.failearly.ajunit.builder.TestSubject8.method3(java.lang.String,java.lang.String,int)",
+                "public boolean java.lang.Object.equals(java.lang.Object)"
+        );
+    }
+
+    @Test
+    public void byEnum() throws Exception {
+        // act / when
+        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+                    .byEnum()
+                .endArgumentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject8.method4(org.failearly.ajunit.builder.AnyEnum)"
+        );
+    }
+
+    @Test
+    public void byTypeAnnotation() throws Exception {
+        // act / when
+        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+                    .byTypeAnnotation(AnyAnnotation.class)
+                .endArgumentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject8.method5(org.failearly.ajunit.builder.TestSubject1)"
+        );
+    }
+
+    @Test @Ignore
+    public void byXxx() throws Exception {
+        // act / when
+        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+                    // ???
+                .endArgumentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+//                "public void org.failearly.ajunit.builder.TestSubject8.method0()",
+//                "public void org.failearly.ajunit.builder.TestSubject8.method1(int)",
+//                "public void org.failearly.ajunit.builder.TestSubject8.method2(int,java.lang.String)",
+//                "public void org.failearly.ajunit.builder.TestSubject8.method3(java.lang.String,java.lang.String,int)",
+//                // java.lang.Object
+//                "public boolean java.lang.Object.equals(java.lang.Object)",
+//                "public final void java.lang.Object.wait() throws java.lang.InterruptedException",
+//                "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
+//                "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
+//                "public java.lang.String java.lang.Object.toString()",
+//                "public native int java.lang.Object.hashCode()",
+//                "public final native java.lang.Class java.lang.Object.getClass()",
+//                "public final native void java.lang.Object.notify()",
+//                "public final native void java.lang.Object.notifyAll()",
+//                "protected void java.lang.Object.finalize() throws java.lang.Throwable",
+//                "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException",
+//                "private static native void java.lang.Object.registerNatives()"
         );
     }
 
