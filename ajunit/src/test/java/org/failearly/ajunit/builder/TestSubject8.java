@@ -22,7 +22,6 @@ package org.failearly.ajunit.builder;
  * TestSubject7 is responsible for ...
  */
 @SuppressWarnings("all")
-@AnyOtherAnnotation
 public class TestSubject8 {
     public void method0() {}
     public void method1(int p0) {}
@@ -30,4 +29,7 @@ public class TestSubject8 {
     public void method3(String p0, String p1, int p3) {}
     public void method4(AnyEnum p0) {}
     public void method5(TestSubject1 p0) {}
+    public void method6(AnyAnnotation p0) {}
+    public void method7(AnyInterface p0) {}
+    public void method8(Long p0) {}
 }

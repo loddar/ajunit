@@ -145,21 +145,18 @@ final class MethodArgumentTypeSelectorImpl extends JoinPointBuilderBase<MethodAr
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector byAnnotation() {
-        return null;
+        return methodArgumentTypeSelectorBuilder.byAnnotation();
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector byInterface() {
-        return null;
+        return methodArgumentTypeSelectorBuilder.byInterface();
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector byPrimitiveWrapperType() {
-        return null;
+        return methodArgumentTypeSelectorBuilder.byPrimitiveWrapperType();
     }
 
     @Override

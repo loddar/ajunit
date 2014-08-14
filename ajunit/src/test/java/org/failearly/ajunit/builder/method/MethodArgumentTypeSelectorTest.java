@@ -73,16 +73,12 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
     public void byExtending() throws Exception {
         // act / when
         methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
-                    .byExtending(Object.class)
+                    .byExtending(AbstractBaseClass.class)
                 .endArgumentType();
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public void org.failearly.ajunit.builder.TestSubject8.method2(int,java.lang.String)",
-                "public void org.failearly.ajunit.builder.TestSubject8.method3(java.lang.String,java.lang.String,int)",
-                "public void org.failearly.ajunit.builder.TestSubject8.method4(org.failearly.ajunit.builder.AnyEnum)",
-                "public void org.failearly.ajunit.builder.TestSubject8.method5(org.failearly.ajunit.builder.TestSubject1)",
-                "public boolean java.lang.Object.equals(java.lang.Object)"
+                "public void org.failearly.ajunit.builder.TestSubject8.method5(org.failearly.ajunit.builder.TestSubject1)"
         );
     }
 
@@ -112,7 +108,8 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
         assertBuildJoinPointSelector(
                 "public void org.failearly.ajunit.builder.TestSubject8.method2(int,java.lang.String)",
                 "public void org.failearly.ajunit.builder.TestSubject8.method3(java.lang.String,java.lang.String,int)",
-                "public void org.failearly.ajunit.builder.TestSubject8.method4(org.failearly.ajunit.builder.AnyEnum)"
+                "public void org.failearly.ajunit.builder.TestSubject8.method4(org.failearly.ajunit.builder.AnyEnum)",
+                "public void org.failearly.ajunit.builder.TestSubject8.method8(java.lang.Long)"
         );
     }
 
@@ -127,7 +124,8 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
         assertBuildJoinPointSelector(
                 "public void org.failearly.ajunit.builder.TestSubject8.method2(int,java.lang.String)",
                 "public void org.failearly.ajunit.builder.TestSubject8.method3(java.lang.String,java.lang.String,int)",
-                "public void org.failearly.ajunit.builder.TestSubject8.method4(org.failearly.ajunit.builder.AnyEnum)"
+                "public void org.failearly.ajunit.builder.TestSubject8.method4(org.failearly.ajunit.builder.AnyEnum)",
+                "public void org.failearly.ajunit.builder.TestSubject8.method8(java.lang.Long)"
         );
     }
 
@@ -142,6 +140,8 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
         assertBuildJoinPointSelector(
                 "public void org.failearly.ajunit.builder.TestSubject8.method1(int)",
                 "public void org.failearly.ajunit.builder.TestSubject8.method5(org.failearly.ajunit.builder.TestSubject1)",
+                "public void org.failearly.ajunit.builder.TestSubject8.method6(org.failearly.ajunit.builder.AnyAnnotation)",
+                "public void org.failearly.ajunit.builder.TestSubject8.method7(org.failearly.ajunit.builder.AnyInterface)",
                 "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
                 "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
                 "public boolean java.lang.Object.equals(java.lang.Object)"
@@ -159,6 +159,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
         assertBuildJoinPointSelector(
                 "public void org.failearly.ajunit.builder.TestSubject8.method2(int,java.lang.String)",
                 "public void org.failearly.ajunit.builder.TestSubject8.method3(java.lang.String,java.lang.String,int)",
+                "public void org.failearly.ajunit.builder.TestSubject8.method8(java.lang.Long)",
                 "public boolean java.lang.Object.equals(java.lang.Object)"
         );
     }
@@ -185,7 +186,48 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public void org.failearly.ajunit.builder.TestSubject8.method5(org.failearly.ajunit.builder.TestSubject1)"
+                "public void org.failearly.ajunit.builder.TestSubject8.method5(org.failearly.ajunit.builder.TestSubject1)",
+                "public void org.failearly.ajunit.builder.TestSubject8.method7(org.failearly.ajunit.builder.AnyInterface)"
+        );
+    }
+
+    @Test
+    public void byAnnotation() throws Exception {
+        // act / when
+        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+                    .byAnnotation()
+                .endArgumentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject8.method6(org.failearly.ajunit.builder.AnyAnnotation)"
+        );
+    }
+
+    @Test
+    public void byInterface() throws Exception {
+        // act / when
+        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+                    .byInterface()
+                .endArgumentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject8.method6(org.failearly.ajunit.builder.AnyAnnotation)",
+                "public void org.failearly.ajunit.builder.TestSubject8.method7(org.failearly.ajunit.builder.AnyInterface)"
+        );
+    }
+
+    @Test
+    public void byPrimitiveWrapperType() throws Exception {
+        // act / when
+        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+                    .byPrimitiveWrapperType()
+                .endArgumentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject8.method8(java.lang.Long)"
         );
     }
 
