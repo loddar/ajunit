@@ -37,4 +37,5 @@ public class TestSubject8 {
     public void method8(Long p0) {}
     public void method9(HashMap p0) {}
     public void method10(Set p0) {}
+    public void method11(int[][] p0) {}
 }

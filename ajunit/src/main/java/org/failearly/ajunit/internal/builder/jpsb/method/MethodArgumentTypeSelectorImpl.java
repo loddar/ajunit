@@ -170,15 +170,13 @@ final class MethodArgumentTypeSelectorImpl extends JoinPointBuilderBase<MethodAr
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector byArray() {
-        return null;
+        return methodArgumentTypeSelectorBuilder.byArray();
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector byArrayDimension(int dimension, DimensionComparator dimensionComparator) {
-        return null;
+        return methodArgumentTypeSelectorBuilder.byArrayDimension(dimension, dimensionComparator);
     }
 
     @Override

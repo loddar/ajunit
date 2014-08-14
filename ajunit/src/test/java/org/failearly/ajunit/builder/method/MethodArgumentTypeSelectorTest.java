@@ -110,7 +110,8 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
                 "public void org.failearly.ajunit.builder.TestSubject8.method3(java.lang.String,java.lang.String,int)",
                 "public void org.failearly.ajunit.builder.TestSubject8.method4(org.failearly.ajunit.builder.AnyEnum)",
                 "public void org.failearly.ajunit.builder.TestSubject8.method8(java.lang.Long)",
-                "public void org.failearly.ajunit.builder.TestSubject8.method9(java.util.HashMap)"
+                "public void org.failearly.ajunit.builder.TestSubject8.method9(java.util.HashMap)",
+                "public void org.failearly.ajunit.builder.TestSubject8.method11(int[][])"
         );
     }
 
@@ -127,7 +128,8 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
                 "public void org.failearly.ajunit.builder.TestSubject8.method3(java.lang.String,java.lang.String,int)",
                 "public void org.failearly.ajunit.builder.TestSubject8.method4(org.failearly.ajunit.builder.AnyEnum)",
                 "public void org.failearly.ajunit.builder.TestSubject8.method8(java.lang.Long)",
-                "public void org.failearly.ajunit.builder.TestSubject8.method9(java.util.HashMap)"
+                "public void org.failearly.ajunit.builder.TestSubject8.method9(java.util.HashMap)",
+                "public void org.failearly.ajunit.builder.TestSubject8.method11(int[][])"
         );
     }
 
@@ -258,6 +260,32 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
         // assert / then
         assertBuildJoinPointSelector(
                 "public void org.failearly.ajunit.builder.TestSubject8.method9(java.util.HashMap)"
+        );
+    }
+
+    @Test
+    public void byArray() throws Exception {
+        // act / when
+        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+                    .byArray()
+                .endArgumentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject8.method11(int[][])"
+        );
+    }
+
+    @Test
+    public void byArrayDimension() throws Exception {
+        // act / when
+        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+                    .byArrayDimension(1, DimensionComparator.GREATER_THEN)
+                .endArgumentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject8.method11(int[][])"
         );
     }
 
