@@ -109,7 +109,8 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
                 "public void org.failearly.ajunit.builder.TestSubject8.method2(int,java.lang.String)",
                 "public void org.failearly.ajunit.builder.TestSubject8.method3(java.lang.String,java.lang.String,int)",
                 "public void org.failearly.ajunit.builder.TestSubject8.method4(org.failearly.ajunit.builder.AnyEnum)",
-                "public void org.failearly.ajunit.builder.TestSubject8.method8(java.lang.Long)"
+                "public void org.failearly.ajunit.builder.TestSubject8.method8(java.lang.Long)",
+                "public void org.failearly.ajunit.builder.TestSubject8.method9(java.util.HashMap)"
         );
     }
 
@@ -125,7 +126,8 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
                 "public void org.failearly.ajunit.builder.TestSubject8.method2(int,java.lang.String)",
                 "public void org.failearly.ajunit.builder.TestSubject8.method3(java.lang.String,java.lang.String,int)",
                 "public void org.failearly.ajunit.builder.TestSubject8.method4(org.failearly.ajunit.builder.AnyEnum)",
-                "public void org.failearly.ajunit.builder.TestSubject8.method8(java.lang.Long)"
+                "public void org.failearly.ajunit.builder.TestSubject8.method8(java.lang.Long)",
+                "public void org.failearly.ajunit.builder.TestSubject8.method9(java.util.HashMap)"
         );
     }
 
@@ -142,6 +144,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
                 "public void org.failearly.ajunit.builder.TestSubject8.method5(org.failearly.ajunit.builder.TestSubject1)",
                 "public void org.failearly.ajunit.builder.TestSubject8.method6(org.failearly.ajunit.builder.AnyAnnotation)",
                 "public void org.failearly.ajunit.builder.TestSubject8.method7(org.failearly.ajunit.builder.AnyInterface)",
+                "public void org.failearly.ajunit.builder.TestSubject8.method10(java.util.Set)",
                 "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
                 "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
                 "public boolean java.lang.Object.equals(java.lang.Object)"
@@ -214,7 +217,8 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
         // assert / then
         assertBuildJoinPointSelector(
                 "public void org.failearly.ajunit.builder.TestSubject8.method6(org.failearly.ajunit.builder.AnyAnnotation)",
-                "public void org.failearly.ajunit.builder.TestSubject8.method7(org.failearly.ajunit.builder.AnyInterface)"
+                "public void org.failearly.ajunit.builder.TestSubject8.method7(org.failearly.ajunit.builder.AnyInterface)",
+                "public void org.failearly.ajunit.builder.TestSubject8.method10(java.util.Set)"
         );
     }
 
@@ -228,6 +232,32 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
         // assert / then
         assertBuildJoinPointSelector(
                 "public void org.failearly.ajunit.builder.TestSubject8.method8(java.lang.Long)"
+        );
+    }
+
+    @Test
+    public void byCollection() throws Exception {
+        // act / when
+        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+                    .byCollection()
+                .endArgumentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject8.method10(java.util.Set)"
+        );
+    }
+
+    @Test
+    public void byMap() throws Exception {
+        // act / when
+        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+                    .byMap()
+                .endArgumentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject8.method9(java.util.HashMap)"
         );
     }
 

@@ -160,14 +160,30 @@ final class MethodArgumentTypeSelectorImpl extends JoinPointBuilderBase<MethodAr
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector byCollection() {
+        return methodArgumentTypeSelectorBuilder.byCollection();
+    }
+
+    @Override
+    public MethodArgumentTypeSelector byMap() {
+        return methodArgumentTypeSelectorBuilder.byMap();
+    }
+
+    @Override
+    @NotYetImplemented
+    public MethodArgumentTypeSelector byArray() {
         return null;
     }
 
     @Override
     @NotYetImplemented
-    public MethodArgumentTypeSelector byMap() {
+    public MethodArgumentTypeSelector byArrayDimension(int dimension, DimensionComparator dimensionComparator) {
+        return null;
+    }
+
+    @Override
+    @NotYetImplemented
+    public MethodArgumentComponentTypeSelector byComponentType() {
         return null;
     }
 
@@ -237,21 +253,4 @@ final class MethodArgumentTypeSelectorImpl extends JoinPointBuilderBase<MethodAr
         return null;
     }
 
-    @Override
-    @NotYetImplemented
-    public MethodArgumentTypeSelector byArray() {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentTypeSelector byArrayDimension(int dimension, DimensionComparator dimensionComparator) {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector byComponentType() {
-        return null;
-    }
 }

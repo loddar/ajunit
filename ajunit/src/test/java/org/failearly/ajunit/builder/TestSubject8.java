@@ -18,6 +18,9 @@
  */
 package org.failearly.ajunit.builder;
 
+import java.util.HashMap;
+import java.util.Set;
+
 /**
  * TestSubject7 is responsible for ...
  */
@@ -32,4 +35,6 @@ public class TestSubject8 {
     public void method6(AnyAnnotation p0) {}
     public void method7(AnyInterface p0) {}
     public void method8(Long p0) {}
+    public void method9(HashMap p0) {}
+    public void method10(Set p0) {}
 }
