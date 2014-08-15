@@ -26,6 +26,7 @@ import org.failearly.ajunit.builder.method.MethodArgumentComponentTypeSelector;
 import org.failearly.ajunit.builder.method.MethodArgumentTypeSelector;
 import org.failearly.ajunit.builder.method.MethodArgumentsSelector;
 import org.failearly.ajunit.internal.annotation.NotYetImplemented;
+import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointBuilderBase;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
@@ -81,6 +82,16 @@ final class MethodArgumentTypeSelectorImpl extends JoinPointBuilderBase<MethodAr
         this();
         super.init(LogicalStructureBuilder.createBuilder(
                 root, parent, this, JoinPointSelectorUtils.createListLogicalOperator(listLogicalOperator, compositePredicate))
+            );
+    }
+
+    private MethodArgumentTypeSelectorImpl(
+            JoinPointSelectorImpl root,
+            MethodArgumentTypeSelectorImpl parent,
+            CompositePredicate compositePredicate) {
+        this();
+        super.init(LogicalStructureBuilder.createBuilder(
+                root, parent, this, compositePredicate)
             );
     }
 
@@ -186,69 +197,67 @@ final class MethodArgumentTypeSelectorImpl extends JoinPointBuilderBase<MethodAr
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector or() {
-        return null;
+        return super.or(getMethodArgumentTypeSelectorBuilderFactory());
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector union() {
-        return null;
+        return this.or();
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector anyOf() {
-        return null;
+        return this.or();
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector and() {
-        return null;
+        return super.and(getMethodArgumentTypeSelectorBuilderFactory());
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector intersect() {
-        return null;
+        return this.and();
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector allOf() {
-        return null;
+        return this.and();
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector nor() {
-        return null;
+        return super.nor(getMethodArgumentTypeSelectorBuilderFactory());
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector noneOf() {
-        return null;
+        return this.nor();
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector neitherNor() {
-        return null;
+        return this.nor();
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector complement() {
-        return null;
+        return this.nor();
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentTypeSelector end() {
-        return null;
+        return super.doEndLogicalExpression(MethodArgumentTypeSelector.class, false);
+    }
+
+    private BuilderFactory<JoinPointSelectorImpl,MethodArgumentTypeSelectorImpl,MethodArgumentTypeSelectorImpl> getMethodArgumentTypeSelectorBuilderFactory() {
+        return new BuilderFactory<JoinPointSelectorImpl, MethodArgumentTypeSelectorImpl, MethodArgumentTypeSelectorImpl>() {
+            @Override
+            public MethodArgumentTypeSelectorImpl createBuilder(JoinPointSelectorImpl root, MethodArgumentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
+                return new MethodArgumentTypeSelectorImpl(root, parent, compositePredicate);
+            }
+        };
     }
 
 }

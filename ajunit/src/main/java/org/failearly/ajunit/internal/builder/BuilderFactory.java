@@ -22,8 +22,9 @@ import org.failearly.ajunit.internal.predicate.CompositePredicate;
 
 /**
  * Creates a builder of type T.
+ * @param <R> The root builder
  * @param <P> next parent (current Builder Node).
- * @param <T> next Builder (which becomes the the builder on top).
+ * @param <T> next Builder (which the new Top builder).
  *
  * @see org.failearly.ajunit.internal.builder.LogicalStructureBuilder#and(BuilderFactory)
  * @see org.failearly.ajunit.internal.builder.LogicalStructureBuilder#or(BuilderFactory)
