@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * Tests for {@link ReturnComponentTypeSelector}.
  *
- * @see ReturnTypeSelector#byComponentType()
+ * @see ReturnTypeSelector#componentType()
  */
 @RunWith(Parameterized.class)
 public abstract class ReturnComponentTypeSelectorLogicalOperatorTest extends AbstractJoinPointSelectorTest<ReturnComponentTypeSelector> {

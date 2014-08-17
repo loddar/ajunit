@@ -34,7 +34,7 @@ import java.lang.annotation.Annotation;
 /**
  * The implementation of ReturnComponentTypeSelector.
  *
- * @see ReturnTypeSelector#byComponentType()
+ * @see ReturnTypeSelector#componentType()
  */
 final class ReturnComponentTypeSelectorImpl
         extends JoinPointBuilderBase<ReturnComponentTypeSelectorImpl>

@@ -43,7 +43,7 @@ public interface ReturnTypeSelector
     ReturnTypeSelector byVoid();
 
     /**
-     * Terminates the {@link MethodJoinPointSelector#byReturnType(org.failearly.ajunit.builder.LogicalOperator)}
+     * Terminates the {@link MethodJoinPointSelector#returnType(org.failearly.ajunit.builder.LogicalOperator)}
      * expression.
      * @return the method join point selector.
      */

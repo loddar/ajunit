@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * Tests for the logical operators on {@link MethodExceptionTypeSelector} and their aliases.
  *
- * @see MethodJoinPointSelector#byReturnType(org.failearly.ajunit.builder.LogicalOperator)
+ * @see MethodJoinPointSelector#returnType(org.failearly.ajunit.builder.LogicalOperator)
  * @see MethodExceptionTypeSelector#or()
  * @see MethodExceptionTypeSelector#and()
  * @see MethodExceptionTypeSelector#nor()
@@ -214,7 +214,7 @@ public abstract class MethodExceptionTypeSelectorLogicalOperatorTest extends Abs
 
     private void assertLogicalExpression(SelectorFragment<MethodExceptionTypeSelector> subSelect, List<String> expectedJoinPoints) {
         subSelect.select(
-                selectorBuilder.byExceptionTypes(ListLogicalOperator.ANY_OF)
+                selectorBuilder.exceptionTypes(ListLogicalOperator.ANY_OF)
         ).endExceptionTypes();
 
         assertBuildJoinPointSelector(expectedJoinPoints);

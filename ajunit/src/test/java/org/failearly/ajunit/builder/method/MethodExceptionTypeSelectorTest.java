@@ -28,7 +28,7 @@ import static org.junit.Assert.assertThat;
 /**
  * Tests for {@link MethodExceptionTypeSelector}.
  *
- * @see MethodJoinPointSelector#byExceptionTypes(org.failearly.ajunit.builder.ListLogicalOperator)
+ * @see MethodJoinPointSelector#exceptionTypes(org.failearly.ajunit.builder.ListLogicalOperator)
  */
 public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
@@ -39,7 +39,7 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void endExceptionTypes() throws Exception {
         // act / when
-        final MethodJoinPointSelector instance = selectorBuilder.byExceptionTypes(ListLogicalOperator.ANY_OF).endExceptionTypes();
+        final MethodJoinPointSelector instance = selectorBuilder.exceptionTypes(ListLogicalOperator.ANY_OF).endExceptionTypes();
 
         // assert / then
         assertThat("endExceptionTypes() returns correct selector builder?", instance, sameInstance(selectorBuilder));
@@ -48,7 +48,7 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byError() throws Exception {
         // act / when
-        selectorBuilder.byExceptionTypes(ListLogicalOperator.ANY_OF).byError().endExceptionTypes();
+        selectorBuilder.exceptionTypes(ListLogicalOperator.ANY_OF).byError().endExceptionTypes();
 
 
         // assert / then
@@ -60,7 +60,7 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byRuntimeException() throws Exception {
         // act / when
-        selectorBuilder.byExceptionTypes(ListLogicalOperator.ANY_OF).byRuntimeException().endExceptionTypes();
+        selectorBuilder.exceptionTypes(ListLogicalOperator.ANY_OF).byRuntimeException().endExceptionTypes();
 
 
         // assert / then
@@ -73,7 +73,7 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byCheckedException() throws Exception {
         // act / when
-        selectorBuilder.byExceptionTypes(ListLogicalOperator.ANY_OF).byCheckedException().endExceptionTypes();
+        selectorBuilder.exceptionTypes(ListLogicalOperator.ANY_OF).byCheckedException().endExceptionTypes();
 
 
         // assert / then
@@ -90,7 +90,7 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byClass() throws Exception {
         // act / when
-        selectorBuilder.byExceptionTypes(ListLogicalOperator.ANY_OF).byClass(Exception.class).endExceptionTypes();
+        selectorBuilder.exceptionTypes(ListLogicalOperator.ANY_OF).byClass(Exception.class).endExceptionTypes();
 
 
         // assert / then
@@ -102,7 +102,7 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byImplementingAnyOf() throws Exception {
         // act / when
-        selectorBuilder.byExceptionTypes(ListLogicalOperator.ANY_OF).byImplementingAnyOf(AnyException.class, RuntimeException.class).endExceptionTypes();
+        selectorBuilder.exceptionTypes(ListLogicalOperator.ANY_OF).byImplementingAnyOf(AnyException.class, RuntimeException.class).endExceptionTypes();
 
 
         // assert / then
@@ -116,7 +116,7 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byImplementingAllOf() throws Exception {
         // act / when
-        selectorBuilder.byExceptionTypes(ListLogicalOperator.ANY_OF).byImplementingAllOf(AnyException.class, RuntimeException.class).endExceptionTypes();
+        selectorBuilder.exceptionTypes(ListLogicalOperator.ANY_OF).byImplementingAllOf(AnyException.class, RuntimeException.class).endExceptionTypes();
 
 
         // assert / then
@@ -129,7 +129,7 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byImplementingNoneOf() throws Exception {
         // act / when
-        selectorBuilder.byExceptionTypes(ListLogicalOperator.ANY_OF).byImplementingNoneOf(Exception.class, RuntimeException.class).endExceptionTypes();
+        selectorBuilder.exceptionTypes(ListLogicalOperator.ANY_OF).byImplementingNoneOf(Exception.class, RuntimeException.class).endExceptionTypes();
 
 
         // assert / then
@@ -143,7 +143,7 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byExtending() throws Exception {
         // act / when
-        selectorBuilder.byExceptionTypes(ListLogicalOperator.ANY_OF).byExtending(Error.class).endExceptionTypes();
+        selectorBuilder.exceptionTypes(ListLogicalOperator.ANY_OF).byExtending(Error.class).endExceptionTypes();
 
 
         // assert / then
@@ -155,7 +155,7 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byNotExtending() throws Exception {
         // act / when
-        selectorBuilder.byExceptionTypes(ListLogicalOperator.ANY_OF).byNotExtending(Exception.class).endExceptionTypes();
+        selectorBuilder.exceptionTypes(ListLogicalOperator.ANY_OF).byNotExtending(Exception.class).endExceptionTypes();
 
 
         // assert / then
@@ -169,7 +169,7 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byClassName() throws Exception {
         // act / when
-        selectorBuilder.byExceptionTypes(ListLogicalOperator.ANY_OF).byClassName("Any", StringMatcherType.STARTS_WITH).endExceptionTypes();
+        selectorBuilder.exceptionTypes(ListLogicalOperator.ANY_OF).byClassName("Any", StringMatcherType.STARTS_WITH).endExceptionTypes();
 
 
         // assert / then
@@ -182,7 +182,7 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byPackageName() throws Exception {
         // act / when
-        selectorBuilder.byExceptionTypes(ListLogicalOperator.ANY_OF).byPackageName("builder", StringMatcherType.ENDS_WITH).endExceptionTypes();
+        selectorBuilder.exceptionTypes(ListLogicalOperator.ANY_OF).byPackageName("builder", StringMatcherType.ENDS_WITH).endExceptionTypes();
 
 
         // assert / then
@@ -195,7 +195,7 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byTypeAnnotation() throws Exception {
         // act / when
-        selectorBuilder.byExceptionTypes(ListLogicalOperator.ANY_OF)
+        selectorBuilder.exceptionTypes(ListLogicalOperator.ANY_OF)
                             .byTypeAnnotation(AnyAnnotation.class)
                         .endExceptionTypes();
 
@@ -210,7 +210,7 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void logicalOperatorAnyOf() throws Exception {
         // act / when
-        selectorBuilder.byExceptionTypes(ListLogicalOperator.ANY_OF).byError().byRuntimeException().endExceptionTypes();
+        selectorBuilder.exceptionTypes(ListLogicalOperator.ANY_OF).byError().byRuntimeException().endExceptionTypes();
 
 
         // assert / then
@@ -225,7 +225,7 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void logicalOperatorAllOf() throws Exception {
         // act / when
-        selectorBuilder.byExceptionTypes(ListLogicalOperator.ALL_OF).byError().byRuntimeException().endExceptionTypes();
+        selectorBuilder.exceptionTypes(ListLogicalOperator.ALL_OF).byError().byRuntimeException().endExceptionTypes();
 
 
         // assert / then
@@ -239,7 +239,7 @@ public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void logicalOperatorNoneOf() throws Exception {
         // act / when
-        selectorBuilder.byExceptionTypes(ListLogicalOperator.NONE_OF).byError().byRuntimeException().endExceptionTypes();
+        selectorBuilder.exceptionTypes(ListLogicalOperator.NONE_OF).byError().byRuntimeException().endExceptionTypes();
 
 
         // assert / then

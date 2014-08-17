@@ -24,7 +24,7 @@ import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
- * Tests for {@link org.failearly.ajunit.builder.method.MethodJoinPointSelector#byArguments(org.failearly.ajunit.builder.LogicalOperator)}.
+ * Tests for {@link org.failearly.ajunit.builder.method.MethodJoinPointSelector#arguments(org.failearly.ajunit.builder.LogicalOperator)}.
  */
 public final class ExecutionMethodArgumentTypeSelectorTest extends MethodArgumentTypeSelectorTest {
 

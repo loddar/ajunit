@@ -119,7 +119,7 @@ final class ReturnTypeSelectorImpl
     }
 
     @Override
-    public ReturnComponentTypeSelector byComponentType() {
+    public ReturnComponentTypeSelector componentType() {
         return super.and(
                 getReturnComponentTypeSelectorBuilderFactory(this.returnTypeSelector)
         );

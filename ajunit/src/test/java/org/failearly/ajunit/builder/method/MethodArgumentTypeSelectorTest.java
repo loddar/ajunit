@@ -37,13 +37,13 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
 
     @Override
     protected void doAdditionalSetup(MethodJoinPointSelector selectorBuilder) {
-        methodArgumentsSelector = selectorBuilder.byArguments(LogicalOperator.OR);
+        methodArgumentsSelector = selectorBuilder.arguments(LogicalOperator.OR);
     }
 
     @Test
     public void byClass() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ANY_OF)
                     .byClass(String.class)
                 .endArgumentType();
 
@@ -57,7 +57,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
     @Test
     public void byClassName() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ANY_OF)
                     .byClassName("Str", StringMatcherType.STARTS_WITH)
                 .endArgumentType();
 
@@ -71,7 +71,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
     @Test
     public void byExtending() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ANY_OF)
                     .byExtending(AbstractBaseClass.class)
                 .endArgumentType();
 
@@ -84,7 +84,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
     @Test
     public void byNotExtending() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ALL_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ALL_OF)
                     .byNotExtending(Object.class)
                 .endArgumentType();
 
@@ -99,7 +99,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
     @Test
     public void byImplementingAnyOf() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ANY_OF)
                     .byImplementingAnyOf(Serializable.class)
                 .endArgumentType();
 
@@ -117,7 +117,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
     @Test
     public void byImplementingAllOf() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ANY_OF)
                     .byImplementingAllOf(Serializable.class)
                 .endArgumentType();
 
@@ -135,7 +135,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
     @Test
     public void byImplementingNoneOf() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ALL_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ALL_OF)
                     .byImplementingNoneOf(Serializable.class)
                 .endArgumentType();
 
@@ -155,7 +155,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
     @Test
     public void byPackageName() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ANY_OF)
                     .byPackageName("lang", StringMatcherType.CONTAINS)
                 .endArgumentType();
 
@@ -171,7 +171,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
     @Test
     public void byEnum() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ANY_OF)
                     .byEnum()
                 .endArgumentType();
 
@@ -184,7 +184,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
     @Test
     public void byTypeAnnotation() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ANY_OF)
                     .byTypeAnnotation(AnyAnnotation.class)
                 .endArgumentType();
 
@@ -198,7 +198,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
     @Test
     public void byAnnotation() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ANY_OF)
                     .byAnnotation()
                 .endArgumentType();
 
@@ -211,7 +211,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
     @Test
     public void byInterface() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ANY_OF)
                     .byInterface()
                 .endArgumentType();
 
@@ -226,7 +226,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
     @Test
     public void byPrimitiveWrapperType() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ANY_OF)
                     .byPrimitiveWrapperType()
                 .endArgumentType();
 
@@ -239,7 +239,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
     @Test
     public void byCollection() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ANY_OF)
                     .byCollection()
                 .endArgumentType();
 
@@ -252,7 +252,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
     @Test
     public void byMap() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ANY_OF)
                     .byMap()
                 .endArgumentType();
 
@@ -265,7 +265,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
     @Test
     public void byArray() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ANY_OF)
                     .byArray()
                 .endArgumentType();
 
@@ -278,7 +278,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
     @Test
     public void byArrayDimension() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ANY_OF)
                     .byArrayDimension(1, DimensionComparator.GREATER_THEN)
                 .endArgumentType();
 
@@ -291,7 +291,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
     @Test
     public void and() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ANY_OF)
                         .and()
                             .byImplementingAnyOf(Serializable.class)
                             .byPackageName("java", StringMatcherType.STARTS_WITH)
@@ -310,7 +310,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
     @Test
     public void or() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ANY_OF)
                         .or()
                             .byImplementingAnyOf(Serializable.class)
                             .byPackageName("java", StringMatcherType.STARTS_WITH)
@@ -333,7 +333,7 @@ public abstract class MethodArgumentTypeSelectorTest extends AbstractJoinPointSe
     @Test
     public void nor() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ALL_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ALL_OF)
                         .nor()
                             .byImplementingAnyOf(Serializable.class)
                             .byPackageName("java",StringMatcherType.STARTS_WITH)

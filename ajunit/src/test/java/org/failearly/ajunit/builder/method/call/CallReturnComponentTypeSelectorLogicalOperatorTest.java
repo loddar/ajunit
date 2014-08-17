@@ -36,6 +36,6 @@ public final class CallReturnComponentTypeSelectorLogicalOperatorTest extends Re
 
     @Override
     protected ReturnComponentTypeSelector createSelectorBuilderUnderTest(JoinPointSelector joinPointSelector) {
-        return joinPointSelector.methodCall().byReturnType(LogicalOperator.AND).byComponentType();
+        return joinPointSelector.methodCall().returnType(LogicalOperator.AND).componentType();
     }
 }

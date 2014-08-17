@@ -185,7 +185,7 @@ public final class MethodJoinPointSelectorImpl
     }
 
     @Override
-    public ReturnTypeSelector byReturnType(LogicalOperator logicalOperator) {
+    public ReturnTypeSelector returnType(LogicalOperator logicalOperator) {
         return createNewBuilderNode(
                 JoinPointSelectorUtils.createLogicalOperatorPredicate(logicalOperator),
                 getReturnTypeSelectorBuilderFactory()
@@ -193,34 +193,34 @@ public final class MethodJoinPointSelectorImpl
     }
 
     @Override
-    public MethodExceptionTypeSelector byExceptionTypes(ListLogicalOperator listLogicalOperator) {
+    public MethodExceptionTypeSelector exceptionTypes(ListLogicalOperator listLogicalOperator) {
         return super.or(getMethodExceptionTypeSelectorBuilderFactory(listLogicalOperator));
     }
 
     @Override
     public MethodJoinPointSelector byReturningVoid() {
-        return byReturnType(LogicalOperator.AND)
+        return returnType(LogicalOperator.AND)
                 .byVoid()
                 .endReturnType();
     }
 
     @Override
     public MethodJoinPointSelector byReturning(Class<?> returnType) {
-        return byReturnType(LogicalOperator.AND)
+        return returnType(LogicalOperator.AND)
                 .byClass(returnType)
                 .endReturnType();
     }
 
     @Override
     public MethodJoinPointSelector byReturningPrimitive() {
-        return byReturnType(LogicalOperator.AND)
+        return returnType(LogicalOperator.AND)
                 .byPrimitive()
                 .endReturnType();
     }
 
     @Override
     public MethodJoinPointSelector byReturningEnum() {
-        return byReturnType(LogicalOperator.AND)
+        return returnType(LogicalOperator.AND)
                 .byEnum()
                 .endReturnType();
     }
@@ -228,20 +228,20 @@ public final class MethodJoinPointSelectorImpl
 
     @Override
     public MethodJoinPointSelector byReturningArray() {
-        return byReturnType(LogicalOperator.AND)
+        return returnType(LogicalOperator.AND)
                 .byArray()
                 .endReturnType();
     }
 
     @Override
     public MethodJoinPointSelector byReturningCollection() {
-        return byReturnType(LogicalOperator.AND)
+        return returnType(LogicalOperator.AND)
                 .byCollection()
                 .endReturnType();
     }
 
     @Override
-    public MethodArgumentsSelector byArguments(LogicalOperator logicalOperator) {
+    public MethodArgumentsSelector arguments(LogicalOperator logicalOperator) {
         return super.createNewBuilderNode(
                 JoinPointSelectorUtils.createLogicalOperatorPredicate(logicalOperator),
                 getMethodArgumentsSelectorBuilderFactory()

@@ -124,7 +124,7 @@ public interface MethodJoinPointSelector
      *
      * @see java.lang.reflect.Method#getReturnType()
      */
-    ReturnTypeSelector byReturnType(LogicalOperator logicalOperator);
+    ReturnTypeSelector returnType(LogicalOperator logicalOperator);
 
     /**
      * Convenient selector builder for methods with return type <code>void</code>.
@@ -191,7 +191,7 @@ public interface MethodJoinPointSelector
      *
      * @return a method exception type selector.
      */
-    MethodExceptionTypeSelector byExceptionTypes(ListLogicalOperator listLogicalOperator);
+    MethodExceptionTypeSelector exceptionTypes(ListLogicalOperator listLogicalOperator);
 
     /**
      * Select methods based by their argument or parameter signature.<br/>
@@ -208,7 +208,7 @@ public interface MethodJoinPointSelector
      * @param logicalOperator  logical the logical operator.
      * @return a new method arguments selector.
      */
-    MethodArgumentsSelector byArguments(LogicalOperator logicalOperator);
+    MethodArgumentsSelector arguments(LogicalOperator logicalOperator);
 
 
 

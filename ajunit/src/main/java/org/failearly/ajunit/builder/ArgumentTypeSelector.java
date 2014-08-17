@@ -21,8 +21,8 @@ package org.failearly.ajunit.builder;
 /**
  * ArgumentTypeSelector is responsible for selecting argument(s) of methods or constructors by argument type and position(s).
  *
- * @see org.failearly.ajunit.builder.ArgumentsSelector#byArgumentTypes(Position, int...)
- * @see org.failearly.ajunit.builder.ArgumentsSelector#byArgumentTypes(ListLogicalOperator)
+ * @see org.failearly.ajunit.builder.ArgumentsSelector#argumentTypes(Position, int...)
+ * @see org.failearly.ajunit.builder.ArgumentsSelector#argumentTypes(ListLogicalOperator)
  */
 public interface ArgumentTypeSelector<ATB extends ArgumentTypeSelector, CTB extends ComponentTypeSelector, RB extends ArgumentsSelector>
         extends ExtendedClassSelector<ATB>,

@@ -23,7 +23,7 @@ package org.failearly.ajunit.builder;
  * This will be possible for:</br></br>
  *
  * <ul>
- *     <li>{@link ArrayTypeSelector#byComponentType()}</li>
+ *     <li>{@link ArrayTypeSelector#componentType()}</li>
  *     <li>TODO: specify byComponentType</li>
  * </ul>
  *

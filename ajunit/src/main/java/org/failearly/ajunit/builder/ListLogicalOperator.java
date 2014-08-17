@@ -21,7 +21,7 @@ package org.failearly.ajunit.builder;
 /**
  * Available logical operators for lists like method or constructor exception list.
  *
- * @see org.failearly.ajunit.builder.method.MethodJoinPointSelector#byExceptionTypes(ListLogicalOperator)
+ * @see org.failearly.ajunit.builder.method.MethodJoinPointSelector#exceptionTypes(ListLogicalOperator)
  */
 public enum ListLogicalOperator {
     /**

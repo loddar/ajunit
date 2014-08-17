@@ -38,7 +38,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
 
     @Override
     protected void doAdditionalSetup(MethodJoinPointSelector selectorBuilder) {
-        methodArgumentsSelector = selectorBuilder.byArguments(LogicalOperator.OR);
+        methodArgumentsSelector = selectorBuilder.arguments(LogicalOperator.OR);
     }
 
     @Test
@@ -162,7 +162,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void endArgumentPosition() throws Exception {
         // act / when
-        final MethodArgumentsSelector instance = methodArgumentsSelector.byArgumentTypes(Position.FIRST, 0, 1).endArgumentType();
+        final MethodArgumentsSelector instance = methodArgumentsSelector.argumentTypes(Position.FIRST, 0, 1).endArgumentType();
 
         // assert / then
         assertThat("endArgumentsSelector() returns correct selector builder?", instance, sameInstance(methodArgumentsSelector));
@@ -171,7 +171,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byArgumentPositionByClass() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(Position.FIRST, 0)
+        methodArgumentsSelector.argumentTypes(Position.FIRST, 0)
                     .byClass(int.class)
                 .endArgumentType();
 
@@ -185,7 +185,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byArgumentPositionsByClass() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(Position.FIRST, 0, 1)
+        methodArgumentsSelector.argumentTypes(Position.FIRST, 0, 1)
                     .byClass(String.class)
                 .endArgumentType();
 
@@ -198,7 +198,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byArgumentPositionsByPrimitive() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(Position.FIRST, 0)
+        methodArgumentsSelector.argumentTypes(Position.FIRST, 0)
                     .byPrimitive()
                 .endArgumentType();
 
@@ -214,7 +214,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byArgumentPositionsLast() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(Position.LAST, 0)
+        methodArgumentsSelector.argumentTypes(Position.LAST, 0)
                     .byClass(int.class)
                 .endArgumentType();
 
@@ -229,7 +229,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byAnyOfArgumentTypes() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ANY_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ANY_OF)
                     .byClass(int.class)
                     .byClass(String.class)
                 .endArgumentType();
@@ -246,7 +246,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byAllOfArgumentTypes() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.ALL_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.ALL_OF)
                     .byClass(int.class)
                     .byClass(String.class)
                 .endArgumentType();
@@ -263,7 +263,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byNoneOfArgumentTypes() throws Exception {
         // act / when
-        methodArgumentsSelector.byArgumentTypes(ListLogicalOperator.NONE_OF)
+        methodArgumentsSelector.argumentTypes(ListLogicalOperator.NONE_OF)
                     .byClass(int.class)
                     .byClass(String.class)
                 .endArgumentType();

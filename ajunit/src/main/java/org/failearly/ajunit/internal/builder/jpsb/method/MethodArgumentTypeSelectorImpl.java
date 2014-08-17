@@ -192,7 +192,7 @@ final class MethodArgumentTypeSelectorImpl extends JoinPointBuilderBase<MethodAr
 
     @Override
     @NotYetImplemented
-    public MethodArgumentComponentTypeSelector byComponentType() {
+    public MethodArgumentComponentTypeSelector componentType() {
         return null;
     }
 

@@ -29,7 +29,7 @@ import java.lang.annotation.Annotation;
 /**
  * MethodArgumentComponentTypeSelector is the implementation of {@link org.failearly.ajunit.builder.method.MethodArgumentComponentTypeSelector}
  *
- * @see org.failearly.ajunit.builder.method.MethodArgumentTypeSelector#byComponentType()
+ * @see org.failearly.ajunit.builder.method.MethodArgumentTypeSelector#componentType()
  */
 final class MethodArgumentComponentTypeSelectorImpl
         extends JoinPointBuilderBase<MethodArgumentComponentTypeSelectorImpl>

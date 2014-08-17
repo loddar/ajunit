@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  * Tests for {@link MethodJoinPointSelector}.
  *
- * @see MethodJoinPointSelector#byReturnType(org.failearly.ajunit.builder.LogicalOperator)
+ * @see MethodJoinPointSelector#returnType(org.failearly.ajunit.builder.LogicalOperator)
  */
 public abstract class ReturnComponentTypeSelectorTest extends AbstractJoinPointSelectorTest<ReturnComponentTypeSelector> {
 

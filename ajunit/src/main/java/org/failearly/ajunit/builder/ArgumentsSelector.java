@@ -63,7 +63,7 @@ public interface ArgumentsSelector<
      * @param positions the positions values starting with {@code 0}.
      * @return a new {@link org.failearly.ajunit.builder.ArgumentTypeSelector} instance.
      */
-    TSB byArgumentTypes(Position relativeTo, int... positions);
+    TSB argumentTypes(Position relativeTo, int... positions);
 
     /**
      * Select methods or constructors based on there signature (the declared parameter types). The exactly position is not necessary.
@@ -72,7 +72,7 @@ public interface ArgumentsSelector<
      *
      * @return a new {@link org.failearly.ajunit.builder.ArgumentTypeSelector} instance.
      */
-    TSB byArgumentTypes(ListLogicalOperator listLogicalOperator);
+    TSB argumentTypes(ListLogicalOperator listLogicalOperator);
 
     /**
      * Selects the arguments on given {@code positions} (relative to {@code relativeTo}) for inspecting the arguments
@@ -84,7 +84,7 @@ public interface ArgumentsSelector<
      * @param positions the positions values starting with {@code 0}.
      * @return a new {@link org.failearly.ajunit.builder.ArgumentAnnotationSelector} instance.
      */
-    ASB byArgumentAnnotations(Position relativeTo, int... positions);
+    ASB argumentAnnotations(Position relativeTo, int... positions);
 
     /**
      * Select methods or constructors based on the declared annotations. The exactly position is not necessary.
@@ -93,7 +93,7 @@ public interface ArgumentsSelector<
      *
      * @return a new {@link org.failearly.ajunit.builder.ArgumentAnnotationSelector} instance.
      */
-    ASB byArgumentAnnotations(ListLogicalOperator listLogicalOperator);
+    ASB argumentAnnotations(ListLogicalOperator listLogicalOperator);
 
     /**
      * Terminates the argument selector.

@@ -41,7 +41,7 @@ import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
 /**
  * The implementation of {@link org.failearly.ajunit.builder.method.MethodArgumentsSelector}.
  *
- * @see org.failearly.ajunit.builder.method.MethodJoinPointSelector#byArguments(org.failearly.ajunit.builder.LogicalOperator)
+ * @see org.failearly.ajunit.builder.method.MethodJoinPointSelector#arguments(org.failearly.ajunit.builder.LogicalOperator)
  */
 final class MethodArgumentsSelectorImpl extends JoinPointBuilderBase<MethodArgumentsSelectorImpl> implements MethodArgumentsSelector {
 
@@ -84,7 +84,7 @@ final class MethodArgumentsSelectorImpl extends JoinPointBuilderBase<MethodArgum
     }
 
     @Override
-    public MethodArgumentTypeSelector byArgumentTypes(Position relativeTo, int... positions) {
+    public MethodArgumentTypeSelector argumentTypes(Position relativeTo, int... positions) {
         return super.or(getMethodArgumentPositionsSelectorBuilderFactory(relativeTo, positions));
     }
 
@@ -99,7 +99,7 @@ final class MethodArgumentsSelectorImpl extends JoinPointBuilderBase<MethodArgum
     }
 
     @Override
-    public MethodArgumentTypeSelector byArgumentTypes(ListLogicalOperator listLogicalOperator) {
+    public MethodArgumentTypeSelector argumentTypes(ListLogicalOperator listLogicalOperator) {
         return super.or(getMethodArgumentPositionsSelectorBuilderFactory(listLogicalOperator));
     }
 
@@ -116,13 +116,13 @@ final class MethodArgumentsSelectorImpl extends JoinPointBuilderBase<MethodArgum
 
     @Override
     @NotYetImplemented
-    public MethodsArgumentAnnotationSelector byArgumentAnnotations(Position relativeTo, int... positions) {
+    public MethodsArgumentAnnotationSelector argumentAnnotations(Position relativeTo, int... positions) {
         return null;
     }
 
     @Override
     @NotYetImplemented
-    public MethodsArgumentAnnotationSelector byArgumentAnnotations(ListLogicalOperator listLogicalOperator) {
+    public MethodsArgumentAnnotationSelector argumentAnnotations(ListLogicalOperator listLogicalOperator) {
         return null;
     }
 

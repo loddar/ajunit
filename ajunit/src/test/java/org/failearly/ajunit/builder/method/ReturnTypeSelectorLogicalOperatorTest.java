@@ -33,7 +33,7 @@ import java.util.Map;
 /**
  * Tests for the logical operators on {@link ReturnTypeSelector} and their aliases.
  *
- * @see MethodJoinPointSelector#byReturnType(org.failearly.ajunit.builder.LogicalOperator)
+ * @see MethodJoinPointSelector#returnType(org.failearly.ajunit.builder.LogicalOperator)
  * @see ReturnTypeSelector#or()
  * @see ReturnTypeSelector#and()
  * @see ReturnTypeSelector#nor()
@@ -313,7 +313,7 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
 
     private void assertLogicalExpression(LogicalOperator logicalOperator, SelectorFragment<ReturnTypeSelector> subSelect, List<String> expectedJoinPoints) {
         subSelect.select(
-                selectorBuilder.byReturnType(logicalOperator)
+                selectorBuilder.returnType(logicalOperator)
         ).endReturnType();
 
         assertBuildJoinPointSelector(expectedJoinPoints);
