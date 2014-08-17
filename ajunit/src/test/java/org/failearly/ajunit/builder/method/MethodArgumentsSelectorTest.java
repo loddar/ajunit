@@ -274,4 +274,80 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
                 "public boolean java.lang.Object.equals(java.lang.Object)"
         );
     }
+
+
+    @Test
+    public void and() throws Exception {
+        // act / when
+        methodArgumentsSelector.and()
+                .argumentTypes(ListLogicalOperator.NONE_OF)
+                    .byClass(int.class)
+                    .byClass(String.class)
+                .endArgumentType()
+                .argumentTypes(ListLogicalOperator.ANY_OF)
+                    .byClass(Object.class)
+                .endArgumentType()
+            .end()
+        .endArgumentsSelector();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public boolean java.lang.Object.equals(java.lang.Object)"
+        );
+    }
+
+    @Test
+    public void or() throws Exception {
+        // act / when
+        methodArgumentsSelector.or()
+                .argumentTypes(ListLogicalOperator.ALL_OF)
+                    .byClass(int.class)
+                    .byClass(String.class)
+                .endArgumentType()
+                .argumentTypes(ListLogicalOperator.ANY_OF)
+                    .byClass(Object.class)
+                .endArgumentType()
+            .end()
+        .endArgumentsSelector();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject7.method1(int)",
+                "public void org.failearly.ajunit.builder.TestSubject7.method2(int,java.lang.String)",
+                "public void org.failearly.ajunit.builder.TestSubject7.method3(java.lang.String,java.lang.String,int)",
+                "public boolean java.lang.Object.equals(java.lang.Object)"
+        );
+    }
+
+    @Test
+    public void nor() throws Exception {
+        // act / when
+        methodArgumentsSelector.nor()
+                .argumentTypes(ListLogicalOperator.ALL_OF)
+                    .byClass(int.class)
+                    .byClass(String.class)
+                .endArgumentType()
+                .argumentTypes(ListLogicalOperator.ANY_OF)
+                    .byClass(Object.class)
+                .endArgumentType()
+            .end()
+        .endArgumentsSelector();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject7.method0()",
+                // java.lang.Object
+                "public final void java.lang.Object.wait() throws java.lang.InterruptedException",
+                "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
+                "public java.lang.String java.lang.Object.toString()",
+                "public native int java.lang.Object.hashCode()",
+                "public final native java.lang.Class java.lang.Object.getClass()",
+                "public final native void java.lang.Object.notify()",
+                "public final native void java.lang.Object.notifyAll()",
+                "protected void java.lang.Object.finalize() throws java.lang.Throwable",
+                "protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException",
+                "private static native void java.lang.Object.registerNatives()",
+                "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException"
+        );
+    }
 }
