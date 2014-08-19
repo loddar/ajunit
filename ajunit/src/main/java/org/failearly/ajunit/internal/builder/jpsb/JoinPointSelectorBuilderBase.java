@@ -24,16 +24,21 @@ import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 
 /**
- * JoinPointBuilderBase is the base class for all Joinpoint Selector builder classes.
+ * JoinPointBuilderBase is the base class for all Joinpoint Selector builder classes. It already provides implementations for
+ * all methods of {@link org.failearly.ajunit.builder.LogicalSelector}.
+ *
+ * Only {@link #newInstance(JoinPointSelectorImpl, org.failearly.ajunit.internal.builder.Builder, org.failearly.ajunit.internal.predicate.CompositePredicate)}
+ * must be implemented.
  */
+@SuppressWarnings("unused")
 public abstract class JoinPointSelectorBuilderBase<C extends Builder> extends BuilderBase<JoinPointSelectorImpl,C> {
-    private final Class<C> parentBuilderClass;
+    private final Class<C> thisClass;
 
-    protected JoinPointSelectorBuilderBase(Class<C> parentBuilderClass) {
-        this.parentBuilderClass = parentBuilderClass;
+    protected JoinPointSelectorBuilderBase(Class<C> thisClass) {
+        this.thisClass = thisClass;
     }
 
-    public C or() {
+    public final C or() {
         return super.or(createLogicalExpressionBuilderFactory());
     }
 
@@ -45,7 +50,7 @@ public abstract class JoinPointSelectorBuilderBase<C extends Builder> extends Bu
         return or();
     }
 
-    public C and() {
+    public final C and() {
         return super.and(createLogicalExpressionBuilderFactory());
     }
 
@@ -57,7 +62,7 @@ public abstract class JoinPointSelectorBuilderBase<C extends Builder> extends Bu
         return and();
     }
 
-    public C nor() {
+    public final C nor() {
         return super.nor(createLogicalExpressionBuilderFactory());
     }
 
@@ -73,8 +78,8 @@ public abstract class JoinPointSelectorBuilderBase<C extends Builder> extends Bu
         return nor();
     }
 
-    public C end()  {
-        return super.doEndLogicalExpression(this.parentBuilderClass, false);
+    public final C end()  {
+        return super.doEndLogicalExpression(this.thisClass, false);
     }
 
     private BuilderFactory<JoinPointSelectorImpl, C, C> createLogicalExpressionBuilderFactory() {
