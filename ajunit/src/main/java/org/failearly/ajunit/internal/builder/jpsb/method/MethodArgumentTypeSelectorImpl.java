@@ -26,9 +26,8 @@ import org.failearly.ajunit.builder.method.MethodArgumentComponentTypeSelector;
 import org.failearly.ajunit.builder.method.MethodArgumentTypeSelector;
 import org.failearly.ajunit.builder.method.MethodArgumentsSelector;
 import org.failearly.ajunit.internal.annotation.NotYetImplemented;
-import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
-import org.failearly.ajunit.internal.builder.jpsb.JoinPointBuilderBase;
+import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderBase;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.JoinPointSelectorUtils;
@@ -42,12 +41,13 @@ import java.lang.annotation.Annotation;
 /**
  * MethodArgumentTypeSelectorImpl is responsible for ...
  */
-final class MethodArgumentTypeSelectorImpl extends JoinPointBuilderBase<MethodArgumentTypeSelectorImpl>
+final class MethodArgumentTypeSelectorImpl extends JoinPointSelectorBuilderBase<MethodArgumentTypeSelectorImpl>
         implements MethodArgumentTypeSelector {
 
     private ClassSelectorBuilder<MethodArgumentTypeSelectorImpl> methodArgumentTypeSelectorBuilder;
 
     private MethodArgumentTypeSelectorImpl() {
+        super(MethodArgumentTypeSelectorImpl.class);
         methodArgumentTypeSelectorBuilder = SelectorBuilders.createMethodArgumentTypeSelectorBuilder(this);
     }
 
@@ -90,9 +90,7 @@ final class MethodArgumentTypeSelectorImpl extends JoinPointBuilderBase<MethodAr
             MethodArgumentTypeSelectorImpl parent,
             CompositePredicate compositePredicate) {
         this();
-        super.init(LogicalStructureBuilder.createBuilder(
-                root, parent, this, compositePredicate)
-            );
+        super.init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
     }
 
     @Override
@@ -197,67 +195,7 @@ final class MethodArgumentTypeSelectorImpl extends JoinPointBuilderBase<MethodAr
     }
 
     @Override
-    public MethodArgumentTypeSelector or() {
-        return super.or(getMethodArgumentTypeSelectorBuilderFactory());
+    protected final MethodArgumentTypeSelectorImpl newInstance(JoinPointSelectorImpl root, MethodArgumentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
+        return new MethodArgumentTypeSelectorImpl(root, parent, compositePredicate);
     }
-
-    @Override
-    public MethodArgumentTypeSelector union() {
-        return this.or();
-    }
-
-    @Override
-    public MethodArgumentTypeSelector anyOf() {
-        return this.or();
-    }
-
-    @Override
-    public MethodArgumentTypeSelector and() {
-        return super.and(getMethodArgumentTypeSelectorBuilderFactory());
-    }
-
-    @Override
-    public MethodArgumentTypeSelector intersect() {
-        return this.and();
-    }
-
-    @Override
-    public MethodArgumentTypeSelector allOf() {
-        return this.and();
-    }
-
-    @Override
-    public MethodArgumentTypeSelector nor() {
-        return super.nor(getMethodArgumentTypeSelectorBuilderFactory());
-    }
-
-    @Override
-    public MethodArgumentTypeSelector noneOf() {
-        return this.nor();
-    }
-
-    @Override
-    public MethodArgumentTypeSelector neitherNor() {
-        return this.nor();
-    }
-
-    @Override
-    public MethodArgumentTypeSelector complement() {
-        return this.nor();
-    }
-
-    @Override
-    public MethodArgumentTypeSelector end() {
-        return super.doEndLogicalExpression(MethodArgumentTypeSelector.class, false);
-    }
-
-    private BuilderFactory<JoinPointSelectorImpl,MethodArgumentTypeSelectorImpl,MethodArgumentTypeSelectorImpl> getMethodArgumentTypeSelectorBuilderFactory() {
-        return new BuilderFactory<JoinPointSelectorImpl, MethodArgumentTypeSelectorImpl, MethodArgumentTypeSelectorImpl>() {
-            @Override
-            public MethodArgumentTypeSelectorImpl createBuilder(JoinPointSelectorImpl root, MethodArgumentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
-                return new MethodArgumentTypeSelectorImpl(root, parent, compositePredicate);
-            }
-        };
-    }
-
 }

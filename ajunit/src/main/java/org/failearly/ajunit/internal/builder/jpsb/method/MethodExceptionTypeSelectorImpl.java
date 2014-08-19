@@ -22,9 +22,8 @@ import org.failearly.ajunit.builder.ListLogicalOperator;
 import org.failearly.ajunit.builder.StringMatcherType;
 import org.failearly.ajunit.builder.method.MethodExceptionTypeSelector;
 import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
-import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
-import org.failearly.ajunit.internal.builder.jpsb.JoinPointBuilderBase;
+import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderBase;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.JoinPointSelectorUtils;
@@ -41,7 +40,7 @@ import java.lang.annotation.Annotation;
  * The implementation of {@link org.failearly.ajunit.builder.method.MethodExceptionTypeSelector}.
  */
 final class MethodExceptionTypeSelectorImpl
-        extends JoinPointBuilderBase<MethodExceptionTypeSelectorImpl>
+        extends JoinPointSelectorBuilderBase<MethodExceptionTypeSelectorImpl>
         implements MethodExceptionTypeSelector {
 
 
@@ -63,14 +62,15 @@ final class MethodExceptionTypeSelectorImpl
     }
 
     private MethodExceptionTypeSelectorImpl() {
+        super(MethodExceptionTypeSelectorImpl.class);
         this.methodExceptionTypeSelector = SelectorBuilders.createMethodExceptionTypeSelector(this);
     }
 
     private static CompositePredicate createCompositeNode(CompositePredicate compositePredicate, ListLogicalOperator listLogicalOperator) {
         return StandardPredicates.transformerPredicate(
                 StandardTransformers.transformerComposition(
-                    AjpTransformers.methodTransformer(),
-                    MethodTransformers.methodExceptionsTransformer()
+                        AjpTransformers.methodTransformer(),
+                        MethodTransformers.methodExceptionsTransformer()
                 ),
                 JoinPointSelectorUtils.createListLogicalOperator(listLogicalOperator, compositePredicate)
         );
@@ -147,69 +147,7 @@ final class MethodExceptionTypeSelectorImpl
     }
 
     @Override
-    public MethodExceptionTypeSelector or() {
-        return super.or(getMethodExceptionTypeSelectorBuilderFactory());
+    protected final MethodExceptionTypeSelectorImpl newInstance(JoinPointSelectorImpl root, MethodExceptionTypeSelectorImpl parent, CompositePredicate compositePredicate) {
+        return new MethodExceptionTypeSelectorImpl(root, parent, compositePredicate);
     }
-
-    @Override
-    public MethodExceptionTypeSelector union() {
-        return this.or();
-    }
-
-    @Override
-    public MethodExceptionTypeSelector anyOf() {
-        return this.or();
-    }
-
-    @Override
-    public MethodExceptionTypeSelector and() {
-        return super.and(getMethodExceptionTypeSelectorBuilderFactory());
-    }
-
-    @Override
-    public MethodExceptionTypeSelector intersect() {
-        return this.and();
-    }
-
-    @Override
-    public MethodExceptionTypeSelector allOf() {
-        return this.and();
-    }
-
-    @Override
-    public MethodExceptionTypeSelector nor() {
-        return super.nor(getMethodExceptionTypeSelectorBuilderFactory());
-    }
-
-    @Override
-    public MethodExceptionTypeSelector noneOf() {
-        return this.nor();
-    }
-
-    @Override
-    public MethodExceptionTypeSelector neitherNor() {
-        return this.nor();
-    }
-
-    @Override
-    public MethodExceptionTypeSelector complement() {
-        return this.nor();
-    }
-
-    @Override
-    public MethodExceptionTypeSelector end() {
-        return super.doEndLogicalExpression(MethodExceptionTypeSelector.class, false);
-    }
-
-    private static BuilderFactory<JoinPointSelectorImpl,MethodExceptionTypeSelectorImpl,MethodExceptionTypeSelectorImpl>
-        getMethodExceptionTypeSelectorBuilderFactory() {
-        return new BuilderFactory<JoinPointSelectorImpl, MethodExceptionTypeSelectorImpl, MethodExceptionTypeSelectorImpl>() {
-            @Override
-            public MethodExceptionTypeSelectorImpl createBuilder(
-                    JoinPointSelectorImpl root, MethodExceptionTypeSelectorImpl parent, CompositePredicate compositePredicate) {
-                return new MethodExceptionTypeSelectorImpl(root, parent, compositePredicate);
-            }
-        };
-    }
-
 }

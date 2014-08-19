@@ -21,9 +21,8 @@ package org.failearly.ajunit.internal.builder.jpsb.method;
 import org.failearly.ajunit.builder.StringMatcherType;
 import org.failearly.ajunit.builder.method.ReturnComponentTypeSelector;
 import org.failearly.ajunit.builder.method.ReturnTypeSelector;
-import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
-import org.failearly.ajunit.internal.builder.jpsb.JoinPointBuilderBase;
+import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderBase;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.SelectorBuilders;
@@ -37,7 +36,7 @@ import java.lang.annotation.Annotation;
  * @see ReturnTypeSelector#componentType()
  */
 final class ReturnComponentTypeSelectorImpl
-        extends JoinPointBuilderBase<ReturnComponentTypeSelectorImpl>
+        extends JoinPointSelectorBuilderBase<ReturnComponentTypeSelectorImpl>
         implements ReturnComponentTypeSelector {
 
 
@@ -51,9 +50,6 @@ final class ReturnComponentTypeSelectorImpl
         returnTypeSelector.byArray();
     }
 
-    /**
-     * Used by locally {@link #getReturnComponentTypeSelectorBuilderFactory()}.
-     */
     private ReturnComponentTypeSelectorImpl(
             JoinPointSelectorImpl root, ReturnComponentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
         this();
@@ -61,6 +57,7 @@ final class ReturnComponentTypeSelectorImpl
     }
 
     private ReturnComponentTypeSelectorImpl() {
+        super(ReturnComponentTypeSelectorImpl.class);
         this.returnComponentTypeSelector = SelectorBuilders.createReturnComponentTypeSelectorBuilder(this);
     }
 
@@ -150,67 +147,7 @@ final class ReturnComponentTypeSelectorImpl
     }
 
     @Override
-    public ReturnComponentTypeSelector or() {
-        return super.or(getReturnComponentTypeSelectorBuilderFactory());
-    }
-
-    @Override
-    public ReturnComponentTypeSelector union() {
-        return this.or();
-    }
-
-    @Override
-    public ReturnComponentTypeSelector anyOf() {
-        return this.or();
-    }
-
-    @Override
-    public ReturnComponentTypeSelector and() {
-        return super.and(getReturnComponentTypeSelectorBuilderFactory());
-    }
-
-    @Override
-    public ReturnComponentTypeSelector intersect() {
-        return this.and();
-    }
-
-    @Override
-    public ReturnComponentTypeSelector allOf() {
-        return this.and();
-    }
-
-    @Override
-    public ReturnComponentTypeSelector nor() {
-        return super.nor(getReturnComponentTypeSelectorBuilderFactory());
-    }
-
-    @Override
-    public ReturnComponentTypeSelector noneOf() {
-        return this.nor();
-    }
-
-    @Override
-    public ReturnComponentTypeSelector neitherNor() {
-        return this.nor();
-    }
-
-    @Override
-    public ReturnComponentTypeSelector complement() {
-        return this.nor();
-    }
-
-    @Override
-    public ReturnComponentTypeSelector end() {
-        return super.doEndLogicalExpression(ReturnComponentTypeSelector.class, false);
-    }
-
-    private static BuilderFactory<JoinPointSelectorImpl,ReturnComponentTypeSelectorImpl,ReturnComponentTypeSelectorImpl>
-        getReturnComponentTypeSelectorBuilderFactory() {
-        return new BuilderFactory<JoinPointSelectorImpl, ReturnComponentTypeSelectorImpl, ReturnComponentTypeSelectorImpl>() {
-            @Override
-            public ReturnComponentTypeSelectorImpl createBuilder(JoinPointSelectorImpl root, ReturnComponentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
-                return new ReturnComponentTypeSelectorImpl(root, parent, compositePredicate);
-            }
-        };
+    protected ReturnComponentTypeSelectorImpl newInstance(JoinPointSelectorImpl root, ReturnComponentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
+        return new ReturnComponentTypeSelectorImpl(root, parent, compositePredicate);
     }
 }

@@ -22,7 +22,10 @@ import org.failearly.ajunit.builder.StringMatcherType;
 import org.failearly.ajunit.builder.method.MethodArgumentComponentTypeSelector;
 import org.failearly.ajunit.builder.method.MethodArgumentTypeSelector;
 import org.failearly.ajunit.internal.annotation.NotYetImplemented;
-import org.failearly.ajunit.internal.builder.jpsb.JoinPointBuilderBase;
+import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
+import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderBase;
+import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
+import org.failearly.ajunit.internal.predicate.CompositePredicate;
 
 import java.lang.annotation.Annotation;
 
@@ -32,9 +35,18 @@ import java.lang.annotation.Annotation;
  * @see org.failearly.ajunit.builder.method.MethodArgumentTypeSelector#componentType()
  */
 final class MethodArgumentComponentTypeSelectorImpl
-        extends JoinPointBuilderBase<MethodArgumentComponentTypeSelectorImpl>
+        extends JoinPointSelectorBuilderBase<MethodArgumentComponentTypeSelectorImpl>
         implements MethodArgumentComponentTypeSelector {
 
+
+    private MethodArgumentComponentTypeSelectorImpl() {
+        super(MethodArgumentComponentTypeSelectorImpl.class);
+    }
+
+    private MethodArgumentComponentTypeSelectorImpl(JoinPointSelectorImpl root, MethodArgumentComponentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
+        this();
+        init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
+    }
 
     @Override
     @NotYetImplemented
@@ -139,68 +151,7 @@ final class MethodArgumentComponentTypeSelectorImpl
     }
 
     @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector or() {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector union() {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector anyOf() {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector and() {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector intersect() {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector allOf() {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector nor() {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector noneOf() {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector neitherNor() {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector complement() {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector end() {
-        return null;
+    protected final MethodArgumentComponentTypeSelectorImpl newInstance(JoinPointSelectorImpl root, MethodArgumentComponentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
+        return new MethodArgumentComponentTypeSelectorImpl(root, parent, compositePredicate);
     }
 }

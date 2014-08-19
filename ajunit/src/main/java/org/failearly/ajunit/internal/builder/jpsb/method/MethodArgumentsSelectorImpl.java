@@ -28,7 +28,7 @@ import org.failearly.ajunit.builder.method.MethodsArgumentAnnotationSelector;
 import org.failearly.ajunit.internal.annotation.NotYetImplemented;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
-import org.failearly.ajunit.internal.builder.jpsb.JoinPointBuilderBase;
+import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderBase;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
 import org.failearly.ajunit.internal.builder.jpsb.helper.JoinPointSelectorUtils;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
@@ -43,12 +43,13 @@ import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
  *
  * @see org.failearly.ajunit.builder.method.MethodJoinPointSelector#arguments(org.failearly.ajunit.builder.LogicalOperator)
  */
-final class MethodArgumentsSelectorImpl extends JoinPointBuilderBase<MethodArgumentsSelectorImpl> implements MethodArgumentsSelector {
+final class MethodArgumentsSelectorImpl extends JoinPointSelectorBuilderBase<MethodArgumentsSelectorImpl> implements MethodArgumentsSelector {
 
     MethodArgumentsSelectorImpl(
             JoinPointSelectorImpl root,
             MethodJoinPointSelectorImpl parent,
             CompositePredicate compositePredicate) {
+        this();
         super.init(LogicalStructureBuilder.createBuilder(root, parent, this, createCompositeNode(compositePredicate)));
     }
 
@@ -63,7 +64,12 @@ final class MethodArgumentsSelectorImpl extends JoinPointBuilderBase<MethodArgum
     }
 
     private MethodArgumentsSelectorImpl(JoinPointSelectorImpl root, MethodArgumentsSelectorImpl parent, CompositePredicate compositePredicate) {
+        this();
         super.init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
+    }
+
+    private MethodArgumentsSelectorImpl() {
+        super(MethodArgumentsSelectorImpl.class);
     }
 
     @Override
@@ -130,68 +136,9 @@ final class MethodArgumentsSelectorImpl extends JoinPointBuilderBase<MethodArgum
         return null;
     }
 
-    @Override
-    public MethodArgumentsSelector or() {
-        return super.or(getMethodArgumentsSelectorBuilderFactory());
-    }
 
     @Override
-    public MethodArgumentsSelector union() {
-        return this.or();
+    protected final MethodArgumentsSelectorImpl newInstance(JoinPointSelectorImpl root, MethodArgumentsSelectorImpl parent, CompositePredicate compositePredicate) {
+        return new MethodArgumentsSelectorImpl(root, parent, compositePredicate);
     }
-
-    @Override
-    public MethodArgumentsSelector anyOf() {
-        return this.or();
-    }
-
-    @Override
-    public MethodArgumentsSelector and() {
-        return super.and(getMethodArgumentsSelectorBuilderFactory());
-    }
-
-    @Override
-    public MethodArgumentsSelector intersect() {
-        return this.and();
-    }
-
-    @Override
-    public MethodArgumentsSelector allOf() {
-        return this.and();
-    }
-
-    @Override
-    public MethodArgumentsSelector nor() {
-        return super.nor(getMethodArgumentsSelectorBuilderFactory());
-    }
-
-    @Override
-    public MethodArgumentsSelector noneOf() {
-        return this.nor();
-    }
-
-    @Override
-    public MethodArgumentsSelector neitherNor() {
-        return this.nor();
-    }
-
-    @Override
-    public MethodArgumentsSelector complement() {
-        return this.nor();
-    }
-
-    @Override
-    public MethodArgumentsSelector end() {
-        return super.doEndLogicalExpression(MethodArgumentsSelector.class, false);
-    }
-
-    private BuilderFactory<JoinPointSelectorImpl,MethodArgumentsSelectorImpl,MethodArgumentsSelectorImpl> getMethodArgumentsSelectorBuilderFactory() {
-        return new BuilderFactory<JoinPointSelectorImpl,MethodArgumentsSelectorImpl,MethodArgumentsSelectorImpl>() {
-            @Override
-            public MethodArgumentsSelectorImpl createBuilder(JoinPointSelectorImpl root, MethodArgumentsSelectorImpl parent, CompositePredicate compositePredicate) {
-                return new MethodArgumentsSelectorImpl(root, parent, compositePredicate);
-            }
-        };
-    }
-
 }
