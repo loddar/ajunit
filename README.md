@@ -28,6 +28,8 @@ In a nutshell: Currently you can't write a simple test for a pointcut definition
 First Steps
 ===========
 
+tbd.
+
 
 Roadmap
 =======
@@ -43,3 +45,5 @@ Version | Planned | Content
 
 License
 =======
+
+![GPL v3](http://www.gnu.org/graphics/gplv3-127x51.png)
