@@ -23,7 +23,7 @@ import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
 /**
  * JoinPointSelector is responsible for ...
  */
-public interface JoinPointSelector {
+public interface JoinPointSelector extends SelectorBuilder {
     /**
      * Select join points of type method execution.<br/>
      * </br>
