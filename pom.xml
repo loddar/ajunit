@@ -22,10 +22,14 @@
     <groupId>org.failearly.ajunit</groupId>
     <artifactId>ajunit-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <name>ajUnit (Parent POM)</name>
     <description>ajUnit - Unit Testing for AspectJ.</description>
     <url>http://www.fail-early.org</url>
+
+    <prerequisites>
+        <maven>3.0.1</maven>
+    </prerequisites>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -161,6 +165,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>2.6</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.1</version>
             </plugin>
         </plugins>
     </build>
