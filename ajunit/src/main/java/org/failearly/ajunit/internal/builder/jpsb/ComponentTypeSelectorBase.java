@@ -28,13 +28,11 @@ import java.lang.annotation.Annotation;
 /**
  * ComponentTypeSelectorBase provides implementations for {@link org.failearly.ajunit.builder.ComponentTypeSelector}.
  */
-public abstract class ComponentTypeSelectorBase<C extends Builder, P extends SelectorBuilder> extends JoinPointSelectorBuilderBase<C> {
-    private final Class<P> parentClass;
+public abstract class ComponentTypeSelectorBase<C extends Builder, P extends SelectorBuilder> extends JoinPointSelectorBuilderBase<C,P> {
     private final ClassSelectorBuilder<C> componentTypeSelector;
 
     protected ComponentTypeSelectorBase(Class<C> thisClass, Class<P> parentClass) {
-        super(thisClass);
-        this.parentClass = parentClass;
+        super(thisClass, parentClass);
         this.componentTypeSelector = createComponentTypeSelector();
     }
 
@@ -108,7 +106,4 @@ public abstract class ComponentTypeSelectorBase<C extends Builder, P extends Sel
         return terminateSubSelector();
     }
 
-    protected final P terminateSubSelector() {
-        return super.doEndLogicalExpression(parentClass, true);
-    }
 }

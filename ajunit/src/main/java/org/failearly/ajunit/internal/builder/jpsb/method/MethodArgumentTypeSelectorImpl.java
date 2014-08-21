@@ -41,13 +41,13 @@ import java.lang.annotation.Annotation;
 /**
  * MethodArgumentTypeSelectorImpl is responsible for ...
  */
-final class MethodArgumentTypeSelectorImpl extends JoinPointSelectorBuilderBase<MethodArgumentTypeSelectorImpl>
+final class MethodArgumentTypeSelectorImpl extends JoinPointSelectorBuilderBase<MethodArgumentTypeSelectorImpl,MethodArgumentsSelector>
         implements MethodArgumentTypeSelector {
 
     private ClassSelectorBuilder<MethodArgumentTypeSelectorImpl> methodArgumentTypeSelectorBuilder;
 
     private MethodArgumentTypeSelectorImpl() {
-        super(MethodArgumentTypeSelectorImpl.class);
+        super(MethodArgumentTypeSelectorImpl.class, MethodArgumentsSelector.class);
         methodArgumentTypeSelectorBuilder = SelectorBuilders.createMethodArgumentTypeSelectorBuilder(this);
     }
 
@@ -95,7 +95,7 @@ final class MethodArgumentTypeSelectorImpl extends JoinPointSelectorBuilderBase<
 
     @Override
     public MethodArgumentsSelector endArgumentType() {
-        return super.doEndLogicalExpression(MethodArgumentsSelector.class, true);
+        return terminateSubSelector();
     }
 
     @Override

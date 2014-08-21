@@ -44,7 +44,7 @@ import java.lang.annotation.Annotation;
  * MethodJoinPointSelectorImpl is the implementation of {@link org.failearly.ajunit.builder.method.MethodJoinPointSelector}.
  */
 public final class MethodJoinPointSelectorImpl
-        extends JoinPointSelectorBuilderBase<MethodJoinPointSelectorImpl> implements MethodJoinPointSelector {
+        extends JoinPointSelectorBuilderBase<MethodJoinPointSelectorImpl,JoinPointSelector> implements MethodJoinPointSelector {
 
     private final MethodSelectorBuilder<MethodJoinPointSelectorImpl> methodSelector;
     private final ClassSelectorBuilder<MethodJoinPointSelectorImpl>  declaringClassSelector;
@@ -67,7 +67,7 @@ public final class MethodJoinPointSelectorImpl
     }
 
     private MethodJoinPointSelectorImpl() {
-        super(MethodJoinPointSelectorImpl.class);
+        super(MethodJoinPointSelectorImpl.class, JoinPointSelector.class);
         this.methodSelector = SelectorBuilders.createMethodSelectorBuilder(this);
         this.declaringClassSelector = SelectorBuilders.createDeclaringClassSelectorBuilder(this);
     }
@@ -76,7 +76,7 @@ public final class MethodJoinPointSelectorImpl
 
     @Override
     public JoinPointSelector endMethod() {
-        return super.doEndLogicalExpression(JoinPointSelector.class, true);
+        return terminateSubSelector();
     }
 
     private MethodJoinPointSelector anyMethod() {

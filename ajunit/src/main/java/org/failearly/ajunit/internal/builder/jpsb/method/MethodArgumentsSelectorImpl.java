@@ -43,7 +43,7 @@ import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
  *
  * @see org.failearly.ajunit.builder.method.MethodJoinPointSelector#arguments(org.failearly.ajunit.builder.LogicalOperator)
  */
-final class MethodArgumentsSelectorImpl extends JoinPointSelectorBuilderBase<MethodArgumentsSelectorImpl> implements MethodArgumentsSelector {
+final class MethodArgumentsSelectorImpl extends JoinPointSelectorBuilderBase<MethodArgumentsSelectorImpl,MethodJoinPointSelector> implements MethodArgumentsSelector {
 
     MethodArgumentsSelectorImpl(
             JoinPointSelectorImpl root,
@@ -69,12 +69,12 @@ final class MethodArgumentsSelectorImpl extends JoinPointSelectorBuilderBase<Met
     }
 
     private MethodArgumentsSelectorImpl() {
-        super(MethodArgumentsSelectorImpl.class);
+        super(MethodArgumentsSelectorImpl.class, MethodJoinPointSelector.class);
     }
 
     @Override
     public MethodJoinPointSelector endArgumentsSelector() {
-        return super.doEndLogicalExpression(MethodJoinPointSelector.class, true);
+        return terminateSubSelector();
     }
 
     @Override

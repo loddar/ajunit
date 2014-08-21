@@ -18,16 +18,14 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb.method;
 
-import org.failearly.ajunit.builder.StringMatcherType;
 import org.failearly.ajunit.builder.method.MethodArgumentComponentTypeSelector;
 import org.failearly.ajunit.builder.method.MethodArgumentTypeSelector;
 import org.failearly.ajunit.internal.annotation.NotYetImplemented;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
-import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderBase;
+import org.failearly.ajunit.internal.builder.jpsb.ComponentTypeSelectorBase;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
+import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
-
-import java.lang.annotation.Annotation;
 
 /**
  * MethodArgumentComponentTypeSelector is the implementation of {@link org.failearly.ajunit.builder.method.MethodArgumentComponentTypeSelector}
@@ -35,12 +33,12 @@ import java.lang.annotation.Annotation;
  * @see org.failearly.ajunit.builder.method.MethodArgumentTypeSelector#componentType()
  */
 final class MethodArgumentComponentTypeSelectorImpl
-        extends JoinPointSelectorBuilderBase<MethodArgumentComponentTypeSelectorImpl>
+        extends ComponentTypeSelectorBase<MethodArgumentComponentTypeSelectorImpl,MethodArgumentTypeSelector>
         implements MethodArgumentComponentTypeSelector {
 
 
     private MethodArgumentComponentTypeSelectorImpl() {
-        super(MethodArgumentComponentTypeSelectorImpl.class);
+        super(MethodArgumentComponentTypeSelectorImpl.class, MethodArgumentTypeSelector.class);
     }
 
     private MethodArgumentComponentTypeSelectorImpl(JoinPointSelectorImpl root, MethodArgumentComponentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
@@ -50,103 +48,7 @@ final class MethodArgumentComponentTypeSelectorImpl
 
     @Override
     @NotYetImplemented
-    public MethodArgumentTypeSelector endComponentType() {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector byPrimitive() {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector byEnum() {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector byAnnotation() {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector byInterface() {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector byPrimitiveWrapperType() {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector byCollection() {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector byMap() {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector byClass(Class<?> classType) {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector byClassName(String classNamePattern, StringMatcherType matcherType) {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector byExtending(Class<?> baseClass) {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector byNotExtending(Class<?> baseClass) {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector byImplementingAnyOf(Class<?>... interfaces) {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector byImplementingAllOf(Class<?>... interfaces) {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector byImplementingNoneOf(Class<?>... interfaces) {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector byPackageName(String packageNamePattern, StringMatcherType matcherType) {
-        return null;
-    }
-
-    @Override
-    @NotYetImplemented
-    public MethodArgumentComponentTypeSelector byTypeAnnotation(Class<? extends Annotation> annotationClass) {
+    protected ClassSelectorBuilder<MethodArgumentComponentTypeSelectorImpl> createComponentTypeSelector() {
         return null;
     }
 

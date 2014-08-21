@@ -18,6 +18,7 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb;
 
+import org.failearly.ajunit.builder.SelectorBuilder;
 import org.failearly.ajunit.internal.builder.Builder;
 import org.failearly.ajunit.internal.builder.BuilderBase;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
@@ -29,13 +30,16 @@ import org.failearly.ajunit.internal.predicate.CompositePredicate;
  *
  * Only {@link #newInstance(JoinPointSelectorImpl, org.failearly.ajunit.internal.builder.Builder, org.failearly.ajunit.internal.predicate.CompositePredicate)}
  * must be implemented.
+ *
  */
 @SuppressWarnings("unused")
-public abstract class JoinPointSelectorBuilderBase<C extends Builder> extends BuilderBase<JoinPointSelectorImpl,C> {
+public abstract class JoinPointSelectorBuilderBase<C extends Builder, P extends SelectorBuilder> extends BuilderBase<JoinPointSelectorImpl,C> {
+    protected final Class<P> parentClass;
     private final Class<C> thisClass;
 
-    protected JoinPointSelectorBuilderBase(Class<C> thisClass) {
+    protected JoinPointSelectorBuilderBase(Class<C> thisClass, Class<P> parentClass) {
         this.thisClass = thisClass;
+        this.parentClass = parentClass;
     }
 
     public final C or() {
@@ -99,4 +103,12 @@ public abstract class JoinPointSelectorBuilderBase<C extends Builder> extends Bu
      * @return a new instance.
      */
     protected abstract C newInstance(JoinPointSelectorImpl root, C parent, CompositePredicate compositePredicate);
+
+    /**
+     * Terminates the sub selector expression.
+     * @return the parent selector builder.
+     */
+    protected final P terminateSubSelector() {
+        return doEndLogicalExpression(parentClass, true);
+    }
 }

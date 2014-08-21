@@ -37,7 +37,7 @@ import java.lang.annotation.Annotation;
  * The implementation of {@link org.failearly.ajunit.builder.method.ReturnTypeSelector}.
  */
 final class ReturnTypeSelectorImpl
-        extends JoinPointSelectorBuilderBase<ReturnTypeSelectorImpl>
+        extends JoinPointSelectorBuilderBase<ReturnTypeSelectorImpl,MethodJoinPointSelector>
         implements ReturnTypeSelector {
 
     private final ClassSelectorBuilder<ReturnTypeSelectorImpl> returnTypeSelector;
@@ -55,13 +55,13 @@ final class ReturnTypeSelectorImpl
     }
 
     private ReturnTypeSelectorImpl() {
-        super(ReturnTypeSelectorImpl.class);
+        super(ReturnTypeSelectorImpl.class, MethodJoinPointSelector.class);
         this.returnTypeSelector = SelectorBuilders.createReturnTypeSelectorBuilder(this);
     }
 
     @Override
     public MethodJoinPointSelector endReturnType() {
-        return super.doEndLogicalExpression(MethodJoinPointSelector.class, true);
+        return terminateSubSelector();
     }
 
     @Override

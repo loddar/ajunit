@@ -40,7 +40,7 @@ import java.lang.annotation.Annotation;
  * The implementation of {@link org.failearly.ajunit.builder.method.MethodExceptionTypeSelector}.
  */
 final class MethodExceptionTypeSelectorImpl
-        extends JoinPointSelectorBuilderBase<MethodExceptionTypeSelectorImpl>
+        extends JoinPointSelectorBuilderBase<MethodExceptionTypeSelectorImpl,MethodJoinPointSelector>
         implements MethodExceptionTypeSelector {
 
 
@@ -62,7 +62,7 @@ final class MethodExceptionTypeSelectorImpl
     }
 
     private MethodExceptionTypeSelectorImpl() {
-        super(MethodExceptionTypeSelectorImpl.class);
+        super(MethodExceptionTypeSelectorImpl.class, MethodJoinPointSelector.class);
         this.methodExceptionTypeSelector = SelectorBuilders.createMethodExceptionTypeSelector(this);
     }
 
@@ -78,7 +78,7 @@ final class MethodExceptionTypeSelectorImpl
 
     @Override
     public MethodJoinPointSelector endExceptionTypes() {
-        return super.doEndLogicalExpression(MethodJoinPointSelector.class, true);
+        return terminateSubSelector();
     }
 
     @Override
