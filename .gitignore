@@ -2,6 +2,7 @@
 *.class
 target/
 javadoc/
+coverage/
 
 # IDEA files #
 *.iml
