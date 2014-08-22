@@ -25,7 +25,7 @@ import org.failearly.ajunit.builder.StringMatcherType;
 import org.failearly.ajunit.builder.method.MethodArgumentComponentTypeSelector;
 import org.failearly.ajunit.builder.method.MethodArgumentTypeSelector;
 import org.failearly.ajunit.builder.method.MethodArgumentsSelector;
-import org.failearly.ajunit.internal.annotation.NotYetImplemented;
+import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderBase;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
@@ -189,9 +189,21 @@ final class MethodArgumentTypeSelectorImpl extends JoinPointSelectorBuilderBase<
     }
 
     @Override
-    @NotYetImplemented
     public MethodArgumentComponentTypeSelector componentType() {
-        return null;
+        return super.and(getMethodArgumentComponentTypeSelectorBuilderFactory(methodArgumentTypeSelectorBuilder));
+    }
+
+    private static BuilderFactory<JoinPointSelectorImpl, MethodArgumentTypeSelectorImpl, MethodArgumentComponentTypeSelectorImpl>
+    getMethodArgumentComponentTypeSelectorBuilderFactory(final ClassSelectorBuilder<MethodArgumentTypeSelectorImpl> methodArgumentTypeSelectorBuilder) {
+        return new BuilderFactory<JoinPointSelectorImpl, MethodArgumentTypeSelectorImpl, MethodArgumentComponentTypeSelectorImpl>() {
+            @Override
+            public MethodArgumentComponentTypeSelectorImpl  createBuilder(
+                                                                    JoinPointSelectorImpl root,
+                                                                    MethodArgumentTypeSelectorImpl parent,
+                                                                    CompositePredicate compositePredicate) {
+                return new MethodArgumentComponentTypeSelectorImpl(root, parent, compositePredicate, methodArgumentTypeSelectorBuilder);
+            }
+        };
     }
 
     @Override

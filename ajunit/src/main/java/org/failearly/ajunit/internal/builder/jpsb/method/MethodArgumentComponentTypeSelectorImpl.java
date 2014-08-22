@@ -20,11 +20,11 @@ package org.failearly.ajunit.internal.builder.jpsb.method;
 
 import org.failearly.ajunit.builder.method.MethodArgumentComponentTypeSelector;
 import org.failearly.ajunit.builder.method.MethodArgumentTypeSelector;
-import org.failearly.ajunit.internal.annotation.NotYetImplemented;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.ComponentTypeSelectorBase;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
+import org.failearly.ajunit.internal.builder.jpsb.helper.SelectorBuilders;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 
 /**
@@ -37,8 +37,14 @@ final class MethodArgumentComponentTypeSelectorImpl
         implements MethodArgumentComponentTypeSelector {
 
 
-    private MethodArgumentComponentTypeSelectorImpl() {
-        super(MethodArgumentComponentTypeSelectorImpl.class, MethodArgumentTypeSelector.class);
+    MethodArgumentComponentTypeSelectorImpl(
+                        JoinPointSelectorImpl root,
+                        MethodArgumentTypeSelectorImpl parent,
+                        CompositePredicate compositePredicate,
+                        ClassSelectorBuilder<MethodArgumentTypeSelectorImpl> methodArgumentTypeSelectorBuilder) {
+        this();
+        init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
+        methodArgumentTypeSelectorBuilder.byArray();
     }
 
     private MethodArgumentComponentTypeSelectorImpl(JoinPointSelectorImpl root, MethodArgumentComponentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
@@ -46,10 +52,13 @@ final class MethodArgumentComponentTypeSelectorImpl
         init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
     }
 
+    private MethodArgumentComponentTypeSelectorImpl() {
+        super(MethodArgumentComponentTypeSelectorImpl.class, MethodArgumentTypeSelector.class);
+    }
+
     @Override
-    @NotYetImplemented
     protected ClassSelectorBuilder<MethodArgumentComponentTypeSelectorImpl> createComponentTypeSelector() {
-        return null;
+        return SelectorBuilders.createXxx(this);
     }
 
     @Override

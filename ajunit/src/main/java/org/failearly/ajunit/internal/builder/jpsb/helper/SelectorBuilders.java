@@ -65,6 +65,11 @@ public final class SelectorBuilders {
         );
     }
 
+    public static <T extends Builder> ClassSelectorBuilder<T> createXxx(T predicateBuilder) {
+        return createStandardSelectorBuilder(predicateBuilder);
+    }
+
+
     public static <T extends Builder> ClassSelectorBuilder<T> createMethodExceptionTypeSelector(final T predicateBuilder) {
         return createStandardSelectorBuilder(predicateBuilder);
     }

@@ -22,6 +22,7 @@ import org.failearly.ajunit.builder.SelectorBuilder;
 import org.failearly.ajunit.builder.StringMatcherType;
 import org.failearly.ajunit.internal.builder.Builder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
+import org.failearly.ajunit.internal.util.AjAssert;
 
 import java.lang.annotation.Annotation;
 
@@ -34,6 +35,7 @@ public abstract class ComponentTypeSelectorBase<C extends Builder, P extends Sel
     protected ComponentTypeSelectorBase(Class<C> thisClass, Class<P> parentClass) {
         super(thisClass, parentClass);
         this.componentTypeSelector = createComponentTypeSelector();
+        AjAssert.attributeIsNotNull(componentTypeSelector,"componentTypeSelector");
     }
 
     protected abstract ClassSelectorBuilder<C> createComponentTypeSelector();

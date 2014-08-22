@@ -45,6 +45,12 @@ public abstract class AjAssert {
         }
     }
 
+    public static void attributeIsNotNull(final Object object, final String attributeName) {
+        if(object==null) {
+            throwIllegalArgumentException(MessageUtils.message("Attribute").arg(attributeName).part("is null"));
+        }
+    }
+
     public static void state(boolean state, String msg) {
         if( ! state ) {
             throwIllegalStateException(MessageUtils.message("Illegal state:").part(msg));

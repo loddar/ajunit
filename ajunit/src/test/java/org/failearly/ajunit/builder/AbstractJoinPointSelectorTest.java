@@ -56,19 +56,12 @@ public abstract class AbstractJoinPointSelectorTest<T extends SelectorBuilder> {
     private final List<Class<?>> testFixtureClasses;
 
     protected AbstractJoinPointSelectorTest(AjJoinPointType expectedJoinPointType, Class<?>... testFixtureClasses) {
-        this(expectedJoinPointType,AjUnitUtils.toClassList(testFixtureClasses));
+        this(expectedJoinPointType, AjUnitUtils.toClassList(testFixtureClasses));
     }
 
     private AbstractJoinPointSelectorTest(AjJoinPointType expectedJoinPointType, List<Class<?>> testFixtureClasses) {
         this.expectedJoinPointType = expectedJoinPointType;
         this.testFixtureClasses = testFixtureClasses;
-    }
-
-    protected static List<Class<?>> toClassList(Class<?> class1, Class<?>... classes) {
-        final List<Class<?>> classList=new ArrayList<>(classes.length+1);
-        classList.add(class1);
-        classList.addAll(AjUnitUtils.toClassList(classes));
-        return classList;
     }
 
     @Before

@@ -46,6 +46,16 @@ public final class StandardTransformers {
         return new TransformerComposition(Arrays.asList(transformers));
     }
 
+
+    /**
+     * Applies given transformer on each element on the list. So the expected input of the returned transformer is a {@link java.util.List}.
+     * @param transformer the transformer to be applied
+     * @return the mapping transformer
+     */
+    public static Transformer map(Transformer transformer) {
+        return new MapTransformer(transformer);
+    }
+
     /**
      * Returns the (type safe) Transformer which returns the {@code input}.
      * FOR TESTING PURPOSES ONLY.
@@ -61,6 +71,7 @@ public final class StandardTransformers {
     public static Transformer nullTransformer() {
         return NULL_TRANSFORMER;
     }
+
 
     public static Transformer reflection(Class<?> clazz, String methodName) {
         return new ReflectionTransformer(clazz, methodName);
