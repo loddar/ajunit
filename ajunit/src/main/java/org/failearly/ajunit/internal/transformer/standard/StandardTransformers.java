@@ -77,4 +77,13 @@ public final class StandardTransformers {
         return new ReflectionTransformer(clazz, methodName);
     }
 
+    /**
+     * Returns a transformer which converts any object array into a list array.
+     * @return the converting transformer
+     *
+     * @see java.util.Arrays#asList(Object[])
+     */
+    public static Transformer arrayAsList() {
+        return new ArraysAsListTransformer();
+    }
 }

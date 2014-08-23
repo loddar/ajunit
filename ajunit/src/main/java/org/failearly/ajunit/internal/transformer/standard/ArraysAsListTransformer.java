@@ -16,25 +16,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.internal.transformer;
+package org.failearly.ajunit.internal.transformer.standard;
 
-import java.util.Arrays;
+import org.failearly.ajunit.internal.transformer.TypedListTransformer;
+
 import java.util.List;
 
 /**
- * TypedListTransformer is a base class which could be used for one input value and a {@link java.util.List} of the output values.
+ * ArraysAsListTransformer transforms any object array to an object list.
+ *
+ * Caution: Any none object array will cause a {@link ClassCastException} - for example {@code int[]}.
  */
-public abstract class TypedListTransformer<I,O> extends TypedTransformer<I,List<O>> {
-    protected TypedListTransformer(Class<I> inputClass, String name) {
-        super(inputClass, name);
+final class ArraysAsListTransformer extends TypedListTransformer<Object[],Object> {
+    ArraysAsListTransformer() {
+        super(Object[].class, "ArrayAsList");
     }
 
-    /**
-     * Utility method for converting an array to  a list object.
-     * @param input any object array
-     * @return the list object
-     */
-    protected final List<O> convert(O[] input) {
-        return Arrays.asList(input);
+    @Override
+    protected List<Object> doTypedTransform(Object[] input) {
+        return convert(input);
     }
 }

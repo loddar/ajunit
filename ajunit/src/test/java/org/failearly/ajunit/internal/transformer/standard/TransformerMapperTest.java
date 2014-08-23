@@ -23,6 +23,7 @@ import org.failearly.ajunit.internal.transformer.clazz.ClassTransformers;
 import org.failearly.ajunit.internal.util.AjUnitUtils;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -34,7 +35,7 @@ import static org.junit.Assert.assertThat;
 public class TransformerMapperTest {
 
     @Test
-    public void map() throws Exception {
+    public void map2ArraysComponentTypes() throws Exception {
         // arrange / given
         final List<Class<?>> classList = AjUnitUtils.toClassList(String[].class, int[].class, Integer.class);
         final Transformer transformer=StandardTransformers.map(ClassTransformers.arrayComponentType());
@@ -44,5 +45,18 @@ public class TransformerMapperTest {
 
         // assert / then
         assertThat("Transformation result?", output, is(AjUnitUtils.toClassList(String.class, int.class)));
+    }
+
+    @Test
+    public void map2ArraysAsList() throws Exception {
+        // arrange / given
+        final List<String[]> intArrayList= Arrays.asList(new String[] {"1","2","3"}, new String[] {"4","5","3"});
+        final Transformer transformer=StandardTransformers.map(StandardTransformers.arrayAsList());
+
+        // act / when
+        final Object output = transformer.transform(intArrayList);
+
+        // assert / then
+        assertThat("Transformation result?", output, is(Arrays.asList(Arrays.asList("1","2","3"), Arrays.asList("4","5","3"))));
     }
 }
