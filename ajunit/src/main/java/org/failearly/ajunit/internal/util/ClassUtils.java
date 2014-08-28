@@ -24,7 +24,7 @@ import java.util.Collection;
 /**
  * Utility class for class related operations.
  */
-public abstract class ClassUtils {
+public final class ClassUtils {
 
 
     private ClassUtils() {

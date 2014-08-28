@@ -26,7 +26,7 @@ import java.util.Set;
 /**
  * Utility class for enum related operations.
  */
-public abstract class EnumUtils {
+public final class EnumUtils {
 
     /**
      * Prefix for invalid/internal(not public) enum values.

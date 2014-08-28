@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Some utility methods.
  */
-public abstract class AjUnitUtils {
+public final class AjUnitUtils {
     private AjUnitUtils() {
     }
 

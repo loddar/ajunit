@@ -25,7 +25,7 @@ import java.lang.reflect.Method;
 /**
  * ReflectionUtils contains a set of reflection utility methods.
  */
-public abstract class ReflectionUtils {
+public final class ReflectionUtils {
     private ReflectionUtils() {
     }
 

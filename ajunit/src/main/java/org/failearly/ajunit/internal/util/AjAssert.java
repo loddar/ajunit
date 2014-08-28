@@ -27,7 +27,7 @@ import java.util.Collection;
 /**
  * Some assert methods.
  */
-public abstract class AjAssert {
+public final class AjAssert {
     private static final Logger LOGGER = LoggerFactory.getLogger(AjAssert.class);
 
     private AjAssert() {
