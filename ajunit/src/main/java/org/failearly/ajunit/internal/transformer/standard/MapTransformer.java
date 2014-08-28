@@ -48,7 +48,7 @@ final class MapTransformer  extends TypedListTransformer<List,Object> {
     }
 
     @Override
-    protected String toString0() {
-        return super.getName() + "(" + transformer + ")";
+    protected String mkString(int level) {
+        return super.getName() + "(" + mkString(transformer, level) + indent(")", level);
     }
 }

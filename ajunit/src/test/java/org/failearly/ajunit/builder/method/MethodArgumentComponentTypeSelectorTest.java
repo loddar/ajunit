@@ -18,15 +18,16 @@
  */
 package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.builder.AbstractJoinPointSelectorTest;
-import org.failearly.ajunit.builder.ListLogicalOperator;
-import org.failearly.ajunit.builder.LogicalOperator;
-import org.failearly.ajunit.builder.TestSubject9;
+import org.failearly.ajunit.builder.*;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
+import java.io.Serializable;
+import java.lang.annotation.Annotation;
+import java.util.Map;
+
 /**
- * MethodArgumentComponentTypeSelectorTest is responsible for ...
+ * MethodArgumentComponentTypeSelectorTest contains tests for {@link org.failearly.ajunit.builder.method.MethodArgumentTypeSelector#componentType()}.
  */
 public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
@@ -54,6 +55,220 @@ public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJo
         // assert / then
         assertBuildJoinPointSelector(
                 "public void org.failearly.ajunit.builder.TestSubject9.method2(java.lang.String[])"
+        );
+    }
+
+    @Test
+    public void byClassName() throws Exception {
+        // act / when
+        argumentComponentTypeSelector
+                    .byClassName("Any", StringMatcherType.STARTS_WITH)
+                .endComponentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject9.method3(org.failearly.ajunit.builder.AnyEnum[])",
+                "public void org.failearly.ajunit.builder.TestSubject9.method5(org.failearly.ajunit.builder.AnyAnnotation[])",
+                "public void org.failearly.ajunit.builder.TestSubject9.method6(org.failearly.ajunit.builder.AnyInterface[])"
+        );
+    }
+
+    @Test
+    public void byPackageName() throws Exception {
+        // act / when
+        argumentComponentTypeSelector
+                    .byPackageName("ajunit.builder", StringMatcherType.CONTAINS)
+                .endComponentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject9.method3(org.failearly.ajunit.builder.AnyEnum[])",
+                "public void org.failearly.ajunit.builder.TestSubject9.method4(org.failearly.ajunit.builder.TestSubject1[])",
+                "public void org.failearly.ajunit.builder.TestSubject9.method5(org.failearly.ajunit.builder.AnyAnnotation[])",
+                "public void org.failearly.ajunit.builder.TestSubject9.method6(org.failearly.ajunit.builder.AnyInterface[])"
+        );
+    }
+
+    @Test
+    public void byExtending() throws Exception {
+        // act / when
+        argumentComponentTypeSelector
+                    .byExtending(AbstractBaseClass.class)
+                .endComponentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+            "public void org.failearly.ajunit.builder.TestSubject9.method4(org.failearly.ajunit.builder.TestSubject1[])"
+        );
+    }
+
+    @Test
+    public void byImplementingAnyOf() throws Exception {
+        // act / when
+        argumentComponentTypeSelector
+                    .byImplementingAnyOf(Serializable.class, Annotation.class)
+                .endComponentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject9.method2(java.lang.String[])",
+                "public void org.failearly.ajunit.builder.TestSubject9.method3(org.failearly.ajunit.builder.AnyEnum[])",
+                "public void org.failearly.ajunit.builder.TestSubject9.method5(org.failearly.ajunit.builder.AnyAnnotation[])",
+                "public void org.failearly.ajunit.builder.TestSubject9.method7(java.lang.Long[])",
+                "public void org.failearly.ajunit.builder.TestSubject9.method8(java.util.HashMap[])"
+        );
+    }
+
+    @Test
+    public void byImplementingAllOf() throws Exception {
+        // act / when
+        argumentComponentTypeSelector
+                    .byImplementingAllOf(Serializable.class, Map.class)
+                .endComponentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject9.method8(java.util.HashMap[])"
+        );
+    }
+
+    @Test
+    public void byImplementingNoneOf() throws Exception {
+        // act / when
+        argumentComponentTypeSelector
+                    .byImplementingNoneOf(Serializable.class, Map.class)
+                .endComponentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject9.method1(int[])",
+                "public void org.failearly.ajunit.builder.TestSubject9.method4(org.failearly.ajunit.builder.TestSubject1[])",
+                "public void org.failearly.ajunit.builder.TestSubject9.method5(org.failearly.ajunit.builder.AnyAnnotation[])",
+                "public void org.failearly.ajunit.builder.TestSubject9.method6(org.failearly.ajunit.builder.AnyInterface[])",
+                "public void org.failearly.ajunit.builder.TestSubject9.method9(java.util.Set[])"
+        );
+    }
+
+    @Test
+    public void byNotExtending() throws Exception {
+        // act / when
+        argumentComponentTypeSelector
+                    .byNotExtending(Object.class)
+                .endComponentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject9.method1(int[])"
+        );
+    }
+
+
+
+    @Test
+    public void byAnnotation() throws Exception {
+        // act / when
+        argumentComponentTypeSelector
+                    .byAnnotation()
+                .endComponentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject9.method5(org.failearly.ajunit.builder.AnyAnnotation[])"
+        );
+    }
+
+    @Test
+    public void byEnum() throws Exception {
+        // act / when
+        argumentComponentTypeSelector
+                    .byEnum()
+                .endComponentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject9.method3(org.failearly.ajunit.builder.AnyEnum[])"
+        );
+    }
+
+    @Test
+    public void byInterface() throws Exception {
+        // act / when
+        argumentComponentTypeSelector
+                    .byInterface()
+                .endComponentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject9.method5(org.failearly.ajunit.builder.AnyAnnotation[])",
+                "public void org.failearly.ajunit.builder.TestSubject9.method6(org.failearly.ajunit.builder.AnyInterface[])",
+                "public void org.failearly.ajunit.builder.TestSubject9.method9(java.util.Set[])"
+        );
+    }
+
+    @Test
+    public void byPrimitive() throws Exception {
+        // act / when
+        argumentComponentTypeSelector
+                    .byPrimitive()
+                .endComponentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject9.method1(int[])"
+        );
+    }
+
+    @Test
+    public void byPrimitiveWrapperType() throws Exception {
+        // act / when
+        argumentComponentTypeSelector
+                    .byPrimitiveWrapperType()
+                .endComponentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject9.method7(java.lang.Long[])"
+        );
+    }
+
+
+    @Test
+    public void byCollection() throws Exception {
+        // act / when
+        argumentComponentTypeSelector
+                    .byCollection()
+                .endComponentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject9.method9(java.util.Set[])"
+        );
+    }
+
+    @Test
+    public void byMap() throws Exception {
+        // act / when
+        argumentComponentTypeSelector
+                    .byMap()
+                .endComponentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject9.method8(java.util.HashMap[])"
+        );
+    }
+
+    @Test
+    public void byTypeAnnotation() throws Exception {
+        // act / when
+        argumentComponentTypeSelector
+                    .byTypeAnnotation(AnyAnnotation.class)
+                .endComponentType();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject9.method4(org.failearly.ajunit.builder.TestSubject1[])",
+                "public void org.failearly.ajunit.builder.TestSubject9.method6(org.failearly.ajunit.builder.AnyInterface[])"
         );
     }
 

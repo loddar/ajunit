@@ -190,18 +190,18 @@ final class MethodArgumentTypeSelectorImpl extends JoinPointSelectorBuilderBase<
 
     @Override
     public MethodArgumentComponentTypeSelector componentType() {
-        return super.and(getMethodArgumentComponentTypeSelectorBuilderFactory(methodArgumentTypeSelectorBuilder));
+        return super.or(getMethodArgumentComponentTypeSelectorBuilderFactory());
     }
 
     private static BuilderFactory<JoinPointSelectorImpl, MethodArgumentTypeSelectorImpl, MethodArgumentComponentTypeSelectorImpl>
-    getMethodArgumentComponentTypeSelectorBuilderFactory(final ClassSelectorBuilder<MethodArgumentTypeSelectorImpl> methodArgumentTypeSelectorBuilder) {
+    getMethodArgumentComponentTypeSelectorBuilderFactory() {
         return new BuilderFactory<JoinPointSelectorImpl, MethodArgumentTypeSelectorImpl, MethodArgumentComponentTypeSelectorImpl>() {
             @Override
             public MethodArgumentComponentTypeSelectorImpl  createBuilder(
                                                                     JoinPointSelectorImpl root,
                                                                     MethodArgumentTypeSelectorImpl parent,
                                                                     CompositePredicate compositePredicate) {
-                return new MethodArgumentComponentTypeSelectorImpl(root, parent, compositePredicate, methodArgumentTypeSelectorBuilder);
+                return new MethodArgumentComponentTypeSelectorImpl(root, parent, compositePredicate);
             }
         };
     }

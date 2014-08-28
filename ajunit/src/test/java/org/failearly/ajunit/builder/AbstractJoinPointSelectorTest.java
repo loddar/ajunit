@@ -92,7 +92,7 @@ public abstract class AbstractJoinPointSelectorTest<T extends SelectorBuilder> {
 
     protected final void assertBuildJoinPointSelector(String... expectedJoinPoints) {
         final Predicate predicate=this.joinPointSelectorBuilder.build();
-        LOGGER.info("Created predicate is " + predicate);
+        LOGGER.info("Created predicate is \n" + predicate);
         final StandardJoinPointVisitor joinPointVisitor = new StandardJoinPointVisitor(predicate, JOIN_POINT_STRING_BUILDER);
         ajUniverse.visitJoinPoints(joinPointVisitor);
         assertThat("Matching join points?", joinPointVisitor.getSelectedJoinPoints(), Matchers.containsInAnyOrder(expectedJoinPoints));

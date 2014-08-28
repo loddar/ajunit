@@ -70,16 +70,16 @@ abstract class CompositePredicateBase extends PredicateBase implements Composite
 
 
     @Override
-    protected String toString0() {
+    protected String mkString(int level) {
         final StringBuilder stringBuilder=new StringBuilder(getName());
         stringBuilder.append("(");
         if( ! predicates.isEmpty() ) {
             for (Predicate predicate : predicates) {
-                stringBuilder.append(predicate).append(",");
+                stringBuilder.append(mkString(predicate, level)).append(",");
             }
             stringBuilder.setLength(stringBuilder.length() - 1);
         }
-        stringBuilder.append(")");
+        stringBuilder.append(indent(")", level));
         return stringBuilder.toString();
     }
 }

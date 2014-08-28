@@ -31,21 +31,11 @@ final class TransformerComposition extends TransformerBase {
     private final List<Transformer> transformers=new LinkedList<>();
 
     TransformerComposition(final List<Transformer> transformers) {
-        super("Composition("+ toString(transformers) +")");
+        super("Composition");
         this.transformers.addAll(transformers);
     }
 
-    private static String toString(List<Transformer> transformers) {
-        final StringBuilder result=new StringBuilder();
-        if(! transformers.isEmpty()) {
-            for (Transformer transformer : transformers) {
-                result.append(transformer.toString()).append(",");
-            }
 
-            result.setLength(result.length() - 1);
-        }
-        return result.toString();
-    }
 
 
     @Override
@@ -66,5 +56,20 @@ final class TransformerComposition extends TransformerBase {
             }
         }
         return output;
+    }
+
+    @Override
+    protected String mkString(int level) {
+        final StringBuilder stringBuilder=new StringBuilder(super.getName());
+        stringBuilder.append("(");
+        if(! transformers.isEmpty()) {
+            for (Transformer transformer : transformers) {
+                stringBuilder.append(mkString(transformer, level)).append(",");
+            }
+
+            stringBuilder.setLength(stringBuilder.length() - 1);
+        }
+        stringBuilder.append(indent(")", level));
+        return stringBuilder.toString();
     }
 }

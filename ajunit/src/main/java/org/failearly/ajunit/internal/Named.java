@@ -23,22 +23,24 @@ package org.failearly.ajunit.internal;
  * <br>
  * <ul>
  *     <li>Fixed by providing the name by constructor.</li>
- *     <li>Dynamic by overriding {@link #toString0()}.</li>
+ *     <li>Dynamic by overriding {@link #mkString(int)}.</li>
  * </ul>
  * <br>
  */
 public abstract class Named {
+    public static final String INDENT = "  ";
+    public static final int FIRST_LEVEL = 0;
     private final String name;
 
     /**
      * Uses {@link Class#getSimpleName()} for name.
      */
     protected Named() {
-        name = this.getClass().getSimpleName();
+        name = simpleClassName(this.getClass());
     }
 
     protected Named(String name) {
-        this.name = name;
+        this.name = name + "@" + simpleClassName(this.getClass());
     }
 
     /**
@@ -51,13 +53,57 @@ public abstract class Named {
     /**
      * Used by {@link #toString()}. Override if there is a more sophisticated name. If not overridden, it returns {@link #name}.
      * @return the name.
+     * @param level
      */
-    protected String toString0() {
+    protected String mkString(int level) {
         return name;
     }
 
     @Override
     public final String toString() {
-        return this.toString0();
+        return this.mkString(FIRST_LEVEL);
     }
+
+
+    /**
+     * Helper method for indenting the toString or mkString result.
+     * @param object the current (named?) object.
+     * @param level current level.
+     * @return indented of (named?) object.
+     */
+    protected static String mkString(Object object, int level) {
+        final int nextLevel = level + 1;
+        if( object instanceof Named ) {
+            return indent(nextLevel) + ((Named)object).mkString(nextLevel);
+        }
+
+        return indent(nextLevel) + object;
+    }
+
+    protected static String indent(String str, int level) {
+        return indent(level) + str;
+    }
+
+    private static String indent(int level) {
+        String result="\n";
+        for (int i = 0; i < level; i++) {
+            result += INDENT;
+        }
+        return result;
+    }
+
+    private static String simpleClassName(Class<?> thisClass) {
+        String className=thisClass.getSimpleName();
+
+        if( thisClass.isAnonymousClass() ) {
+            className = thisClass.getName();
+        }
+
+        if( className.isEmpty() ) {
+            className = thisClass.getName();
+        }
+
+        return className.substring(className.indexOf(".")+1);
+    }
+
 }

@@ -52,7 +52,7 @@ public abstract class DelegateCompositePredicate
     }
 
     @Override
-    protected String toString0() {
-        return this.getName() + "(" + compositePredicate + ")";
+    protected String mkString(int level) {
+        return this.getName() + "(" + mkString(compositePredicate, level) + indent(")", level);
     }
 }

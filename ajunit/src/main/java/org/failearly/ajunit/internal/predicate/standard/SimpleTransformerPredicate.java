@@ -30,7 +30,7 @@ final class SimpleTransformerPredicate extends PredicateBase {
     private final Predicate predicate;
 
     SimpleTransformerPredicate(Transformer transformer, Predicate predicate) {
-        super("TransformerPredicate");
+        super("TP");
         this.transformer = transformer;
         this.predicate = predicate;
     }
@@ -42,8 +42,11 @@ final class SimpleTransformerPredicate extends PredicateBase {
     }
 
     @Override
-    protected String toString0() {
-        return "TransformerPredicate("+transformer+"->"+predicate+")";
+    protected String mkString(int level) {
+        return super.getName()+"("
+                    + mkString(transformer, level) + "==>"
+                    + mkString(predicate, level)
+                    + indent(")", level);
     }
 
 }

@@ -37,7 +37,10 @@ public abstract class TypedTransformer<I, O> extends TransformerBase {
     }
 
     private I doCast(Object input) {
-        return this.inputClass.cast(input);
+        if(inputClass.isAssignableFrom(input.getClass()))
+            return this.inputClass.cast(input);
+
+        throw new ClassCastException("This transformer '" + this.getClass().getSimpleName() +"' does not accept " + input.getClass());
     }
 
     /**

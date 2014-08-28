@@ -34,7 +34,7 @@ public class LogicalStructureBuilderTest {
 
     @Test
     public void topOnly() throws Exception {
-        assertPredicateBuild(new TopBuilder(), true, "Or()");
+        assertPredicateBuild(new TopBuilder(), true);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class LogicalStructureBuilderTest {
         topBuilder.alwaysFalse();
 
         // assert / then
-        assertPredicateBuild(topBuilder, false, "Or(FALSE)");
+        assertPredicateBuild(topBuilder, false);
     }
 
     @Test
@@ -59,7 +59,7 @@ public class LogicalStructureBuilderTest {
                   .alwaysTrue();
 
         // assert / then
-        assertPredicateBuild(topBuilder, true, "Or(FALSE,TRUE)");
+        assertPredicateBuild(topBuilder, true);
     }
 
     @Test
@@ -88,7 +88,7 @@ public class LogicalStructureBuilderTest {
 
         // assert / then
         assertThat("Correctly closed?", builder, sameInstance(topBuilder));
-        assertPredicateBuild(topBuilder, false, "Or(And(TRUE,FALSE),Or(And(FALSE,TRUE),Or(And(TRUE,FALSE))))");
+        assertPredicateBuild(topBuilder, false);
     }
 
     @Test
@@ -100,7 +100,7 @@ public class LogicalStructureBuilderTest {
         topBuilder.xBuilder().alwaysTrue().alwaysFalse();
 
         // assert / then
-        assertPredicateBuild(topBuilder, false, "Or(And(TRUE,FALSE))");
+        assertPredicateBuild(topBuilder, false);
     }
 
     @Test
@@ -115,7 +115,7 @@ public class LogicalStructureBuilderTest {
                         .alwaysFalse();
 
         // assert / then
-        assertPredicateBuild(topBuilder, true, "Or(And(Or(TRUE,FALSE)))");
+        assertPredicateBuild(topBuilder, true);
     }
 
 
@@ -133,7 +133,7 @@ public class LogicalStructureBuilderTest {
                        .alwaysFalse();
 
         // assert / then
-        assertPredicateBuild(topBuilder, false, "Or(And(Or(TRUE,FALSE),FALSE))");
+        assertPredicateBuild(topBuilder, false);
     }
 
 
@@ -149,7 +149,7 @@ public class LogicalStructureBuilderTest {
                         .alwaysFalse();
 
         // assert / then
-        assertPredicateBuild(topBuilder, false, "Or(Or(And(TRUE,FALSE)))");
+        assertPredicateBuild(topBuilder, false);
     }
 
     @Test
@@ -168,7 +168,7 @@ public class LogicalStructureBuilderTest {
                     .end();
 
         // assert / then
-        assertPredicateBuild(topBuilder, true, "Or(Or(And(TRUE,FALSE),Or(TRUE)))");
+        assertPredicateBuild(topBuilder, true);
     }
 
     @Test
@@ -186,7 +186,7 @@ public class LogicalStructureBuilderTest {
                    .done();
 
         // assert / then
-        assertPredicateBuild(topBuilder, false, "Or(And(Or(FALSE)),Or(FALSE))");
+        assertPredicateBuild(topBuilder, false);
     }
 
     @Test(expected = IllegalStateException.class)
@@ -202,15 +202,13 @@ public class LogicalStructureBuilderTest {
 
 
     private static void assertPredicateBuild(
-                final TopBuilder topBuilder,
-                final boolean expectedPredicateResult,
-                final String expectedExpression) {
+            final TopBuilder topBuilder,
+            final boolean expectedPredicateResult) {
 
         final TopBuilder   builder=topBuilder.done();
         assertThat("Done returns ROOT builder?", builder, sameInstance(topBuilder));
 
         final Predicate predicate=topBuilder.build();
-        assertThat("Expression build?", predicate.toString(), is(expectedExpression));
         assertThat("Predicate build evaluates to?", predicate.test(ANY_VALUE), is(expectedPredicateResult));
     }
 }

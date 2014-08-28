@@ -65,8 +65,8 @@ public final class SelectorBuilders {
         );
     }
 
-    public static <T extends Builder> ClassSelectorBuilder<T> createXxx(T predicateBuilder) {
-        return createStandardSelectorBuilder(predicateBuilder);
+    public static <T extends Builder> ClassSelectorBuilder<T> createMethodArgumentComponentTypeSelectorBuilder(T predicateBuilder) {
+        return new ClassSelectorBuilder<>(createPredicateAdder(predicateBuilder, ClassTransformers.arrayComponentType()));
     }
 
 

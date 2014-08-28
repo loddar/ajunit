@@ -38,13 +38,11 @@ final class MethodArgumentComponentTypeSelectorImpl
 
 
     MethodArgumentComponentTypeSelectorImpl(
-                        JoinPointSelectorImpl root,
-                        MethodArgumentTypeSelectorImpl parent,
-                        CompositePredicate compositePredicate,
-                        ClassSelectorBuilder<MethodArgumentTypeSelectorImpl> methodArgumentTypeSelectorBuilder) {
+            JoinPointSelectorImpl root,
+            MethodArgumentTypeSelectorImpl parent,
+            CompositePredicate compositePredicate) {
         this();
         init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
-        methodArgumentTypeSelectorBuilder.byArray();
     }
 
     private MethodArgumentComponentTypeSelectorImpl(JoinPointSelectorImpl root, MethodArgumentComponentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
@@ -58,7 +56,7 @@ final class MethodArgumentComponentTypeSelectorImpl
 
     @Override
     protected ClassSelectorBuilder<MethodArgumentComponentTypeSelectorImpl> createComponentTypeSelector() {
-        return SelectorBuilders.createXxx(this);
+        return SelectorBuilders.createMethodArgumentComponentTypeSelectorBuilder(this);
     }
 
     @Override

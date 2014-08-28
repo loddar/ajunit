@@ -31,7 +31,7 @@ final class DelegatingTransformerPredicate extends DelegateCompositePredicate {
     private final Predicate predicate;
 
     DelegatingTransformerPredicate(Transformer transformer, CompositePredicate compositePredicate) {
-        super(compositePredicate, "DelegatingTransformerPredicate");
+        super(compositePredicate, "TP");
         this.transformer = transformer;
         this.predicate = compositePredicate;
     }
@@ -43,7 +43,7 @@ final class DelegatingTransformerPredicate extends DelegateCompositePredicate {
     }
 
     @Override
-    protected String toString0() {
-        return "DelegatingTransformerPredicate("+transformer+"->"+predicate+")";
+    protected String mkString(int level) {
+        return super.getName()+"("+mkString(transformer, level)+"==>"+mkString(predicate, level)+ indent(")", level);
     }
 }
