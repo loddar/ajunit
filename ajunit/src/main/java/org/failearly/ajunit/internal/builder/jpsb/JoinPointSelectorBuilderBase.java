@@ -27,13 +27,13 @@ import org.failearly.ajunit.internal.predicate.CompositePredicate;
 /**
  * JoinPointBuilderBase is the base class for all Joinpoint Selector builder classes. It already provides implementations for
  * all methods of {@link org.failearly.ajunit.builder.LogicalSelector}.
- *
+ * <p>
  * Only {@link #newInstance(JoinPointSelectorImpl, org.failearly.ajunit.internal.builder.Builder, org.failearly.ajunit.internal.predicate.CompositePredicate)}
  * must be implemented.
- *
  */
 @SuppressWarnings("unused")
-public abstract class JoinPointSelectorBuilderBase<C extends Builder, P extends SelectorBuilder> extends BuilderBase<JoinPointSelectorImpl,C> {
+public abstract class JoinPointSelectorBuilderBase<C extends Builder, P extends SelectorBuilder>
+        extends BuilderBase<JoinPointSelectorImpl, C> {
     protected final Class<P> parentClass;
     private final Class<C> thisClass;
 
@@ -66,7 +66,16 @@ public abstract class JoinPointSelectorBuilderBase<C extends Builder, P extends 
         return and();
     }
 
-    public final C nor() {
+    /**
+     * The default implementation should be overwritten in case to reduce the expected result. This is especially true for classes derived from
+     * {@link org.failearly.ajunit.internal.builder.jpsb.ComponentTypeSelectorBase}
+     * @return result of {@link #createNorExpression()}
+     */
+    public C nor() {
+        return createNorExpression();
+    }
+
+    protected final C createNorExpression() {
         return super.nor(createLogicalExpressionBuilderFactory());
     }
 
@@ -78,11 +87,11 @@ public abstract class JoinPointSelectorBuilderBase<C extends Builder, P extends 
         return nor();
     }
 
-    public final C complement()  {
+    public final C complement() {
         return nor();
     }
 
-    public final C end()  {
+    public final C end() {
         return super.doEndLogicalExpression(this.thisClass, false);
     }
 
@@ -97,8 +106,9 @@ public abstract class JoinPointSelectorBuilderBase<C extends Builder, P extends 
 
     /**
      * Create a new instance of C (for logical expressions).
-     * @param root the root instance.
-     * @param parent the parent of current class.
+     *
+     * @param root               the root instance.
+     * @param parent             the parent of current class.
      * @param compositePredicate the composite predicate.
      * @return a new instance.
      */
@@ -106,6 +116,7 @@ public abstract class JoinPointSelectorBuilderBase<C extends Builder, P extends 
 
     /**
      * Terminates the sub selector expression.
+     *
      * @return the parent selector builder.
      */
     protected final P terminateSubSelector() {

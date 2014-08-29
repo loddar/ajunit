@@ -122,7 +122,7 @@ final class ReturnTypeSelectorImpl
     @Override
     public ReturnComponentTypeSelector componentType() {
         return super.and(
-                getReturnComponentTypeSelectorBuilderFactory(this.returnTypeSelector)
+                getReturnComponentTypeSelectorBuilderFactory()
         );
     }
 
@@ -166,14 +166,13 @@ final class ReturnTypeSelectorImpl
         return returnTypeSelector.byMap();
     }
 
-    private static BuilderFactory<JoinPointSelectorImpl,ReturnTypeSelectorImpl,ReturnComponentTypeSelectorImpl>
-        getReturnComponentTypeSelectorBuilderFactory(
-            final ClassSelectorBuilder<ReturnTypeSelectorImpl> returnTypeSelector
-    ) {
+    private BuilderFactory<JoinPointSelectorImpl,ReturnTypeSelectorImpl,ReturnComponentTypeSelectorImpl>
+    getReturnComponentTypeSelectorBuilderFactory() {
         return new BuilderFactory<JoinPointSelectorImpl, ReturnTypeSelectorImpl, ReturnComponentTypeSelectorImpl>() {
             @Override
             public ReturnComponentTypeSelectorImpl createBuilder(JoinPointSelectorImpl root, ReturnTypeSelectorImpl parent, CompositePredicate compositePredicate) {
-                return new ReturnComponentTypeSelectorImpl(root, parent, compositePredicate, returnTypeSelector);
+                returnTypeSelector.byArray();
+                return new ReturnComponentTypeSelectorImpl(root, parent, compositePredicate);
             }
         };
     }

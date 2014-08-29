@@ -96,14 +96,14 @@ public abstract class Named {
         String className=thisClass.getSimpleName();
 
         if( thisClass.isAnonymousClass() ) {
-            className = thisClass.getName();
+            className = thisClass.getSuperclass().getSimpleName();
         }
 
         if( className.isEmpty() ) {
             className = thisClass.getName();
         }
 
-        return className.substring(className.indexOf(".")+1);
+        return className.substring(className.lastIndexOf(".")+1);
     }
 
 }

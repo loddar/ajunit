@@ -107,5 +107,4 @@ public abstract class ComponentTypeSelectorBase<C extends Builder, P extends Sel
     public final P endComponentType() {
         return terminateSubSelector();
     }
-
 }

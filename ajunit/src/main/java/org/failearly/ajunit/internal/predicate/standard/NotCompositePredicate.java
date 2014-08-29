@@ -35,7 +35,7 @@ final class NotCompositePredicate extends PredicateBase implements LogicalPredic
     private final CompositePredicate compositePredicate;
 
     public NotCompositePredicate(CompositePredicate compositePredicate) {
-        super("Not("+compositePredicate.toString()+")");
+        super("Not");
         this.compositePredicate = compositePredicate;
     }
 
@@ -61,4 +61,8 @@ final class NotCompositePredicate extends PredicateBase implements LogicalPredic
         return noPredicates() || ! compositePredicate.test(object);
     }
 
+    @Override
+    protected String mkString(int level) {
+        return super.getName() + "(" + mkString(compositePredicate, level) + indent(")", level);
+    }
 }

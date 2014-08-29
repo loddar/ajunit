@@ -38,17 +38,15 @@ final class ReturnComponentTypeSelectorImpl
 
 
     ReturnComponentTypeSelectorImpl(
-            JoinPointSelectorImpl root, ReturnTypeSelectorImpl parent, CompositePredicate compositePredicate,
-            ClassSelectorBuilder<ReturnTypeSelectorImpl> returnTypeSelector) {
+            JoinPointSelectorImpl root, ReturnTypeSelectorImpl parent, CompositePredicate compositePredicate) {
         this();
         init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
-        returnTypeSelector.byArray();
     }
 
     private ReturnComponentTypeSelectorImpl(
             JoinPointSelectorImpl root, ReturnComponentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
         this();
-        init(LogicalStructureBuilder.createBuilder(root,parent,this,compositePredicate));
+        init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
     }
 
     private ReturnComponentTypeSelectorImpl() {
@@ -63,5 +61,14 @@ final class ReturnComponentTypeSelectorImpl
     @Override
     protected ReturnComponentTypeSelectorImpl newInstance(JoinPointSelectorImpl root, ReturnComponentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
         return new ReturnComponentTypeSelectorImpl(root, parent, compositePredicate);
+    }
+
+    @Override
+    public ReturnComponentTypeSelectorImpl nor() {
+        return this.and().byArray().createNorExpression();
+    }
+
+    private  ReturnComponentTypeSelectorImpl byArray() {
+        return SelectorBuilders.createReturnTypeSelectorBuilder(this).byArray();
     }
 }

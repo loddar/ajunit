@@ -63,4 +63,14 @@ final class MethodArgumentComponentTypeSelectorImpl
     protected final MethodArgumentComponentTypeSelectorImpl newInstance(JoinPointSelectorImpl root, MethodArgumentComponentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
         return new MethodArgumentComponentTypeSelectorImpl(root, parent, compositePredicate);
     }
+
+    @Override
+    public MethodArgumentComponentTypeSelectorImpl nor() {
+        return this.and().byArray().createNorExpression();
+    }
+
+    private  MethodArgumentComponentTypeSelectorImpl byArray() {
+        return SelectorBuilders.createMethodArgumentTypeSelectorBuilder(this).byArray();
+    }
+
 }

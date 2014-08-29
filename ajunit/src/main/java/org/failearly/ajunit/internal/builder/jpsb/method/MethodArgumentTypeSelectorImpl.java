@@ -190,10 +190,10 @@ final class MethodArgumentTypeSelectorImpl extends JoinPointSelectorBuilderBase<
 
     @Override
     public MethodArgumentComponentTypeSelector componentType() {
-        return super.or(getMethodArgumentComponentTypeSelectorBuilderFactory());
+        return super.and(getMethodArgumentComponentTypeSelectorBuilderFactory());
     }
 
-    private static BuilderFactory<JoinPointSelectorImpl, MethodArgumentTypeSelectorImpl, MethodArgumentComponentTypeSelectorImpl>
+    private BuilderFactory<JoinPointSelectorImpl, MethodArgumentTypeSelectorImpl, MethodArgumentComponentTypeSelectorImpl>
     getMethodArgumentComponentTypeSelectorBuilderFactory() {
         return new BuilderFactory<JoinPointSelectorImpl, MethodArgumentTypeSelectorImpl, MethodArgumentComponentTypeSelectorImpl>() {
             @Override
