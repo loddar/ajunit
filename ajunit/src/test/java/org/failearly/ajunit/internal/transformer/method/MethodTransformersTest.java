@@ -22,6 +22,8 @@ import org.failearly.ajunit.internal.transformer.Transformer;
 import org.failearly.ajunit.internal.transformer.TransformersBaseTest;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 /**
  * Tests for {@link org.failearly.ajunit.internal.transformer.method.MethodTransformers}
  */
@@ -30,7 +32,7 @@ public class MethodTransformersTest extends TransformersBaseTest {
     @Test
     public void methodReturnType() throws Exception {
         // arrange / given
-        final Transformer transformer = MethodTransformers.methodReturnTypeTransformer();
+        final Transformer transformer = MethodTransformers.methodReturnType();
 
         // act / when
         final Object output = transformer.transform(resolveMethod());
@@ -40,9 +42,9 @@ public class MethodTransformersTest extends TransformersBaseTest {
     }
 
     @Test
-    public void methodArguments() throws Exception {
+    public void methodParameters() throws Exception {
         // arrange / given
-        final Transformer transformer = MethodTransformers.methodArgumentsTransformer();
+        final Transformer transformer = MethodTransformers.methodParameters();
 
         // act / when
         final Object output = transformer.transform(resolveMethod());
@@ -54,12 +56,40 @@ public class MethodTransformersTest extends TransformersBaseTest {
     @Test
     public void methodDeclaredExceptions() throws Exception {
         // arrange / given
-        final Transformer transformer = MethodTransformers.methodExceptionsTransformer();
+        final Transformer transformer = MethodTransformers.methodExceptions();
 
         // act / when
         final Object output = transformer.transform(resolveMethod());
 
         // assert / then
         assertTransformationResultList(output, IllegalArgumentException.class, ClassCastException.class);
+    }
+
+
+    @Test
+    public void methodParameterAnnotationsType() throws Exception {
+        // arrange / given
+        final Transformer transformer = MethodTransformers.methodParameterAnnotationsType();
+
+        // act / when
+        final Object output = transformer.transform(resolveMethod());
+
+        // assert / then
+        assertTransformationResultList(output,
+                Arrays.asList(AnyAnnotation.class), Arrays.asList(OtherAnnotation.class, AnyAnnotation.class)
+            );
+    }
+    @Test
+    public void methodRawParameterAnnotations() throws Exception {
+        // arrange / given
+        final Transformer transformer = MethodTransformers.methodRawParameterAnnotations();
+
+        // act / when
+        final Object output = transformer.transform(resolveMethod());
+
+        // assert / then
+        assertTransformationResult(output,
+                resolveMethodParameterAnnotations()
+            );
     }
 }

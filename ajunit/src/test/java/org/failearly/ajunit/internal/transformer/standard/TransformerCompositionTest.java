@@ -26,7 +26,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 /**
- * Tests for {@link org.failearly.ajunit.internal.transformer.standard.StandardTransformers#transformerComposition(org.failearly.ajunit.internal.transformer.Transformer...)}.
+ * Tests for {@link org.failearly.ajunit.internal.transformer.standard.StandardTransformers#compose(org.failearly.ajunit.internal.transformer.Transformer...)}.
  */
 public class TransformerCompositionTest {
 
@@ -61,7 +61,7 @@ public class TransformerCompositionTest {
     public void noTransformers() throws Exception {
         // arrange / given
         final Object input=new Object();
-        final Transformer transformer=StandardTransformers.transformerComposition();
+        final Transformer transformer=StandardTransformers.compose();
 
         // act / when
         final Object output = transformer.transform(input);
@@ -73,7 +73,7 @@ public class TransformerCompositionTest {
     @Test
     public void singleTransformer() throws Exception {
         // arrange / given
-        final Transformer transformer=StandardTransformers.transformerComposition(createMyClassTransformer());
+        final Transformer transformer=StandardTransformers.compose(createMyClassTransformer());
         final Integer expectedOutput = 100;
         final Object input=new MyClass(expectedOutput);
 
@@ -87,7 +87,7 @@ public class TransformerCompositionTest {
     @Test
     public void chainedTransformers() throws Exception {
         // arrange / given
-        final Transformer transformer=StandardTransformers.transformerComposition(createOtherClassTransformer(), createMyClassTransformer());
+        final Transformer transformer=StandardTransformers.compose(createOtherClassTransformer(), createMyClassTransformer());
         final Integer expectedOutput = 200;
         final Object input=new OtherClass(new MyClass(expectedOutput));
 
@@ -101,7 +101,7 @@ public class TransformerCompositionTest {
     @Test
     public void chainedTransformersWithNull() throws Exception {
         // arrange / given
-        final Transformer transformer=StandardTransformers.transformerComposition(createOtherClassTransformer(), createMyClassTransformer());
+        final Transformer transformer=StandardTransformers.compose(createOtherClassTransformer(), createMyClassTransformer());
         final Object input=new OtherClass(null);
 
         // act / when
@@ -115,7 +115,7 @@ public class TransformerCompositionTest {
     public void inputTypeMismatch() throws Exception {
         // arrange / given
         final Transformer wrongTransformer = createOtherClassTransformer();
-        final Transformer transformer=StandardTransformers.transformerComposition(wrongTransformer);
+        final Transformer transformer=StandardTransformers.compose(wrongTransformer);
 
         // act / when
         transformer.transform(new MyClass(0));

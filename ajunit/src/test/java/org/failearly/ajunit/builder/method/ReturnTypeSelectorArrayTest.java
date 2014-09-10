@@ -62,7 +62,7 @@ public abstract class ReturnTypeSelectorArrayTest extends AbstractJoinPointSelec
     @Test
     public void byNotArray() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.NONE_OF)
+        selectorBuilder.returnType(LogicalOperator.NOR)
                         .byArray()
                     .endReturnType();
 

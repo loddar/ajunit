@@ -58,6 +58,13 @@ public class TransformersBaseTest {
         return MyClass.class.getDeclaredField(FIELD_NAME);
     }
 
+    protected static Annotation[][] resolveMethodParameterAnnotations() throws NoSuchMethodException {
+        return resolveMethod().getParameterAnnotations();
+    }
+    protected static Annotation[] resolveMethodAnnotations() throws NoSuchMethodException {
+        return resolveMethod().getAnnotations();
+    }
+
     protected static void assertTransformationResult(Object output, Object expectedOutput) {
         assertThat("Transformation result?", output, is(expectedOutput));
     }
@@ -89,7 +96,11 @@ public class TransformersBaseTest {
     @Target({TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE})
     @Retention(RetentionPolicy.RUNTIME)
     protected @interface AnyAnnotation {
-        String value() default "";
+    }
+
+    @Target({TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE})
+    @Retention(RetentionPolicy.RUNTIME)
+    protected @interface OtherAnnotation {
     }
 
     @SuppressWarnings("all")
@@ -105,7 +116,7 @@ public class TransformersBaseTest {
 
         @Deprecated
         @AnyAnnotation
-        public static void anyMethod(@AnyAnnotation("???") int i, @AnyAnnotation("all") String s) throws IllegalArgumentException, ClassCastException {
+        public static void anyMethod(@AnyAnnotation int i, @OtherAnnotation @AnyAnnotation String s) throws IllegalArgumentException, ClassCastException {
         }
     }
 }

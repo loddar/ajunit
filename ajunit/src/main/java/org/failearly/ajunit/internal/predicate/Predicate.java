@@ -31,13 +31,8 @@ public interface Predicate {
      *
      * @return {@code true} or {@code false}.
      *
-     * @throws java.lang.ClassCastException if the input is the wrong class.
+     * @throws java.lang.ClassCastException if the input is not from expected class.
      * @throws java.lang.IllegalArgumentException if the input is invalid.
      */
     boolean test(final Object object);
-
-    /**
-     * @return  Type or name of the predicate.
-     */
-    String getName();
 }

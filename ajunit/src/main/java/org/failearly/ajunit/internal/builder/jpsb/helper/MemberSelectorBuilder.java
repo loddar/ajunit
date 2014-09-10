@@ -18,7 +18,7 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb.helper;
 
-import org.failearly.ajunit.builder.StringMatcherType;
+import org.failearly.ajunit.builder.StringMatcher;
 import org.failearly.ajunit.internal.builder.Builder;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.modifier.ModifierPredicate;
@@ -40,16 +40,16 @@ abstract class MemberSelectorBuilder<T extends Builder> extends SelectorBuilderB
         super(predicateAdder);
     }
 
-    public T byName(String namePattern, StringMatcherType matcherType) {
+    public T byName(String namePattern, StringMatcher matcherType) {
         return addPredicate(
-                MemberTransformers.nameTransformer(),
+                MemberTransformers.name(),
                 JoinPointSelectorUtils.createStringMatcherPredicate(namePattern, matcherType)
         );
     }
 
     public T byAnyOfAccessModifiers(AccessModifier... accessModifiers) {
         return addPredicate(
-                MemberTransformers.modifierTransformer(),
+                MemberTransformers.modifier(),
                 LogicalPredicates.or(
                         toPredicateList(accessModifiers)
                 )
@@ -58,7 +58,7 @@ abstract class MemberSelectorBuilder<T extends Builder> extends SelectorBuilderB
 
     public T byNoneOfAccessModifiers(AccessModifier... accessModifiers) {
         return addPredicate(
-                MemberTransformers.modifierTransformer(),
+                MemberTransformers.modifier(),
                 LogicalPredicates.nor(
                         toPredicateList(accessModifiers)
                 )
@@ -67,7 +67,7 @@ abstract class MemberSelectorBuilder<T extends Builder> extends SelectorBuilderB
 
     public T byAnyOfMethodModifiers(MethodModifier... methodModifiers) {
         return addPredicate(
-                MemberTransformers.modifierTransformer(),
+                MemberTransformers.modifier(),
                 LogicalPredicates.or(
                         toPredicateList(methodModifiers)
                 )
@@ -76,7 +76,7 @@ abstract class MemberSelectorBuilder<T extends Builder> extends SelectorBuilderB
 
     public T byNoneOfMethodModifiers(MethodModifier... methodModifiers) {
         return addPredicate(
-                MemberTransformers.modifierTransformer(),
+                MemberTransformers.modifier(),
                 LogicalPredicates.nor(
                         toPredicateList(methodModifiers)
                 )

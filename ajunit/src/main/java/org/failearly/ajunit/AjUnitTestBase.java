@@ -25,7 +25,7 @@ import org.failearly.ajunit.internal.util.AjAssert;
 import org.failearly.ajunit.internal.util.MessageUtils;
 
 /**
- * AjUnitTestBase is responsible for ...
+ * AjUnitTestBase is the base implementation for {@link org.failearly.ajunit.AjUnitTest}.
  */
 public abstract class AjUnitTestBase implements AjUnitTest, FailureHandler {
 

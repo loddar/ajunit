@@ -37,7 +37,7 @@ public class ListTransformersTest extends TransformersBaseTest {
     @Test
     public void emptyList() throws Exception {
         // arrange / given
-        final Transformer listTransformer = ListTransformers.sizeTransformer();
+        final Transformer listTransformer = ListTransformers.size();
 
         // act / when
         final Object output = listTransformer.transform(EMPTY_LIST);
@@ -49,7 +49,7 @@ public class ListTransformersTest extends TransformersBaseTest {
     @Test
     public void noneEmptyList() throws Exception {
         // arrange / given
-        final Transformer listTransformer = ListTransformers.sizeTransformer();
+        final Transformer listTransformer = ListTransformers.size();
 
         // act / when
         final Object output = listTransformer.transform(FOUR_ELEMENT_LIST);
@@ -61,7 +61,7 @@ public class ListTransformersTest extends TransformersBaseTest {
     @Test
     public void getElementListFromNoneEmptyList() throws Exception {
         // arrange / given
-        final Transformer listTransformer = ListTransformers.getElementsFromListStartTransformer(1);
+        final Transformer listTransformer = ListTransformers.getElementsFromListStart(1);
 
         // act / when
         final Object output = listTransformer.transform(FOUR_ELEMENT_LIST);
@@ -73,7 +73,7 @@ public class ListTransformersTest extends TransformersBaseTest {
     @Test
     public void getElementListOutOfBounds() throws Exception {
         // arrange / given
-        final Transformer listTransformer = ListTransformers.getElementsFromListStartTransformer(FOUR_ELEMENT_LIST.size());
+        final Transformer listTransformer = ListTransformers.getElementsFromListStart(FOUR_ELEMENT_LIST.size());
 
         // act / when
         final Object output = listTransformer.transform(FOUR_ELEMENT_LIST);
@@ -85,13 +85,13 @@ public class ListTransformersTest extends TransformersBaseTest {
     @Test(expected = java.lang.IllegalArgumentException.class)
     public void createGetElementListTransformerWithInvalidPosition() throws Exception {
         // act / when
-        ListTransformers.getElementsFromListStartTransformer(-2);
+        ListTransformers.getElementsFromListStart(-2);
     }
 
     @Test
     public void getElementsListFromEndNoneEmptyList() throws Exception {
         // arrange / given
-        final Transformer listTransformer = ListTransformers.getElementsFromListEndTransformer(0, 2);
+        final Transformer listTransformer = ListTransformers.getElementsFromListEnd(0, 2);
 
         // act / when
         final Object output = listTransformer.transform(FOUR_ELEMENT_LIST);
@@ -103,7 +103,7 @@ public class ListTransformersTest extends TransformersBaseTest {
     @Test
     public void getElementsListFromEndOutOfBounds() throws Exception {
         // arrange / given
-        final Transformer listTransformer = ListTransformers.getElementsFromListEndTransformer(FOUR_ELEMENT_LIST.size());
+        final Transformer listTransformer = ListTransformers.getElementsFromListEnd(FOUR_ELEMENT_LIST.size());
 
         // act / when
         final Object output = listTransformer.transform(FOUR_ELEMENT_LIST);
@@ -115,13 +115,13 @@ public class ListTransformersTest extends TransformersBaseTest {
     @Test(expected = java.lang.IllegalArgumentException.class)
     public void createGetElementsListFromEndTransformerWithInvalidPosition() throws Exception {
         // act / when
-        ListTransformers.getElementsFromListEndTransformer(-1);
+        ListTransformers.getElementsFromListEnd(-1);
     }
 
     @Test
     public void getElementsList() throws Exception {
         // arrange / given
-        final Transformer listTransformer = ListTransformers.getElementsFromListStartTransformer(0, 2);
+        final Transformer listTransformer = ListTransformers.getElementsFromListStart(0, 2);
 
         // act / when
         final Object output = listTransformer.transform(Arrays.asList("00", "10", "20"));
@@ -133,7 +133,7 @@ public class ListTransformersTest extends TransformersBaseTest {
     @Test
     public void getElementsListInvalidPosition() throws Exception {
         // arrange / given
-        final Transformer listTransformer = ListTransformers.getElementsFromListStartTransformer(0, 2, 3);
+        final Transformer listTransformer = ListTransformers.getElementsFromListStart(0, 2, 3);
 
         // act / when
         final Object output = listTransformer.transform(Arrays.asList("00", "10", "20"));

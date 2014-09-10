@@ -40,7 +40,7 @@ public final class ListTransformers {
     /**
      * The returned Transformer executes {@link java.util.List#size()}.
      */
-    public static Transformer sizeTransformer() {
+    public static Transformer size() {
         return LIST_SIZE_TRANSFORMER;
     }
 
@@ -54,7 +54,7 @@ public final class ListTransformers {
      *
      * @see java.util.List#get(int)
      */
-    public static Transformer getElementsFromListStartTransformer(int... positions) {
+    public static Transformer getElementsFromListStart(int... positions) {
         return new GetElementsFromListStartTransformer(positions);
     }
 
@@ -67,7 +67,7 @@ public final class ListTransformers {
      *
      * @see java.util.List#get(int)
      */
-    public static Transformer getElementsFromListEndTransformer(int... positions) {
+    public static Transformer getElementsFromListEnd(int... positions) {
         return new GetElementsFromListEndTransformer(positions);
     }
 }

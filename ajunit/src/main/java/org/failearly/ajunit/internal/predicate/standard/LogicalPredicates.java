@@ -29,6 +29,9 @@ import java.util.List;
  * LogicalPredicates provides factory methods for logical operations.
  */
 public final class LogicalPredicates {
+    private LogicalPredicates() {
+    }
+
     /**
      * Creates an (empty) logical AND predicate.
      */

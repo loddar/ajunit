@@ -29,7 +29,7 @@ public class FieldTransformersTest extends TransformersBaseTest {
     @Test
     public void testFieldTypeTransformer() throws Exception {
         // arrange / given
-        final Transformer transformer = FieldTransformers.fieldTypeTransformer();
+        final Transformer transformer = FieldTransformers.fieldType();
 
         // act / when
         final Object output = transformer.transform(resolveField());
@@ -41,7 +41,7 @@ public class FieldTransformersTest extends TransformersBaseTest {
     @Test
     public void testFieldDeclaredAnnotationsTransformer() throws Exception {
         // arrange / given
-        final Transformer transformer = FieldTransformers.fieldDeclaredAnnotationsTransformer();
+        final Transformer transformer = FieldTransformers.fieldDeclaredAnnotations();
 
         // act / when
         final Object output = transformer.transform(resolveField());

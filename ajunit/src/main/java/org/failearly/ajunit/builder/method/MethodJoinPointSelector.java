@@ -48,7 +48,7 @@ public interface MethodJoinPointSelector
      * @param matcherType the matcher type
      * @return itself
      */
-    MethodJoinPointSelector byName(String methodNamePattern, StringMatcherType matcherType);
+    MethodJoinPointSelector byName(String methodNamePattern, StringMatcher matcherType);
 
     /**
      * Select a method by any of {@link org.failearly.ajunit.modifier.MethodModifier}.<br/>
@@ -186,12 +186,12 @@ public interface MethodJoinPointSelector
      * <li><code>call(*.*(..) throws !java.lang.Error+)</code></li>
      * </ul>
      *
-     * @param listLogicalOperator the list logical operator is responsible, how the selectors of
+     * @param listOperator the list logical operator is responsible, how the selectors of
      *                  {@link MethodExceptionTypeSelector} should be applied on the entire list.
      *
      * @return a method exception type selector.
      */
-    MethodExceptionTypeSelector exceptionTypes(ListLogicalOperator listLogicalOperator);
+    MethodExceptionTypeSelector exceptionTypes(ListOperator listOperator);
 
     /**
      * Select methods based by their argument or parameter signature.<br/>
@@ -208,7 +208,7 @@ public interface MethodJoinPointSelector
      * @param logicalOperator  logical the logical operator.
      * @return a new method arguments selector.
      */
-    MethodArgumentsSelector arguments(LogicalOperator logicalOperator);
+    MethodParametersSelector arguments(LogicalOperator logicalOperator);
 
 
 

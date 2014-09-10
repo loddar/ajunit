@@ -28,7 +28,7 @@ import java.io.Serializable;
  * Tests for {@link MethodJoinPointSelector}.
  *
  * @see MethodJoinPointSelector#byDeclaringClass(Class)
- * @see MethodJoinPointSelector#byDeclaringClassName(String, org.failearly.ajunit.builder.StringMatcherType)
+ * @see MethodJoinPointSelector#byDeclaringClassName(String, org.failearly.ajunit.builder.StringMatcher)
  * @see MethodJoinPointSelector#byExtending(Class)
  * @see MethodJoinPointSelector#byImplementingAllOf(Class[])
  * @see MethodJoinPointSelector#byImplementingAnyOf(Class[])
@@ -55,7 +55,7 @@ public abstract class MethodJoinPointSelectorByClassTest extends AbstractJoinPoi
     @Test
     public void byDeclaringClassNameEquals() throws Exception {
         // act / when
-        selectorBuilder.byDeclaringClassName("TestSubject1", StringMatcherType.EQUALS);
+        selectorBuilder.byDeclaringClassName("TestSubject1", StringMatcher.EQUALS);
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -68,7 +68,7 @@ public abstract class MethodJoinPointSelectorByClassTest extends AbstractJoinPoi
     @Test
     public void byDeclaringClassNameStartsWith() throws Exception {
         // act / when
-        selectorBuilder.byDeclaringClassName("Test", StringMatcherType.STARTS_WITH);
+        selectorBuilder.byDeclaringClassName("Test", StringMatcher.STARTS_WITH);
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -89,7 +89,7 @@ public abstract class MethodJoinPointSelectorByClassTest extends AbstractJoinPoi
     @Test
     public void byDeclaringClassNameEndsWith() throws Exception {
         // act / when
-        selectorBuilder.byDeclaringClassName("Subject2", StringMatcherType.ENDS_WITH);
+        selectorBuilder.byDeclaringClassName("Subject2", StringMatcher.ENDS_WITH);
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -106,7 +106,7 @@ public abstract class MethodJoinPointSelectorByClassTest extends AbstractJoinPoi
     @Test
     public void byDeclaringClassNameContains() throws Exception {
         // act / when
-        selectorBuilder.byDeclaringClassName("stSub", StringMatcherType.CONTAINS);
+        selectorBuilder.byDeclaringClassName("stSub", StringMatcher.CONTAINS);
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -127,7 +127,7 @@ public abstract class MethodJoinPointSelectorByClassTest extends AbstractJoinPoi
     @Test
     public void byDeclaringClassNameRegularExpression() throws Exception {
         // act / when
-        selectorBuilder.byDeclaringClassName(".*stSub.*1", StringMatcherType.REGEX);
+        selectorBuilder.byDeclaringClassName(".*stSub.*1", StringMatcher.REGEX);
 
         // assert / then
         assertBuildJoinPointSelector(

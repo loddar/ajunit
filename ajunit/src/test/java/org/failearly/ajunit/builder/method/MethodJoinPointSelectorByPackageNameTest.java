@@ -19,14 +19,14 @@
 package org.failearly.ajunit.builder.method;
 
 import org.failearly.ajunit.builder.AbstractJoinPointSelectorTest;
-import org.failearly.ajunit.builder.StringMatcherType;
+import org.failearly.ajunit.builder.StringMatcher;
 import org.failearly.ajunit.builder.TestSubject1;
 import org.failearly.ajunit.builder.TestSubject2;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
 /**
- * Tests for {@link MethodJoinPointSelector#byPackageName(String, org.failearly.ajunit.builder.StringMatcherType)}.
+ * Tests for {@link MethodJoinPointSelector#byPackageName(String, org.failearly.ajunit.builder.StringMatcher)}.
  */
 public abstract class MethodJoinPointSelectorByPackageNameTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
@@ -37,7 +37,7 @@ public abstract class MethodJoinPointSelectorByPackageNameTest extends AbstractJ
     @Test
     public void byPackageNameEquals() throws Exception {
         // act / when
-        selectorBuilder.byPackageName("org.failearly.ajunit.builder", StringMatcherType.EQUALS);
+        selectorBuilder.byPackageName("org.failearly.ajunit.builder", StringMatcher.EQUALS);
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -58,7 +58,7 @@ public abstract class MethodJoinPointSelectorByPackageNameTest extends AbstractJ
     @Test
     public void byPackageNameStartsWith() throws Exception {
         // act / when
-        selectorBuilder.byPackageName("org.failearly", StringMatcherType.STARTS_WITH);
+        selectorBuilder.byPackageName("org.failearly", StringMatcher.STARTS_WITH);
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -79,7 +79,7 @@ public abstract class MethodJoinPointSelectorByPackageNameTest extends AbstractJ
     @Test
     public void byPackageNameEndsWith() throws Exception {
         // act / when
-        selectorBuilder.byPackageName("ajunit.builder", StringMatcherType.ENDS_WITH);
+        selectorBuilder.byPackageName("ajunit.builder", StringMatcher.ENDS_WITH);
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -100,7 +100,7 @@ public abstract class MethodJoinPointSelectorByPackageNameTest extends AbstractJ
     @Test
     public void byPackageNameContains() throws Exception {
         // act / when
-        selectorBuilder.byPackageName("ajunit", StringMatcherType.CONTAINS);
+        selectorBuilder.byPackageName("ajunit", StringMatcher.CONTAINS);
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -121,7 +121,7 @@ public abstract class MethodJoinPointSelectorByPackageNameTest extends AbstractJ
     @Test
     public void byPackageNameRegex() throws Exception {
         // act / when
-        selectorBuilder.byPackageName(".*ajunit.*", StringMatcherType.REGEX);
+        selectorBuilder.byPackageName(".*ajunit.*", StringMatcher.REGEX);
 
         // assert / then
         assertBuildJoinPointSelector(

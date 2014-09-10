@@ -40,7 +40,7 @@ public class AjpTransformersTest extends TransformersBaseTest {
     public void ajpToMethod() throws Exception {
         // arrange / given
         final AjJoinPoint joinPoint = prepareAjJoinPoint(AjJoinPointType.METHOD_EXECUTION);
-        final Transformer methodTransformer = AjpTransformers.methodTransformer();
+        final Transformer methodTransformer = AjpTransformers.method();
 
         // act / when
         final Object output = methodTransformer.transform(joinPoint);
@@ -53,7 +53,7 @@ public class AjpTransformersTest extends TransformersBaseTest {
     public void ajpToField() throws Exception {
         // arrange / given
         final AjJoinPoint joinPoint = prepareAjJoinPoint(AjJoinPointType.FIELD_GET);
-        final Transformer fieldTransformer = AjpTransformers.fieldTransformer();
+        final Transformer fieldTransformer = AjpTransformers.field();
 
         // act / when
         final Object output = fieldTransformer.transform(joinPoint);
@@ -66,7 +66,7 @@ public class AjpTransformersTest extends TransformersBaseTest {
     public void ajpToConstructor() throws Exception {
         // arrange / given
         final AjJoinPoint joinPoint = prepareAjJoinPoint(AjJoinPointType.CONSTRUCTOR_CALL);
-        final Transformer fieldTransformer = AjpTransformers.constructorTransformer();
+        final Transformer fieldTransformer = AjpTransformers.constructor();
 
         // act / when
         final Object output = fieldTransformer.transform(joinPoint);
@@ -79,7 +79,7 @@ public class AjpTransformersTest extends TransformersBaseTest {
     public void ajpToDeclaringClass() throws Exception {
         // arrange / given
         final AjJoinPoint joinPoint = prepareAjJoinPoint(AjJoinPointType.CONSTRUCTOR_EXECUTION);
-        final Transformer fieldTransformer = AjpTransformers.declaringClassTransformer();
+        final Transformer fieldTransformer = AjpTransformers.declaringClass();
 
         // act / when
         final Object output = fieldTransformer.transform(joinPoint);
@@ -93,7 +93,7 @@ public class AjpTransformersTest extends TransformersBaseTest {
     public void ajpJoinPointTypePassesFilter() throws Exception {
         // arrange / given
         final AjJoinPoint joinPoint = prepareAjJoinPoint(AjJoinPointType.METHOD_EXECUTION);
-        final Transformer transformer = AjpTransformers.ajpJoinPointFilterTransformer(AjJoinPointType.METHOD_EXECUTION);
+        final Transformer transformer = AjpTransformers.ajpJoinPointFilter(AjJoinPointType.METHOD_EXECUTION);
 
         // act / when
         final Object output = transformer.transform(joinPoint);
@@ -106,7 +106,7 @@ public class AjpTransformersTest extends TransformersBaseTest {
     public void ajpJoinPointTypeDoesNotPassFilter() throws Exception {
         // arrange / given
         final AjJoinPoint joinPoint = prepareAjJoinPoint(AjJoinPointType.METHOD_EXECUTION);
-        final Transformer transformer = AjpTransformers.ajpJoinPointFilterTransformer(AjJoinPointType.METHOD_CALL);
+        final Transformer transformer = AjpTransformers.ajpJoinPointFilter(AjJoinPointType.METHOD_CALL);
 
         // act / when
         final Object output = transformer.transform(joinPoint);
@@ -119,7 +119,7 @@ public class AjpTransformersTest extends TransformersBaseTest {
     public void ajpNumberOfApplications() throws Exception {
         // arrange / given
         final AjJoinPoint joinPoint = prepareAjJoinPoint(AjJoinPointType._UNKNOWN);
-        final Transformer transformer = AjpTransformers.numberOfApplicationsTransformer();
+        final Transformer transformer = AjpTransformers.numberOfApplications();
 
         // act / when
         final Object output = transformer.transform(joinPoint);

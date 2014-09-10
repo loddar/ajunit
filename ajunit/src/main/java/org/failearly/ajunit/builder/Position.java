@@ -19,7 +19,7 @@
 package org.failearly.ajunit.builder;
 
 /**
- * RelativePosition is used by {@link org.failearly.ajunit.builder.ArgumentsSelector} for selecting argument types or annotations by their absolute
+ * RelativePosition is used by {@link ParametersSelector} for selecting argument types or annotations by their absolute
  * position.
  */
 public enum Position {

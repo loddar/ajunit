@@ -28,12 +28,17 @@ final class NotPredicate extends PredicateBase {
     private final Predicate predicate;
 
     public NotPredicate(Predicate predicate) {
-        super("NOT("+predicate.getName()+")");
+        super("NOT");
         this.predicate = predicate;
     }
 
     @Override
     protected boolean doTest(Object object) {
         return ! predicate.test(object);
+    }
+
+    @Override
+    protected String mkString(int level) {
+        return super.getName() + "(" + mkString(predicate,level) + indent(")",level);
     }
 }

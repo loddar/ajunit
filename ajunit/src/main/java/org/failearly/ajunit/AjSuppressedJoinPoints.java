@@ -52,8 +52,8 @@ final class AjSuppressedJoinPoints extends SuppressedJoinPointFactory {
     private static final Predicate PREDICATE_JLO_CONSTRUCTOR = LogicalPredicates.and(
             byDeclaringClass(Object.class),
             StandardPredicates.transformerPredicate(
-                    StandardTransformers.transformerComposition(
-                            AjpTransformers.constructorTransformer()
+                    StandardTransformers.compose(
+                            AjpTransformers.constructor()
                     ),
                     StandardPredicates.isNotNull()
             )

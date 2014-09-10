@@ -74,7 +74,7 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
     public void byReturningClassName() throws Exception {
         // act / when
         selectorBuilder.returnType(LogicalOperator.OR)
-                    .byClassName("TestSub", StringMatcherType.STARTS_WITH)
+                    .byClassName("TestSub", StringMatcher.STARTS_WITH)
                 .endReturnType();
 
         // assert / then
@@ -199,8 +199,8 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
     public void byPackageName() throws Exception {
         // act / when
         selectorBuilder.returnType(LogicalOperator.OR)
-                    .byPackageName("org.failearly", StringMatcherType.STARTS_WITH)
-                    .byPackageName("java.lang", StringMatcherType.CONTAINS)
+                    .byPackageName("org.failearly", StringMatcher.STARTS_WITH)
+                    .byPackageName("java.lang", StringMatcher.CONTAINS)
                 .endReturnType();
 
         // assert / then

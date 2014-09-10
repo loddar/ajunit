@@ -19,14 +19,14 @@
 package org.failearly.ajunit.builder.method;
 
 import org.failearly.ajunit.builder.AbstractJoinPointSelectorTest;
-import org.failearly.ajunit.builder.StringMatcherType;
+import org.failearly.ajunit.builder.StringMatcher;
 import org.failearly.ajunit.builder.TestSubject1;
 import org.failearly.ajunit.builder.TestSubject2;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
 /**
- * Tests for {@link MethodJoinPointSelector#byName(String, org.failearly.ajunit.builder.StringMatcherType)}.
+ * Tests for {@link MethodJoinPointSelector#byName(String, org.failearly.ajunit.builder.StringMatcher)}.
  */
 public abstract class MethodJoinPointSelectorByNameTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
@@ -37,7 +37,7 @@ public abstract class MethodJoinPointSelectorByNameTest extends AbstractJoinPoin
     @Test
     public void byNameEquals() throws Exception {
         // act / when
-        selectorBuilder.byName("anyMethod", StringMatcherType.EQUALS);
+        selectorBuilder.byName("anyMethod", StringMatcher.EQUALS);
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -49,7 +49,7 @@ public abstract class MethodJoinPointSelectorByNameTest extends AbstractJoinPoin
     @Test
     public void byNameStartsWith() throws Exception {
         // act / when
-        selectorBuilder.byName("any", StringMatcherType.STARTS_WITH);
+        selectorBuilder.byName("any", StringMatcher.STARTS_WITH);
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -61,7 +61,7 @@ public abstract class MethodJoinPointSelectorByNameTest extends AbstractJoinPoin
     @Test
     public void byNameEndsWith() throws Exception {
         // act / when
-        selectorBuilder.byName("Method", StringMatcherType.ENDS_WITH);
+        selectorBuilder.byName("Method", StringMatcher.ENDS_WITH);
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -77,7 +77,7 @@ public abstract class MethodJoinPointSelectorByNameTest extends AbstractJoinPoin
     @Test
     public void byNameContains() throws Exception {
         // act / when
-        selectorBuilder.byName("nyM", StringMatcherType.CONTAINS);
+        selectorBuilder.byName("nyM", StringMatcher.CONTAINS);
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -89,7 +89,7 @@ public abstract class MethodJoinPointSelectorByNameTest extends AbstractJoinPoin
     @Test
     public void byNameRegularExpression() throws Exception {
         // act / when
-        selectorBuilder.byName(".*nyM.*", StringMatcherType.REGEX);
+        selectorBuilder.byName(".*nyM.*", StringMatcher.REGEX);
 
         // assert / then
         assertBuildJoinPointSelector(

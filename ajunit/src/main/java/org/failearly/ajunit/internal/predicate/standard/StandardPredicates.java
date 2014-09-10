@@ -43,7 +43,7 @@ public final class StandardPredicates {
             return object != null;
         }
     };
-    private static final TypedPredicate<Boolean> BOOLEAN_PREDICATE = new TypedPredicate<Boolean>(Boolean.class, "Boolean") {
+    private static final TypedPredicate<Boolean> BOOLEAN_IDENTITY_PREDICATE = new TypedPredicate<Boolean>(Boolean.class, "BooleanIdentity") {
         @Override
         protected boolean doTypedTest(Boolean value) {
             return value;
@@ -70,7 +70,7 @@ public final class StandardPredicates {
     /**
      * Predicate applies {@link java.lang.Object#equals(Object)}.
      */
-    public static <T> Predicate equalsPredicate(final T object) {
+    public static <T> Predicate equalsTo(final T object) {
         return new EqualsPredicate<>(object);
     }
 
@@ -117,7 +117,18 @@ public final class StandardPredicates {
      * Internal use only.
      */
     public static Predicate booleanIdentity() {
-        return BOOLEAN_PREDICATE;
+        return BOOLEAN_IDENTITY_PREDICATE;
+    }
+
+
+    /**
+     * Gives an unnamed predicate a name.
+     * @param name the name
+     * @param predicate the predicate to be applied
+     * @return the named predicate
+     */
+    public static Predicate named(String name, Predicate predicate) {
+        return new NamedPredicate(name, predicate);
     }
 
 }

@@ -51,7 +51,7 @@ public interface ClassSelector<SB extends SelectorBuilder> extends SelectorBuild
      * @param matcherType  the matcher type
      * @return itself
      */
-    SB byClassName(String classNamePattern, StringMatcherType matcherType);
+    SB byClassName(String classNamePattern, StringMatcher matcherType);
 
     /**
      * Select joinpoints by class inheritance (extending the specified baseClass).<br/>
@@ -136,7 +136,7 @@ public interface ClassSelector<SB extends SelectorBuilder> extends SelectorBuild
      * @param matcherType  the matcher type
      * @return itself
      */
-    SB byPackageName(String packageNamePattern, StringMatcherType matcherType);
+    SB byPackageName(String packageNamePattern, StringMatcher matcherType);
 
     /**
      * The class has been annotated by a single annotation ({@code annotationClass}).

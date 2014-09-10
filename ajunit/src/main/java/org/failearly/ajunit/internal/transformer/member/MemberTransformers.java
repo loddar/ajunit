@@ -45,14 +45,18 @@ public final class MemberTransformers {
     }
 
     /**
-     * Resolves of {@link java.lang.reflect.Member} based reflection classes the name.
+     * The returned Transformer resolves of {@link java.lang.reflect.Member} based reflection classes the name.
      * @see java.lang.reflect.Member#getName()
      */
-    public static Transformer nameTransformer() {
+    public static Transformer name() {
         return MEMBER_NAME_TRANSFORMER;
     }
 
-    public static Transformer modifierTransformer() {
+    /**
+     * The returned Transformer resolves of {@link java.lang.reflect.Member} based reflection classes the modifiers.
+     * @see java.lang.reflect.Member#getModifiers()
+     */
+    public static Transformer modifier() {
         return MEMBER_MODIFIERS_TRANSFORMER;
     }
 }

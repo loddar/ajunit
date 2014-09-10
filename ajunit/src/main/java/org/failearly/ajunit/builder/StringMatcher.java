@@ -16,15 +16,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder.method;
-
-import org.failearly.ajunit.builder.ArgumentAnnotationSelector;
+package org.failearly.ajunit.builder;
 
 /**
- * MethodArgumentAnnotationSelector is responsible for selecting methods by argument/parameter annotations.
- *
- * @see org.failearly.ajunit.builder.method.MethodArgumentsSelector
+ * StringMatcher contains the supported string matching types.
  */
-public interface MethodsArgumentAnnotationSelector
-                        extends ArgumentAnnotationSelector<MethodsArgumentAnnotationSelector,MethodArgumentsSelector> {
+public enum StringMatcher {
+    EQUALS,
+    STARTS_WITH,
+    ENDS_WITH,
+    CONTAINS,
+    REGEX
 }

@@ -22,7 +22,7 @@ import java.lang.annotation.Annotation;
 
 /**
  * DeclaringClassSelector provides alias for {@link ClassSelector#byClass(Class)} and
- * {@link ClassSelector#byClassName(String, StringMatcherType)}
+ * {@link ClassSelector#byClassName(String, StringMatcher)}
  */
 public interface DeclaringClassSelector<SB extends SelectorBuilder> extends ClassSelector<SB> {
     /**
@@ -42,7 +42,7 @@ public interface DeclaringClassSelector<SB extends SelectorBuilder> extends Clas
 
     /**
      * Select a method by it's declaring class name (pattern).
-     * Alias for {@link ClassSelector#byClassName(String, StringMatcherType)}.<br/>
+     * Alias for {@link ClassSelector#byClassName(String, StringMatcher)}.<br/>
      * </br>
      * AspectJ pointcut definition examples:
      * <ul>
@@ -54,7 +54,7 @@ public interface DeclaringClassSelector<SB extends SelectorBuilder> extends Clas
      * @param matcherType  the matcher type
      * @return itself
      */
-    SB byDeclaringClassName(String classNamePattern, StringMatcherType matcherType);
+    SB byDeclaringClassName(String classNamePattern, StringMatcher matcherType);
 
     /**
      * The selector selects classes which has been annotated (depends on {@code logicalOperator}).

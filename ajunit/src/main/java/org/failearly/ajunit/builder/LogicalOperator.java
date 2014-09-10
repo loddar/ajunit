@@ -25,32 +25,6 @@ package org.failearly.ajunit.builder;
  */
 public enum LogicalOperator {
     OR,
-    /**
-     * Alias for {@link #OR}
-     */
-    ANY_OF,
-    /**
-     * Alias for {@link #OR}
-     */
-    UNION,
-
     AND,
-    /**
-     * Alias for {@link #AND}
-     */
-    ALL_OF,
-    /**
-     * Alias for {@link #AND}
-     */
-    INTERSECT,
-
-    NOR,
-    /**
-     * Alias for {@link #NOR}
-     */
-    NONE_OF,
-    /**
-     * Alias for {@link #NOR}
-     */
-    COMPLEMENT
+    NOR
 }

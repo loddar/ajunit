@@ -19,9 +19,14 @@
 package org.failearly.ajunit.internal.transformer.method;
 
 import org.failearly.ajunit.internal.transformer.Transformer;
+import org.failearly.ajunit.internal.transformer.annotation.AnnotationTransformers;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.List;
+
+import static org.failearly.ajunit.internal.transformer.standard.StandardTransformers.compose;
+import static org.failearly.ajunit.internal.transformer.standard.StandardTransformers.named;
 
 /**
  * MethodTransformers provides factory methods for {@link java.lang.reflect.Method} related transformations.
@@ -30,20 +35,26 @@ public final class MethodTransformers {
 
     private static final Transformer METHOD_RETURN_TYPE_TRANSFORMER = new MethodTransformerBase<Class<?>>("MethodReturnType") {
         @Override
-        protected Class<?> doTypedTransform(final Method input) {
-            return input.getReturnType();
+        protected Class<?> doTypedTransform(final Method method) {
+            return method.getReturnType();
         }
     };
-    private static final Transformer METHOD_ARGUMENTS_TRANSFORMER = new MethodListTransformerBase<Class<?>>("MethodParameters") {
+    private static final Transformer METHOD_PARAMETERS_TRANSFORMER = new MethodListTransformerBase<Class<?>>("MethodParameters") {
         @Override
-        protected List<Class<?>> doTypedTransform(Method input) {
-            return convert(input.getParameterTypes());
+        protected List<Class<?>> doTypedTransform(final Method method) {
+            return convert(method.getParameterTypes());
         }
     };
     private static final Transformer METHOD_EXCEPTIONS_TRANSFORMER = new MethodListTransformerBase<Class<?>>("MethodExceptions") {
         @Override
-        protected List<Class<?>> doTypedTransform(Method input) {
-            return convert(input.getExceptionTypes());
+        protected List<Class<?>> doTypedTransform(final Method method) {
+            return convert(method.getExceptionTypes());
+        }
+    };
+    private static final Transformer METHOD_PARAMETER_ANNOTATIONS =new MethodTransformerBase<Annotation[][]>("MethodParametersAnnotations") {
+        @Override
+        protected Annotation[][] doTypedTransform(final Method method) {
+            return method.getParameterAnnotations();
         }
     };
 
@@ -53,22 +64,43 @@ public final class MethodTransformers {
     /**
      * The returned Transformer executes {@link java.lang.reflect.Method#getReturnType()}.
      */
-    public static Transformer methodReturnTypeTransformer() {
+    public static Transformer methodReturnType() {
         return METHOD_RETURN_TYPE_TRANSFORMER;
     }
 
     /**
-     * The returned Transformer executes {@link java.lang.reflect.Method#getParameterTypes()}.
+     * The returned Transformer executes {@link java.lang.reflect.Method#getParameterTypes()} as {@link java.util.List}.
      */
-    public static Transformer methodArgumentsTransformer() {
-        return METHOD_ARGUMENTS_TRANSFORMER;
+    public static Transformer methodParameters() {
+        return METHOD_PARAMETERS_TRANSFORMER;
     }
 
     /**
-     * The returned Transformer executes {@link java.lang.reflect.Method#getExceptionTypes()}.
+     * The returned Transformer executes {@link java.lang.reflect.Method#getExceptionTypes()} as {@link java.util.List}.
      */
-    public static Transformer methodExceptionsTransformer() {
+    public static Transformer methodExceptions() {
         return METHOD_EXCEPTIONS_TRANSFORMER;
     }
 
+    /**
+     * The returned transformer resolves the method parameter annotations ({@link java.lang.reflect.Method#getParameterAnnotations()}) and convert it to a
+     * list and the {@link java.lang.annotation.Annotation} type will be resolved.
+     *
+     * @see java.lang.reflect.Method#getParameterAnnotations()
+     * @see java.lang.annotation.Annotation#annotationType()
+     */
+    public static Transformer methodParameterAnnotationsType() {
+        return named("MethodParameterAnnotationsType", compose(
+                methodRawParameterAnnotations(),
+                AnnotationTransformers.toAnnotationTypesDim2()
+            ));
+    }
+
+    /**
+     * The returned Transformer executes {@link java.lang.reflect.Method#getParameterAnnotations()}.
+     * @see java.lang.annotation.Annotation#annotationType()
+     */
+    public static Transformer methodRawParameterAnnotations() {
+        return METHOD_PARAMETER_ANNOTATIONS;
+    }
 }

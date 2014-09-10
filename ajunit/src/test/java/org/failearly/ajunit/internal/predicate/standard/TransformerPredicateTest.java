@@ -36,7 +36,7 @@ public class TransformerPredicateTest {
     public void transformerReturnsNotNull() throws Exception {
         // arrange / given
         final Predicate predicate = StandardPredicates.transformerPredicate(
-                    StandardTransformers.identityTransformer(String.class),
+                    StandardTransformers.identity(String.class),
                     StandardPredicates.alwaysTrue()
                 );
 
@@ -48,7 +48,7 @@ public class TransformerPredicateTest {
     public void transformerReturnsNull() throws Exception {
         // arrange / given
         final Predicate predicate = StandardPredicates.transformerPredicate(
-                StandardTransformers.nullTransformer(),
+                StandardTransformers.nullify(),
                 StandardPredicates.alwaysTrue()
         );
 
@@ -60,7 +60,7 @@ public class TransformerPredicateTest {
     public void compositeTransformerReturnsNotNull() throws Exception {
         // arrange / given
         final CompositePredicate predicate = StandardPredicates.transformerPredicate(
-                StandardTransformers.identityTransformer(String.class),
+                StandardTransformers.identity(String.class),
                 LogicalPredicates.and()
         );
 
@@ -74,7 +74,7 @@ public class TransformerPredicateTest {
     public void compositeTransformerReturnsNull() throws Exception {
         // arrange / given
         final CompositePredicate predicate = StandardPredicates.transformerPredicate(
-                StandardTransformers.nullTransformer(),
+                StandardTransformers.nullify(),
                 LogicalPredicates.and()
         );
 

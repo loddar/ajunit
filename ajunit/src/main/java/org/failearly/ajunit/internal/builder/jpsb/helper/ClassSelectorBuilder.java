@@ -20,7 +20,7 @@ package org.failearly.ajunit.internal.builder.jpsb.helper;
 
 import org.failearly.ajunit.builder.DimensionComparator;
 import org.failearly.ajunit.builder.LogicalOperator;
-import org.failearly.ajunit.builder.StringMatcherType;
+import org.failearly.ajunit.builder.StringMatcher;
 import org.failearly.ajunit.internal.builder.Builder;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.clazz.ClassPredicates;
@@ -50,9 +50,9 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
         );
     }
 
-    public T byClassName(String classNamePattern, StringMatcherType matcherType) {
+    public T byClassName(String classNamePattern, StringMatcher matcherType) {
         return addPredicate(
-                ClassTransformers.classNameTransformer(),
+                ClassTransformers.className(),
                 JoinPointSelectorUtils.createStringMatcherPredicate(classNamePattern, matcherType)
         );
     }
@@ -88,9 +88,9 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
         );
     }
 
-    public T byPackageName(String packageNamePattern, StringMatcherType matcherType) {
+    public T byPackageName(String packageNamePattern, StringMatcher matcherType) {
         return addPredicate(
-                ClassTransformers.packageNameTransformer(),
+                ClassTransformers.packageName(),
                 JoinPointSelectorUtils.createStringMatcherPredicate(packageNamePattern, matcherType)
         );
     }
@@ -145,7 +145,7 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
     public T byPrimitiveWrapperType() {
         return addPredicate(
                 LogicalPredicates.and(
-                        StandardPredicates.transformerPredicate(ClassTransformers.packageNameTransformer(), StandardPredicates.equalsPredicate("java.lang")),
+                        StandardPredicates.transformerPredicate(ClassTransformers.packageName(), StandardPredicates.equalsTo("java.lang")),
                         LogicalPredicates.not(ClassPredicates.isClass(Number.class)),
                         LogicalPredicates.or(
                             ClassPredicates.isSubclassOf(Number.class),

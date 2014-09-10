@@ -16,26 +16,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.internal.transformer.standard;
+
+import org.failearly.ajunit.internal.transformer.Transformer;
+import org.failearly.ajunit.internal.transformer.TransformerBase;
 
 /**
- * Available logical operators for lists like method or constructor exception list.
- *
- * @see org.failearly.ajunit.builder.method.MethodJoinPointSelector#exceptionTypes(ListLogicalOperator)
+ * NamedTransformer gives an unnamed transformer a name.
  */
-public enum ListLogicalOperator {
-    /**
-     * ANY OF the elements within the list matches.
-     */
-    ANY_OF,
+final class NamedTransformer extends TransformerBase {
 
-    /**
-     * All OF elements within the list matches.
-     */
-    ALL_OF,
+    private final Transformer transformer;
 
-    /**
-     * NONE OF elements within the list matches.
-     */
-    NONE_OF
+    public NamedTransformer(String name, Transformer transformer) {
+        super(name);
+        this.transformer = transformer;
+    }
+
+    @Override
+    protected Object doTransform(Object input) {
+        return transformer.transform(input);
+    }
 }

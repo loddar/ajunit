@@ -40,17 +40,17 @@ public abstract class SuppressedJoinPointFactory {
     protected static final Predicate PREDICATE_JAVA_LANG_OBJECT = byDeclaringClass(Object.class);
 
     static final Predicate PREDICATE_AJC_METHODS = StandardPredicates.transformerPredicate(
-            StandardTransformers.transformerComposition(
-                    AjpTransformers.methodTransformer(),
-                    MemberTransformers.nameTransformer()
+            StandardTransformers.compose(
+                    AjpTransformers.method(),
+                    MemberTransformers.name()
             ),
             StringPredicates.startsWith(ASPECTJ_PREFIX)
     );
 
     static final Predicate PREDICATE_AJC_FIELDS = StandardPredicates.transformerPredicate(
-            StandardTransformers.transformerComposition(
-                    AjpTransformers.fieldTransformer(),
-                    MemberTransformers.nameTransformer()
+            StandardTransformers.compose(
+                    AjpTransformers.field(),
+                    MemberTransformers.name()
             ),
             StringPredicates.startsWith(ASPECTJ_PREFIX)
     );
@@ -73,16 +73,16 @@ public abstract class SuppressedJoinPointFactory {
 
     protected static Predicate byDeclaringClass(Class<?> clazz) {
         return StandardPredicates.transformerPredicate(
-                AjpTransformers.declaringClassTransformer(),
+                AjpTransformers.declaringClass(),
                 ClassPredicates.isClass(clazz)
         );
     }
 
     protected static Predicate byMethodName(String... names) {
         return StandardPredicates.transformerPredicate(
-                    StandardTransformers.transformerComposition(
-                            AjpTransformers.methodTransformer(),
-                            MemberTransformers.nameTransformer()
+                    StandardTransformers.compose(
+                            AjpTransformers.method(),
+                            MemberTransformers.name()
                     ),
                 anyNameEquals(names)
         );
@@ -91,7 +91,7 @@ public abstract class SuppressedJoinPointFactory {
     private static CompositePredicate anyNameEquals(String[] names) {
         final CompositePredicate byAnyMethodName = LogicalPredicates.or();
         for (String name : names) {
-            byAnyMethodName.addPredicate(StandardPredicates.equalsPredicate(name));
+            byAnyMethodName.addPredicate(StandardPredicates.equalsTo(name));
         }
         return byAnyMethodName;
     }

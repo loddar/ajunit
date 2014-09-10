@@ -50,14 +50,14 @@ public final class FieldTransformers {
     /**
      * The returned Transformer executes {@link java.lang.reflect.Field#getType()}.
      */
-    public static Transformer fieldTypeTransformer() {
+    public static Transformer fieldType() {
         return FIELD_TYPE_TRANSFORMER;
     }
 
     /**
      * The returned Transformer executes {@link java.lang.reflect.Field#getDeclaredAnnotations()}.
      */
-    public static Transformer fieldDeclaredAnnotationsTransformer() {
+    public static Transformer fieldDeclaredAnnotations() {
         return FIELD_DECLARED_ANNOTATIONS_TRANSFORMER;
     }
 }

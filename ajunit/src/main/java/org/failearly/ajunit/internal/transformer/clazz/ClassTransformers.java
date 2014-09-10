@@ -67,7 +67,7 @@ public final class ClassTransformers {
     /**
      * The created Transformer executes {@link Class#getSimpleName()}.
      */
-    public static Transformer classNameTransformer() {
+    public static Transformer className() {
         return CLASS_NAME_TRANSFORMER;
     }
 
@@ -75,7 +75,7 @@ public final class ClassTransformers {
      * The created Transformer executes {@link Class#getPackage()} and {@link Package#getName()}. The result is the package name or the empty string for the
      * default package.
      */
-    public static Transformer packageNameTransformer() {
+    public static Transformer packageName() {
         return CLASS_PACKAGE_NAME_TRANSFORMER;
     }
 

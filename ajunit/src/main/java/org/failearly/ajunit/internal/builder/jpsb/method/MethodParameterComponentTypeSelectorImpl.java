@@ -18,8 +18,8 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb.method;
 
-import org.failearly.ajunit.builder.method.MethodArgumentComponentTypeSelector;
-import org.failearly.ajunit.builder.method.MethodArgumentTypeSelector;
+import org.failearly.ajunit.builder.method.MethodParameterComponentTypeSelector;
+import org.failearly.ajunit.builder.method.MethodParameterTypeSelector;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.ComponentTypeSelectorBase;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
@@ -28,48 +28,48 @@ import org.failearly.ajunit.internal.builder.jpsb.helper.SelectorBuilders;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 
 /**
- * MethodArgumentComponentTypeSelector is the implementation of {@link org.failearly.ajunit.builder.method.MethodArgumentComponentTypeSelector}
+ * MethodArgumentComponentTypeSelector is the implementation of {@link org.failearly.ajunit.builder.method.MethodParameterComponentTypeSelector}
  *
- * @see org.failearly.ajunit.builder.method.MethodArgumentTypeSelector#componentType()
+ * @see org.failearly.ajunit.builder.method.MethodParameterTypeSelector#componentType()
  */
-final class MethodArgumentComponentTypeSelectorImpl
-        extends ComponentTypeSelectorBase<MethodArgumentComponentTypeSelectorImpl,MethodArgumentTypeSelector>
-        implements MethodArgumentComponentTypeSelector {
+final class MethodParameterComponentTypeSelectorImpl
+        extends ComponentTypeSelectorBase<MethodParameterComponentTypeSelectorImpl,MethodParameterTypeSelector>
+        implements MethodParameterComponentTypeSelector {
 
 
-    MethodArgumentComponentTypeSelectorImpl(
+    MethodParameterComponentTypeSelectorImpl(
             JoinPointSelectorImpl root,
-            MethodArgumentTypeSelectorImpl parent,
+            MethodParameterTypeSelectorImpl parent,
             CompositePredicate compositePredicate) {
         this();
         init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
     }
 
-    private MethodArgumentComponentTypeSelectorImpl(JoinPointSelectorImpl root, MethodArgumentComponentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
+    private MethodParameterComponentTypeSelectorImpl(JoinPointSelectorImpl root, MethodParameterComponentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
         this();
         init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
     }
 
-    private MethodArgumentComponentTypeSelectorImpl() {
-        super(MethodArgumentComponentTypeSelectorImpl.class, MethodArgumentTypeSelector.class);
+    private MethodParameterComponentTypeSelectorImpl() {
+        super(MethodParameterComponentTypeSelectorImpl.class, MethodParameterTypeSelector.class);
     }
 
     @Override
-    protected ClassSelectorBuilder<MethodArgumentComponentTypeSelectorImpl> createComponentTypeSelector() {
+    protected ClassSelectorBuilder<MethodParameterComponentTypeSelectorImpl> createComponentTypeSelector() {
         return SelectorBuilders.createMethodArgumentComponentTypeSelectorBuilder(this);
     }
 
     @Override
-    protected final MethodArgumentComponentTypeSelectorImpl newInstance(JoinPointSelectorImpl root, MethodArgumentComponentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
-        return new MethodArgumentComponentTypeSelectorImpl(root, parent, compositePredicate);
+    protected final MethodParameterComponentTypeSelectorImpl newInstance(JoinPointSelectorImpl root, MethodParameterComponentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
+        return new MethodParameterComponentTypeSelectorImpl(root, parent, compositePredicate);
     }
 
     @Override
-    public MethodArgumentComponentTypeSelectorImpl nor() {
+    public MethodParameterComponentTypeSelectorImpl nor() {
         return this.and().byArray().createNorExpression();
     }
 
-    private  MethodArgumentComponentTypeSelectorImpl byArray() {
+    private MethodParameterComponentTypeSelectorImpl byArray() {
         return SelectorBuilders.createMethodArgumentTypeSelectorBuilder(this).byArray();
     }
 

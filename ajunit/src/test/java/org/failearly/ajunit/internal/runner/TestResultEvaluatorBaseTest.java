@@ -58,10 +58,10 @@ public class TestResultEvaluatorBaseTest<T extends TestResultCollector> {
     protected static Predicate methodByNameAndType(AjJoinPointType joinPointType,
                                                            String... names) {
         return StandardPredicates.transformerPredicate(
-                StandardTransformers.transformerComposition(
-                        AjpTransformers.ajpJoinPointFilterTransformer(joinPointType),
-                        AjpTransformers.methodTransformer(),
-                        MemberTransformers.nameTransformer()
+                StandardTransformers.compose(
+                        AjpTransformers.ajpJoinPointFilter(joinPointType),
+                        AjpTransformers.method(),
+                        MemberTransformers.name()
                 ),
                 byAnyName(names)
 
@@ -71,7 +71,7 @@ public class TestResultEvaluatorBaseTest<T extends TestResultCollector> {
     private static Predicate byAnyName(String... names) {
         final CompositePredicate anyOf = LogicalPredicates.or();
         for (String name : names) {
-            anyOf.addPredicate(StandardPredicates.equalsPredicate(name));
+            anyOf.addPredicate(StandardPredicates.equalsTo(name));
         }
         return anyOf;
     }

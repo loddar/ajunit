@@ -23,30 +23,23 @@ import java.lang.annotation.Annotation;
 /**
  * ArgumentAnnotationSelector is responsible for selecting methods/constructors by argument/parameter annotations.
  *
- * @see org.failearly.ajunit.builder.ArgumentsSelector
+ * @see ParametersSelector
  */
-public interface ArgumentAnnotationSelector<SB extends ArgumentAnnotationSelector, RT extends ArgumentsSelector> extends SelectorBuilder {
+public interface ParameterAnnotationSelector<SB extends ParameterAnnotationSelector, RT extends ParametersSelector> extends SelectorBuilder {
 
     /**
-     * The selector selects methods/constructors with annotated argument.
-     * @param annotationClass the annotation class.
-     * @return itself
-     */
-    SB byArgumentAnnotation(Class<? extends Annotation>... annotationClass);
-
-    /**
-     * The selector selects methods/constructors with annotated arguments (depends on {@code logicalOperator}).
+     * The selector selects methods/constructors with annotated parameters (depends on {@code logicalOperator}).
      * @param logicalOperator the logical operator to be used.
      * @param annotationClasses the annotation classes (at least one must be provided).
      * @return itself
      */
     @SuppressWarnings("all")
-    SB byArgumentAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotationClasses);
+    SB byParameterAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotationClasses);
 
 
     /**
      * Ends the argument annotation selector expression.
      * @return the arguments selector (parent)
      */
-    RT endArgumentAnnotation();
+    RT endParameterAnnotation();
 }

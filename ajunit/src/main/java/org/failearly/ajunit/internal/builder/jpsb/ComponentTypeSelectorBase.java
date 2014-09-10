@@ -19,7 +19,7 @@
 package org.failearly.ajunit.internal.builder.jpsb;
 
 import org.failearly.ajunit.builder.SelectorBuilder;
-import org.failearly.ajunit.builder.StringMatcherType;
+import org.failearly.ajunit.builder.StringMatcher;
 import org.failearly.ajunit.internal.builder.Builder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
 import org.failearly.ajunit.internal.util.AjAssert;
@@ -44,7 +44,7 @@ public abstract class ComponentTypeSelectorBase<C extends Builder, P extends Sel
         return componentTypeSelector.byClass(classType);
     }
 
-    public final C byClassName(String classNamePattern, StringMatcherType matcherType) {
+    public final C byClassName(String classNamePattern, StringMatcher matcherType) {
         return componentTypeSelector.byClassName(classNamePattern, matcherType);
     }
 
@@ -68,7 +68,7 @@ public abstract class ComponentTypeSelectorBase<C extends Builder, P extends Sel
         return componentTypeSelector.byImplementingNoneOf(interfaces);
     }
 
-    public final C byPackageName(String packageNamePattern, StringMatcherType matcherType) {
+    public final C byPackageName(String packageNamePattern, StringMatcher matcherType) {
         return componentTypeSelector.byPackageName(packageNamePattern, matcherType);
     }
 

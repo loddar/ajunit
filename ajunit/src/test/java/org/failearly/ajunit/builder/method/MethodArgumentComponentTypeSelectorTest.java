@@ -27,11 +27,11 @@ import java.lang.annotation.Annotation;
 import java.util.Map;
 
 /**
- * MethodArgumentComponentTypeSelectorTest contains tests for {@link org.failearly.ajunit.builder.method.MethodArgumentTypeSelector#componentType()}.
+ * MethodArgumentComponentTypeSelectorTest contains tests for {@link MethodParameterTypeSelector#componentType()}.
  */
 public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
-    private MethodArgumentComponentTypeSelector argumentComponentTypeSelector;
+    private MethodParameterComponentTypeSelector argumentComponentTypeSelector;
 
     protected MethodArgumentComponentTypeSelectorTest(AjJoinPointType expectedJoinPointType) {
         super(expectedJoinPointType, TestSubject9.class);
@@ -41,7 +41,7 @@ public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJo
     protected void doAdditionalSetup(MethodJoinPointSelector selectorBuilder) {
         this.argumentComponentTypeSelector = selectorBuilder
                                                     .arguments(LogicalOperator.OR)
-                                                        .argumentTypes(ListLogicalOperator.ANY_OF)
+                                                        .parameterTypes(ListOperator.AT_LEAST_ONE)
                                                             .componentType();
     }
 
@@ -62,7 +62,7 @@ public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJo
     public void byClassName() throws Exception {
         // act / when
         argumentComponentTypeSelector
-                    .byClassName("Any", StringMatcherType.STARTS_WITH)
+                    .byClassName("Any", StringMatcher.STARTS_WITH)
                 .endComponentType();
 
         // assert / then
@@ -77,7 +77,7 @@ public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJo
     public void byPackageName() throws Exception {
         // act / when
         argumentComponentTypeSelector
-                    .byPackageName("ajunit.builder", StringMatcherType.CONTAINS)
+                    .byPackageName("ajunit.builder", StringMatcher.CONTAINS)
                 .endComponentType();
 
         // assert / then

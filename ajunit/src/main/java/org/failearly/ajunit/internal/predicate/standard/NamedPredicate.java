@@ -16,15 +16,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.internal.predicate.standard;
+
+import org.failearly.ajunit.internal.predicate.AbstractPredicate;
+import org.failearly.ajunit.internal.predicate.Predicate;
 
 /**
- * CompareType is responsible for ...
+ * NamedPredicate gives an unnamed predicate a name.
  */
-public enum StringMatcherType {
-    EQUALS,
-    STARTS_WITH,
-    ENDS_WITH,
-    CONTAINS,
-    REGEX
+final class NamedPredicate extends AbstractPredicate {
+
+    private final Predicate predicate;
+
+    public NamedPredicate(String name, Predicate predicate) {
+        super(name);
+        this.predicate = predicate;
+    }
+
+    @Override
+    public boolean test(Object object) {
+        return predicate.test(object);
+    }
 }

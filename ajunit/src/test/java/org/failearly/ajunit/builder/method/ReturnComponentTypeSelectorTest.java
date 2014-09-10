@@ -190,7 +190,7 @@ public abstract class ReturnComponentTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byClassName() throws Exception {
         // act / when
-        selectorBuilder.byClassName("Map", StringMatcherType.ENDS_WITH);
+        selectorBuilder.byClassName("Map", StringMatcher.ENDS_WITH);
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -201,7 +201,7 @@ public abstract class ReturnComponentTypeSelectorTest extends AbstractJoinPointS
     @Test
     public void byPackageName() throws Exception {
         // act / when
-        selectorBuilder.byPackageName("java.util", StringMatcherType.EQUALS).endComponentType();
+        selectorBuilder.byPackageName("java.util", StringMatcher.EQUALS).endComponentType();
 
         // assert / then
         assertBuildJoinPointSelector(

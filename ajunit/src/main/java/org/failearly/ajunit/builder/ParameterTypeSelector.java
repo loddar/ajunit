@@ -16,15 +16,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder.method;
-
-import org.failearly.ajunit.builder.ArgumentTypeSelector;
+package org.failearly.ajunit.builder;
 
 /**
- * MethodArgumentTypeSelector is responsible for selecting argument(s) of methods and constructors by argument type and position(s).
+ * ArgumentTypeSelector is responsible for selecting argument(s) of methods or constructors by argument type and position(s).
  *
- * @see MethodArgumentsSelector#byArgumentPosition(int)
+ * @see ParametersSelector#parameterTypes(Position, int...)
+ * @see ParametersSelector#parameterTypes(ListOperator)
  */
-public interface MethodArgumentTypeSelector
-        extends ArgumentTypeSelector<MethodArgumentTypeSelector,MethodArgumentComponentTypeSelector,MethodArgumentsSelector> {
+public interface ParameterTypeSelector<ATB extends ParameterTypeSelector, CTB extends ComponentTypeSelector, RB extends ParametersSelector>
+        extends ExtendedClassSelector<ATB>,
+        LogicalSelector<ATB>,
+        ArrayTypeSelector<ATB,CTB> {
+    /**
+     * Ends argument position expression.
+     * @return previous {@link ParametersSelector}.
+     */
+    RB endParameterType();
 }

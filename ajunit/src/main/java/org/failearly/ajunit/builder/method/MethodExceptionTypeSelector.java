@@ -21,7 +21,7 @@ package org.failearly.ajunit.builder.method;
 import org.failearly.ajunit.builder.ExceptionTypeSelector;
 
 /**
- * MethodExceptionTypeSelector provides selectors for {@link MethodJoinPointSelector#exceptionTypes(org.failearly.ajunit.builder.ListLogicalOperator)}.
+ * MethodExceptionTypeSelector provides selectors for {@link MethodJoinPointSelector#exceptionTypes(org.failearly.ajunit.builder.ListOperator)}.
  *
  * @see java.lang.reflect.Method#getExceptionTypes()
  */

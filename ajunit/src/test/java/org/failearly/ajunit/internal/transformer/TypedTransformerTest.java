@@ -25,7 +25,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Tests for {@link org.failearly.ajunit.internal.transformer.standard.StandardTransformers#transformerComposition(org.failearly.ajunit.internal.transformer.Transformer...)}.
+ * Tests for {@link org.failearly.ajunit.internal.transformer.standard.StandardTransformers#compose(org.failearly.ajunit.internal.transformer.Transformer...)}.
  */
 public class TypedTransformerTest {
 
@@ -66,7 +66,7 @@ public class TypedTransformerTest {
   }
 
     private static Transformer createWrongTypeTransformer() {
-        return StandardTransformers.identityTransformer(Runnable.class);
+        return StandardTransformers.identity(Runnable.class);
     }
 
 

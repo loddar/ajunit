@@ -16,17 +16,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder.method;
-
-import org.failearly.ajunit.builder.ArgumentsSelector;
-import org.failearly.ajunit.builder.LogicalSelector;
+package org.failearly.ajunit.builder;
 
 /**
- * MethodArgumentsSelector is responsible for for selecting joinpoints based on the number and/or types of the (declared) argument list.
+ * TestSubject10 is the test subject for testing parameter/argument annotations.
  */
-public interface MethodArgumentsSelector
-        extends ArgumentsSelector<MethodArgumentsSelector, MethodArgumentTypeSelector, MethodsArgumentAnnotationSelector, MethodJoinPointSelector>,
-                LogicalSelector<MethodArgumentsSelector> {
-
-
+public class TestSubject10 {
+    public void method1(@AnyAnnotation int p0, @AnyOtherAnnotation String p1) {}
+    public void method2(@AnyAnnotation @AnyOtherAnnotation int p0, @AnyOtherAnnotation String p1) {}
+    public void method3(int p0, String p1) {}
 }

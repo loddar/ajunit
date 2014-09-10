@@ -64,16 +64,8 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
     public static Collection logicalOperatorTests() {
         final List<Object> tests = new LinkedList<>();
         addOrTest(tests, LogicalOperator.OR);
-        addOrTest(tests, LogicalOperator.ANY_OF);
-        addOrTest(tests, LogicalOperator.UNION);
-
         addAndTest(tests, LogicalOperator.AND);
-        addAndTest(tests, LogicalOperator.ALL_OF);
-        addAndTest(tests, LogicalOperator.INTERSECT);
-
         addNorTest(tests, LogicalOperator.NOR);
-        addNorTest(tests, LogicalOperator.NONE_OF);
-        addNorTest(tests, LogicalOperator.COMPLEMENT);
 
         defineComplexOrTests(tests);
         defineComplexAndTests(tests);
@@ -149,7 +141,7 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
             @Override
             public ReturnTypeSelector select(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
-                        .byPackageName("org.failearly.ajunit.builder", StringMatcherType.EQUALS)
+                        .byPackageName("org.failearly.ajunit.builder", StringMatcher.EQUALS)
                         .and()
                             .byImplementingAnyOf(Serializable.class)
                             .byNotExtending(Number.class)
@@ -162,7 +154,7 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
             @Override
             public ReturnTypeSelector select(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
-                        .byPackageName("org.failearly.ajunit.builder", StringMatcherType.EQUALS)
+                        .byPackageName("org.failearly.ajunit.builder", StringMatcher.EQUALS)
                         .allOf()
                             .byImplementingAnyOf(Serializable.class)
                             .byNotExtending(Number.class)
@@ -175,7 +167,7 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
             @Override
             public ReturnTypeSelector select(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
-                        .byPackageName("org.failearly.ajunit.builder", StringMatcherType.EQUALS)
+                        .byPackageName("org.failearly.ajunit.builder", StringMatcher.EQUALS)
                         .intersect()
                             .byImplementingAnyOf(Serializable.class)
                             .byNotExtending(Number.class)
@@ -273,7 +265,7 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
             public ReturnTypeSelector select(ReturnTypeSelector selectBuilder) {
                 return selectBuilder
                         .byImplementingAnyOf(Serializable.class)
-                        .byPackageName("org.failearly.ajunit.builder", StringMatcherType.EQUALS);
+                        .byPackageName("org.failearly.ajunit.builder", StringMatcher.EQUALS);
             }
         }});
     }

@@ -35,7 +35,7 @@ public class ClassTransformersTest extends TransformersBaseTest {
     @Test
     public void className() throws Exception {
         // arrange / given
-        final Transformer transformer = ClassTransformers.classNameTransformer();
+        final Transformer transformer = ClassTransformers.className();
 
         // act / when
         final Object output = transformer.transform(resolveClass());
@@ -47,7 +47,7 @@ public class ClassTransformersTest extends TransformersBaseTest {
     @Test
     public void packageName() throws Exception {
         // arrange / given
-        final Transformer transformer = ClassTransformers.packageNameTransformer();
+        final Transformer transformer = ClassTransformers.packageName();
 
         // act / when
         final Object output = transformer.transform(resolveClass());

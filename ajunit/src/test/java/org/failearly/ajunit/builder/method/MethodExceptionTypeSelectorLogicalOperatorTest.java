@@ -19,8 +19,8 @@
 package org.failearly.ajunit.builder.method;
 
 import org.failearly.ajunit.builder.AbstractJoinPointSelectorTest;
-import org.failearly.ajunit.builder.ListLogicalOperator;
-import org.failearly.ajunit.builder.StringMatcherType;
+import org.failearly.ajunit.builder.ListOperator;
+import org.failearly.ajunit.builder.StringMatcher;
 import org.failearly.ajunit.builder.TestSubject6;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
@@ -127,7 +127,7 @@ public abstract class MethodExceptionTypeSelectorLogicalOperatorTest extends Abs
                 return selectBuilder
                         .and()
                             .byCheckedException()
-                            .byPackageName("java.sql", StringMatcherType.STARTS_WITH)
+                            .byPackageName("java.sql", StringMatcher.STARTS_WITH)
                         .end();
 
             }
@@ -138,7 +138,7 @@ public abstract class MethodExceptionTypeSelectorLogicalOperatorTest extends Abs
                 return selectBuilder
                         .allOf()
                             .byCheckedException()
-                            .byPackageName("java.sql", StringMatcherType.STARTS_WITH)
+                            .byPackageName("java.sql", StringMatcher.STARTS_WITH)
                         .end();
 
             }
@@ -149,7 +149,7 @@ public abstract class MethodExceptionTypeSelectorLogicalOperatorTest extends Abs
                 return selectBuilder
                         .intersect()
                             .byCheckedException()
-                            .byPackageName("java.sql", StringMatcherType.STARTS_WITH)
+                            .byPackageName("java.sql", StringMatcher.STARTS_WITH)
                         .end();
 
             }
@@ -214,7 +214,7 @@ public abstract class MethodExceptionTypeSelectorLogicalOperatorTest extends Abs
 
     private void assertLogicalExpression(SelectorFragment<MethodExceptionTypeSelector> subSelect, List<String> expectedJoinPoints) {
         subSelect.select(
-                selectorBuilder.exceptionTypes(ListLogicalOperator.ANY_OF)
+                selectorBuilder.exceptionTypes(ListOperator.AT_LEAST_ONE)
         ).endExceptionTypes();
 
         assertBuildJoinPointSelector(expectedJoinPoints);

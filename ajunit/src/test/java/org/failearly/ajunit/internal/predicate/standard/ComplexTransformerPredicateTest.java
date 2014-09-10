@@ -38,12 +38,12 @@ public class ComplexTransformerPredicateTest {
     public void chainedTransformer() throws Exception {
         // arrange / given
         final Predicate predicate = StandardPredicates.transformerPredicate(
-                    StandardTransformers.transformerComposition(
-                            StandardTransformers.reflection(A.class,"getB"),
-                            StandardTransformers.reflection(B.class,"getC"),
-                            StandardTransformers.reflection(C.class,"getValue")
+                    StandardTransformers.compose(
+                            StandardTransformers.reflection(A.class, "getB"),
+                            StandardTransformers.reflection(B.class, "getC"),
+                            StandardTransformers.reflection(C.class, "getValue")
                     ),
-                    StandardPredicates.equalsPredicate(C_VALUE)
+                    StandardPredicates.equalsTo(C_VALUE)
                 );
 
         // assert / then
@@ -66,7 +66,7 @@ public class ComplexTransformerPredicateTest {
         toClassC.addPredicate(
                 StandardPredicates.transformerPredicate(
                         StandardTransformers.reflection(C.class, "getValue"),
-                        StandardPredicates.equalsPredicate(C_VALUE)
+                        StandardPredicates.equalsTo(C_VALUE)
                 )
         );
 
@@ -74,7 +74,7 @@ public class ComplexTransformerPredicateTest {
         predicate.addPredicate(
                 StandardPredicates.transformerPredicate(
                         StandardTransformers.reflection(B.class, "getValue"),
-                        StandardPredicates.equalsPredicate(B_VALUE)
+                        StandardPredicates.equalsTo(B_VALUE)
                 )
         );
 

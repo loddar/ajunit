@@ -19,12 +19,12 @@
 package org.failearly.ajunit.internal.builder.jpsb.method;
 
 import org.failearly.ajunit.builder.DimensionComparator;
-import org.failearly.ajunit.builder.ListLogicalOperator;
+import org.failearly.ajunit.builder.ListOperator;
 import org.failearly.ajunit.builder.Position;
-import org.failearly.ajunit.builder.StringMatcherType;
-import org.failearly.ajunit.builder.method.MethodArgumentComponentTypeSelector;
-import org.failearly.ajunit.builder.method.MethodArgumentTypeSelector;
-import org.failearly.ajunit.builder.method.MethodArgumentsSelector;
+import org.failearly.ajunit.builder.StringMatcher;
+import org.failearly.ajunit.builder.method.MethodParameterComponentTypeSelector;
+import org.failearly.ajunit.builder.method.MethodParameterTypeSelector;
+import org.failearly.ajunit.builder.method.MethodParametersSelector;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderBase;
@@ -41,173 +41,173 @@ import java.lang.annotation.Annotation;
 /**
  * MethodArgumentTypeSelectorImpl is responsible for ...
  */
-final class MethodArgumentTypeSelectorImpl extends JoinPointSelectorBuilderBase<MethodArgumentTypeSelectorImpl,MethodArgumentsSelector>
-        implements MethodArgumentTypeSelector {
+final class MethodParameterTypeSelectorImpl extends JoinPointSelectorBuilderBase<MethodParameterTypeSelectorImpl,MethodParametersSelector>
+        implements MethodParameterTypeSelector {
 
-    private ClassSelectorBuilder<MethodArgumentTypeSelectorImpl> methodArgumentTypeSelectorBuilder;
+    private ClassSelectorBuilder<MethodParameterTypeSelectorImpl> methodArgumentTypeSelectorBuilder;
 
-    private MethodArgumentTypeSelectorImpl() {
-        super(MethodArgumentTypeSelectorImpl.class, MethodArgumentsSelector.class);
+    private MethodParameterTypeSelectorImpl() {
+        super(MethodParameterTypeSelectorImpl.class, MethodParametersSelector.class);
         methodArgumentTypeSelectorBuilder = SelectorBuilders.createMethodArgumentTypeSelectorBuilder(this);
     }
 
-    MethodArgumentTypeSelectorImpl(
+    MethodParameterTypeSelectorImpl(
             JoinPointSelectorImpl root,
-            MethodArgumentsSelectorImpl parent,
+            MethodParametersSelectorImpl parent,
             CompositePredicate compositePredicate,
             Position relativeTo,
             int... positions) {
         this();
         super.init(LogicalStructureBuilder.createBuilder(
-                root, parent, this, createCompositeNode(compositePredicate, ListLogicalOperator.ALL_OF, relativeTo, positions))
+                root, parent, this, createCompositeNode(compositePredicate, ListOperator.EACH, relativeTo, positions))
             );
     }
 
     private static CompositePredicate createCompositeNode(
             CompositePredicate compositePredicate,
-            ListLogicalOperator listLogicalOperator, Position relativeTo, int... positions) {
+            ListOperator listOperator, Position relativeTo, int... positions) {
         return StandardPredicates.transformerPredicate(
-                StandardTransformers.transformerComposition(
+                StandardTransformers.compose(
                         JoinPointSelectorUtils.createArgumentPositionTransformer(relativeTo, positions)
                 ),
-                JoinPointSelectorUtils.createListLogicalOperator(listLogicalOperator, compositePredicate)
+                JoinPointSelectorUtils.createListLogicalOperator(listOperator, compositePredicate)
         );
     }
 
-    MethodArgumentTypeSelectorImpl(
+    MethodParameterTypeSelectorImpl(
             JoinPointSelectorImpl root,
-            MethodArgumentsSelectorImpl parent,
+            MethodParametersSelectorImpl parent,
             CompositePredicate compositePredicate,
-            ListLogicalOperator listLogicalOperator) {
+            ListOperator listOperator) {
         this();
         super.init(LogicalStructureBuilder.createBuilder(
-                root, parent, this, JoinPointSelectorUtils.createListLogicalOperator(listLogicalOperator, compositePredicate))
+                root, parent, this, JoinPointSelectorUtils.createListLogicalOperator(listOperator, compositePredicate))
             );
     }
 
-    private MethodArgumentTypeSelectorImpl(
+    private MethodParameterTypeSelectorImpl(
             JoinPointSelectorImpl root,
-            MethodArgumentTypeSelectorImpl parent,
+            MethodParameterTypeSelectorImpl parent,
             CompositePredicate compositePredicate) {
         this();
         super.init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
     }
 
     @Override
-    public MethodArgumentsSelector endArgumentType() {
+    public MethodParametersSelector endParameterType() {
         return terminateSubSelector();
     }
 
     @Override
-    public MethodArgumentTypeSelector byClass(Class<?> argumentClass) {
+    public MethodParameterTypeSelector byClass(Class<?> argumentClass) {
         return methodArgumentTypeSelectorBuilder.byClass(argumentClass);
     }
 
     @Override
-    public MethodArgumentTypeSelector byPrimitive() {
+    public MethodParameterTypeSelector byPrimitive() {
         return methodArgumentTypeSelectorBuilder.byPrimitive();
     }
 
     @Override
-    public MethodArgumentTypeSelector byClassName(String classNamePattern, StringMatcherType matcherType) {
+    public MethodParameterTypeSelector byClassName(String classNamePattern, StringMatcher matcherType) {
         return methodArgumentTypeSelectorBuilder.byClassName(classNamePattern, matcherType);
     }
 
     @Override
-    public MethodArgumentTypeSelector byExtending(Class<?> baseClass) {
+    public MethodParameterTypeSelector byExtending(Class<?> baseClass) {
         return methodArgumentTypeSelectorBuilder.byExtending(baseClass);
     }
 
     @Override
-    public MethodArgumentTypeSelector byNotExtending(Class<?> baseClass) {
+    public MethodParameterTypeSelector byNotExtending(Class<?> baseClass) {
         return methodArgumentTypeSelectorBuilder.byNotExtending(baseClass);
     }
 
     @Override
-    public MethodArgumentTypeSelector byImplementingAnyOf(Class<?>... interfaces) {
+    public MethodParameterTypeSelector byImplementingAnyOf(Class<?>... interfaces) {
         return methodArgumentTypeSelectorBuilder.byImplementingAnyOf(interfaces);
     }
 
     @Override
-    public MethodArgumentTypeSelector byImplementingAllOf(Class<?>... interfaces) {
+    public MethodParameterTypeSelector byImplementingAllOf(Class<?>... interfaces) {
         return methodArgumentTypeSelectorBuilder.byImplementingAllOf(interfaces);
     }
 
     @Override
-    public MethodArgumentTypeSelector byImplementingNoneOf(Class<?>... interfaces) {
+    public MethodParameterTypeSelector byImplementingNoneOf(Class<?>... interfaces) {
         return methodArgumentTypeSelectorBuilder.byImplementingNoneOf(interfaces);
     }
 
     @Override
-    public MethodArgumentTypeSelector byPackageName(String packageNamePattern, StringMatcherType matcherType) {
+    public MethodParameterTypeSelector byPackageName(String packageNamePattern, StringMatcher matcherType) {
         return methodArgumentTypeSelectorBuilder.byPackageName(packageNamePattern, matcherType);
     }
 
     @Override
-    public MethodArgumentTypeSelector byTypeAnnotation(Class<? extends Annotation> annotationClass) {
+    public MethodParameterTypeSelector byTypeAnnotation(Class<? extends Annotation> annotationClass) {
         return methodArgumentTypeSelectorBuilder.byTypeAnnotation(annotationClass);
     }
 
     @Override
-    public MethodArgumentTypeSelector byEnum() {
+    public MethodParameterTypeSelector byEnum() {
         return methodArgumentTypeSelectorBuilder.byEnum();
     }
 
     @Override
-    public MethodArgumentTypeSelector byAnnotation() {
+    public MethodParameterTypeSelector byAnnotation() {
         return methodArgumentTypeSelectorBuilder.byAnnotation();
     }
 
     @Override
-    public MethodArgumentTypeSelector byInterface() {
+    public MethodParameterTypeSelector byInterface() {
         return methodArgumentTypeSelectorBuilder.byInterface();
     }
 
     @Override
-    public MethodArgumentTypeSelector byPrimitiveWrapperType() {
+    public MethodParameterTypeSelector byPrimitiveWrapperType() {
         return methodArgumentTypeSelectorBuilder.byPrimitiveWrapperType();
     }
 
     @Override
-    public MethodArgumentTypeSelector byCollection() {
+    public MethodParameterTypeSelector byCollection() {
         return methodArgumentTypeSelectorBuilder.byCollection();
     }
 
     @Override
-    public MethodArgumentTypeSelector byMap() {
+    public MethodParameterTypeSelector byMap() {
         return methodArgumentTypeSelectorBuilder.byMap();
     }
 
     @Override
-    public MethodArgumentTypeSelector byArray() {
+    public MethodParameterTypeSelector byArray() {
         return methodArgumentTypeSelectorBuilder.byArray();
     }
 
     @Override
-    public MethodArgumentTypeSelector byArrayDimension(int dimension, DimensionComparator dimensionComparator) {
+    public MethodParameterTypeSelector byArrayDimension(int dimension, DimensionComparator dimensionComparator) {
         return methodArgumentTypeSelectorBuilder.byArrayDimension(dimension, dimensionComparator);
     }
 
     @Override
-    public MethodArgumentComponentTypeSelector componentType() {
+    public MethodParameterComponentTypeSelector componentType() {
         return super.and(getMethodArgumentComponentTypeSelectorBuilderFactory());
     }
 
-    private BuilderFactory<JoinPointSelectorImpl, MethodArgumentTypeSelectorImpl, MethodArgumentComponentTypeSelectorImpl>
+    private BuilderFactory<JoinPointSelectorImpl, MethodParameterTypeSelectorImpl, MethodParameterComponentTypeSelectorImpl>
     getMethodArgumentComponentTypeSelectorBuilderFactory() {
-        return new BuilderFactory<JoinPointSelectorImpl, MethodArgumentTypeSelectorImpl, MethodArgumentComponentTypeSelectorImpl>() {
+        return new BuilderFactory<JoinPointSelectorImpl, MethodParameterTypeSelectorImpl, MethodParameterComponentTypeSelectorImpl>() {
             @Override
-            public MethodArgumentComponentTypeSelectorImpl  createBuilder(
+            public MethodParameterComponentTypeSelectorImpl createBuilder(
                                                                     JoinPointSelectorImpl root,
-                                                                    MethodArgumentTypeSelectorImpl parent,
+                                                                    MethodParameterTypeSelectorImpl parent,
                                                                     CompositePredicate compositePredicate) {
-                return new MethodArgumentComponentTypeSelectorImpl(root, parent, compositePredicate);
+                return new MethodParameterComponentTypeSelectorImpl(root, parent, compositePredicate);
             }
         };
     }
 
     @Override
-    protected final MethodArgumentTypeSelectorImpl newInstance(JoinPointSelectorImpl root, MethodArgumentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
-        return new MethodArgumentTypeSelectorImpl(root, parent, compositePredicate);
+    protected final MethodParameterTypeSelectorImpl newInstance(JoinPointSelectorImpl root, MethodParameterTypeSelectorImpl parent, CompositePredicate compositePredicate) {
+        return new MethodParameterTypeSelectorImpl(root, parent, compositePredicate);
     }
 }

@@ -16,15 +16,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.method;
+
+import org.failearly.ajunit.builder.ParameterTypeSelector;
 
 /**
- * Used by {@link org.failearly.ajunit.builder.method.MethodParametersSelector#byNumberOfParameters(int, NumberComparator)}.
+ * MethodArgumentTypeSelector is responsible for selecting argument(s) of methods and constructors by argument type and position(s).
+ *
+ * @see MethodParametersSelector#byArgumentPosition(int)
  */
-public enum NumberComparator {
-    EQUALS,
-    LESS_THEN,
-    LESS_EQUALS_THEN,
-    GREATER_THEN,
-    GREATER_EQUALS_THEN
+public interface MethodParameterTypeSelector
+        extends ParameterTypeSelector<MethodParameterTypeSelector,MethodParameterComponentTypeSelector,MethodParametersSelector> {
 }

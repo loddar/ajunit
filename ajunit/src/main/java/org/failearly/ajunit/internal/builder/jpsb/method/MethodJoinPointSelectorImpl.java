@@ -19,12 +19,12 @@
 package org.failearly.ajunit.internal.builder.jpsb.method;
 
 import org.failearly.ajunit.builder.JoinPointSelector;
-import org.failearly.ajunit.builder.ListLogicalOperator;
+import org.failearly.ajunit.builder.ListOperator;
 import org.failearly.ajunit.builder.LogicalOperator;
-import org.failearly.ajunit.builder.StringMatcherType;
-import org.failearly.ajunit.builder.method.MethodArgumentsSelector;
+import org.failearly.ajunit.builder.StringMatcher;
 import org.failearly.ajunit.builder.method.MethodExceptionTypeSelector;
 import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
+import org.failearly.ajunit.builder.method.MethodParametersSelector;
 import org.failearly.ajunit.builder.method.ReturnTypeSelector;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
@@ -84,7 +84,7 @@ public final class MethodJoinPointSelectorImpl
     }
 
     @Override
-    public MethodJoinPointSelector byName(String methodNamePattern, StringMatcherType matcherType) {
+    public MethodJoinPointSelector byName(String methodNamePattern, StringMatcher matcherType) {
         return methodSelector.byName(methodNamePattern, matcherType);
     }
 
@@ -130,12 +130,12 @@ public final class MethodJoinPointSelectorImpl
     }
 
     @Override
-    public MethodJoinPointSelector byDeclaringClassName(String classNamePattern, StringMatcherType matcherType) {
+    public MethodJoinPointSelector byDeclaringClassName(String classNamePattern, StringMatcher matcherType) {
         return byClassName(classNamePattern, matcherType);
     }
 
     @Override
-    public MethodJoinPointSelector byClassName(String classNamePattern, StringMatcherType matcherType) {
+    public MethodJoinPointSelector byClassName(String classNamePattern, StringMatcher matcherType) {
         return this.declaringClassSelector.byClassName(classNamePattern, matcherType);
     }
 
@@ -165,7 +165,7 @@ public final class MethodJoinPointSelectorImpl
     }
 
     @Override
-    public MethodJoinPointSelector byPackageName(String packageNamePattern, StringMatcherType matcherType) {
+    public MethodJoinPointSelector byPackageName(String packageNamePattern, StringMatcher matcherType) {
         return this.declaringClassSelector.byPackageName(packageNamePattern, matcherType);
     }
 
@@ -189,8 +189,8 @@ public final class MethodJoinPointSelectorImpl
     }
 
     @Override
-    public MethodExceptionTypeSelector exceptionTypes(ListLogicalOperator listLogicalOperator) {
-        return super.or(getMethodExceptionTypeSelectorBuilderFactory(listLogicalOperator));
+    public MethodExceptionTypeSelector exceptionTypes(ListOperator listOperator) {
+        return super.or(getMethodExceptionTypeSelectorBuilderFactory(listOperator));
     }
 
     @Override
@@ -237,7 +237,7 @@ public final class MethodJoinPointSelectorImpl
     }
 
     @Override
-    public MethodArgumentsSelector arguments(LogicalOperator logicalOperator) {
+    public MethodParametersSelector arguments(LogicalOperator logicalOperator) {
         return super.createNewBuilderNode(
                 JoinPointSelectorUtils.createLogicalOperatorPredicate(logicalOperator),
                 getMethodArgumentsSelectorBuilderFactory()
@@ -263,22 +263,22 @@ public final class MethodJoinPointSelectorImpl
 
     private static
     BuilderFactory<JoinPointSelectorImpl,MethodJoinPointSelectorImpl,MethodExceptionTypeSelectorImpl>
-        getMethodExceptionTypeSelectorBuilderFactory(final ListLogicalOperator listLogicalOperator) {
+        getMethodExceptionTypeSelectorBuilderFactory(final ListOperator listOperator) {
         return new BuilderFactory<JoinPointSelectorImpl, MethodJoinPointSelectorImpl, MethodExceptionTypeSelectorImpl>() {
             @Override
             public MethodExceptionTypeSelectorImpl createBuilder(JoinPointSelectorImpl root, MethodJoinPointSelectorImpl parent, CompositePredicate compositePredicate) {
-                return new MethodExceptionTypeSelectorImpl(root, parent, compositePredicate, listLogicalOperator);
+                return new MethodExceptionTypeSelectorImpl(root, parent, compositePredicate, listOperator);
             }
         };
     }
 
     private static
-    BuilderFactory<JoinPointSelectorImpl,MethodJoinPointSelectorImpl,MethodArgumentsSelectorImpl>
+    BuilderFactory<JoinPointSelectorImpl,MethodJoinPointSelectorImpl,MethodParametersSelectorImpl>
         getMethodArgumentsSelectorBuilderFactory() {
-        return new BuilderFactory<JoinPointSelectorImpl, MethodJoinPointSelectorImpl, MethodArgumentsSelectorImpl>() {
+        return new BuilderFactory<JoinPointSelectorImpl, MethodJoinPointSelectorImpl, MethodParametersSelectorImpl>() {
             @Override
-            public MethodArgumentsSelectorImpl createBuilder(JoinPointSelectorImpl root, MethodJoinPointSelectorImpl parent, CompositePredicate compositePredicate) {
-                return new MethodArgumentsSelectorImpl(root, parent, compositePredicate);
+            public MethodParametersSelectorImpl createBuilder(JoinPointSelectorImpl root, MethodJoinPointSelectorImpl parent, CompositePredicate compositePredicate) {
+                return new MethodParametersSelectorImpl(root, parent, compositePredicate);
             }
         };
     }

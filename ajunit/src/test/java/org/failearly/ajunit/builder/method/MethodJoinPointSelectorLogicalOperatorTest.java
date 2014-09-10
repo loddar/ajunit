@@ -19,7 +19,7 @@
 package org.failearly.ajunit.builder.method;
 
 import org.failearly.ajunit.builder.AbstractJoinPointSelectorTest;
-import org.failearly.ajunit.builder.StringMatcherType;
+import org.failearly.ajunit.builder.StringMatcher;
 import org.failearly.ajunit.builder.TestSubject1;
 import org.failearly.ajunit.builder.TestSubject2;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
@@ -71,7 +71,7 @@ public abstract class MethodJoinPointSelectorLogicalOperatorTest extends Abstrac
         // act / when
         selectorBuilder.or()
                 .byClass(TestSubject1.class)
-                .byName("toString", StringMatcherType.EQUALS)
+                .byName("toString", StringMatcher.EQUALS)
                 .end();
 
         // assert / then
@@ -90,8 +90,8 @@ public abstract class MethodJoinPointSelectorLogicalOperatorTest extends Abstrac
         // act / when
         selectorBuilder.anyOf()
                 .byClass(TestSubject1.class)
-                .byName("Method", StringMatcherType.ENDS_WITH)
-                .byName("toString", StringMatcherType.EQUALS)
+                .byName("Method", StringMatcher.ENDS_WITH)
+                .byName("toString", StringMatcher.EQUALS)
                 .end();
 
         // assert / then
@@ -114,8 +114,8 @@ public abstract class MethodJoinPointSelectorLogicalOperatorTest extends Abstrac
         // act / when
         selectorBuilder.union()
                 .byClass(TestSubject1.class)
-                .byName("Method0", StringMatcherType.ENDS_WITH)
-                .byName("toString", StringMatcherType.EQUALS)
+                .byName("Method0", StringMatcher.ENDS_WITH)
+                .byName("toString", StringMatcher.EQUALS)
                 .end();
 
         // assert / then
@@ -156,7 +156,7 @@ public abstract class MethodJoinPointSelectorLogicalOperatorTest extends Abstrac
     public void and() throws Exception {
         // act / when
         selectorBuilder.and()
-                .byName("Method", StringMatcherType.CONTAINS)
+                .byName("Method", StringMatcher.CONTAINS)
                 .byAnyOfAccessModifiers(AccessModifier.PUBLIC, AccessModifier.PROTECTED)
                 .end();
 
@@ -176,7 +176,7 @@ public abstract class MethodJoinPointSelectorLogicalOperatorTest extends Abstrac
     public void intersect() throws Exception {
         // act / when
         selectorBuilder.intersect()
-                .byName("Method", StringMatcherType.CONTAINS)
+                .byName("Method", StringMatcher.CONTAINS)
                 .byAnyOfAccessModifiers(AccessModifier.PUBLIC, AccessModifier.PROTECTED)
                 .end();
 
@@ -196,7 +196,7 @@ public abstract class MethodJoinPointSelectorLogicalOperatorTest extends Abstrac
     public void allOf() throws Exception {
         // act / when
         selectorBuilder.allOf()
-                .byName("Method", StringMatcherType.CONTAINS)
+                .byName("Method", StringMatcher.CONTAINS)
                 .byAnyOfAccessModifiers(AccessModifier.PUBLIC, AccessModifier.PROTECTED)
                 .end();
 
@@ -235,8 +235,8 @@ public abstract class MethodJoinPointSelectorLogicalOperatorTest extends Abstrac
         // act / when
         selectorBuilder.nor()
                     .byClass(TestSubject1.class)
-                    .byName("toString", StringMatcherType.EQUALS)
-                    .byName("Method0", StringMatcherType.ENDS_WITH)
+                    .byName("toString", StringMatcher.EQUALS)
+                    .byName("Method0", StringMatcher.ENDS_WITH)
                 .end();
 
         // assert / then
@@ -265,8 +265,8 @@ public abstract class MethodJoinPointSelectorLogicalOperatorTest extends Abstrac
         // act / when
         selectorBuilder.noneOf()
                     .byClass(TestSubject1.class)
-                    .byName("toString", StringMatcherType.EQUALS)
-                    .byName("Method0", StringMatcherType.ENDS_WITH)
+                    .byName("toString", StringMatcher.EQUALS)
+                    .byName("Method0", StringMatcher.ENDS_WITH)
                 .end();
 
         // assert / then
@@ -295,8 +295,8 @@ public abstract class MethodJoinPointSelectorLogicalOperatorTest extends Abstrac
         // act / when
         selectorBuilder.neitherNor()
                     .byClass(TestSubject1.class)
-                    .byName("toString", StringMatcherType.EQUALS)
-                    .byName("Method0", StringMatcherType.ENDS_WITH)
+                    .byName("toString", StringMatcher.EQUALS)
+                    .byName("Method0", StringMatcher.ENDS_WITH)
                 .end();
 
         // assert / then
@@ -325,8 +325,8 @@ public abstract class MethodJoinPointSelectorLogicalOperatorTest extends Abstrac
         // act / when
         selectorBuilder.complement()
                     .byClass(TestSubject1.class)
-                    .byName("toString", StringMatcherType.EQUALS)
-                    .byName("Method0", StringMatcherType.ENDS_WITH)
+                    .byName("toString", StringMatcher.EQUALS)
+                    .byName("Method0", StringMatcher.ENDS_WITH)
                 .end();
 
         // assert / then
@@ -356,9 +356,9 @@ public abstract class MethodJoinPointSelectorLogicalOperatorTest extends Abstrac
         // act / when
         selectorBuilder
                 .anyOf()
-                    .byName("Method0", StringMatcherType.ENDS_WITH)
+                    .byName("Method0", StringMatcher.ENDS_WITH)
                     .allOf()
-                        .byClassName("Object", StringMatcherType.EQUALS)
+                        .byClassName("Object", StringMatcher.EQUALS)
                         .byAnyOfAccessModifiers(AccessModifier.PUBLIC)
                         .byAnyOfMethodModifiers(MethodModifier.NATIVE)
                     .end()

@@ -31,7 +31,7 @@ public class MemberTransformersTest extends TransformersBaseTest {
     @Test
     public void methodName() throws Exception {
         // arrange / given
-        final Transformer transformer = MemberTransformers.nameTransformer();
+        final Transformer transformer = MemberTransformers.name();
 
         // act / when
         final Object output = transformer.transform(resolveMethod());
@@ -43,7 +43,7 @@ public class MemberTransformersTest extends TransformersBaseTest {
     @Test
     public void fieldName() throws Exception {
         // arrange / given
-        final Transformer transformer = MemberTransformers.nameTransformer();
+        final Transformer transformer = MemberTransformers.name();
 
         // act / when
         final Object output = transformer.transform(resolveField());
@@ -55,7 +55,7 @@ public class MemberTransformersTest extends TransformersBaseTest {
     @Test
     public void constructorName() throws Exception {
         // arrange / given
-        final Transformer transformer = MemberTransformers.nameTransformer();
+        final Transformer transformer = MemberTransformers.name();
 
         // act / when
         final Object output = transformer.transform(resolveConstructor());
@@ -67,7 +67,7 @@ public class MemberTransformersTest extends TransformersBaseTest {
     @Test
     public void methodModifier() throws Exception {
         // arrange / given
-        final Transformer transformer = MemberTransformers.modifierTransformer();
+        final Transformer transformer = MemberTransformers.modifier();
 
         // act / when
         final Object output = transformer.transform(resolveMethod());
@@ -79,7 +79,7 @@ public class MemberTransformersTest extends TransformersBaseTest {
     @Test
     public void fieldModifier() throws Exception {
         // arrange / given
-        final Transformer transformer = MemberTransformers.modifierTransformer();
+        final Transformer transformer = MemberTransformers.modifier();
 
         // act / when
         final Object output = transformer.transform(resolveField());
@@ -91,7 +91,7 @@ public class MemberTransformersTest extends TransformersBaseTest {
     @Test
     public void constructorModifier() throws Exception {
         // arrange / given
-        final Transformer transformer = MemberTransformers.modifierTransformer();
+        final Transformer transformer = MemberTransformers.modifier();
 
         // act / when
         final Object output = transformer.transform(resolveConstructor());

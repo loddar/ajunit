@@ -23,7 +23,7 @@ import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
 /**
- * Tests for {@link MethodJoinPointSelector#byPackageName(String, org.failearly.ajunit.builder.StringMatcherType)}.
+ * Tests for {@link MethodJoinPointSelector#byPackageName(String, org.failearly.ajunit.builder.StringMatcher)}.
  */
 public abstract class MethodJoinPointSelectorByAnnotationsTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
@@ -65,7 +65,7 @@ public abstract class MethodJoinPointSelectorByAnnotationsTest extends AbstractJ
         // act / when
         //noinspection unchecked
         selectorBuilder
-                .byTypeAnnotations(LogicalOperator.ANY_OF, AnyAnnotation.class, AnyOtherAnnotation.class)
+                .byTypeAnnotations(LogicalOperator.OR, AnyAnnotation.class, AnyOtherAnnotation.class)
             .endMethod();
 
         // assert / then
@@ -88,7 +88,7 @@ public abstract class MethodJoinPointSelectorByAnnotationsTest extends AbstractJ
         // act / when
         //noinspection unchecked
         selectorBuilder
-                    .byTypeAnnotations(LogicalOperator.ALL_OF, AnyAnnotation.class, AnyOtherAnnotation.class)
+                    .byTypeAnnotations(LogicalOperator.AND, AnyAnnotation.class, AnyOtherAnnotation.class)
                 .endMethod();
 
         // assert / then
@@ -102,7 +102,7 @@ public abstract class MethodJoinPointSelectorByAnnotationsTest extends AbstractJ
         // act / when
         //noinspection unchecked
         selectorBuilder
-                    .byTypeAnnotations(LogicalOperator.NONE_OF, AnyAnnotation.class, AnyOtherAnnotation.class)
+                    .byTypeAnnotations(LogicalOperator.NOR, AnyAnnotation.class, AnyOtherAnnotation.class)
                 .endMethod();
 
         // assert / then
@@ -151,7 +151,7 @@ public abstract class MethodJoinPointSelectorByAnnotationsTest extends AbstractJ
         // act / when
         //noinspection unchecked
         selectorBuilder
-                .byMethodAnnotations(LogicalOperator.ANY_OF, AnyAnnotation.class, AnyOtherAnnotation.class)
+                .byMethodAnnotations(LogicalOperator.OR, AnyAnnotation.class, AnyOtherAnnotation.class)
             .endMethod();
 
         // assert / then
@@ -168,7 +168,7 @@ public abstract class MethodJoinPointSelectorByAnnotationsTest extends AbstractJ
         // act / when
         //noinspection unchecked
         selectorBuilder
-                .byMethodAnnotations(LogicalOperator.ALL_OF, AnyAnnotation.class, AnyOtherAnnotation.class)
+                .byMethodAnnotations(LogicalOperator.AND, AnyAnnotation.class, AnyOtherAnnotation.class)
             .endMethod();
 
         // assert / then
@@ -183,7 +183,7 @@ public abstract class MethodJoinPointSelectorByAnnotationsTest extends AbstractJ
         // act / when
         //noinspection unchecked
         selectorBuilder
-                .byMethodAnnotations(LogicalOperator.NONE_OF, AnyAnnotation.class, AnyOtherAnnotation.class)
+                .byMethodAnnotations(LogicalOperator.NOR, AnyAnnotation.class, AnyOtherAnnotation.class)
             .endMethod();
 
         // assert / then

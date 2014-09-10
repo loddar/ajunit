@@ -16,15 +16,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.method;
+
+import org.failearly.ajunit.builder.ComponentTypeSelector;
+import org.failearly.ajunit.builder.LogicalSelector;
 
 /**
- * Used by {@link org.failearly.ajunit.builder.method.MethodParametersSelector#byNumberOfParameters(int, NumberComparator)}.
+ * MethodArgumentComponentTypeSelector provides selectors for {@link Class#getComponentType()} on method arguments.
  */
-public enum NumberComparator {
-    EQUALS,
-    LESS_THEN,
-    LESS_EQUALS_THEN,
-    GREATER_THEN,
-    GREATER_EQUALS_THEN
+public interface MethodParameterComponentTypeSelector
+        extends ComponentTypeSelector<MethodParameterTypeSelector,MethodParameterComponentTypeSelector>,
+        LogicalSelector<MethodParameterComponentTypeSelector> {
 }

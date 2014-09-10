@@ -19,7 +19,7 @@
 package org.failearly.ajunit.internal.builder.jpsb.method;
 
 import org.failearly.ajunit.builder.DimensionComparator;
-import org.failearly.ajunit.builder.StringMatcherType;
+import org.failearly.ajunit.builder.StringMatcher;
 import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
 import org.failearly.ajunit.builder.method.ReturnComponentTypeSelector;
 import org.failearly.ajunit.builder.method.ReturnTypeSelector;
@@ -70,7 +70,7 @@ final class ReturnTypeSelectorImpl
     }
 
     @Override
-    public ReturnTypeSelector byClassName(String classNamePattern, StringMatcherType matcherType) {
+    public ReturnTypeSelector byClassName(String classNamePattern, StringMatcher matcherType) {
         return returnTypeSelector.byClassName(classNamePattern, matcherType);
     }
 
@@ -100,7 +100,7 @@ final class ReturnTypeSelectorImpl
     }
 
     @Override
-    public ReturnTypeSelector byPackageName(String packageNamePattern, StringMatcherType matcherType) {
+    public ReturnTypeSelector byPackageName(String packageNamePattern, StringMatcher matcherType) {
         return returnTypeSelector.byPackageName(packageNamePattern, matcherType);
     }
 

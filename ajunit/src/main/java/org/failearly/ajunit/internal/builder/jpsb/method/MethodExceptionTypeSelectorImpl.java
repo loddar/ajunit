@@ -18,8 +18,8 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb.method;
 
-import org.failearly.ajunit.builder.ListLogicalOperator;
-import org.failearly.ajunit.builder.StringMatcherType;
+import org.failearly.ajunit.builder.ListOperator;
+import org.failearly.ajunit.builder.StringMatcher;
 import org.failearly.ajunit.builder.method.MethodExceptionTypeSelector;
 import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
@@ -51,9 +51,9 @@ final class MethodExceptionTypeSelectorImpl
             JoinPointSelectorImpl root,
             MethodJoinPointSelectorImpl parent,
             CompositePredicate compositePredicate,
-            ListLogicalOperator listLogicalOperator) {
+            ListOperator listOperator) {
         this();
-        init(LogicalStructureBuilder.createBuilder(root, parent, this, createCompositeNode(compositePredicate, listLogicalOperator)));
+        init(LogicalStructureBuilder.createBuilder(root, parent, this, createCompositeNode(compositePredicate, listOperator)));
     }
 
     private MethodExceptionTypeSelectorImpl(JoinPointSelectorImpl root, MethodExceptionTypeSelectorImpl parent, CompositePredicate compositePredicate) {
@@ -66,13 +66,13 @@ final class MethodExceptionTypeSelectorImpl
         this.methodExceptionTypeSelector = SelectorBuilders.createMethodExceptionTypeSelector(this);
     }
 
-    private static CompositePredicate createCompositeNode(CompositePredicate compositePredicate, ListLogicalOperator listLogicalOperator) {
+    private static CompositePredicate createCompositeNode(CompositePredicate compositePredicate, ListOperator listOperator) {
         return StandardPredicates.transformerPredicate(
-                StandardTransformers.transformerComposition(
-                        AjpTransformers.methodTransformer(),
-                        MethodTransformers.methodExceptionsTransformer()
+                StandardTransformers.compose(
+                        AjpTransformers.method(),
+                        MethodTransformers.methodExceptions()
                 ),
-                JoinPointSelectorUtils.createListLogicalOperator(listLogicalOperator, compositePredicate)
+                JoinPointSelectorUtils.createListLogicalOperator(listOperator, compositePredicate)
         );
     }
 
@@ -107,12 +107,12 @@ final class MethodExceptionTypeSelectorImpl
     }
 
     @Override
-    public MethodExceptionTypeSelector byClassName(String classNamePattern, StringMatcherType matcherType) {
+    public MethodExceptionTypeSelector byClassName(String classNamePattern, StringMatcher matcherType) {
         return methodExceptionTypeSelector.byClassName(classNamePattern, matcherType);
     }
 
     @Override
-    public MethodExceptionTypeSelector byPackageName(String packageNamePattern, StringMatcherType matcherType) {
+    public MethodExceptionTypeSelector byPackageName(String packageNamePattern, StringMatcher matcherType) {
         return methodExceptionTypeSelector.byPackageName(packageNamePattern, matcherType);
     }
 

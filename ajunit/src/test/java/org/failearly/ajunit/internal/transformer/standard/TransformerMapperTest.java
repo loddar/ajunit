@@ -19,13 +19,14 @@
 package org.failearly.ajunit.internal.transformer.standard;
 
 import org.failearly.ajunit.internal.transformer.Transformer;
+import org.failearly.ajunit.internal.transformer.TypedTransformer;
 import org.failearly.ajunit.internal.transformer.clazz.ClassTransformers;
 import org.failearly.ajunit.internal.util.AjUnitUtils;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
+import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -33,6 +34,13 @@ import static org.junit.Assert.assertThat;
  * TransformerMapperTestTest contains tests for TransformerMapperTest
  */
 public class TransformerMapperTest {
+
+    public static final TypedTransformer<String, Integer> TO_INTEGER_AND_INCREMENT = new TypedTransformer<String,Integer>(String.class, "ToIntegerAndIncrement") {
+        @Override
+        protected Integer doTypedTransform(String input) {
+            return Integer.parseInt(input) + 1;
+        }
+    };
 
     @Test
     public void map2ArraysComponentTypes() throws Exception {
@@ -48,15 +56,53 @@ public class TransformerMapperTest {
     }
 
     @Test
-    public void map2ArraysAsList() throws Exception {
+    public void toListDim1() throws Exception {
         // arrange / given
-        final List<String[]> intArrayList= Arrays.asList(new String[] {"1","2","3"}, new String[] {"4","5","3"});
-        final Transformer transformer=StandardTransformers.map(StandardTransformers.arrayAsList());
+        final String[] stringArray = new String[] {"1","2","3"};
+        final Transformer transformer=StandardTransformers.toListDim1();
 
         // act / when
-        final Object output = transformer.transform(intArrayList);
+        final Object output = transformer.transform(stringArray);
 
         // assert / then
-        assertThat("Transformation result?", output, is(Arrays.asList(Arrays.asList("1","2","3"), Arrays.asList("4","5","3"))));
+        assertThat("Transformation result?", output, is(asList("1", "2", "3")));
+    }
+
+    @Test
+    public void toListDim1WithAdditionalTransformer() throws Exception {
+        // arrange / given
+        final String[] stringArray = new String[] {"1","2","3"};
+        final Transformer transformer=StandardTransformers.toListDim1(TO_INTEGER_AND_INCREMENT);
+
+        // act / when
+        final Object output = transformer.transform(stringArray);
+
+        // assert / then
+        assertThat("Transformation result?", output, is(asList(2, 3, 4)));
+    }
+
+    @Test
+    public void toListDim2() throws Exception {
+        // arrange / given
+        final String[][] stringArrayDim2 = new String[][]{ new String[] {"1","2","3"}, new String[] {"7","8"} };
+        final Transformer transformer=StandardTransformers.toListDim2();
+
+        // act / when
+        final Object output = transformer.transform(stringArrayDim2);
+
+        // assert / then
+        assertThat("Transformation result?", output, is(asList(asList("1", "2", "3"), asList("7", "8"))));
+    }
+    @Test
+    public void toListDim2WithAdditionalTransformer() throws Exception {
+        // arrange / given
+        final String[][] stringArrayDim2 = new String[][]{ new String[] {"1","2","3"}, new String[] {"7","8"} };
+        final Transformer transformer=StandardTransformers.toListDim2(TO_INTEGER_AND_INCREMENT);
+
+        // act / when
+        final Object output = transformer.transform(stringArrayDim2);
+
+        // assert / then
+        assertThat("Transformation result?", output, is(asList(asList(2,3,4), asList(8,9))));
     }
 }

@@ -42,25 +42,25 @@ public final class SelectorBuilders {
      * @return the new builder selector instance.
      */
     public static <T extends Builder> MethodSelectorBuilder<T> createMethodSelectorBuilder(final T predicateBuilder) {
-        return new MethodSelectorBuilder<>(createPredicateAdder(predicateBuilder, AjpTransformers.methodTransformer()));
+        return new MethodSelectorBuilder<>(createPredicateAdder(predicateBuilder, AjpTransformers.method()));
     }
 
     public static <T extends Builder> ClassSelectorBuilder<T> createDeclaringClassSelectorBuilder(T predicateBuilder) {
-        return new ClassSelectorBuilder<>(createPredicateAdder(predicateBuilder, AjpTransformers.declaringClassTransformer()));
+        return new ClassSelectorBuilder<>(createPredicateAdder(predicateBuilder, AjpTransformers.declaringClass()));
     }
 
     public static <T extends Builder> ClassSelectorBuilder<T> createReturnTypeSelectorBuilder(T predicateBuilder) {
         return new ClassSelectorBuilder<>(createPredicateAdder(predicateBuilder, chain(
-                AjpTransformers.methodTransformer(),
-                MethodTransformers.methodReturnTypeTransformer()))
+                AjpTransformers.method(),
+                MethodTransformers.methodReturnType()))
         );
     }
 
 
     public static <T extends Builder> ClassSelectorBuilder<T> createReturnComponentTypeSelectorBuilder(T predicateBuilder) {
         return new ClassSelectorBuilder<>(createPredicateAdder(predicateBuilder, chain(
-                AjpTransformers.methodTransformer(),
-                MethodTransformers.methodReturnTypeTransformer(),
+                AjpTransformers.method(),
+                MethodTransformers.methodReturnType(),
                 ClassTransformers.arrayComponentType()))
         );
     }
@@ -118,7 +118,7 @@ public final class SelectorBuilders {
 
 
     private static Transformer chain(Transformer... transformers) {
-        return StandardTransformers.transformerComposition(transformers);
+        return StandardTransformers.compose(transformers);
     }
 
 }

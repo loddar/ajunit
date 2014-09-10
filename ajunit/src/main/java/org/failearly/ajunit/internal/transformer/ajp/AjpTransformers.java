@@ -69,7 +69,7 @@ public final class AjpTransformers {
      * Provide a {@link org.failearly.ajunit.internal.universe.AjJoinPoint} to {@link java.lang.reflect.Method} transformer.
      * @see org.failearly.ajunit.internal.universe.AjJoinPoint#getMethod()
      */
-    public static Transformer methodTransformer() {
+    public static Transformer method() {
         return AJP_METHOD_TRANSFORMER;
     }
 
@@ -77,7 +77,7 @@ public final class AjpTransformers {
      * Provide a {@link org.failearly.ajunit.internal.universe.AjJoinPoint} to {@link java.lang.reflect.Field} transformer.
      * @see org.failearly.ajunit.internal.universe.AjJoinPoint#getField()
      */
-    public static Transformer fieldTransformer() {
+    public static Transformer field() {
         return AJP_FIELD_TRANSFORMER;
     }
 
@@ -85,7 +85,7 @@ public final class AjpTransformers {
      * Provide a {@link org.failearly.ajunit.internal.universe.AjJoinPoint} to {@link java.lang.reflect.Constructor} transformer.
      * @see org.failearly.ajunit.internal.universe.AjJoinPoint#getConstructor()
      */
-    public static Transformer constructorTransformer() {
+    public static Transformer constructor() {
         return AJP_CONSTRUCTOR_TRANSFORMER;
     }
 
@@ -94,14 +94,14 @@ public final class AjpTransformers {
      *
      * @see org.failearly.ajunit.internal.universe.AjJoinPoint#getDeclaringClass()
      */
-    public static Transformer declaringClassTransformer() {
+    public static Transformer declaringClass() {
         return AJP_DECLARING_CLASS_TRANSFORMER;
     }
 
     /**
      * @return value of {@link org.failearly.ajunit.internal.universe.AjJoinPoint#getNumApplications()}.
      */
-    public static Transformer numberOfApplicationsTransformer() {
+    public static Transformer numberOfApplications() {
         return AJP_NUMBER_OF_APPLICATIONS_TRANSFORMER;
     }
 
@@ -113,7 +113,7 @@ public final class AjpTransformers {
      *
      * @see org.failearly.ajunit.internal.universe.AjJoinPoint#getJoinPointType()
      */
-    public static Transformer ajpJoinPointFilterTransformer(AjJoinPointType joinPointType) {
+    public static Transformer ajpJoinPointFilter(AjJoinPointType joinPointType) {
         return new AjpJoinPointTypeFilter(joinPointType);
     }
 

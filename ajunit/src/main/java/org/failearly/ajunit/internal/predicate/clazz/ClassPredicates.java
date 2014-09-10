@@ -31,31 +31,31 @@ import java.lang.annotation.Annotation;
 public final class ClassPredicates {
 
 
-    private static final Predicate IS_PRIMITIVE = new ClassPredicateBase("Primitive") {
+    private static final Predicate IS_PRIMITIVE = new ClassPredicateBase("IsPrimitive") {
         @Override
         protected boolean doTypedTest(Class clazz) {
             return clazz.isPrimitive();
         }
     };
-    private static final Predicate IS_ENUM = new ClassPredicateBase("Enum") {
+    private static final Predicate IS_ENUM = new ClassPredicateBase("IsEnum") {
         @Override
         protected boolean doTypedTest(Class clazz) {
             return clazz.isEnum();
         }
     };
-    private static final Predicate IS_ARRAY = new ClassPredicateBase("Array") {
+    private static final Predicate IS_ARRAY = new ClassPredicateBase("IsArray") {
         @Override
         protected boolean doTypedTest(Class clazz) {
             return clazz.isArray();
         }
     };
-    private static final Predicate IS_ANNOTATION = new ClassPredicateBase("Annotation") {
+    private static final Predicate IS_ANNOTATION = new ClassPredicateBase("IsAnnotation") {
         @Override
         protected boolean doTypedTest(Class clazz) {
             return clazz.isAnnotation();
         }
     };
-    private static final Predicate IS_INTERFACE = new ClassPredicateBase("Interface") {
+    private static final Predicate IS_INTERFACE = new ClassPredicateBase("IsInterface") {
         @Override
         protected boolean doTypedTest(Class clazz) {
             return clazz.isInterface();

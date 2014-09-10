@@ -33,11 +33,11 @@ import org.failearly.ajunit.internal.transformer.list.ListTransformers;
  * JoinPointSelectorUtilities is an utility class for shared functionality.
  */
 public final class JoinPointSelectorUtils {
-    private static final PredicateFactories<StringMatcherType, String> STRING_MATCHER_PREDICATES = new PredicateFactories<>();
+    private static final PredicateFactories<StringMatcher, String> STRING_MATCHER_PREDICATES = new PredicateFactories<>();
     private static final PredicateFactories<LogicalOperator, Void> LOGICAL_OPERATOR_PREDICATES = new PredicateFactories<>();
     private static final PredicateFactories<DimensionComparator, Integer> DIMENSION_COMPARATOR_PREDICATES = new PredicateFactories<>();
     private static final PredicateFactories<NumberComparator, Integer> NUMBER_COMPARATOR_PREDICATES = new PredicateFactories<>();
-    private static final PredicateFactories<ListLogicalOperator, CompositePredicate> LIST_LOGICAL_OPERATOR_PREDICATES = new PredicateFactories<>();
+    private static final PredicateFactories<ListOperator, CompositePredicate> LIST_LOGICAL_OPERATOR_PREDICATES = new PredicateFactories<>();
 
     static {
         createStringMatcherPredicates();
@@ -51,7 +51,7 @@ public final class JoinPointSelectorUtils {
         NUMBER_COMPARATOR_PREDICATES.addFactory(NumberComparator.EQUALS, new PredicateFactory<Integer>() {
             @Override
             public Predicate createPredicate(Integer input) {
-                return StandardPredicates.equalsPredicate(input);
+                return StandardPredicates.equalsTo(input);
             }
         });
         NUMBER_COMPARATOR_PREDICATES.addFactory(NumberComparator.LESS_THEN, new PredicateFactory<Integer>() {
@@ -81,19 +81,19 @@ public final class JoinPointSelectorUtils {
     }
 
     private static void createListLogicalOperatorPredicates() {
-        LIST_LOGICAL_OPERATOR_PREDICATES.addFactory(ListLogicalOperator.ANY_OF, new PredicateFactory<CompositePredicate>() {
+        LIST_LOGICAL_OPERATOR_PREDICATES.addFactory(ListOperator.AT_LEAST_ONE, new PredicateFactory<CompositePredicate>() {
             @Override
             public Predicate createPredicate(CompositePredicate predicate) {
                 return CollectionPredicates.anyOf(predicate);
             }
         });
-        LIST_LOGICAL_OPERATOR_PREDICATES.addFactory(ListLogicalOperator.ALL_OF, new PredicateFactory<CompositePredicate>() {
+        LIST_LOGICAL_OPERATOR_PREDICATES.addFactory(ListOperator.EACH, new PredicateFactory<CompositePredicate>() {
             @Override
             public Predicate createPredicate(CompositePredicate predicate) {
                 return CollectionPredicates.allOf(predicate);
             }
         });
-        LIST_LOGICAL_OPERATOR_PREDICATES.addFactory(ListLogicalOperator.NONE_OF, new PredicateFactory<CompositePredicate>() {
+        LIST_LOGICAL_OPERATOR_PREDICATES.addFactory(ListOperator.NONE, new PredicateFactory<CompositePredicate>() {
             @Override
             public Predicate createPredicate(CompositePredicate predicate) {
                 return CollectionPredicates.noneOf(predicate);
@@ -122,70 +122,34 @@ public final class JoinPointSelectorUtils {
                 return LogicalPredicates.nor();
             }
         });
-        LOGICAL_OPERATOR_PREDICATES.addFactory(LogicalOperator.ALL_OF, new PredicateFactory<Void>() {
-            @Override
-            public Predicate createPredicate(Void input) {
-                return LogicalPredicates.and();
-            }
-        });
-        LOGICAL_OPERATOR_PREDICATES.addFactory(LogicalOperator.ANY_OF, new PredicateFactory<Void>() {
-            @Override
-            public Predicate createPredicate(Void input) {
-                return LogicalPredicates.or();
-            }
-        });
-        LOGICAL_OPERATOR_PREDICATES.addFactory(LogicalOperator.NONE_OF, new PredicateFactory<Void>() {
-            @Override
-            public Predicate createPredicate(Void input) {
-                return LogicalPredicates.nor();
-            }
-        });
-        LOGICAL_OPERATOR_PREDICATES.addFactory(LogicalOperator.INTERSECT, new PredicateFactory<Void>() {
-            @Override
-            public Predicate createPredicate(Void input) {
-                return LogicalPredicates.and();
-            }
-        });
-        LOGICAL_OPERATOR_PREDICATES.addFactory(LogicalOperator.UNION, new PredicateFactory<Void>() {
-            @Override
-            public Predicate createPredicate(Void input) {
-                return LogicalPredicates.or();
-            }
-        });
-        LOGICAL_OPERATOR_PREDICATES.addFactory(LogicalOperator.COMPLEMENT, new PredicateFactory<Void>() {
-            @Override
-            public Predicate createPredicate(Void input) {
-                return LogicalPredicates.nor();
-            }
-        });
     }
 
     private static void createStringMatcherPredicates() {
-        STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.EQUALS, new PredicateFactory<String>() {
+        STRING_MATCHER_PREDICATES.addFactory(StringMatcher.EQUALS, new PredicateFactory<String>() {
             @Override
             public Predicate createPredicate(String input) {
-                return StandardPredicates.equalsPredicate(input);
+                return StandardPredicates.equalsTo(input);
             }
         });
-        STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.STARTS_WITH, new PredicateFactory<String>() {
+        STRING_MATCHER_PREDICATES.addFactory(StringMatcher.STARTS_WITH, new PredicateFactory<String>() {
             @Override
             public Predicate createPredicate(String input) {
                 return StringPredicates.startsWith(input);
             }
         });
-        STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.ENDS_WITH, new PredicateFactory<String>() {
+        STRING_MATCHER_PREDICATES.addFactory(StringMatcher.ENDS_WITH, new PredicateFactory<String>() {
             @Override
             public Predicate createPredicate(String input) {
                 return StringPredicates.endsWith(input);
             }
         });
-        STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.CONTAINS, new PredicateFactory<String>() {
+        STRING_MATCHER_PREDICATES.addFactory(StringMatcher.CONTAINS, new PredicateFactory<String>() {
             @Override
             public Predicate createPredicate(String input) {
                 return StringPredicates.contains(input);
             }
         });
-        STRING_MATCHER_PREDICATES.addFactory(StringMatcherType.REGEX, new PredicateFactory<String>() {
+        STRING_MATCHER_PREDICATES.addFactory(StringMatcher.REGEX, new PredicateFactory<String>() {
             @Override
             public Predicate createPredicate(String input) {
                 return StringPredicates.regex(input);
@@ -197,7 +161,7 @@ public final class JoinPointSelectorUtils {
         DIMENSION_COMPARATOR_PREDICATES.addFactory(DimensionComparator.EQUALS, new PredicateFactory<Integer>() {
             @Override
             public Predicate createPredicate(Integer dimension) {
-                return StandardPredicates.equalsPredicate(dimension);
+                return StandardPredicates.equalsTo(dimension);
             }
         });
         DIMENSION_COMPARATOR_PREDICATES.addFactory(DimensionComparator.GREATER_THEN, new PredicateFactory<Integer>() {
@@ -242,7 +206,7 @@ public final class JoinPointSelectorUtils {
      * @param matcherType the matcher type.
      * @return the predicate.
      */
-    public static Predicate createStringMatcherPredicate(String pattern, StringMatcherType matcherType) {
+    public static Predicate createStringMatcherPredicate(String pattern, StringMatcher matcherType) {
         return STRING_MATCHER_PREDICATES.createPredicate(matcherType, pattern);
     }
 
@@ -280,19 +244,19 @@ public final class JoinPointSelectorUtils {
 
     /**
      * Create a list logical operator (composite) predicate.
-     * @param listLogicalOperator the list logical operator.
+     * @param listOperator the list logical operator.
      * @param compositePredicate the inner composite predicate to use.
      * @return the composite predicate.
      */
-    public static CompositePredicate createListLogicalOperator(ListLogicalOperator listLogicalOperator, CompositePredicate compositePredicate) {
-        return LIST_LOGICAL_OPERATOR_PREDICATES.createCompositePredicate(listLogicalOperator, compositePredicate);
+    public static CompositePredicate createListLogicalOperator(ListOperator listOperator, CompositePredicate compositePredicate) {
+        return LIST_LOGICAL_OPERATOR_PREDICATES.createCompositePredicate(listOperator, compositePredicate);
     }
 
     public static Transformer createArgumentPositionTransformer(Position relativeTo, int... positions) {
         if(relativeTo==Position.LAST) {
-            return  ListTransformers.getElementsFromListEndTransformer(positions);
+            return  ListTransformers.getElementsFromListEnd(positions);
         }
 
-        return  ListTransformers.getElementsFromListStartTransformer(positions);
+        return  ListTransformers.getElementsFromListStart(positions);
     }
 }

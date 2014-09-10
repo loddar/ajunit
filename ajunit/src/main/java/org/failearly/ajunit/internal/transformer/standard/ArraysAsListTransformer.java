@@ -29,7 +29,7 @@ import java.util.List;
  */
 final class ArraysAsListTransformer extends TypedListTransformer<Object[],Object> {
     ArraysAsListTransformer() {
-        super(Object[].class, "ArrayAsList");
+        super(Object[].class, "toList");
     }
 
     @Override

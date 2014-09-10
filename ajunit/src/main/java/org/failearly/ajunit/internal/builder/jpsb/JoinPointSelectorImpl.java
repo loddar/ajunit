@@ -76,7 +76,7 @@ public final class JoinPointSelectorImpl extends RootBuilderBase<JoinPointSelect
 
     private static CompositePredicate transformerPredicate(AjJoinPointType joinPointType, CompositePredicate logicalPredicate) {
         return StandardPredicates.transformerPredicate(
-                AjpTransformers.ajpJoinPointFilterTransformer(joinPointType),
+                AjpTransformers.ajpJoinPointFilter(joinPointType),
                 logicalPredicate
         );
     }
