@@ -19,14 +19,14 @@
 package org.failearly.ajunit.builder.method.call;
 
 import org.failearly.ajunit.builder.JoinPointSelector;
-import org.failearly.ajunit.builder.method.MethodArgumentComponentTypeSelectorTest;
 import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
+import org.failearly.ajunit.builder.method.MethodParameterComponentTypeSelectorTest;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
  * Tests for {@link org.failearly.ajunit.builder.method.MethodParameterComponentTypeSelector}.
  */
-public final class CallMethodParameterComponentTypeSelectorTest extends MethodArgumentComponentTypeSelectorTest {
+public final class CallMethodParameterComponentTypeSelectorTest extends MethodParameterComponentTypeSelectorTest {
 
     public CallMethodParameterComponentTypeSelectorTest() {
         super(AjJoinPointType.METHOD_CALL);

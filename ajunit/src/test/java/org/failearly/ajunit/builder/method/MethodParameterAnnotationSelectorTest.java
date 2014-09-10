@@ -26,22 +26,22 @@ import org.junit.Test;
  * MethodsArgumentAnnotationSelectorTest contains the tests for MethodsArgumentAnnotationSelector.
  */
 @SuppressWarnings("all")
-public abstract class MethodArgumentAnnotationSelectorTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
-    private MethodParametersSelector methodArgumentsSelector;
+public abstract class MethodParameterAnnotationSelectorTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
+    private MethodParametersSelector methodParametersSelector;
 
-    protected MethodArgumentAnnotationSelectorTest(AjJoinPointType expectedJoinPointType) {
+    protected MethodParameterAnnotationSelectorTest(AjJoinPointType expectedJoinPointType) {
         super(expectedJoinPointType, TestSubject10.class);
     }
 
     @Override
     protected void doAdditionalSetup(MethodJoinPointSelector selectorBuilder) {
-        methodArgumentsSelector = selectorBuilder.arguments(LogicalOperator.OR);
+        methodParametersSelector = selectorBuilder.arguments(LogicalOperator.OR);
     }
 
     @Test
     public void anyPositionbyArgumentAnnotation() throws Exception {
         // act / when
-        methodArgumentsSelector.parameterAnnotations(ListOperator.AT_LEAST_ONE)
+        methodParametersSelector.parameterAnnotations(ListOperator.AT_LEAST_ONE)
                     .byParameterAnnotations(LogicalOperator.OR, AnyAnnotation.class)
                 .endParameterAnnotation();
 

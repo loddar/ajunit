@@ -29,17 +29,17 @@ import java.util.Map;
 /**
  * MethodArgumentComponentTypeSelectorTest contains tests for {@link MethodParameterTypeSelector#componentType()}.
  */
-public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
+public abstract class MethodParameterComponentTypeSelectorTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
-    private MethodParameterComponentTypeSelector argumentComponentTypeSelector;
+    private MethodParameterComponentTypeSelector parameterComponentTypeSelector;
 
-    protected MethodArgumentComponentTypeSelectorTest(AjJoinPointType expectedJoinPointType) {
+    protected MethodParameterComponentTypeSelectorTest(AjJoinPointType expectedJoinPointType) {
         super(expectedJoinPointType, TestSubject9.class);
     }
 
     @Override
     protected void doAdditionalSetup(MethodJoinPointSelector selectorBuilder) {
-        this.argumentComponentTypeSelector = selectorBuilder
+        this.parameterComponentTypeSelector = selectorBuilder
                                                     .arguments(LogicalOperator.OR)
                                                         .parameterTypes(ListOperator.AT_LEAST_ONE)
                                                             .componentType();
@@ -48,7 +48,7 @@ public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJo
     @Test
     public void byClass() throws Exception {
         // act / when
-        argumentComponentTypeSelector
+        parameterComponentTypeSelector
                     .byClass(String.class)
                 .endComponentType();
 
@@ -61,7 +61,7 @@ public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJo
     @Test
     public void byClassName() throws Exception {
         // act / when
-        argumentComponentTypeSelector
+        parameterComponentTypeSelector
                     .byClassName("Any", StringMatcher.STARTS_WITH)
                 .endComponentType();
 
@@ -76,7 +76,7 @@ public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJo
     @Test
     public void byPackageName() throws Exception {
         // act / when
-        argumentComponentTypeSelector
+        parameterComponentTypeSelector
                     .byPackageName("ajunit.builder", StringMatcher.CONTAINS)
                 .endComponentType();
 
@@ -92,7 +92,7 @@ public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJo
     @Test
     public void byExtending() throws Exception {
         // act / when
-        argumentComponentTypeSelector
+        parameterComponentTypeSelector
                     .byExtending(AbstractBaseClass.class)
                 .endComponentType();
 
@@ -105,7 +105,7 @@ public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJo
     @Test
     public void byImplementingAnyOf() throws Exception {
         // act / when
-        argumentComponentTypeSelector
+        parameterComponentTypeSelector
                     .byImplementingAnyOf(Serializable.class, Annotation.class)
                 .endComponentType();
 
@@ -122,7 +122,7 @@ public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJo
     @Test
     public void byImplementingAllOf() throws Exception {
         // act / when
-        argumentComponentTypeSelector
+        parameterComponentTypeSelector
                     .byImplementingAllOf(Serializable.class, Map.class)
                 .endComponentType();
 
@@ -135,7 +135,7 @@ public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJo
     @Test
     public void byImplementingNoneOf() throws Exception {
         // act / when
-        argumentComponentTypeSelector
+        parameterComponentTypeSelector
                     .byImplementingNoneOf(Serializable.class, Map.class)
                 .endComponentType();
 
@@ -152,7 +152,7 @@ public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJo
     @Test
     public void byNotExtending() throws Exception {
         // act / when
-        argumentComponentTypeSelector
+        parameterComponentTypeSelector
                     .byNotExtending(Object.class)
                 .endComponentType();
 
@@ -167,7 +167,7 @@ public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJo
     @Test
     public void byAnnotation() throws Exception {
         // act / when
-        argumentComponentTypeSelector
+        parameterComponentTypeSelector
                     .byAnnotation()
                 .endComponentType();
 
@@ -180,7 +180,7 @@ public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJo
     @Test
     public void byEnum() throws Exception {
         // act / when
-        argumentComponentTypeSelector
+        parameterComponentTypeSelector
                     .byEnum()
                 .endComponentType();
 
@@ -193,7 +193,7 @@ public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJo
     @Test
     public void byInterface() throws Exception {
         // act / when
-        argumentComponentTypeSelector
+        parameterComponentTypeSelector
                     .byInterface()
                 .endComponentType();
 
@@ -208,7 +208,7 @@ public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJo
     @Test
     public void byPrimitive() throws Exception {
         // act / when
-        argumentComponentTypeSelector
+        parameterComponentTypeSelector
                     .byPrimitive()
                 .endComponentType();
 
@@ -221,7 +221,7 @@ public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJo
     @Test
     public void byPrimitiveWrapperType() throws Exception {
         // act / when
-        argumentComponentTypeSelector
+        parameterComponentTypeSelector
                     .byPrimitiveWrapperType()
                 .endComponentType();
 
@@ -235,7 +235,7 @@ public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJo
     @Test
     public void byCollection() throws Exception {
         // act / when
-        argumentComponentTypeSelector
+        parameterComponentTypeSelector
                     .byCollection()
                 .endComponentType();
 
@@ -248,7 +248,7 @@ public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJo
     @Test
     public void byMap() throws Exception {
         // act / when
-        argumentComponentTypeSelector
+        parameterComponentTypeSelector
                     .byMap()
                 .endComponentType();
 
@@ -261,7 +261,7 @@ public abstract class MethodArgumentComponentTypeSelectorTest extends AbstractJo
     @Test
     public void byTypeAnnotation() throws Exception {
         // act / when
-        argumentComponentTypeSelector
+        parameterComponentTypeSelector
                     .byTypeAnnotation(AnyAnnotation.class)
                 .endComponentType();
 

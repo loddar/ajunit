@@ -28,32 +28,32 @@ import static org.junit.Assert.assertThat;
 /**
  * Tests for {@link MethodParametersSelector}.
  */
-public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
+public abstract class MethodParametersSelectorTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
-    private MethodParametersSelector methodArgumentsSelector;
+    private MethodParametersSelector methodParametersSelector;
 
-    protected MethodArgumentsSelectorTest(AjJoinPointType expectedJoinPointType) {
+    protected MethodParametersSelectorTest(AjJoinPointType expectedJoinPointType) {
         super(expectedJoinPointType, TestSubject7.class);
     }
 
     @Override
     protected void doAdditionalSetup(MethodJoinPointSelector selectorBuilder) {
-        methodArgumentsSelector = selectorBuilder.arguments(LogicalOperator.OR);
+        methodParametersSelector = selectorBuilder.arguments(LogicalOperator.OR);
     }
 
     @Test
-    public void endArgumentsSelector() throws Exception {
+    public void endParametersSelector() throws Exception {
         // act / when
-        final MethodJoinPointSelector instance = methodArgumentsSelector.endParametersSelector();
+        final MethodJoinPointSelector instance = methodParametersSelector.endParametersSelector();
 
         // assert / then
-        assertThat("endArgumentsSelector() returns correct selector builder?", instance, sameInstance(selectorBuilder));
+        assertThat("endParametersSelector() returns correct selector builder?", instance, sameInstance(selectorBuilder));
     }
 
     @Test
     public void byNoArguments() throws Exception {
         // act / when
-        methodArgumentsSelector.byNoParameters().endParametersSelector();
+        methodParametersSelector.byNoParameters().endParametersSelector();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -74,7 +74,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byNumberOfArgumentsEquals() throws Exception {
         // act / when
-        methodArgumentsSelector.byNumberOfParameters(1, NumberComparator.EQUALS).endParametersSelector();
+        methodParametersSelector.byNumberOfParameters(1, NumberComparator.EQUALS).endParametersSelector();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -88,7 +88,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byNumberOfArgumentsLessThen() throws Exception {
         // act / when
-        methodArgumentsSelector.byNumberOfParameters(1, NumberComparator.LESS_THEN).endParametersSelector();
+        methodParametersSelector.byNumberOfParameters(1, NumberComparator.LESS_THEN).endParametersSelector();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -109,7 +109,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byNumberOfArgumentsLessEqualsThen() throws Exception {
         // act / when
-        methodArgumentsSelector.byNumberOfParameters(1, NumberComparator.LESS_EQUALS_THEN).endParametersSelector();
+        methodParametersSelector.byNumberOfParameters(1, NumberComparator.LESS_EQUALS_THEN).endParametersSelector();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -133,7 +133,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byNumberOfArgumentsGreaterThen() throws Exception {
         // act / when
-        methodArgumentsSelector.byNumberOfParameters(1, NumberComparator.GREATER_THEN).endParametersSelector();
+        methodParametersSelector.byNumberOfParameters(1, NumberComparator.GREATER_THEN).endParametersSelector();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -146,7 +146,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byNumberOfArgumentsGreaterEqualsThen() throws Exception {
         // act / when
-        methodArgumentsSelector.byNumberOfParameters(1, NumberComparator.GREATER_EQUALS_THEN).endParametersSelector();
+        methodParametersSelector.byNumberOfParameters(1, NumberComparator.GREATER_EQUALS_THEN).endParametersSelector();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -162,16 +162,16 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void endArgumentPosition() throws Exception {
         // act / when
-        final MethodParametersSelector instance = methodArgumentsSelector.parameterTypes(Position.FIRST, 0, 1).endParameterType();
+        final MethodParametersSelector instance = methodParametersSelector.parameterTypes(Position.FIRST, 0, 1).endParameterType();
 
         // assert / then
-        assertThat("endArgumentsSelector() returns correct selector builder?", instance, sameInstance(methodArgumentsSelector));
+        assertThat("endArgumentsSelector() returns correct selector builder?", instance, sameInstance(methodParametersSelector));
     }
 
     @Test
     public void byArgumentPositionByClass() throws Exception {
         // act / when
-        methodArgumentsSelector.parameterTypes(Position.FIRST, 0)
+        methodParametersSelector.parameterTypes(Position.FIRST, 0)
                     .byClass(int.class)
                 .endParameterType();
 
@@ -185,7 +185,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byArgumentPositionsByClass() throws Exception {
         // act / when
-        methodArgumentsSelector.parameterTypes(Position.FIRST, 0, 1)
+        methodParametersSelector.parameterTypes(Position.FIRST, 0, 1)
                     .byClass(String.class)
                 .endParameterType();
 
@@ -198,7 +198,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byArgumentPositionsByPrimitive() throws Exception {
         // act / when
-        methodArgumentsSelector.parameterTypes(Position.FIRST, 0)
+        methodParametersSelector.parameterTypes(Position.FIRST, 0)
                     .byPrimitive()
                 .endParameterType();
 
@@ -214,7 +214,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byArgumentPositionsLast() throws Exception {
         // act / when
-        methodArgumentsSelector.parameterTypes(Position.LAST, 0)
+        methodParametersSelector.parameterTypes(Position.LAST, 0)
                     .byClass(int.class)
                 .endParameterType();
 
@@ -229,7 +229,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byAnyOfArgumentTypes() throws Exception {
         // act / when
-        methodArgumentsSelector.parameterTypes(ListOperator.AT_LEAST_ONE)
+        methodParametersSelector.parameterTypes(ListOperator.AT_LEAST_ONE)
                     .byClass(int.class)
                     .byClass(String.class)
                 .endParameterType();
@@ -246,7 +246,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byAllOfArgumentTypes() throws Exception {
         // act / when
-        methodArgumentsSelector.parameterTypes(ListOperator.EACH)
+        methodParametersSelector.parameterTypes(ListOperator.EACH)
                     .byClass(int.class)
                     .byClass(String.class)
                 .endParameterType();
@@ -263,7 +263,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void byNoneOfArgumentTypes() throws Exception {
         // act / when
-        methodArgumentsSelector.parameterTypes(ListOperator.NONE)
+        methodParametersSelector.parameterTypes(ListOperator.NONE)
                     .byClass(int.class)
                     .byClass(String.class)
                 .endParameterType();
@@ -279,7 +279,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void and() throws Exception {
         // act / when
-        methodArgumentsSelector.and()
+        methodParametersSelector.and()
                 .parameterTypes(ListOperator.NONE)
                     .byClass(int.class)
                     .byClass(String.class)
@@ -299,7 +299,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void or() throws Exception {
         // act / when
-        methodArgumentsSelector.or()
+        methodParametersSelector.or()
                 .parameterTypes(ListOperator.EACH)
                     .byClass(int.class)
                     .byClass(String.class)
@@ -322,7 +322,7 @@ public abstract class MethodArgumentsSelectorTest extends AbstractJoinPointSelec
     @Test
     public void nor() throws Exception {
         // act / when
-        methodArgumentsSelector.nor()
+        methodParametersSelector.nor()
                 .parameterTypes(ListOperator.EACH)
                     .byClass(int.class)
                     .byClass(String.class)

@@ -19,14 +19,14 @@
 package org.failearly.ajunit.builder.method.call;
 
 import org.failearly.ajunit.builder.JoinPointSelector;
-import org.failearly.ajunit.builder.method.MethodArgumentAnnotationSelectorTest;
 import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
+import org.failearly.ajunit.builder.method.MethodParameterAnnotationSelectorTest;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 
 /**
  * Tests for {@link org.failearly.ajunit.builder.method.MethodJoinPointSelector#arguments(org.failearly.ajunit.builder.LogicalOperator)}.
  */
-public final class CallMethodParameterAnnotationSelectorTest extends MethodArgumentAnnotationSelectorTest {
+public final class CallMethodParameterAnnotationSelectorTest extends MethodParameterAnnotationSelectorTest {
 
     public CallMethodParameterAnnotationSelectorTest() {
         super(AjJoinPointType.METHOD_EXECUTION);
