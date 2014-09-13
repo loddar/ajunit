@@ -19,15 +19,17 @@
 package org.failearly.ajunit.internal.builder.jpsb.method;
 
 import org.failearly.ajunit.builder.ListOperator;
-import org.failearly.ajunit.builder.LogicalOperator;
 import org.failearly.ajunit.builder.method.MethodParameterAnnotationSelector;
 import org.failearly.ajunit.builder.method.MethodParametersSelector;
-import org.failearly.ajunit.internal.annotation.NotYetImplemented;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderBase;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
 import org.failearly.ajunit.internal.builder.jpsb.helper.JoinPointSelectorUtils;
+import org.failearly.ajunit.internal.builder.jpsb.helper.ParameterAnnotationSelectorBuilder;
+import org.failearly.ajunit.internal.builder.jpsb.helper.SelectorBuilders;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
+import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
+import org.failearly.ajunit.internal.transformer.method.MethodTransformers;
 
 import java.lang.annotation.Annotation;
 
@@ -39,18 +41,32 @@ final class MethodParameterAnnotationSelectorImpl
         implements MethodParameterAnnotationSelector {
 
 
+    private ParameterAnnotationSelectorBuilder<MethodParameterAnnotationSelectorImpl> parameterAnnotationSelectorBuilder;
+
+
     private MethodParameterAnnotationSelectorImpl() {
         super(MethodParameterAnnotationSelectorImpl.class, MethodParametersSelector.class);
+        parameterAnnotationSelectorBuilder = SelectorBuilders.createParameterAnnotationSelectorBuilder(this);
     }
 
     MethodParameterAnnotationSelectorImpl(JoinPointSelectorImpl root, MethodParametersSelectorImpl parent, CompositePredicate compositePredicate, ListOperator listOperator) {
         this();
         super.init(LogicalStructureBuilder.createBuilder(
-                        root, parent, this, JoinPointSelectorUtils.createListLogicalOperator(listOperator, compositePredicate))
+                        root, parent, this, createCompositeNode(compositePredicate, listOperator))
         );
     }
 
-    private MethodParameterAnnotationSelectorImpl(JoinPointSelectorImpl root, MethodParameterAnnotationSelectorImpl parent, CompositePredicate compositePredicate) {
+    private static CompositePredicate createCompositeNode(
+            CompositePredicate compositePredicate,
+            ListOperator listOperator) {
+        return StandardPredicates.transformerPredicate(
+                MethodTransformers.methodParameterAnnotationsType(),
+                JoinPointSelectorUtils.createListLogicalOperator(listOperator, compositePredicate)
+        );
+    }
+
+
+     private MethodParameterAnnotationSelectorImpl(JoinPointSelectorImpl root, MethodParameterAnnotationSelectorImpl parent, CompositePredicate compositePredicate) {
         this();
         super.init(LogicalStructureBuilder.createBuilder(
                         root, parent, this, compositePredicate)
@@ -64,9 +80,8 @@ final class MethodParameterAnnotationSelectorImpl
 
     @Override
     @SafeVarargs
-    @NotYetImplemented
-    public final MethodParameterAnnotationSelector byParameterAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotationClasses) {
-        return this;
+    public final MethodParameterAnnotationSelector byParameterAnnotations(ListOperator listOperator, Class<? extends Annotation>... annotationClasses) {
+        return parameterAnnotationSelectorBuilder.byParameterAnnotations(listOperator, annotationClasses);
     }
 
     @Override

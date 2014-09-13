@@ -42,13 +42,43 @@ public abstract class MethodParameterAnnotationSelectorTest extends AbstractJoin
     public void anyPositionbyArgumentAnnotation() throws Exception {
         // act / when
         methodParametersSelector.parameterAnnotations(ListOperator.AT_LEAST_ONE)
-                    .byParameterAnnotations(LogicalOperator.OR, AnyAnnotation.class)
+                    .byParameterAnnotations(ListOperator.AT_LEAST_ONE, AnyAnnotation.class, AnyOtherAnnotation.class)
                 .endParameterAnnotation();
 
         // assert / then
         assertBuildJoinPointSelector(
                 "public void org.failearly.ajunit.builder.TestSubject10.method1(int,java.lang.String)",
                 "public void org.failearly.ajunit.builder.TestSubject10.method2(int,java.lang.String)"
+        );
+    }
+
+    @Test
+    public void eachPositionbyArgumentAnnotation() throws Exception {
+        // act / when
+        methodParametersSelector.parameterAnnotations(ListOperator.EACH)
+                    .byParameterAnnotations(ListOperator.AT_LEAST_ONE, AnyAnnotation.class, AnyOtherAnnotation.class)
+                .endParameterAnnotation();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject10.method2(int,java.lang.String)"
+        );
+    }
+
+
+    @Test
+    public void noneOfPositionbyArgumentAnnotation() throws Exception {
+        // act / when
+        methodParametersSelector.parameterAnnotations(ListOperator.NONE)
+                    .byParameterAnnotations(ListOperator.AT_LEAST_ONE, AnyAnnotation.class, AnyOtherAnnotation.class)
+                .endParameterAnnotation();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject10.method3(int,java.lang.String)",
+                "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
+                "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
+                "public boolean java.lang.Object.equals(java.lang.Object)"
         );
     }
 }

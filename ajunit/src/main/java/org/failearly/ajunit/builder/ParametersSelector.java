@@ -38,6 +38,18 @@ public interface ParametersSelector<
     SB byNoParameters();
 
     /**
+     * Select constructor or method join points with variable arguments.<br/>
+     * </br>
+     * AspectJ pointcut definition examples:
+     * <ul>
+     * <li><code>execution(*.*(.., Object...))</code>: any method with var args</li>
+     * <li><code>execution(*.new(String...))</code>: constructor with variable string arguments.</li>
+     * </ul>
+     * @return itself
+     */
+    SB byVariableArguments();
+
+    /**
      * Select constructor or method join points with expected number of parameters using the {@code numberComparator}.<br/>
      * <br/>
      * AspectJ pointcut definition examples:

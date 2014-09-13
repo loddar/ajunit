@@ -71,15 +71,20 @@ public final class SelectorBuilders {
 
 
     public static <T extends Builder> ClassSelectorBuilder<T> createMethodExceptionTypeSelector(final T predicateBuilder) {
-        return createStandardSelectorBuilder(predicateBuilder);
+        return createStandardClassSelectorBuilder(predicateBuilder);
     }
 
     public static <T extends Builder> ClassSelectorBuilder<T>
     createMethodArgumentTypeSelectorBuilder(T predicateBuilder) {
-        return createStandardSelectorBuilder(predicateBuilder);
+        return createStandardClassSelectorBuilder(predicateBuilder);
     }
 
-    private static <T extends Builder> ClassSelectorBuilder<T> createStandardSelectorBuilder(T predicateBuilder) {
+
+    public static <T extends Builder> ParameterAnnotationSelectorBuilder<T> createParameterAnnotationSelectorBuilder(T builder) {
+        return new ParameterAnnotationSelectorBuilder<>(new PredicateAdder<>(builder));
+    }
+
+    private static <T extends Builder> ClassSelectorBuilder<T> createStandardClassSelectorBuilder(T predicateBuilder) {
         return new ClassSelectorBuilder<>(new PredicateAdder<>(predicateBuilder));
     }
 

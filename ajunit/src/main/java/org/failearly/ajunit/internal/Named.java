@@ -92,7 +92,7 @@ public abstract class Named {
         return result;
     }
 
-    private static String simpleClassName(Class<?> thisClass) {
+    protected static String simpleClassName(Class<?> thisClass) {
         String className=thisClass.getSimpleName();
 
         if( thisClass.isAnonymousClass() ) {

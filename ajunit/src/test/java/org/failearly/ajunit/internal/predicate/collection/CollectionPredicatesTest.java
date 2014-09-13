@@ -38,7 +38,7 @@ public class CollectionPredicatesTest {
     @Test
     public void anyOf() throws Exception {
         // arrange / given
-        final Predicate predicate = CollectionPredicates.anyOf(booleanPredicate());
+        final Predicate predicate = CollectionPredicates.atLeastOne(booleanPredicate());
 
         // assert / then
         assertThat("{false,false}->false?", predicate.test(toBooleanList(false, false)), is(false));
@@ -51,7 +51,7 @@ public class CollectionPredicatesTest {
     @Test
     public void allOf() throws Exception {
         // arrange / given
-        final Predicate predicate = CollectionPredicates.allOf(booleanPredicate());
+        final Predicate predicate = CollectionPredicates.each(booleanPredicate());
 
         // assert / then
         assertThat("{false,false}->false?", predicate.test(toBooleanList(false, false)), is(false));
@@ -64,7 +64,7 @@ public class CollectionPredicatesTest {
     @Test
     public void noneOf() throws Exception {
         // arrange / given
-        final Predicate predicate = CollectionPredicates.noneOf(booleanPredicate());
+        final Predicate predicate = CollectionPredicates.none(booleanPredicate());
 
         // assert / then
         assertThat("{false,false}->true?", predicate.test(toBooleanList(false, false)), is(true));
@@ -99,11 +99,11 @@ public class CollectionPredicatesTest {
     @Test
     public void allOfAnyOf() throws Exception {
         // arrange / given
-        final Predicate predicate = CollectionPredicates.allOf(
-                                        CollectionPredicates.anyOf(
-                                                booleanPredicate()
-                                        )
-                                    );
+        final Predicate predicate = CollectionPredicates.each(
+                CollectionPredicates.atLeastOne(
+                        booleanPredicate()
+                )
+        );
 
         // assert / then
         assertThat("{true,true}->true?", predicate.test(
@@ -125,11 +125,11 @@ public class CollectionPredicatesTest {
     @Test
     public void anyOfAllOf() throws Exception {
         // arrange / given
-        final Predicate predicate = CollectionPredicates.anyOf(
-                                        CollectionPredicates.allOf(
-                                                booleanPredicate()
-                                        )
-                                    );
+        final Predicate predicate = CollectionPredicates.atLeastOne(
+                CollectionPredicates.each(
+                        booleanPredicate()
+                )
+        );
 
         // assert / then
         assertThat("{true,true}->true?", predicate.test(

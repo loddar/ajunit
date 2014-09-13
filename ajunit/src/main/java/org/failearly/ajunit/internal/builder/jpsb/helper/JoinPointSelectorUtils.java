@@ -84,19 +84,19 @@ public final class JoinPointSelectorUtils {
         LIST_LOGICAL_OPERATOR_PREDICATES.addFactory(ListOperator.AT_LEAST_ONE, new PredicateFactory<CompositePredicate>() {
             @Override
             public Predicate createPredicate(CompositePredicate predicate) {
-                return CollectionPredicates.anyOf(predicate);
+                return CollectionPredicates.atLeastOne(predicate);
             }
         });
         LIST_LOGICAL_OPERATOR_PREDICATES.addFactory(ListOperator.EACH, new PredicateFactory<CompositePredicate>() {
             @Override
             public Predicate createPredicate(CompositePredicate predicate) {
-                return CollectionPredicates.allOf(predicate);
+                return CollectionPredicates.each(predicate);
             }
         });
         LIST_LOGICAL_OPERATOR_PREDICATES.addFactory(ListOperator.NONE, new PredicateFactory<CompositePredicate>() {
             @Override
             public Predicate createPredicate(CompositePredicate predicate) {
-                return CollectionPredicates.noneOf(predicate);
+                return CollectionPredicates.none(predicate);
             }
         });
     }

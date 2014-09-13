@@ -22,7 +22,7 @@ package org.failearly.ajunit.builder;
  * TestSubject10 is the test subject for testing parameter/argument annotations.
  */
 public class TestSubject10 {
-    public void method1(@AnyAnnotation int p0, @AnyOtherAnnotation String p1) {}
+    public void method1(@AnyAnnotation int p0, String p1) {}
     public void method2(@AnyAnnotation @AnyOtherAnnotation int p0, @AnyOtherAnnotation String p1) {}
     public void method3(int p0, String p1) {}
 }

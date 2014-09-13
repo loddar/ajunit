@@ -34,12 +34,14 @@ public abstract class DelegateCompositePredicate
 
     @Override
     public final CompositePredicate addPredicate(Predicate predicate) {
-        return compositePredicate.addPredicate(predicate);
+        compositePredicate.addPredicate(predicate);
+        return this;
     }
 
     @Override
     public final CompositePredicate addPredicates(Iterable<Predicate> predicates) {
-        return compositePredicate.addPredicates(predicates);
+        compositePredicate.addPredicates(predicates);
+        return this;
     }
 
     @Override

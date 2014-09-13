@@ -23,10 +23,6 @@ import org.failearly.ajunit.builder.LogicalOperator;
 import org.failearly.ajunit.builder.StringMatcher;
 import org.failearly.ajunit.internal.builder.Builder;
 import org.failearly.ajunit.internal.predicate.Predicate;
-import org.failearly.ajunit.internal.predicate.clazz.ClassPredicates;
-import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
-import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
-import org.failearly.ajunit.internal.transformer.clazz.ClassTransformers;
 import org.failearly.ajunit.internal.util.AjAssert;
 import org.failearly.ajunit.internal.util.MessageUtils;
 
@@ -35,6 +31,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
+import static org.failearly.ajunit.internal.predicate.clazz.ClassPredicates.*;
+import static org.failearly.ajunit.internal.predicate.standard.LogicalPredicates.*;
+import static org.failearly.ajunit.internal.predicate.standard.StandardPredicates.equalsTo;
+import static org.failearly.ajunit.internal.predicate.standard.StandardPredicates.transformerPredicate;
+import static org.failearly.ajunit.internal.transformer.clazz.ClassTransformers.*;
 
 /**
  * ClassSelectorBuilder is responsible for ...
@@ -46,13 +48,13 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
 
     public T byClass(Class<?> declaringClass) {
         return addPredicate(
-                ClassPredicates.isClass(declaringClass)
+                isClass(declaringClass)
         );
     }
 
     public T byClassName(String classNamePattern, StringMatcher matcherType) {
         return addPredicate(
-                ClassTransformers.className(),
+                className(),
                 JoinPointSelectorUtils.createStringMatcherPredicate(classNamePattern, matcherType)
         );
     }
@@ -60,37 +62,37 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
 
     public T byExtending(Class<?> baseClass) {
         return addPredicate(
-                ClassPredicates.isSubclassOf(baseClass)
+                isSubclassOf(baseClass)
         );
     }
 
     public T byNotExtending(Class<?> baseClass) {
         return addPredicate(
-                LogicalPredicates.not(ClassPredicates.isSubclassOf(baseClass))
+                not(isSubclassOf(baseClass))
         );
     }
 
     public T byImplementingAnyOf(Class<?>... interfaces) {
         return addPredicate(
-                LogicalPredicates.or(createImplementingInterfacePredicates(interfaces))
+                or(createImplementingInterfacePredicates(interfaces))
         );
     }
 
     public T byImplementingAllOf(Class<?>... interfaces) {
         return addPredicate(
-                LogicalPredicates.and(createImplementingInterfacePredicates(interfaces))
+                and(createImplementingInterfacePredicates(interfaces))
         );
     }
 
     public T byImplementingNoneOf(Class<?>... interfaces) {
         return addPredicate(
-                LogicalPredicates.nor(createImplementingInterfacePredicates(interfaces))
+                nor(createImplementingInterfacePredicates(interfaces))
         );
     }
 
     public T byPackageName(String packageNamePattern, StringMatcher matcherType) {
         return addPredicate(
-                ClassTransformers.packageName(),
+                packageName(),
                 JoinPointSelectorUtils.createStringMatcherPredicate(packageNamePattern, matcherType)
         );
     }
@@ -105,70 +107,70 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
 
     public T byTypeAnnotation(Class<? extends Annotation> annotation) {
         return addPredicate(
-                ClassPredicates.isAnnotationPresent(annotation)
+                isAnnotationPresent(annotation)
         );
     }
 
 
     public T byArrayDimension(int dimension, DimensionComparator dimensionComparator) {
         return addPredicate(
-                ClassTransformers.countArrayDimension(),
+                countArrayDimension(),
                 JoinPointSelectorUtils.createDimensionComparatorPredicate(dimension, dimensionComparator)
         );
     }
 
     public T byArray() {
-        return addPredicate(ClassPredicates.isArray());
+        return addPredicate(isArray());
     }
 
     public T byVoid() {
-        return addPredicate(ClassPredicates.isVoid());
+        return addPredicate(isVoid());
     }
 
     public T byPrimitive() {
-        return addPredicate(ClassPredicates.isActuallyPrimitive());
+        return addPredicate(isActuallyPrimitive());
     }
 
     public T byEnum() {
-        return addPredicate(ClassPredicates.isEnum());
+        return addPredicate(isEnum());
     }
 
     public T byAnnotation() {
-        return addPredicate(ClassPredicates.isAnnotation());
+        return addPredicate(isAnnotation());
     }
 
 
     public T byInterface() {
-        return addPredicate(ClassPredicates.isInterface());
+        return addPredicate(isInterface());
     }
 
     public T byPrimitiveWrapperType() {
         return addPredicate(
-                LogicalPredicates.and(
-                        StandardPredicates.transformerPredicate(ClassTransformers.packageName(), StandardPredicates.equalsTo("java.lang")),
-                        LogicalPredicates.not(ClassPredicates.isClass(Number.class)),
-                        LogicalPredicates.or(
-                            ClassPredicates.isSubclassOf(Number.class),
-                            ClassPredicates.isClass(Void.class),
-                            ClassPredicates.isClass(Boolean.class)
+                and(
+                        transformerPredicate(packageName(), equalsTo("java.lang")),
+                        not(isClass(Number.class)),
+                        or(
+                                isSubclassOf(Number.class),
+                                isClass(Void.class),
+                                isClass(Boolean.class)
                         )
                 )
         );
     }
 
     public T byCollection() {
-        return addPredicate(ClassPredicates.isSubclassOf(Collection.class));
+        return addPredicate(isSubclassOf(Collection.class));
     }
 
     public T byMap() {
-        return addPredicate(ClassPredicates.isSubclassOf(Map.class));
+        return addPredicate(isSubclassOf(Map.class));
     }
 
 
     private static List<Predicate> createImplementingInterfacePredicates(Class<?>... interfaces) {
         final List<Predicate> predicates = new ArrayList<>(interfaces.length);
         for (Class<?> anInterface : interfaces) {
-            predicates.add(ClassPredicates.isSubclassOf(anInterface));
+            predicates.add(isSubclassOf(anInterface));
         }
         return predicates;
     }
@@ -180,7 +182,7 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
         );
         final List<Predicate> predicates = new ArrayList<>(annotations.length);
         for (Class<? extends Annotation> anAnnotation : annotations) {
-            predicates.add(ClassPredicates.isAnnotationPresent(anAnnotation));
+            predicates.add(isAnnotationPresent(anAnnotation));
         }
         return predicates;
     }

@@ -50,8 +50,8 @@ public final class CollectionPredicates {
      * @param compositePredicate the compositePredicate to by applied on the collection element.
      * @return new composite predicate.
      */
-    public static CompositePredicate anyOf(CompositePredicate compositePredicate) {
-        return new CollectionPredicate<>(Collection.class, "AnyOf", compositePredicate, true);
+    public static CompositePredicate atLeastOne(CompositePredicate compositePredicate) {
+        return new CollectionPredicate<>(Collection.class, "AtLeastOne", compositePredicate, true);
     }
 
     /**
@@ -62,8 +62,8 @@ public final class CollectionPredicates {
      * @param compositePredicate the compositePredicate to by applied on the collection element.
      * @return new compositePredicate.
      */
-    public static CompositePredicate allOf(CompositePredicate compositePredicate) {
-        return new CollectionPredicate<>(Collection.class, "AllOf", compositePredicate, false);
+    public static CompositePredicate each(CompositePredicate compositePredicate) {
+        return new CollectionPredicate<>(Collection.class, "Each", compositePredicate, false);
     }
 
     /**
@@ -74,7 +74,7 @@ public final class CollectionPredicates {
      * @param compositePredicate the predicate to by applied on the collection element.
      * @return new predicate.
      */
-    public static CompositePredicate noneOf(CompositePredicate compositePredicate) {
+    public static CompositePredicate none(CompositePredicate compositePredicate) {
         return new NoneOfCollectionPredicate<>(Collection.class, compositePredicate);
     }
 

@@ -36,7 +36,8 @@ import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.failearly.ajunit.internal.transformer.ajp.AjpTransformers;
 import org.failearly.ajunit.internal.transformer.list.ListTransformers;
 import org.failearly.ajunit.internal.transformer.method.MethodTransformers;
-import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
+
+import static org.failearly.ajunit.internal.transformer.standard.StandardTransformers.compose;
 
 /**
  * The implementation of {@link org.failearly.ajunit.builder.method.MethodParametersSelector}.
@@ -55,9 +56,9 @@ final class MethodParametersSelectorImpl extends JoinPointSelectorBuilderBase<Me
 
     private static CompositePredicate createCompositeNode(CompositePredicate compositePredicate) {
         return StandardPredicates.transformerPredicate(
-                StandardTransformers.compose(
-                        AjpTransformers.method(),
-                        MethodTransformers.methodParameters()
+                compose(
+                        AjpTransformers.method()
+                        // MethodTransformers.methodParameters()
                 ),
                 compositePredicate
         );
@@ -83,10 +84,19 @@ final class MethodParametersSelectorImpl extends JoinPointSelectorBuilderBase<Me
     }
 
     @Override
+    @NotYetImplemented
+    public MethodParametersSelector byVariableArguments() {
+        return this;
+    }
+
+    @Override
     public MethodParametersSelector byNumberOfParameters(int number, NumberComparator numberComparator) {
         super.addPredicate(
                 StandardPredicates.transformerPredicate(
-                        ListTransformers.size(),
+                        compose(
+                            MethodTransformers.methodParameters(),
+                            ListTransformers.size()
+                        ),
                         JoinPointSelectorUtils.createNumberComparatorPredicate(number, numberComparator)
                 )
         );
@@ -95,11 +105,11 @@ final class MethodParametersSelectorImpl extends JoinPointSelectorBuilderBase<Me
 
     @Override
     public MethodParameterTypeSelector parameterTypes(Position relativeTo, int... positions) {
-        return super.or(getMethodArgumentPositionsSelectorBuilderFactory(relativeTo, positions));
+        return super.or(getMethodParameterPositionsSelectorBuilderFactory(relativeTo, positions));
     }
 
     private BuilderFactory<JoinPointSelectorImpl,MethodParametersSelectorImpl,MethodParameterTypeSelectorImpl>
-    getMethodArgumentPositionsSelectorBuilderFactory(final Position relativeTo, final int... positions) {
+    getMethodParameterPositionsSelectorBuilderFactory(final Position relativeTo, final int... positions) {
         return new BuilderFactory<JoinPointSelectorImpl, MethodParametersSelectorImpl, MethodParameterTypeSelectorImpl>() {
             @Override
             public MethodParameterTypeSelectorImpl createBuilder(JoinPointSelectorImpl root, MethodParametersSelectorImpl parent, CompositePredicate compositePredicate) {
@@ -110,11 +120,11 @@ final class MethodParametersSelectorImpl extends JoinPointSelectorBuilderBase<Me
 
     @Override
     public MethodParameterTypeSelector parameterTypes(ListOperator listOperator) {
-        return super.or(getMethodArgumentPositionsSelectorBuilderFactory(listOperator));
+        return super.or(getMethodParameterPositionsSelectorBuilderFactory(listOperator));
     }
 
     private BuilderFactory<JoinPointSelectorImpl, MethodParametersSelectorImpl, MethodParameterTypeSelectorImpl>
-    getMethodArgumentPositionsSelectorBuilderFactory(final ListOperator listOperator) {
+    getMethodParameterPositionsSelectorBuilderFactory(final ListOperator listOperator) {
         return new BuilderFactory<JoinPointSelectorImpl, MethodParametersSelectorImpl, MethodParameterTypeSelectorImpl>() {
             @Override
             public MethodParameterTypeSelectorImpl createBuilder(JoinPointSelectorImpl root, MethodParametersSelectorImpl parent, CompositePredicate compositePredicate) {
@@ -131,13 +141,12 @@ final class MethodParametersSelectorImpl extends JoinPointSelectorBuilderBase<Me
     }
 
     @Override
-    @NotYetImplemented
     public MethodParameterAnnotationSelector parameterAnnotations(ListOperator listOperator) {
-        return super.and(getMethodArgumentAnnotationSelectorBuilderFactory(listOperator));
+        return super.and(getMethodParameterAnnotationSelectorBuilderFactory(listOperator));
     }
 
     private BuilderFactory<JoinPointSelectorImpl, MethodParametersSelectorImpl, MethodParameterAnnotationSelectorImpl>
-    getMethodArgumentAnnotationSelectorBuilderFactory(final ListOperator listOperator) {
+    getMethodParameterAnnotationSelectorBuilderFactory(final ListOperator listOperator) {
         return new BuilderFactory<JoinPointSelectorImpl, MethodParametersSelectorImpl, MethodParameterAnnotationSelectorImpl>() {
             @Override
             public MethodParameterAnnotationSelectorImpl createBuilder(JoinPointSelectorImpl root, MethodParametersSelectorImpl parent, CompositePredicate compositePredicate) {

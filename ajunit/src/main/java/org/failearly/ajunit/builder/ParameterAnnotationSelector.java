@@ -28,13 +28,14 @@ import java.lang.annotation.Annotation;
 public interface ParameterAnnotationSelector<SB extends ParameterAnnotationSelector, RT extends ParametersSelector> extends SelectorBuilder {
 
     /**
-     * The selector selects methods/constructors with annotated parameters (depends on {@code logicalOperator}).
-     * @param logicalOperator the logical operator to be used.
+     * The selector selects methods/constructors with annotated parameters (depends on {@code listOperator}).
+     *
+     * @param listOperator the list operator.
      * @param annotationClasses the annotation classes (at least one must be provided).
      * @return itself
      */
     @SuppressWarnings("all")
-    SB byParameterAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotationClasses);
+    SB byParameterAnnotations(ListOperator listOperator, Class<? extends Annotation>... annotationClasses);
 
 
     /**

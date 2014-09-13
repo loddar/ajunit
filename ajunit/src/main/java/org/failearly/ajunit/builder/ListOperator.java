@@ -29,21 +29,21 @@ public enum ListOperator {
     /**
      * The {@link org.failearly.ajunit.internal.predicate.Predicate} evaluates to {@code true} to at least one element of the list.
      *
-     * @see org.failearly.ajunit.internal.predicate.collection.CollectionPredicates#anyOf(org.failearly.ajunit.internal.predicate.CompositePredicate)
+     * @see org.failearly.ajunit.internal.predicate.collection.CollectionPredicates#atLeastOne(org.failearly.ajunit.internal.predicate.CompositePredicate)
      */
     AT_LEAST_ONE,
 
     /**
      * The {@link org.failearly.ajunit.internal.predicate.Predicate} evaluates to {@code true} for each elements of the list.
      *
-     * @see org.failearly.ajunit.internal.predicate.collection.CollectionPredicates#allOf(org.failearly.ajunit.internal.predicate.CompositePredicate)
+     * @see org.failearly.ajunit.internal.predicate.collection.CollectionPredicates#each(org.failearly.ajunit.internal.predicate.CompositePredicate)
      */
     EACH,
 
     /**
      * The {@link org.failearly.ajunit.internal.predicate.Predicate} evaluates to {@code false} for none of elements of the list.
      *
-     * @see org.failearly.ajunit.internal.predicate.collection.CollectionPredicates#noneOf(org.failearly.ajunit.internal.predicate.CompositePredicate)
+     * @see org.failearly.ajunit.internal.predicate.collection.CollectionPredicates#none(org.failearly.ajunit.internal.predicate.CompositePredicate)
      */
     NONE
 }

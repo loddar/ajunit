@@ -34,6 +34,7 @@ import org.failearly.ajunit.internal.builder.jpsb.helper.JoinPointSelectorUtils;
 import org.failearly.ajunit.internal.builder.jpsb.helper.SelectorBuilders;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
+import org.failearly.ajunit.internal.transformer.method.MethodTransformers;
 import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
 
 import java.lang.annotation.Annotation;
@@ -68,6 +69,7 @@ final class MethodParameterTypeSelectorImpl extends JoinPointSelectorBuilderBase
             ListOperator listOperator, Position relativeTo, int... positions) {
         return StandardPredicates.transformerPredicate(
                 StandardTransformers.compose(
+                        MethodTransformers.methodParameters(),
                         JoinPointSelectorUtils.createArgumentPositionTransformer(relativeTo, positions)
                 ),
                 JoinPointSelectorUtils.createListLogicalOperator(listOperator, compositePredicate)
@@ -81,8 +83,17 @@ final class MethodParameterTypeSelectorImpl extends JoinPointSelectorBuilderBase
             ListOperator listOperator) {
         this();
         super.init(LogicalStructureBuilder.createBuilder(
-                root, parent, this, JoinPointSelectorUtils.createListLogicalOperator(listOperator, compositePredicate))
+                root, parent, this, createCompositeNode(compositePredicate, listOperator))
             );
+    }
+
+    private static CompositePredicate createCompositeNode(
+            CompositePredicate compositePredicate,
+            ListOperator listOperator) {
+        return StandardPredicates.transformerPredicate(
+                MethodTransformers.methodParameters(),
+                JoinPointSelectorUtils.createListLogicalOperator(listOperator, compositePredicate)
+        );
     }
 
     private MethodParameterTypeSelectorImpl(

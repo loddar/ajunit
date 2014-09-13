@@ -40,7 +40,7 @@ public abstract class TypedTransformer<I, O> extends TransformerBase {
         if(inputClass.isAssignableFrom(input.getClass()))
             return this.inputClass.cast(input);
 
-        throw new ClassCastException("This transformer '" + this.getClass().getSimpleName() +"' does not accept " + input.getClass());
+        throw new ClassCastException("This transformer '" + simpleClassName(this.getClass()) +"' does not accept " + input.getClass());
     }
 
     /**

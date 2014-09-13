@@ -28,7 +28,7 @@ import java.util.Collection;
  */
 final class NoneOfCollectionPredicate<T extends Collection> extends CollectionPredicateBase<T> {
     NoneOfCollectionPredicate(Class<T> clazz,  CompositePredicate compositePredicate) {
-        super(clazz, "NoneOf", compositePredicate);
+        super(clazz, "None", compositePredicate);
     }
 
     @Override
