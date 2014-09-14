@@ -33,7 +33,7 @@ public abstract class BuilderBase<R extends RootBuilder, C extends Builder> impl
     protected BuilderBase() {
     }
 
-    protected final <P extends Builder> void init(LogicalStructureBuilder<R, C> logicalStructureBuilder) {
+    protected final void init(LogicalStructureBuilder<R, C> logicalStructureBuilder) {
         AjAssert.attributeIsNull(this.logicalStructureBuilder,"logicalStructureBuilder");
         this.logicalStructureBuilder = logicalStructureBuilder;
     }
