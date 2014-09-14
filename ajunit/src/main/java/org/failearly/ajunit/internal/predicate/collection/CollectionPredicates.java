@@ -25,6 +25,8 @@ import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
 
 import java.util.Collection;
 
+import static org.failearly.ajunit.internal.predicate.standard.StandardPredicates.toCompositePredicate;
+
 /**
  * CollectionPredicates provides factory methods for applying a single predicate on collection of objects.
  */
@@ -55,6 +57,15 @@ public final class CollectionPredicates {
     }
 
     /**
+     * Does the same like {@link #atLeastOne(org.failearly.ajunit.internal.predicate.CompositePredicate)} by decorating
+     * the simple predicate into a (fake) composite predicate.
+     * @param predicate a simple predicate.
+     */
+    public static Predicate atLeastOne(Predicate predicate) {
+        return atLeastOne(toCompositePredicate(predicate));
+    }
+
+    /**
      * The resulting compositePredicate evaluates to {@code true},
      * if all of the elements evaluates to {@code true} by using given {@code compositePredicate}.
      * If the collection is empty the compositePredicate returns {@code false}.
@@ -67,6 +78,15 @@ public final class CollectionPredicates {
     }
 
     /**
+     * Does the same like {@link #each(org.failearly.ajunit.internal.predicate.CompositePredicate)} by decorating
+     * the simple predicate into a (fake) composite predicate.
+     * @param predicate a simple predicate.
+     */
+    public static Predicate each(Predicate predicate) {
+        return each(toCompositePredicate(predicate));
+    }
+
+    /**
      * The resulting predicate evaluates to {@code true},
      * if none of the elements evaluates to {@code true} by using given {@code predicate}.
      * If the collection is empty the predicate returns {@code false}.
@@ -76,6 +96,15 @@ public final class CollectionPredicates {
      */
     public static CompositePredicate none(CompositePredicate compositePredicate) {
         return new NoneOfCollectionPredicate<>(Collection.class, compositePredicate);
+    }
+
+    /**
+     * Does the same like {@link #none(org.failearly.ajunit.internal.predicate.CompositePredicate)} by decorating
+     * the simple predicate into a (fake) composite predicate.
+     * @param predicate a simple predicate.
+     */
+    public static Predicate none(Predicate predicate) {
+        return none(toCompositePredicate(predicate));
     }
 
     /**
@@ -93,4 +122,5 @@ public final class CollectionPredicates {
     public static Predicate isNotEmpty() {
         return P_IS_NOT_EMPTY;
     }
+
 }

@@ -35,10 +35,25 @@ import static org.junit.Assert.assertThat;
  */
 public class CollectionPredicatesTest {
 
+    private static final Predicate BOOLEAN_PREDICATE =StandardPredicates.booleanIdentity();
+
     @Test
     public void anyOf() throws Exception {
         // arrange / given
-        final Predicate predicate = CollectionPredicates.atLeastOne(booleanPredicate());
+        final Predicate predicate = CollectionPredicates.atLeastOne(booleanCompositePredicate());
+
+        // assert / then
+        assertThat("{false,false}->false?", predicate.test(toBooleanList(false, false)), is(false));
+        assertThat("{false,true}->true?", predicate.test(toBooleanList(false, true)), is(true));
+        assertThat("{true,false}->true?", predicate.test(toBooleanList(true, false)), is(true));
+        assertThat("{true,false}->true?", predicate.test(toBooleanList(true, true)), is(true));
+        assertThat("{}->false?", predicate.test(toBooleanList()), is(false));
+    }
+
+    @Test
+    public void anyOfWithSimplePredicate() throws Exception {
+        // arrange / given
+        final Predicate predicate = CollectionPredicates.atLeastOne(BOOLEAN_PREDICATE);
 
         // assert / then
         assertThat("{false,false}->false?", predicate.test(toBooleanList(false, false)), is(false));
@@ -51,7 +66,20 @@ public class CollectionPredicatesTest {
     @Test
     public void allOf() throws Exception {
         // arrange / given
-        final Predicate predicate = CollectionPredicates.each(booleanPredicate());
+        final Predicate predicate = CollectionPredicates.each(booleanCompositePredicate());
+
+        // assert / then
+        assertThat("{false,false}->false?", predicate.test(toBooleanList(false, false)), is(false));
+        assertThat("{false,true}->false?", predicate.test(toBooleanList(false, true)), is(false));
+        assertThat("{true,false}->false?", predicate.test(toBooleanList(true, false)), is(false));
+        assertThat("{true,true}->true?", predicate.test(toBooleanList(true, true)), is(true));
+        assertThat("{}->false?", predicate.test(toBooleanList()), is(false));
+    }
+
+    @Test
+    public void allOfWithSimplePredicate() throws Exception {
+        // arrange / given
+        final Predicate predicate = CollectionPredicates.each(BOOLEAN_PREDICATE);
 
         // assert / then
         assertThat("{false,false}->false?", predicate.test(toBooleanList(false, false)), is(false));
@@ -64,7 +92,20 @@ public class CollectionPredicatesTest {
     @Test
     public void noneOf() throws Exception {
         // arrange / given
-        final Predicate predicate = CollectionPredicates.none(booleanPredicate());
+        final Predicate predicate = CollectionPredicates.none(booleanCompositePredicate());
+
+        // assert / then
+        assertThat("{false,false}->true?", predicate.test(toBooleanList(false, false)), is(true));
+        assertThat("{false,true}->false?", predicate.test(toBooleanList(false, true)), is(false));
+        assertThat("{true,false}->false?", predicate.test(toBooleanList(true, false)), is(false));
+        assertThat("{true,true}->false?", predicate.test(toBooleanList(true, true)), is(false));
+        assertThat("{}->false?", predicate.test(toBooleanList()), is(false));
+    }
+
+    @Test
+    public void noneOfWithSimplePredicate() throws Exception {
+        // arrange / given
+        final Predicate predicate = CollectionPredicates.none(BOOLEAN_PREDICATE);
 
         // assert / then
         assertThat("{false,false}->true?", predicate.test(toBooleanList(false, false)), is(true));
@@ -101,7 +142,7 @@ public class CollectionPredicatesTest {
         // arrange / given
         final Predicate predicate = CollectionPredicates.each(
                 CollectionPredicates.atLeastOne(
-                        booleanPredicate()
+                        booleanCompositePredicate()
                 )
         );
 
@@ -127,7 +168,7 @@ public class CollectionPredicatesTest {
         // arrange / given
         final Predicate predicate = CollectionPredicates.atLeastOne(
                 CollectionPredicates.each(
-                        booleanPredicate()
+                        booleanCompositePredicate()
                 )
         );
 
@@ -165,7 +206,7 @@ public class CollectionPredicatesTest {
         return Arrays.asList(booleanList);
     }
 
-    private static CompositePredicate booleanPredicate() {
-        return LogicalPredicates.and().addPredicate(StandardPredicates.booleanIdentity());
+    private static CompositePredicate booleanCompositePredicate() {
+        return LogicalPredicates.and().addPredicate(BOOLEAN_PREDICATE);
     }
 }
