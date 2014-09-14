@@ -40,7 +40,17 @@ public abstract class Named {
     }
 
     protected Named(String name) {
-        this.name = name + "@" + simpleClassName(this.getClass());
+        this(name, true);
+    }
+
+    protected Named(String name, boolean useClassName) {
+        this.name = name + useClassName(useClassName);
+    }
+
+    private String useClassName(boolean useClassName) {
+        if( ! useClassName )
+            return "";
+        return "@" + simpleClassName(this.getClass());
     }
 
     /**

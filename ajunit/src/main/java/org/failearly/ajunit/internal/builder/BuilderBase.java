@@ -22,7 +22,7 @@ import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.failearly.ajunit.internal.util.AjAssert;
-import org.failearly.ajunit.internal.util.MessageUtils;
+import org.failearly.ajunit.internal.util.MessageBuilders;
 
 /**
  * The base class for all {@link Builder}.
@@ -98,7 +98,7 @@ public abstract class BuilderBase<R extends RootBuilder, C extends Builder> impl
         }
         AjAssert.assertCondition(
                 builderClass.isInstance(parent),
-                MessageUtils.message("Invalid termination of logical expression: Parent selector instance is not of expected type")
+                MessageBuilders.message("Invalid termination of logical expression: Parent selector instance is not of expected type")
                         .arg(builderClass.getSimpleName())
         );
         return builderClass.cast(parent);

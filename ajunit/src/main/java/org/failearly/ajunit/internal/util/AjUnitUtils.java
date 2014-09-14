@@ -59,7 +59,7 @@ public final class AjUnitUtils {
         final AjUniverseName universeName = AnnotationUtils.findClassAnnotation(ajUnitObjectClass, AjUniverseName.class);
         if (universeName == null) {
             AjAssert.throwSetupError(
-                    MessageUtils.setupError("Missing annotation @AjUniverseName for class/aspect")
+                    MessageBuilders.setupError("Missing annotation @AjUniverseName for class/aspect")
                             .arg(ajUnitObjectClass.getSimpleName())
             );
             // Just for keeping IDEA & Co happy.

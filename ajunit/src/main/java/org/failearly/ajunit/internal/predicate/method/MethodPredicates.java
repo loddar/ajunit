@@ -20,7 +20,7 @@ package org.failearly.ajunit.internal.predicate.method;
 
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.util.AjAssert;
-import org.failearly.ajunit.internal.util.MessageUtils;
+import org.failearly.ajunit.internal.util.MessageBuilders;
 
 import java.lang.annotation.Annotation;
 
@@ -37,7 +37,7 @@ public final class MethodPredicates {
      * @see java.lang.reflect.Method#isAnnotationPresent(Class)
      */
     public static Predicate isAnnotationPresent(Class<? extends Annotation> annotationClass) {
-        AjAssert.assertCondition(annotationClass.isAnnotation(), MessageUtils.message("Only annotation class expected: ").arg(annotationClass));
+        AjAssert.assertCondition(annotationClass.isAnnotation(), MessageBuilders.message("Only annotation class expected: ").arg(annotationClass));
         return new IsMethodAnnotationPresentPredicate(annotationClass);
     }
 }

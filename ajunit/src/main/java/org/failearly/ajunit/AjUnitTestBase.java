@@ -22,7 +22,7 @@ import org.failearly.ajunit.builder.JoinPointSelector;
 import org.failearly.ajunit.internal.runner.AjUnitTestRunner;
 import org.failearly.ajunit.internal.runner.FailureHandler;
 import org.failearly.ajunit.internal.util.AjAssert;
-import org.failearly.ajunit.internal.util.MessageUtils;
+import org.failearly.ajunit.internal.util.MessageBuilders;
 
 /**
  * AjUnitTestBase is the base implementation for {@link org.failearly.ajunit.AjUnitTest}.
@@ -33,19 +33,19 @@ public abstract class AjUnitTestBase implements AjUnitTest, FailureHandler {
 
     @Override
     public void setup(AjUnitSetup ajUnitSetup) {
-        AjAssert.throwSetupError(MessageUtils.setupError("Missing setup.")
+        AjAssert.throwSetupError(MessageBuilders.setupError("Missing setup.")
                 .line("Please override setup(AjUnitSetup)."));
     }
 
     @Override
     public void execute() {
-        AjAssert.throwSetupError(MessageUtils.setupError("Missing execute().")
+        AjAssert.throwSetupError(MessageBuilders.setupError("Missing execute().")
                 .line("Please override execute()."));
     }
 
     @Override
     public void assertPointcut(JoinPointSelector joinPointSelector) {
-        AjAssert.throwSetupError(MessageUtils.setupError("Missing assertPointcut.")
+        AjAssert.throwSetupError(MessageBuilders.setupError("Missing assertPointcut.")
                 .line("Please override assertPointcut(JoinPointSelector)"));
 
     }

@@ -19,11 +19,11 @@
 package org.failearly.ajunit.internal.util;
 
 /**
- * MessageUtils provides factory methods for {@link org.failearly.ajunit.internal.util.MessageBuilder}.
+ * MessageBuilders provides factory methods for {@link org.failearly.ajunit.internal.util.MessageBuilder}.
  */
-public final class MessageUtils {
+public final class MessageBuilders {
 
-    private MessageUtils() {}
+    private MessageBuilders() {}
 
     /**
      * Factory method for message builder with initial message: <i>ajUnit - {@code message}</i>.

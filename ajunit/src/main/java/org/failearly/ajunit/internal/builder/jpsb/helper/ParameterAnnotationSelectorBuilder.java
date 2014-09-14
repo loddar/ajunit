@@ -23,7 +23,7 @@ import org.failearly.ajunit.internal.builder.Builder;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
 import org.failearly.ajunit.internal.util.AjAssert;
-import org.failearly.ajunit.internal.util.MessageUtils;
+import org.failearly.ajunit.internal.util.MessageBuilders;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public final class ParameterAnnotationSelectorBuilder<T extends Builder> extends
     private static List<Predicate> createAnnotationTypeEqualsToPredicates(Class<? extends Annotation>[] annotationClasses) {
         AjAssert.assertCondition(
                 annotationClasses.length > 0,
-                MessageUtils.message("At least one annotation should be provided.")
+                MessageBuilders.message("At least one annotation should be provided.")
         );
         final List<Predicate> predicates = new ArrayList<>(annotationClasses.length);
         for (Class<? extends Annotation> anAnnotationClass : annotationClasses) {

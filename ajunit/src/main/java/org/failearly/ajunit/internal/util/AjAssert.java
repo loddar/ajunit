@@ -35,38 +35,38 @@ public final class AjAssert {
 
     public static void parameterNotNull(final Object parameter, final String parameterName) {
         if(parameter==null) {
-            throwIllegalArgumentException(MessageUtils.message("Parameter").arg(parameterName).part("is null"));
+            throwIllegalArgumentException(MessageBuilders.message("Parameter").arg(parameterName).part("is null"));
         }
     }
 
     public static void attributeIsNull(final Object object, final String attributeName) {
         if(object!=null) {
-            throwIllegalArgumentException(MessageUtils.message("Attribute").arg(attributeName).part("is not null"));
+            throwIllegalArgumentException(MessageBuilders.message("Attribute").arg(attributeName).part("is not null"));
         }
     }
 
     public static void attributeIsNotNull(final Object object, final String attributeName) {
         if(object==null) {
-            throwIllegalArgumentException(MessageUtils.message("Attribute").arg(attributeName).part("is null"));
+            throwIllegalArgumentException(MessageBuilders.message("Attribute").arg(attributeName).part("is null"));
         }
     }
 
     public static void state(boolean state, String msg) {
         if( ! state ) {
-            throwIllegalStateException(MessageUtils.message("Illegal state:").part(msg));
+            throwIllegalStateException(MessageBuilders.message("Illegal state:").part(msg));
         }
     }
 
     public static void parameterNotEmpty(Collection<?> collection, String parameterName) {
         parameterNotNull(collection, parameterName);
         if(collection.isEmpty()) {
-            throwIllegalArgumentException(MessageUtils.message("Parameter").arg(parameterName).part("is empty"));
+            throwIllegalArgumentException(MessageBuilders.message("Parameter").arg(parameterName).part("is empty"));
         }
     }
 
     public static void parameter(boolean condition, String msg) {
         if( ! condition ) {
-            throwIllegalArgumentException(MessageUtils.message("Illegal argument condition:").part(msg));
+            throwIllegalArgumentException(MessageBuilders.message("Illegal argument condition:").part(msg));
         }
     }
 

@@ -24,7 +24,7 @@ import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.method.MethodPredicates;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.failearly.ajunit.internal.util.AjAssert;
-import org.failearly.ajunit.internal.util.MessageUtils;
+import org.failearly.ajunit.internal.util.MessageBuilders;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public final class MethodSelectorBuilder<T extends Builder> extends MemberSelect
     private static List<Predicate> createMethodAnnotationsPredicates(Class<? extends Annotation>[] annotations) {
         AjAssert.assertCondition(
                 annotations.length > 0,
-                MessageUtils.message("At least one annotation should be provided.")
+                MessageBuilders.message("At least one annotation should be provided.")
         );
         final List<Predicate> predicates = new ArrayList<>(annotations.length);
         for (Class<? extends Annotation> anAnnotation : annotations) {

@@ -19,7 +19,7 @@
 package org.failearly.ajunit.internal.runner;
 
 import org.failearly.ajunit.internal.util.MessageBuilder;
-import org.failearly.ajunit.internal.util.MessageUtils;
+import org.failearly.ajunit.internal.util.MessageBuilders;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -125,7 +125,7 @@ final class TestResultCollectorImpl implements TestResultCollector {
     }
 
     private MessageBuilder buildFailingMessageHeader() {
-        return MessageUtils.message("Pointcut test failed with")
+        return MessageBuilders.message("Pointcut test failed with")
                     .arg(numFailures).part("error(s).").newline().newline("Details:");
     }
 

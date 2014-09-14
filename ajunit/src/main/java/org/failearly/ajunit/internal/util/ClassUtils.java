@@ -129,7 +129,7 @@ public final class ClassUtils {
             return Class.forName(fqcn, initialize, Thread.currentThread().getContextClassLoader());
         } catch (ClassNotFoundException e) {
             AjAssert.throwSetupError(
-                    MessageUtils.setupError("Class")
+                    MessageBuilders.setupError("Class")
                             .arg(fqcn)
                             .part("could not be found.")
                             .line("The class name must be full qualified.")

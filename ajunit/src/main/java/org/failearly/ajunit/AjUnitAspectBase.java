@@ -23,7 +23,7 @@ import org.failearly.ajunit.internal.universe.*;
 import org.failearly.ajunit.internal.universe.impl.AjUniversesHolder;
 import org.failearly.ajunit.internal.util.AjAssert;
 import org.failearly.ajunit.internal.util.AjUnitUtils;
-import org.failearly.ajunit.internal.util.MessageUtils;
+import org.failearly.ajunit.internal.util.MessageBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -212,14 +212,14 @@ public abstract class AjUnitAspectBase {
         final int numAssociatedJoinPoints = joinPoints.size();
         AjAssert.assertCondition(
                 numAssociatedJoinPoints > 0,
-                MessageUtils.message("Assertion failed: No associated ajUnit join point found for AspectJ join point").arg(joinPoint)
+                MessageBuilders.message("Assertion failed: No associated ajUnit join point found for AspectJ join point").arg(joinPoint)
                         .line("Please add").arg(joinPoint.getSignature().getDeclaringTypeName()).part("to Test Fixtures.")
                         .line("Or the join point type").arg(joinPoint.getKind())
                         .part("is not yet supported: Propose a feature request to https://github.com/loddar/ajunit/issues.")
         );
         AjAssert.assertCondition(
                 numAssociatedJoinPoints == 1,
-                MessageUtils.message("Assertion failed: Exactly one join point expected, got").arg(numAssociatedJoinPoints)
+                MessageBuilders.message("Assertion failed: Exactly one join point expected, got").arg(numAssociatedJoinPoints)
         );
 
     }

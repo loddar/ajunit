@@ -23,6 +23,7 @@ import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.TypedPredicate;
 import org.failearly.ajunit.internal.transformer.Transformer;
+import org.failearly.ajunit.internal.util.AjAssert;
 
 /**
  * StandardPredicates provides factory methods for some standard {@link Predicate}s.
@@ -131,4 +132,19 @@ public final class StandardPredicates {
         return new NamedPredicate(name, predicate);
     }
 
+    /**
+     * Decorate a predicate into a (fake) composite predicate. If used with a CompositePredicate, there is nothing to fake, so the
+     * the same instance will be returned. <br><br>
+     * <b>Caution</b>:
+     * The fake composite predicate will raise an {@link java.lang.IllegalStateException},
+     * if you call {@link org.failearly.ajunit.internal.predicate.CompositePredicate#addPredicate(org.failearly.ajunit.internal.predicate.Predicate)} or
+     * {@link org.failearly.ajunit.internal.predicate.CompositePredicate#addPredicates(Iterable)}.
+     */
+    public static CompositePredicate toCompositePredicate(Predicate predicate) {
+        AjAssert.parameterNotNull(predicate, "predicate");
+        if( predicate instanceof CompositePredicate ) {
+            return (CompositePredicate) predicate;
+        }
+        return new FakeCompositePredicate(predicate);
+    }
 }

@@ -18,7 +18,7 @@
  */
 package org.failearly.ajunit.internal.runner;
 
-import org.failearly.ajunit.internal.util.MessageUtils;
+import org.failearly.ajunit.internal.util.MessageBuilders;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.core.Is.is;
@@ -43,6 +43,6 @@ public abstract class AbstractTestRunnerTest {
     }
 
     private static void doFail(Class<? extends Throwable> expectedException) {
-        fail(MessageUtils.setupError("Exception expected:").arg(expectedException.getCanonicalName()).build());
+        fail(MessageBuilders.setupError("Exception expected:").arg(expectedException.getCanonicalName()).build());
     }
 }

@@ -112,7 +112,7 @@ public final class AjUnitTestRunner {
 
     private void doAssertAspectClassName(String aspectClassName) {
         if( aspectClassName==null ) {
-            throwSetupError(MessageUtils.setupError("Missing aspect or not yet assigned.")
+            throwSetupError(MessageBuilders.setupError("Missing aspect or not yet assigned.")
                     .line("Create an aspect and ...")
                     .line("assign it by calling AjUnitSetup.assignAspect(\"full.path.MyAspect\") in setup(AjUnitSetup)."));
         }
@@ -122,7 +122,7 @@ public final class AjUnitTestRunner {
         final String aspectsUniverseName = AjUnitUtils.resolveUniverseName(aspectClass);
         if (!universeName.equals(aspectsUniverseName)) {
             throwSetupError(
-                    MessageUtils.setupError("Aspect").arg(aspectClass.getCanonicalName()).part("has wrong universe name:").arg(aspectsUniverseName).fullStop()
+                    MessageBuilders.setupError("Aspect").arg(aspectClass.getCanonicalName()).part("has wrong universe name:").arg(aspectsUniverseName).fullStop()
                             .line("Please use universe name:").arg(universeName).fullStop()
             );
         }
@@ -130,7 +130,7 @@ public final class AjUnitTestRunner {
 
     private void doAssertAspectExtendsBaseAspectClass(Class<?> aspectClass) {
         if (!AjUnitAspectBase.class.isAssignableFrom(aspectClass)) {
-            throwSetupError(MessageUtils.setupError("Test aspect")
+            throwSetupError(MessageBuilders.setupError("Test aspect")
                     .arg(aspectClass.getCanonicalName())
                     .part("does not extend AjUnitAspectBase!")
                     .line("Please extend your aspect from one of the provided base aspects:")
@@ -160,7 +160,7 @@ public final class AjUnitTestRunner {
     private void assertUniverseSetup(AjUnitSetupImpl ajUnitTestSetup) {
         final List<Class<?>> testFixtureClasses = ajUnitTestSetup.getTestFixtureClasses();
         if (testFixtureClasses.isEmpty()) {
-            throwSetupError(MessageUtils.setupError("Missing test fixture class(es).")
+            throwSetupError(MessageBuilders.setupError("Missing test fixture class(es).")
                     .line("Apply addTestFixtureClass(<class> or <class name>) for every test fixture class.")
             );
         }
@@ -174,7 +174,7 @@ public final class AjUnitTestRunner {
         final JoinPointSelectorImpl joinPointBuilder = new JoinPointSelectorImpl(joinPointTypes);
         ajUnitTest.assertPointcut(joinPointBuilder);
         if (!joinPointBuilder.anyPredicateDefined()) {
-            throwSetupError(MessageUtils.setupError("Missing implementation of assertPointcut(JoinPointSelector)."));
+            throwSetupError(MessageBuilders.setupError("Missing implementation of assertPointcut(JoinPointSelector)."));
         }
         return joinPointBuilder.build();
     }
