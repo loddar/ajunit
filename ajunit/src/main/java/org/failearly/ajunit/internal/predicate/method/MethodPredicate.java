@@ -16,15 +16,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.internal.predicate.method;
+
+import org.failearly.ajunit.internal.predicate.TypedPredicate;
+
+import java.lang.reflect.Method;
 
 /**
- * Used by {@link org.failearly.ajunit.builder.method.MethodParametersSelector#byNumberOfParameters(int, NumberComparator)}.
+ * MethodPredicate is the base class for {@link Method based predicates}.
  */
-public enum NumberComparator {
-    EQUALS,
-    LESS_THEN,
-    LESS_EQUALS_THEN,
-    GREATER_THEN,
-    GREATER_EQUALS_THEN
+abstract class MethodPredicate extends TypedPredicate<Method> {
+    MethodPredicate(String name) {
+        super(Method.class, name);
+    }
 }

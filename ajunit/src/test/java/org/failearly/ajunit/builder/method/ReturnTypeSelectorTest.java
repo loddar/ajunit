@@ -19,6 +19,7 @@
 package org.failearly.ajunit.builder.method;
 
 import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.builder.types.StringMatcher;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
@@ -31,7 +32,7 @@ import static org.junit.Assert.assertThat;
 /**
  * Tests for {@link MethodJoinPointSelector}.
  *
- * @see MethodJoinPointSelector#returnType(org.failearly.ajunit.builder.LogicalOperator)
+ * @see MethodJoinPointSelector#returnType()
  */
 public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
@@ -42,7 +43,7 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
     @Test
     public void endReturnType() throws Exception {
         // act / when
-        final MethodJoinPointSelector instance = selectorBuilder.returnType(LogicalOperator.OR).endReturnType();
+        final MethodJoinPointSelector instance = selectorBuilder.returnType().endReturnType();
 
         // assert / then
         assertThat("endReturnType() returns correct selector builder?", instance, sameInstance(selectorBuilder));
@@ -51,7 +52,7 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
     @Test
     public void byReturningVoid() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.OR)
+        selectorBuilder.returnType()
                     .byClass(void.class)
                 .endReturnType();
 
@@ -73,7 +74,7 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
     @Test
     public void byReturningClassName() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.OR)
+        selectorBuilder.returnType()
                     .byClassName("TestSub", StringMatcher.STARTS_WITH)
                 .endReturnType();
 
@@ -90,7 +91,7 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
     @Test
     public void byImplementingAnyOf() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.OR)
+        selectorBuilder.returnType()
                     .byImplementingAnyOf(AnyInterface.class, Map.class)
                 .endReturnType();
 
@@ -107,7 +108,7 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
     @Test
     public void byImplementingNoneOf() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.OR)
+        selectorBuilder.returnType()
                     .byImplementingNoneOf(Serializable.class)
                 .endReturnType();
 
@@ -142,7 +143,7 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
     @Test
     public void byExtending() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.OR)
+        selectorBuilder.returnType()
                 .byExtending(AbstractBaseClass.class)
                 .endReturnType();
 
@@ -155,7 +156,7 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
     @Test
     public void byNotExtending() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.OR)
+        selectorBuilder.returnType()
                 .byNotExtending(Object.class)
                 .endReturnType();
 
@@ -185,7 +186,7 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
     @Test
     public void byImplementingAllOf() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.OR)
+        selectorBuilder.returnType()
                 .byImplementingAllOf(AnyInterface.class, Serializable.class)
                 .endReturnType();
 
@@ -196,9 +197,10 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
     }
 
     @Test
-    public void byPackageName() throws Exception {
+    public void byTwoPackageNames() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.OR)
+        selectorBuilder.returnType()
+                .or()
                     .byPackageName("org.failearly", StringMatcher.STARTS_WITH)
                     .byPackageName("java.lang", StringMatcher.CONTAINS)
                 .endReturnType();
@@ -218,7 +220,7 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
                 "public java.lang.Short org.failearly.ajunit.builder.TestSubject4.getShortWrapper()",
                 "public java.lang.Byte org.failearly.ajunit.builder.TestSubject4.getByteWrapper()",
                 "public java.lang.String org.failearly.ajunit.builder.TestSubject4.getString()",
-                "public org.failearly.ajunit.builder.LogicalOperator org.failearly.ajunit.builder.TestSubject4.getEnum()",
+                "public org.failearly.ajunit.builder.AnyEnum org.failearly.ajunit.builder.TestSubject4.getEnum()",
                 // java.lang.Object
                 "public java.lang.String java.lang.Object.toString()",
                 "public final native java.lang.Class java.lang.Object.getClass()",
@@ -228,7 +230,7 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
     @Test
     public void byInterface() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.OR)
+        selectorBuilder.returnType()
                     .byInterface()
                 .endReturnType();
 
@@ -241,7 +243,7 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
     @Test
     public void byAnnotation() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.OR)
+        selectorBuilder.returnType()
                     .byAnnotation()
                 .endReturnType();
 
@@ -253,7 +255,7 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
     @Test
     public void byArray() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.OR)
+        selectorBuilder.returnType()
                     .byArray()
                 .endReturnType();
 
@@ -267,7 +269,7 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
     @Test
     public void byPrimitive() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.OR)
+        selectorBuilder.returnType()
                     .byPrimitive()
                 .endReturnType();
 
@@ -289,7 +291,7 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
     @Test
     public void byPrimitiveWrapperType() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.OR)
+        selectorBuilder.returnType()
                     .byPrimitiveWrapperType()
                 .endReturnType();
 
@@ -308,20 +310,20 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
     @Test
     public void byEnum() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.OR)
+        selectorBuilder.returnType()
                     .byEnum()
                 .endReturnType();
 
         // assert / then
         assertBuildJoinPointSelector(
-                "public org.failearly.ajunit.builder.LogicalOperator org.failearly.ajunit.builder.TestSubject4.getEnum()"
+                "public org.failearly.ajunit.builder.AnyEnum org.failearly.ajunit.builder.TestSubject4.getEnum()"
         );
     }
 
     @Test
     public void byCollection() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.OR)
+        selectorBuilder.returnType()
                     .byCollection()
                 .endReturnType();
 
@@ -336,7 +338,7 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
     @Test
     public void byMap() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.OR)
+        selectorBuilder.returnType()
                     .byMap()
                 .endReturnType();
 
@@ -351,7 +353,7 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
     @Test
     public void byTypeAnnotationWithAnnotationInheritance() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.OR)
+        selectorBuilder.returnType()
                     .byTypeAnnotation(AnyAnnotation.class)
                 .endReturnType();
 
@@ -364,7 +366,7 @@ public abstract class ReturnTypeSelectorTest extends AbstractJoinPointSelectorTe
     @Test
     public void byTypeAnnotationWithoutAnnotationInheritance() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.OR)
+        selectorBuilder.returnType()
                     .byTypeAnnotation(AnyOtherAnnotation.class)
                 .endReturnType();
 

@@ -18,7 +18,11 @@
  */
 package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.builder.AbstractJoinPointSelectorTest;
+import org.failearly.ajunit.builder.AnyAnnotation;
+import org.failearly.ajunit.builder.AnyInterface;
+import org.failearly.ajunit.builder.TestSubject5;
+import org.failearly.ajunit.builder.types.StringMatcher;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
@@ -28,7 +32,7 @@ import java.util.Map;
 /**
  * Tests for {@link MethodJoinPointSelector}.
  *
- * @see MethodJoinPointSelector#returnType(org.failearly.ajunit.builder.LogicalOperator)
+ * @see MethodJoinPointSelector#returnType()
  */
 public abstract class ReturnComponentTypeSelectorTest extends AbstractJoinPointSelectorTest<ReturnComponentTypeSelector> {
 

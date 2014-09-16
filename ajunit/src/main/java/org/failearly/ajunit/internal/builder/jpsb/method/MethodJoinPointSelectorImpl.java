@@ -19,19 +19,18 @@
 package org.failearly.ajunit.internal.builder.jpsb.method;
 
 import org.failearly.ajunit.builder.JoinPointSelector;
-import org.failearly.ajunit.builder.ListOperator;
-import org.failearly.ajunit.builder.LogicalOperator;
-import org.failearly.ajunit.builder.StringMatcher;
 import org.failearly.ajunit.builder.method.MethodExceptionTypeSelector;
 import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
 import org.failearly.ajunit.builder.method.MethodParametersSelector;
 import org.failearly.ajunit.builder.method.ReturnTypeSelector;
+import org.failearly.ajunit.builder.types.ListOperator;
+import org.failearly.ajunit.builder.types.LogicalOperator;
+import org.failearly.ajunit.builder.types.StringMatcher;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderBase;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
-import org.failearly.ajunit.internal.builder.jpsb.helper.JoinPointSelectorUtils;
 import org.failearly.ajunit.internal.builder.jpsb.helper.MethodSelectorBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.SelectorBuilders;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
@@ -181,11 +180,8 @@ public final class MethodJoinPointSelectorImpl
     }
 
     @Override
-    public ReturnTypeSelector returnType(LogicalOperator logicalOperator) {
-        return createNewBuilderNode(
-                JoinPointSelectorUtils.createLogicalOperatorPredicate(logicalOperator),
-                getReturnTypeSelectorBuilderFactory()
-        );
+    public ReturnTypeSelector returnType() {
+        return super.and(getReturnTypeSelectorBuilderFactory());
     }
 
     @Override
@@ -195,28 +191,28 @@ public final class MethodJoinPointSelectorImpl
 
     @Override
     public MethodJoinPointSelector byReturningVoid() {
-        return returnType(LogicalOperator.AND)
+        return returnType()
                 .byVoid()
                 .endReturnType();
     }
 
     @Override
     public MethodJoinPointSelector byReturning(Class<?> returnType) {
-        return returnType(LogicalOperator.AND)
+        return returnType()
                 .byClass(returnType)
                 .endReturnType();
     }
 
     @Override
     public MethodJoinPointSelector byReturningPrimitive() {
-        return returnType(LogicalOperator.AND)
+        return returnType()
                 .byPrimitive()
                 .endReturnType();
     }
 
     @Override
     public MethodJoinPointSelector byReturningEnum() {
-        return returnType(LogicalOperator.AND)
+        return returnType()
                 .byEnum()
                 .endReturnType();
     }
@@ -224,24 +220,23 @@ public final class MethodJoinPointSelectorImpl
 
     @Override
     public MethodJoinPointSelector byReturningArray() {
-        return returnType(LogicalOperator.AND)
+        return returnType()
                 .byArray()
                 .endReturnType();
     }
 
     @Override
     public MethodJoinPointSelector byReturningCollection() {
-        return returnType(LogicalOperator.AND)
+        return returnType()
                 .byCollection()
                 .endReturnType();
     }
 
     @Override
-    public MethodParametersSelector arguments(LogicalOperator logicalOperator) {
-        return super.createNewBuilderNode(
-                JoinPointSelectorUtils.createLogicalOperatorPredicate(logicalOperator),
+    public MethodParametersSelector parameters() {
+        return super.and(
                 getMethodArgumentsSelectorBuilderFactory()
-            );
+        );
     }
 
     @Override

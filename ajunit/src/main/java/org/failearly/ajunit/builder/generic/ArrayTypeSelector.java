@@ -16,14 +16,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.generic;
+
+import org.failearly.ajunit.builder.SelectorBuilder;
+import org.failearly.ajunit.builder.types.DimensionComparator;
 
 /**
  * ArrayTypeSelector provides methods based on {@link Class} object.
  *
  * @see Class#isArray()
  */
-public interface ArrayTypeSelector<SB extends SelectorBuilder, RT extends ExtendedClassSelector> extends SelectorBuilder {
+public interface ArrayTypeSelector<SB extends SelectorBuilder, RT extends ExtendedClassSelector> {
     /**
      * Selects method, field or constructor joinpoints the method's return type, the field's type or the parameter's type
      * is an array.
@@ -53,7 +56,7 @@ public interface ArrayTypeSelector<SB extends SelectorBuilder, RT extends Extend
     SB byArrayDimension(int dimension, DimensionComparator dimensionComparator);
 
     /**
-     * Starts a sub selector for array's component type. The basic logical operator is {@link org.failearly.ajunit.builder.LogicalOperator#AND}.
+     * Starts a sub selector for array's component type. The basic logical operator is {@link org.failearly.ajunit.builder.types.LogicalOperator#AND}.
      * Using this sub select, will only select arrays, even if no additional select has been applied - {@link #byArray()} will be added.
      *
      * @return new component type selector.

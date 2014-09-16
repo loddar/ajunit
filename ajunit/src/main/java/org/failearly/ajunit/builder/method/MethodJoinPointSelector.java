@@ -18,7 +18,14 @@
  */
 package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.builder.JoinPointSelector;
+import org.failearly.ajunit.builder.SelectorBuilder;
+import org.failearly.ajunit.builder.generic.DeclaringClassSelector;
+import org.failearly.ajunit.builder.generic.LogicalSelector;
+import org.failearly.ajunit.builder.generic.MemberSelector;
+import org.failearly.ajunit.builder.types.ListOperator;
+import org.failearly.ajunit.builder.types.LogicalOperator;
+import org.failearly.ajunit.builder.types.StringMatcher;
 import org.failearly.ajunit.modifier.MethodModifier;
 
 import java.lang.annotation.Annotation;
@@ -33,7 +40,7 @@ import java.lang.annotation.Annotation;
  * </code>
  */
 public interface MethodJoinPointSelector
-        extends MemberSelector<MethodJoinPointSelector>, DeclaringClassSelector<MethodJoinPointSelector>, LogicalSelector<MethodJoinPointSelector> {
+        extends MemberSelector<MethodJoinPointSelector>, DeclaringClassSelector<MethodJoinPointSelector>, LogicalSelector<MethodJoinPointSelector>, SelectorBuilder {
 
     /**
      * Select a method by method name (pattern).<br/>
@@ -119,12 +126,11 @@ public interface MethodJoinPointSelector
      * <li><code>execution(void *.*(..))</code></li>
      * <li><code>call(java.util.List+ *.*())</code></li>
      * </ul>
-     * @param logicalOperator the logical operator.
      * @return the new return type selector using the logical operator.
      *
      * @see java.lang.reflect.Method#getReturnType()
      */
-    ReturnTypeSelector returnType(LogicalOperator logicalOperator);
+    ReturnTypeSelector returnType();
 
     /**
      * Convenient selector builder for methods with return type <code>void</code>.
@@ -194,7 +200,7 @@ public interface MethodJoinPointSelector
     MethodExceptionTypeSelector exceptionTypes(ListOperator listOperator);
 
     /**
-     * Select methods based by their argument or parameter signature.<br/>
+     * Select methods based by their parameter signature.<br/>
      * </br>
      * AspectJ pointcut definition examples:
      * <ul>
@@ -205,11 +211,7 @@ public interface MethodJoinPointSelector
      * <li><code>call(*.*(..,MyClass,..)</code>: using MyClass argument</li>
      * </ul>
      *
-     * @param logicalOperator  logical the logical operator.
-     * @return a new method arguments selector.
+     * @return a new method parameters selector.
      */
-    MethodParametersSelector arguments(LogicalOperator logicalOperator);
-
-
-
+    MethodParametersSelector parameters();
 }

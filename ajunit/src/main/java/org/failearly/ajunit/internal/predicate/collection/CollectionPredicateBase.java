@@ -36,10 +36,7 @@ abstract class CollectionPredicateBase<T extends Collection>
 
     @Override
     protected final boolean doTypedEvaluate(T collection) {
-        if( collection.isEmpty() )
-            return false;
-
-        return doApplyPredicateOnCollection(collection, super.getDelegatePredicate());
+        return !collection.isEmpty() && doApplyPredicateOnCollection(collection, super.getDelegatePredicate());
     }
 
 

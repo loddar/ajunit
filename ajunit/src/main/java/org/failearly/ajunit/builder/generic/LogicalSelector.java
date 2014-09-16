@@ -16,12 +16,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.generic;
+
+import org.failearly.ajunit.builder.SelectorBuilder;
+import org.failearly.ajunit.builder.types.LogicalOperator;
 
 /**
- * LogicalSelector provides logical operations.
+ * LogicalSelector provides logical operations for the specified {@link org.failearly.ajunit.builder.SelectorBuilder} node.
  */
-public interface LogicalSelector<SB extends SelectorBuilder> extends SelectorBuilder {
+public interface LogicalSelector<SB extends SelectorBuilder> {
+
+    /**
+     * Creates a logical (sub) expression.
+     * <br><br>
+     * Calling {@code logicalExpression(LogicalOperator.AND)} does the same like {@link #and()}.
+     */
+    SB logicalExpression(LogicalOperator logicalOperator);
+
     /**
      * Logical OR. The expression will be closed by {@link #end()}.
      * @return next logical selector

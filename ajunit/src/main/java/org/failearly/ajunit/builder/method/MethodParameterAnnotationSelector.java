@@ -18,7 +18,7 @@
  */
 package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.builder.ParameterAnnotationSelector;
+import org.failearly.ajunit.builder.generic.ParameterAnnotationSelector;
 
 /**
  * MethodArgumentAnnotationSelector is responsible for selecting methods by argument/parameter annotations.

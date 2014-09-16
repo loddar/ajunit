@@ -18,9 +18,9 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb.helper;
 
-import org.failearly.ajunit.builder.DimensionComparator;
-import org.failearly.ajunit.builder.LogicalOperator;
-import org.failearly.ajunit.builder.StringMatcher;
+import org.failearly.ajunit.builder.types.DimensionComparator;
+import org.failearly.ajunit.builder.types.LogicalOperator;
+import org.failearly.ajunit.builder.types.StringMatcher;
 import org.failearly.ajunit.internal.builder.Builder;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.util.AjAssert;
@@ -55,7 +55,7 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
     public T byClassName(String classNamePattern, StringMatcher matcherType) {
         return addPredicate(
                 className(),
-                JoinPointSelectorUtils.createStringMatcherPredicate(classNamePattern, matcherType)
+                AjUnitTypesPredicateFactory.createStringMatcherPredicate(classNamePattern, matcherType)
         );
     }
 
@@ -93,14 +93,14 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
     public T byPackageName(String packageNamePattern, StringMatcher matcherType) {
         return addPredicate(
                 packageName(),
-                JoinPointSelectorUtils.createStringMatcherPredicate(packageNamePattern, matcherType)
+                AjUnitTypesPredicateFactory.createStringMatcherPredicate(packageNamePattern, matcherType)
         );
     }
 
     @SafeVarargs
     public final T byTypeAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotations) {
         return addPredicate(
-                JoinPointSelectorUtils.createLogicalOperatorPredicate(logicalOperator)
+                AjUnitTypesPredicateFactory.createLogicalOperatorPredicate(logicalOperator)
                         .addPredicates(createTypeAnnotationsPredicates(annotations))
         );
     }
@@ -115,7 +115,7 @@ public final class ClassSelectorBuilder<T extends Builder> extends SelectorBuild
     public T byArrayDimension(int dimension, DimensionComparator dimensionComparator) {
         return addPredicate(
                 countArrayDimension(),
-                JoinPointSelectorUtils.createDimensionComparatorPredicate(dimension, dimensionComparator)
+                AjUnitTypesPredicateFactory.createDimensionComparatorPredicate(dimension, dimensionComparator)
         );
     }
 

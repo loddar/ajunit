@@ -16,7 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.generic;
+
+import org.failearly.ajunit.builder.SelectorBuilder;
 
 /**
  * The ExceptionTypeSelector is responsible for selecting joinpoints based on the types of the (declared) exception list.
@@ -25,7 +27,7 @@ package org.failearly.ajunit.builder;
  * @see java.lang.reflect.Constructor#getExceptionTypes()
  */
 public interface ExceptionTypeSelector<SB extends SelectorBuilder, CS extends ExceptionTypeSelector>
-        extends ClassSelector<CS>, LogicalSelector<CS> {
+        extends ClassSelector<CS>, LogicalSelector<CS>, SelectorBuilder{
 
     /**
      * Select method or constructor joinpoints the exception list contains <i>runtime or not checked exceptions</i>.

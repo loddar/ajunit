@@ -16,14 +16,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.generic;
+
+import org.failearly.ajunit.builder.SelectorBuilder;
+import org.failearly.ajunit.builder.types.ListOperator;
+import org.failearly.ajunit.builder.types.NumberComparator;
+import org.failearly.ajunit.builder.types.Position;
 
 /**
  * ParametersSelector is responsible for selecting methods/constructors by there parameter signature.
  */
 public interface ParametersSelector<
-            SB extends ParametersSelector, TSB extends SelectorBuilder, ASB extends ParameterAnnotationSelector, RT extends DeclaringClassSelector>
-        extends SelectorBuilder{
+            SB extends ParametersSelector, TSB extends SelectorBuilder, ASB extends ParameterAnnotationSelector, RT extends DeclaringClassSelector> {
     /**
      * Select constructor or method join points without any parameter.<br/>
      * </br>
@@ -87,9 +91,7 @@ public interface ParametersSelector<
 
     /**
      * Selects the parameters on given {@code positions} (relative to {@code relativeTo}) for inspecting the parameters
-     * by their annotations.
-     * If there is no parameter at any positions the entire expression will evaluate to {@code false}.
-     *
+     * by their parameter annotations. The subsequent expression must be {@code true} for all picked parameter(s).
      *
      * @param relativeTo starting with position relative to.
      * @param positions the positions values starting with {@code 0}.
@@ -98,13 +100,18 @@ public interface ParametersSelector<
     ASB parameterAnnotations(Position relativeTo, int... positions);
 
     /**
-     * Select methods or constructors based on the declared annotations. The exactly position is not necessary.
-     *
-     * @param listOperator the list operator defines how the parameter list will be evaluated.
+     * Select methods/constructors based on the declared parameter annotations. The exact position in the parameter list is not important.
+     * <br/>
+     * </br>
+     * AspectJ pointcut definition examples:
+     * <ul>
+     * <li><code>execution(*.*(..,@AnyAnnotation (*),..))</code>: any method with at least one parameter annotation (in this case @AnyAnnotation)</li>
+     * <li><code>execution(*.new(..,@AnyAnnotation (*),..))</code>: any constructor with at least one parameter annotation (in this case @AnyAnnotation)</li>
+     * </ul>
      *
      * @return a new {@link ParameterAnnotationSelector} instance.
      */
-    ASB parameterAnnotations(ListOperator listOperator);
+    ASB anyParameterAnnotation();
 
     /**
      * Terminates the parameter selector expression.

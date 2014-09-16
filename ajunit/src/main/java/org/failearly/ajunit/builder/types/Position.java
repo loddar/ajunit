@@ -16,15 +16,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.types;
 
 /**
- * StringMatcher contains the supported string matching types.
+ * RelativePosition is used by {@link org.failearly.ajunit.builder.generic.ParametersSelector} for selecting argument types or annotations by their absolute
+ * position.
  */
-public enum StringMatcher {
-    EQUALS,
-    STARTS_WITH,
-    ENDS_WITH,
-    CONTAINS,
-    REGEX
+public enum Position {
+    FIRST,
+    LAST
 }

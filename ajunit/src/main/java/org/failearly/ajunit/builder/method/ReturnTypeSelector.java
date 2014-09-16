@@ -18,9 +18,10 @@
  */
 package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.builder.ArrayTypeSelector;
-import org.failearly.ajunit.builder.ExtendedClassSelector;
-import org.failearly.ajunit.builder.LogicalSelector;
+import org.failearly.ajunit.builder.SelectorBuilder;
+import org.failearly.ajunit.builder.generic.ArrayTypeSelector;
+import org.failearly.ajunit.builder.generic.ExtendedClassSelector;
+import org.failearly.ajunit.builder.generic.LogicalSelector;
 
 /**
  * ReturnTypeSelector provides selectors for {@link java.lang.reflect.Method#getReturnType()}.
@@ -28,7 +29,8 @@ import org.failearly.ajunit.builder.LogicalSelector;
 public interface ReturnTypeSelector
      extends ExtendedClassSelector<ReturnTypeSelector>,
         LogicalSelector<ReturnTypeSelector>,
-        ArrayTypeSelector<ReturnTypeSelector,ReturnComponentTypeSelector> {
+        ArrayTypeSelector<ReturnTypeSelector,ReturnComponentTypeSelector>,
+        SelectorBuilder {
 
     /**
      * Selects method joinpoints the method's return type is {@code void}.
@@ -43,7 +45,7 @@ public interface ReturnTypeSelector
     ReturnTypeSelector byVoid();
 
     /**
-     * Terminates the {@link MethodJoinPointSelector#returnType(org.failearly.ajunit.builder.LogicalOperator)}
+     * Terminates the {@link MethodJoinPointSelector#returnType()}
      * expression.
      * @return the method join point selector.
      */

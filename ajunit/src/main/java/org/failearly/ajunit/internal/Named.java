@@ -62,8 +62,8 @@ public abstract class Named {
 
     /**
      * Used by {@link #toString()}. Override if there is a more sophisticated name. If not overridden, it returns {@link #name}.
+     * @param level current level starting with {@code 0}.
      * @return the name.
-     * @param level
      */
     protected String mkString(int level) {
         return name;

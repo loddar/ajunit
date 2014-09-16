@@ -19,6 +19,7 @@
 package org.failearly.ajunit.builder.method;
 
 import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.builder.types.StringMatcher;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
@@ -28,7 +29,7 @@ import java.io.Serializable;
  * Tests for {@link MethodJoinPointSelector}.
  *
  * @see MethodJoinPointSelector#byDeclaringClass(Class)
- * @see MethodJoinPointSelector#byDeclaringClassName(String, org.failearly.ajunit.builder.StringMatcher)
+ * @see MethodJoinPointSelector#byDeclaringClassName(String, org.failearly.ajunit.builder.types.StringMatcher)
  * @see MethodJoinPointSelector#byExtending(Class)
  * @see MethodJoinPointSelector#byImplementingAllOf(Class[])
  * @see MethodJoinPointSelector#byImplementingAnyOf(Class[])

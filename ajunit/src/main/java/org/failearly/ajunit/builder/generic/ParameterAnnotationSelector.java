@@ -16,7 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.generic;
+
+import org.failearly.ajunit.builder.types.LogicalOperator;
 
 import java.lang.annotation.Annotation;
 
@@ -25,17 +27,33 @@ import java.lang.annotation.Annotation;
  *
  * @see ParametersSelector
  */
-public interface ParameterAnnotationSelector<SB extends ParameterAnnotationSelector, RT extends ParametersSelector> extends SelectorBuilder {
+public interface ParameterAnnotationSelector<SB extends ParameterAnnotationSelector, RT extends ParametersSelector> {
 
     /**
-     * The selector selects methods/constructors with annotated parameters (depends on {@code listOperator}).
+     * The selector selects methods/constructors with annotated parameters (depends on {@code logicalOperator}).
      *
-     * @param listOperator the list operator.
+     * @param logicalOperator the logical operator.
      * @param annotationClasses the annotation classes (at least one must be provided).
      * @return itself
      */
     @SuppressWarnings("all")
-    SB byParameterAnnotations(ListOperator listOperator, Class<? extends Annotation>... annotationClasses);
+    SB byParameterAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotationClasses);
+
+    /**
+     * The selector selects any method/constructor with any or all parameter(s) with any existing parameter
+     * annotation.
+     *
+     * @return itself
+     */
+    SB byExistingParameterAnnotation();
+
+    /**
+     * The opposite selector of {@link #byExistingParameterAnnotation()} selects any method/constructor with any or all parameter(s) with missing parameter
+     * annotation.
+     *
+     * @return itself
+     */
+    SB byMissingParameterAnnotation();
 
 
     /**
@@ -43,4 +61,5 @@ public interface ParameterAnnotationSelector<SB extends ParameterAnnotationSelec
      * @return the arguments selector (parent)
      */
     RT endParameterAnnotation();
+
 }

@@ -18,15 +18,17 @@
  */
 package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.builder.LogicalSelector;
-import org.failearly.ajunit.builder.ParametersSelector;
+import org.failearly.ajunit.builder.SelectorBuilder;
+import org.failearly.ajunit.builder.generic.LogicalSelector;
+import org.failearly.ajunit.builder.generic.ParametersSelector;
 
 /**
  * MethodArgumentsSelector is responsible for for selecting joinpoints based on the number and/or types of the (declared) argument list.
  */
 public interface MethodParametersSelector
         extends ParametersSelector<MethodParametersSelector, MethodParameterTypeSelector, MethodParameterAnnotationSelector, MethodJoinPointSelector>,
-                LogicalSelector<MethodParametersSelector> {
+                LogicalSelector<MethodParametersSelector>,
+        SelectorBuilder {
 
 
 }

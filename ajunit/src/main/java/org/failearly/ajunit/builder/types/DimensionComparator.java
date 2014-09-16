@@ -16,21 +16,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.types;
 
 /**
- * ArgumentTypeSelector is responsible for selecting argument(s) of methods or constructors by argument type and position(s).
- *
- * @see ParametersSelector#parameterTypes(Position, int...)
- * @see ParametersSelector#parameterTypes(ListOperator)
+ * Used by {@link org.failearly.ajunit.builder.generic.ArrayTypeSelector#byArrayDimension(int, DimensionComparator)}.
  */
-public interface ParameterTypeSelector<ATB extends ParameterTypeSelector, CTB extends ComponentTypeSelector, RB extends ParametersSelector>
-        extends ExtendedClassSelector<ATB>,
-        LogicalSelector<ATB>,
-        ArrayTypeSelector<ATB,CTB> {
-    /**
-     * Ends argument position expression.
-     * @return previous {@link ParametersSelector}.
-     */
-    RB endParameterType();
+public enum DimensionComparator {
+    EQUALS,
+    MIN,
+    MAX,
+    LESS_THEN,
+    GREATER_THEN
 }

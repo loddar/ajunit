@@ -19,11 +19,12 @@
 package org.failearly.ajunit.builder.method;
 
 import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.builder.types.LogicalOperator;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
 /**
- * Tests for {@link MethodJoinPointSelector#byPackageName(String, org.failearly.ajunit.builder.StringMatcher)}.
+ * Tests for {@link MethodJoinPointSelector#byPackageName(String, org.failearly.ajunit.builder.types.StringMatcher)}.
  */
 public abstract class MethodJoinPointSelectorByAnnotationsTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
@@ -56,7 +57,8 @@ public abstract class MethodJoinPointSelectorByAnnotationsTest extends AbstractJ
                 "public void org.failearly.ajunit.builder.TestSubject7.method0()",
                 "public void org.failearly.ajunit.builder.TestSubject7.method1(int)",
                 "public void org.failearly.ajunit.builder.TestSubject7.method2(int,java.lang.String)",
-                "public void org.failearly.ajunit.builder.TestSubject7.method3(java.lang.String,java.lang.String,int)"
+                "public void org.failearly.ajunit.builder.TestSubject7.method3(java.lang.String,java.lang.String,int)",
+                "public void org.failearly.ajunit.builder.TestSubject7.method4(org.failearly.ajunit.builder.AnyEnum[])"
         );
     }
 
@@ -79,7 +81,8 @@ public abstract class MethodJoinPointSelectorByAnnotationsTest extends AbstractJ
                 "public void org.failearly.ajunit.builder.TestSubject7.method0()",
                 "public void org.failearly.ajunit.builder.TestSubject7.method1(int)",
                 "public void org.failearly.ajunit.builder.TestSubject7.method2(int,java.lang.String)",
-                "public void org.failearly.ajunit.builder.TestSubject7.method3(java.lang.String,java.lang.String,int)"
+                "public void org.failearly.ajunit.builder.TestSubject7.method3(java.lang.String,java.lang.String,int)",
+                "public void org.failearly.ajunit.builder.TestSubject7.method4(org.failearly.ajunit.builder.AnyEnum[])"
         );
     }
 
@@ -193,6 +196,7 @@ public abstract class MethodJoinPointSelectorByAnnotationsTest extends AbstractJ
                 "public void org.failearly.ajunit.builder.TestSubject7.method1(int)",
                 "public void org.failearly.ajunit.builder.TestSubject7.method2(int,java.lang.String)",
                 "public void org.failearly.ajunit.builder.TestSubject7.method3(java.lang.String,java.lang.String,int)",
+                "public void org.failearly.ajunit.builder.TestSubject7.method4(org.failearly.ajunit.builder.AnyEnum[])",
                 // TestSubject2
                 "public void org.failearly.ajunit.builder.TestSubject2.anyMethod()",
                 "void org.failearly.ajunit.builder.TestSubject2.packagePrivateMethod()",

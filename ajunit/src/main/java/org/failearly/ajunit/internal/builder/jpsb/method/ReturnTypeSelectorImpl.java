@@ -18,11 +18,11 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb.method;
 
-import org.failearly.ajunit.builder.DimensionComparator;
-import org.failearly.ajunit.builder.StringMatcher;
 import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
 import org.failearly.ajunit.builder.method.ReturnComponentTypeSelector;
 import org.failearly.ajunit.builder.method.ReturnTypeSelector;
+import org.failearly.ajunit.builder.types.DimensionComparator;
+import org.failearly.ajunit.builder.types.StringMatcher;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderBase;

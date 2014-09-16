@@ -19,16 +19,15 @@
 package org.failearly.ajunit.builder.method;
 
 import org.failearly.ajunit.builder.AbstractJoinPointSelectorTest;
-import org.failearly.ajunit.builder.DimensionComparator;
-import org.failearly.ajunit.builder.LogicalOperator;
 import org.failearly.ajunit.builder.TestSubject5;
+import org.failearly.ajunit.builder.types.DimensionComparator;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
 /**
  * Tests for {@link MethodJoinPointSelector}.
  *
- * @see MethodJoinPointSelector#returnType(org.failearly.ajunit.builder.LogicalOperator)
+ * @see MethodJoinPointSelector#returnType()
  */
 public abstract class ReturnTypeSelectorArrayTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
@@ -39,7 +38,7 @@ public abstract class ReturnTypeSelectorArrayTest extends AbstractJoinPointSelec
     @Test
     public void byArray() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.AND)
+        selectorBuilder.returnType()
                     .byArray()
                 .endReturnType();
 
@@ -62,7 +61,7 @@ public abstract class ReturnTypeSelectorArrayTest extends AbstractJoinPointSelec
     @Test
     public void byNotArray() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.NOR)
+        selectorBuilder.returnType().nor()
                         .byArray()
                     .endReturnType();
 
@@ -90,7 +89,7 @@ public abstract class ReturnTypeSelectorArrayTest extends AbstractJoinPointSelec
     @Test
     public void byArrayVector() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.AND)
+        selectorBuilder.returnType()
                     .byArrayDimension(1, DimensionComparator.EQUALS)
                 .endReturnType();
 
@@ -108,7 +107,7 @@ public abstract class ReturnTypeSelectorArrayTest extends AbstractJoinPointSelec
     @Test
     public void byArrayMatrix() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.AND)
+        selectorBuilder.returnType()
                     .byArrayDimension(2, DimensionComparator.EQUALS)
                 .endReturnType();
 
@@ -124,7 +123,7 @@ public abstract class ReturnTypeSelectorArrayTest extends AbstractJoinPointSelec
     @Test
     public void byArrayMinVector() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.AND)
+        selectorBuilder.returnType()
                     .byArrayDimension(1, DimensionComparator.MIN)
                 .endReturnType();
 
@@ -146,7 +145,7 @@ public abstract class ReturnTypeSelectorArrayTest extends AbstractJoinPointSelec
     @Test
     public void byArrayMinMatrix() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.AND)
+        selectorBuilder.returnType()
                     .byArrayDimension(2, DimensionComparator.MIN)
                 .endReturnType();
 
@@ -163,7 +162,7 @@ public abstract class ReturnTypeSelectorArrayTest extends AbstractJoinPointSelec
     @Test
     public void byArrayGreaterThenVector() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.AND)
+        selectorBuilder.returnType()
                     .byArrayDimension(1, DimensionComparator.GREATER_THEN)
                 .endReturnType();
 
@@ -180,7 +179,7 @@ public abstract class ReturnTypeSelectorArrayTest extends AbstractJoinPointSelec
     @Test
     public void byArrayMaxMatrix() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.AND)
+        selectorBuilder.returnType()
                     .byArrayDimension(2, DimensionComparator.MAX)
                 .endReturnType();
 
@@ -200,7 +199,7 @@ public abstract class ReturnTypeSelectorArrayTest extends AbstractJoinPointSelec
     @Test
     public void byArrayLessThenMatrix() throws Exception {
         // act / when
-        selectorBuilder.returnType(LogicalOperator.AND)
+        selectorBuilder.returnType()
                     .byArrayDimension(2, DimensionComparator.LESS_THEN)
                 .endReturnType();
 

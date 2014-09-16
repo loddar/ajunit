@@ -18,7 +18,7 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb.helper;
 
-import org.failearly.ajunit.builder.LogicalOperator;
+import org.failearly.ajunit.builder.types.LogicalOperator;
 import org.failearly.ajunit.internal.builder.Builder;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.method.MethodPredicates;
@@ -51,7 +51,7 @@ public final class MethodSelectorBuilder<T extends Builder> extends MemberSelect
 
     public T byMethodAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>[] annotationClasses) {
         return addPredicate(
-                JoinPointSelectorUtils.createLogicalOperatorPredicate(logicalOperator)
+                AjUnitTypesPredicateFactory.createLogicalOperatorPredicate(logicalOperator)
                         .addPredicates(createMethodAnnotationsPredicates(annotationClasses))
 
         );

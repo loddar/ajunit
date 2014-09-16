@@ -28,4 +28,5 @@ public class TestSubject7 {
     public void method1(int p0) {}
     public void method2(int p0, String p1) {}
     public void method3(String p0, String p1, int p3) {}
+    public void method4(AnyEnum... enums) {}
 }

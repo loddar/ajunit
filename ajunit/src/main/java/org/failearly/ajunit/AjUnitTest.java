@@ -50,9 +50,8 @@ public interface AjUnitTest {
      * The {@code joinPointSelector} is responsible to build the <i>join point selector</i>. A join point selector
      * is the counterpart of an Aspect's pointcut. It separates the ajUnit Universe in two halves:<br/></br>
      * <ul>
-     *     <li>The join points which should be applied (or touched) by your specified Aspect. This is the base for the <i>false positive</i> test.
-     *     </li>
-     *     <li>And the join points which shouldn't be touched at all. This is the base for the <i>true negative<i/> test</li>
+     *     <li>The join points which should be applied (or touched) by your specified Aspect.</li>
+     *     <li>And the join points which shouldn't be touched at all.</li>
      * </ul>
      *
      * @param joinPointSelector the join point selector builder.

@@ -25,7 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * RootBuilderBase is responsible for ...
+ * RootBuilderBase is the base class for ROOT builder nodes.
  */
 public abstract class RootBuilderBase<R extends RootBuilder> extends BuilderBase<R,R> implements RootBuilder {
     private final List<Builder> builderStack=new LinkedList<>();

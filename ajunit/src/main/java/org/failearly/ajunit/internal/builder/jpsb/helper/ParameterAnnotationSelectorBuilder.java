@@ -18,10 +18,10 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb.helper;
 
-import org.failearly.ajunit.builder.ListOperator;
+import org.failearly.ajunit.builder.types.LogicalOperator;
 import org.failearly.ajunit.internal.builder.Builder;
 import org.failearly.ajunit.internal.predicate.Predicate;
-import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
+import org.failearly.ajunit.internal.predicate.collection.CollectionPredicates;
 import org.failearly.ajunit.internal.util.AjAssert;
 import org.failearly.ajunit.internal.util.MessageBuilders;
 
@@ -40,9 +40,21 @@ public final class ParameterAnnotationSelectorBuilder<T extends Builder> extends
     }
 
     @SafeVarargs
-    public final T byParameterAnnotations(ListOperator listOperator, Class<? extends Annotation>... annotationClasses) {
-        return super.addPredicate(JoinPointSelectorUtils.createListLogicalOperator(listOperator, LogicalPredicates.or().addPredicates(createAnnotationTypeEqualsToPredicates(annotationClasses))));
+    public final T byParameterAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotationClasses) {
+        return super.addPredicate(
+                AjUnitTypesPredicateFactory.createLogicalOperatorPredicate(logicalOperator)
+                                      .addPredicates(createAnnotationTypeEqualsToPredicates(annotationClasses))
+            );
     }
+
+    public T byAnyExistingParameterAnnotation() {
+        return super.addPredicate(CollectionPredicates.isNotEmpty());
+    }
+
+    public T byNotExistingParameterAnnotations() {
+        return super.addPredicate(CollectionPredicates.isEmpty());
+    }
+
 
     private static List<Predicate> createAnnotationTypeEqualsToPredicates(Class<? extends Annotation>[] annotationClasses) {
         AjAssert.assertCondition(
@@ -51,7 +63,7 @@ public final class ParameterAnnotationSelectorBuilder<T extends Builder> extends
         );
         final List<Predicate> predicates = new ArrayList<>(annotationClasses.length);
         for (Class<? extends Annotation> anAnnotationClass : annotationClasses) {
-            predicates.add(equalsTo(anAnnotationClass));
+            predicates.add(CollectionPredicates.atLeastOne(equalsTo(anAnnotationClass)));
         }
         return predicates;
     }

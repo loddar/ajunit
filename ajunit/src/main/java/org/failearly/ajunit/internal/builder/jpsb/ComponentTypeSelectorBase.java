@@ -19,7 +19,7 @@
 package org.failearly.ajunit.internal.builder.jpsb;
 
 import org.failearly.ajunit.builder.SelectorBuilder;
-import org.failearly.ajunit.builder.StringMatcher;
+import org.failearly.ajunit.builder.types.StringMatcher;
 import org.failearly.ajunit.internal.builder.Builder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
 import org.failearly.ajunit.internal.util.AjAssert;
@@ -27,7 +27,7 @@ import org.failearly.ajunit.internal.util.AjAssert;
 import java.lang.annotation.Annotation;
 
 /**
- * ComponentTypeSelectorBase provides implementations for {@link org.failearly.ajunit.builder.ComponentTypeSelector}.
+ * ComponentTypeSelectorBase provides implementations for {@link org.failearly.ajunit.builder.generic.ComponentTypeSelector}.
  */
 public abstract class ComponentTypeSelectorBase<C extends Builder, P extends SelectorBuilder> extends JoinPointSelectorBuilderBase<C,P> {
     private final ClassSelectorBuilder<C> componentTypeSelector;

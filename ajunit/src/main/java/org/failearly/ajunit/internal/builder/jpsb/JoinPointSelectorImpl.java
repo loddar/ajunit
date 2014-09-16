@@ -38,6 +38,7 @@ import java.util.Set;
 public final class JoinPointSelectorImpl extends RootBuilderBase<JoinPointSelectorImpl> implements JoinPointSelector {
     private final Set<AjJoinPointType> joinPointTypes;
 
+    @SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
     public JoinPointSelectorImpl(Set<AjJoinPointType> joinPointTypes) {
         super(JoinPointSelectorImpl.class);
         init(LogicalStructureBuilder.createRootBuilder(this, LogicalPredicates.or()));

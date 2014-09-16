@@ -16,16 +16,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder.method;
+package org.failearly.ajunit.builder.generic;
 
 import org.failearly.ajunit.builder.SelectorBuilder;
-import org.failearly.ajunit.builder.generic.ComponentTypeSelector;
-import org.failearly.ajunit.builder.generic.LogicalSelector;
 
 /**
- * ReturnComponentTypeSelector provides selectors for {@link Class#getComponentType()}.
+ * ArgumentTypeSelector is responsible for selecting argument(s) of methods or constructors by argument type and position(s).
+ *
+ * @see ParametersSelector#parameterTypes(org.failearly.ajunit.builder.types.Position, int...)
+ * @see ParametersSelector#parameterTypes(org.failearly.ajunit.builder.types.ListOperator)
  */
-public interface ReturnComponentTypeSelector
-        extends ComponentTypeSelector<ReturnTypeSelector,ReturnComponentTypeSelector>,
-        LogicalSelector<ReturnComponentTypeSelector>, SelectorBuilder {
+public interface ParameterTypeSelector<ATB extends ParameterTypeSelector & SelectorBuilder, CTB extends ComponentTypeSelector, RB extends ParametersSelector>
+        extends ExtendedClassSelector<ATB>,
+        LogicalSelector<ATB>,
+        ArrayTypeSelector<ATB,CTB> {
+    /**
+     * Ends argument position expression.
+     * @return previous {@link ParametersSelector}.
+     */
+    RB endParameterType();
 }

@@ -43,9 +43,13 @@ final class AjUniverseImpl implements AjUniverse {
     private boolean initialized = false;
 
     AjUniverseImpl(final String universeName) {
-        this(universeName, new LinkedList<AjJoinPoint>());
+        this(universeName, new LinkedList<>());
     }
 
+    /**
+     *  Just for test purpose declared as package private.
+     */
+    @SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
     AjUniverseImpl(final String universeName, final List<AjJoinPoint> joinPoints) {
         this.universeName = universeName;
         this.joinPoints = joinPoints;

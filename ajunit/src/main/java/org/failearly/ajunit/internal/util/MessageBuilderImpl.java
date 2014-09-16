@@ -42,11 +42,12 @@ final class MessageBuilderImpl implements MessageBuilder {
     }
 
     @Override
-    public MessageBuilder newlines(int num) {
+    public MessageBuilder newlines(final int num) {
+        int current = num;
         do {
             stringBuilder.append("\n");
-            num-=1;
-        } while(num>0);
+            current -= 1;
+        } while (current > 0);
         return this;
     }
 

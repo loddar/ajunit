@@ -18,20 +18,20 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb.method;
 
-import org.failearly.ajunit.builder.ListOperator;
-import org.failearly.ajunit.builder.NumberComparator;
-import org.failearly.ajunit.builder.Position;
 import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
 import org.failearly.ajunit.builder.method.MethodParameterAnnotationSelector;
 import org.failearly.ajunit.builder.method.MethodParameterTypeSelector;
 import org.failearly.ajunit.builder.method.MethodParametersSelector;
-import org.failearly.ajunit.internal.annotation.NotYetImplemented;
+import org.failearly.ajunit.builder.types.ListOperator;
+import org.failearly.ajunit.builder.types.NumberComparator;
+import org.failearly.ajunit.builder.types.Position;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderBase;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
-import org.failearly.ajunit.internal.builder.jpsb.helper.JoinPointSelectorUtils;
+import org.failearly.ajunit.internal.builder.jpsb.helper.AjUnitTypesPredicateFactory;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
+import org.failearly.ajunit.internal.predicate.method.MethodPredicates;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.failearly.ajunit.internal.transformer.ajp.AjpTransformers;
 import org.failearly.ajunit.internal.transformer.list.ListTransformers;
@@ -42,7 +42,7 @@ import static org.failearly.ajunit.internal.transformer.standard.StandardTransfo
 /**
  * The implementation of {@link org.failearly.ajunit.builder.method.MethodParametersSelector}.
  *
- * @see org.failearly.ajunit.builder.method.MethodJoinPointSelector#arguments(org.failearly.ajunit.builder.LogicalOperator)
+ * @see org.failearly.ajunit.builder.method.MethodJoinPointSelector#parameters()
  */
 final class MethodParametersSelectorImpl extends JoinPointSelectorBuilderBase<MethodParametersSelectorImpl,MethodJoinPointSelector> implements MethodParametersSelector {
 
@@ -56,10 +56,7 @@ final class MethodParametersSelectorImpl extends JoinPointSelectorBuilderBase<Me
 
     private static CompositePredicate createCompositeNode(CompositePredicate compositePredicate) {
         return StandardPredicates.transformerPredicate(
-                compose(
-                        AjpTransformers.method()
-                        // MethodTransformers.methodParameters()
-                ),
+                AjpTransformers.method(),
                 compositePredicate
         );
     }
@@ -84,8 +81,8 @@ final class MethodParametersSelectorImpl extends JoinPointSelectorBuilderBase<Me
     }
 
     @Override
-    @NotYetImplemented
     public MethodParametersSelector byVariableArguments() {
+        super.addPredicate(MethodPredicates.isVarArgs());
         return this;
     }
 
@@ -97,7 +94,7 @@ final class MethodParametersSelectorImpl extends JoinPointSelectorBuilderBase<Me
                             MethodTransformers.methodParameters(),
                             ListTransformers.size()
                         ),
-                        JoinPointSelectorUtils.createNumberComparatorPredicate(number, numberComparator)
+                        AjUnitTypesPredicateFactory.createNumberComparatorPredicate(number, numberComparator)
                 )
         );
         return this;
@@ -135,22 +132,31 @@ final class MethodParametersSelectorImpl extends JoinPointSelectorBuilderBase<Me
 
 
     @Override
-    @NotYetImplemented
     public MethodParameterAnnotationSelector parameterAnnotations(Position relativeTo, int... positions) {
-        return null;
-    }
-
-    @Override
-    public MethodParameterAnnotationSelector parameterAnnotations(ListOperator listOperator) {
-        return super.and(getMethodParameterAnnotationSelectorBuilderFactory(listOperator));
+        return super.and(getMethodParameterAnnotationSelectorBuilderFactory(relativeTo, positions));
     }
 
     private BuilderFactory<JoinPointSelectorImpl, MethodParametersSelectorImpl, MethodParameterAnnotationSelectorImpl>
-    getMethodParameterAnnotationSelectorBuilderFactory(final ListOperator listOperator) {
+    getMethodParameterAnnotationSelectorBuilderFactory(final Position relativeTo, final int... positions) {
         return new BuilderFactory<JoinPointSelectorImpl, MethodParametersSelectorImpl, MethodParameterAnnotationSelectorImpl>() {
             @Override
             public MethodParameterAnnotationSelectorImpl createBuilder(JoinPointSelectorImpl root, MethodParametersSelectorImpl parent, CompositePredicate compositePredicate) {
-                return new MethodParameterAnnotationSelectorImpl(root, parent, compositePredicate, listOperator);
+                return new MethodParameterAnnotationSelectorImpl(root, parent, compositePredicate, relativeTo, positions);
+            }
+        };
+    }
+
+    @Override
+    public MethodParameterAnnotationSelector anyParameterAnnotation() {
+        return super.and(getMethodParameterAnnotationSelectorBuilderFactory());
+    }
+
+    private BuilderFactory<JoinPointSelectorImpl, MethodParametersSelectorImpl, MethodParameterAnnotationSelectorImpl>
+    getMethodParameterAnnotationSelectorBuilderFactory() {
+        return new BuilderFactory<JoinPointSelectorImpl, MethodParametersSelectorImpl, MethodParameterAnnotationSelectorImpl>() {
+            @Override
+            public MethodParameterAnnotationSelectorImpl createBuilder(JoinPointSelectorImpl root, MethodParametersSelectorImpl parent, CompositePredicate compositePredicate) {
+                return new MethodParameterAnnotationSelectorImpl(root, parent, compositePredicate, ListOperator.AT_LEAST_ONE);
             }
         };
     }

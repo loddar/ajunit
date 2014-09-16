@@ -18,7 +18,7 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb.helper;
 
-import org.failearly.ajunit.builder.StringMatcher;
+import org.failearly.ajunit.builder.types.StringMatcher;
 import org.failearly.ajunit.internal.builder.Builder;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.modifier.ModifierPredicate;
@@ -43,7 +43,7 @@ abstract class MemberSelectorBuilder<T extends Builder> extends SelectorBuilderB
     public T byName(String namePattern, StringMatcher matcherType) {
         return addPredicate(
                 MemberTransformers.name(),
-                JoinPointSelectorUtils.createStringMatcherPredicate(namePattern, matcherType)
+                AjUnitTypesPredicateFactory.createStringMatcherPredicate(namePattern, matcherType)
         );
     }
 

@@ -62,13 +62,4 @@ final class ReturnComponentTypeSelectorImpl
     protected ReturnComponentTypeSelectorImpl newInstance(JoinPointSelectorImpl root, ReturnComponentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
         return new ReturnComponentTypeSelectorImpl(root, parent, compositePredicate);
     }
-
-    @Override
-    public ReturnComponentTypeSelectorImpl nor() {
-        return this.and().byArray().createNorExpression();
-    }
-
-    private  ReturnComponentTypeSelectorImpl byArray() {
-        return SelectorBuilders.createReturnTypeSelectorBuilder(this).byArray();
-    }
 }

@@ -16,14 +16,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.generic;
+
+import org.failearly.ajunit.builder.SelectorBuilder;
+import org.failearly.ajunit.builder.types.StringMatcher;
 
 import java.lang.annotation.Annotation;
 
 /**
  * ClassSelector provides methods based on {@link java.lang.Class} object.
  */
-public interface ClassSelector<SB extends SelectorBuilder> extends SelectorBuilder {
+public interface ClassSelector<SB extends SelectorBuilder> {
     /**
      * Select joinpoints by it's class type.<br/>
      * </br>

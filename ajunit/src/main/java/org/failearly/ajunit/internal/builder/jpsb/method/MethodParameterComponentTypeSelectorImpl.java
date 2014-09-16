@@ -63,14 +63,4 @@ final class MethodParameterComponentTypeSelectorImpl
     protected final MethodParameterComponentTypeSelectorImpl newInstance(JoinPointSelectorImpl root, MethodParameterComponentTypeSelectorImpl parent, CompositePredicate compositePredicate) {
         return new MethodParameterComponentTypeSelectorImpl(root, parent, compositePredicate);
     }
-
-    @Override
-    public MethodParameterComponentTypeSelectorImpl nor() {
-        return this.and().byArray().createNorExpression();
-    }
-
-    private MethodParameterComponentTypeSelectorImpl byArray() {
-        return SelectorBuilders.createMethodArgumentTypeSelectorBuilder(this).byArray();
-    }
-
 }

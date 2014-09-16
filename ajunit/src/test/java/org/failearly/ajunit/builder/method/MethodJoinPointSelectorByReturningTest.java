@@ -106,7 +106,7 @@ public abstract class MethodJoinPointSelectorByReturningTest extends AbstractJoi
         // assert / then
         assertBuildJoinPointSelector(
                 // TestSubject4
-                "public org.failearly.ajunit.builder.LogicalOperator org.failearly.ajunit.builder.TestSubject4.getEnum()"
+                "public org.failearly.ajunit.builder.AnyEnum org.failearly.ajunit.builder.TestSubject4.getEnum()"
                 // java.lang.Object
 
         );

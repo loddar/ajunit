@@ -18,7 +18,11 @@
  */
 package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.builder.AbstractJoinPointSelectorTest;
+import org.failearly.ajunit.builder.AnyInterface;
+import org.failearly.ajunit.builder.TestSubject4;
+import org.failearly.ajunit.builder.types.LogicalOperator;
+import org.failearly.ajunit.builder.types.StringMatcher;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,13 +37,14 @@ import java.util.Map;
 /**
  * Tests for the logical operators on {@link ReturnTypeSelector} and their aliases.
  *
- * @see MethodJoinPointSelector#returnType(org.failearly.ajunit.builder.LogicalOperator)
+ * @see MethodJoinPointSelector#returnType()
  * @see ReturnTypeSelector#or()
  * @see ReturnTypeSelector#and()
  * @see ReturnTypeSelector#nor()
- * @see org.failearly.ajunit.builder.LogicalOperator
+ * @see org.failearly.ajunit.builder.types.LogicalOperator
  */
 @RunWith(Parameterized.class)
+@SuppressWarnings("all")
 public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 
 
@@ -133,7 +138,7 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
 
     private static void defineComplexAndTests(List<Object> tests) {
         final List<String> expectedJoinPoints = toList(
-                "public org.failearly.ajunit.builder.LogicalOperator org.failearly.ajunit.builder.TestSubject4.getEnum()",
+                "public org.failearly.ajunit.builder.AnyEnum org.failearly.ajunit.builder.TestSubject4.getEnum()",
                 "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject4.getTestSubject3()",
                 "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject4.getTestSubject2()"
         );
@@ -258,7 +263,7 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
         final List<String> expectedJoinPoints = toList(
                 "public org.failearly.ajunit.builder.TestSubject3 org.failearly.ajunit.builder.TestSubject4.getTestSubject3()",
                 "public org.failearly.ajunit.builder.TestSubject2 org.failearly.ajunit.builder.TestSubject4.getTestSubject2()",
-                "public org.failearly.ajunit.builder.LogicalOperator org.failearly.ajunit.builder.TestSubject4.getEnum()"
+                "public org.failearly.ajunit.builder.AnyEnum org.failearly.ajunit.builder.TestSubject4.getEnum()"
         );
         tests.add(new Object[]{logicalOperator.toString(), logicalOperator, expectedJoinPoints, new SelectorFragment<ReturnTypeSelector>() {
             @Override
@@ -305,7 +310,7 @@ public abstract class ReturnTypeSelectorLogicalOperatorTest extends AbstractJoin
 
     private void assertLogicalExpression(LogicalOperator logicalOperator, SelectorFragment<ReturnTypeSelector> subSelect, List<String> expectedJoinPoints) {
         subSelect.select(
-                selectorBuilder.returnType(logicalOperator)
+                selectorBuilder.returnType().logicalExpression(logicalOperator)
         ).endReturnType();
 
         assertBuildJoinPointSelector(expectedJoinPoints);

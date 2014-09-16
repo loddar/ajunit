@@ -18,7 +18,12 @@
  */
 package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.builder.AbstractJoinPointSelectorTest;
+import org.failearly.ajunit.builder.AnyAnnotation;
+import org.failearly.ajunit.builder.AnyOtherAnnotation;
+import org.failearly.ajunit.builder.TestSubject10;
+import org.failearly.ajunit.builder.types.LogicalOperator;
+import org.failearly.ajunit.builder.types.Position;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
@@ -35,14 +40,123 @@ public abstract class MethodParameterAnnotationSelectorTest extends AbstractJoin
 
     @Override
     protected void doAdditionalSetup(MethodJoinPointSelector selectorBuilder) {
-        methodParametersSelector = selectorBuilder.arguments(LogicalOperator.OR);
+        methodParametersSelector = selectorBuilder.parameters();
+    }
+
+    /**
+     * (..,@(AnyAnnotation || AnyOtherAnnotation) (*),..)
+     */
+    @Test
+    public void anyParameterAnnotationAtLeastOneAnnotation() throws Exception {
+        // act / when
+        methodParametersSelector.anyParameterAnnotation()
+                    .byParameterAnnotations(LogicalOperator.OR, AnyAnnotation.class, AnyOtherAnnotation.class)
+                .endParameterAnnotation();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject10.method0(int,java.lang.String)",
+                "public void org.failearly.ajunit.builder.TestSubject10.method1(int,java.lang.String)",
+                "public void org.failearly.ajunit.builder.TestSubject10.method2(int,java.lang.String)"
+        );
+    }
+
+    /**
+     * (..,@AnyAnnotation @AnyOtherAnnotation (*),..)
+     */
+    @Test
+    public void anyParameterAnnotationEachAnnotationMustBeProvided() throws Exception {
+        // act / when
+        methodParametersSelector.anyParameterAnnotation()
+                    .byParameterAnnotations(LogicalOperator.AND, AnyAnnotation.class, AnyOtherAnnotation.class)
+                .endParameterAnnotation();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject10.method2(int,java.lang.String)"
+        );
+    }
+
+    /**
+     * (..,! @(AnyAnnotation || AnyOtherAnnotation) (*),..)
+     */
+    @Test
+    public void anyParameterAnnotationNoneOfAnnotations() throws Exception {
+        // act / when
+        methodParametersSelector.anyParameterAnnotation()
+                    .byParameterAnnotations(LogicalOperator.NOR, AnyAnnotation.class, AnyOtherAnnotation.class)
+                .endParameterAnnotation();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject10.method0(int,java.lang.String)",
+                // "public void org.failearly.ajunit.builder.TestSubject10.method1(int,java.lang.String)",
+                // "public void org.failearly.ajunit.builder.TestSubject10.method2(int,java.lang.String)",
+                "public void org.failearly.ajunit.builder.TestSubject10.method3(int,java.lang.String)",
+                "public void org.failearly.ajunit.builder.TestSubject10.method4(int,java.lang.String)",
+                "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
+                "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
+                "public boolean java.lang.Object.equals(java.lang.Object)"
+        );
     }
 
     @Test
-    public void anyPositionbyArgumentAnnotation() throws Exception {
+    public void byExistingParameterAnnotation() throws Exception {
         // act / when
-        methodParametersSelector.parameterAnnotations(ListOperator.AT_LEAST_ONE)
-                    .byParameterAnnotations(ListOperator.AT_LEAST_ONE, AnyAnnotation.class, AnyOtherAnnotation.class)
+        methodParametersSelector.anyParameterAnnotation()
+                    .byExistingParameterAnnotation()
+                .endParameterAnnotation();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject10.method0(int,java.lang.String)",
+                "public void org.failearly.ajunit.builder.TestSubject10.method1(int,java.lang.String)",
+                "public void org.failearly.ajunit.builder.TestSubject10.method2(int,java.lang.String)",
+                "public void org.failearly.ajunit.builder.TestSubject10.method3(int,java.lang.String)"
+        );
+    }
+
+    @Test
+    public void byMissingParameterAnnotation() throws Exception {
+        // act / when
+        methodParametersSelector.anyParameterAnnotation()
+                    .byMissingParameterAnnotation()
+                .endParameterAnnotation();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject10.method0(int,java.lang.String)",
+                "public void org.failearly.ajunit.builder.TestSubject10.method3(int,java.lang.String)",
+                "public void org.failearly.ajunit.builder.TestSubject10.method4(int,java.lang.String)",
+                "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
+                "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
+                "public boolean java.lang.Object.equals(java.lang.Object)"
+        );
+    }
+
+    @Test
+    public void anyParameterAnnotationNoneOfAnnotationsButAnyExisting() throws Exception {
+        // act / when
+        methodParametersSelector.anyParameterAnnotation()
+                    .byParameterAnnotations(LogicalOperator.NOR, AnyAnnotation.class, AnyOtherAnnotation.class)
+                    .byExistingParameterAnnotation()
+                .endParameterAnnotation();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject10.method3(int,java.lang.String)"
+        );
+    }
+
+
+    /**
+     * (@(AnyAnnotation || AnyOtherAnnotation) (*), @(AnyAnnotation || AnyOtherAnnotation) (*), ..)
+     */
+    @Test
+    public void allParameterAnnotationAtLeastOneAnnotation() throws Exception {
+        // act / when
+        methodParametersSelector.parameterAnnotations(Position.FIRST, 0, 1)
+                    .byParameterAnnotations(LogicalOperator.OR, AnyAnnotation.class, AnyOtherAnnotation.class)
                 .endParameterAnnotation();
 
         // assert / then
@@ -52,33 +166,23 @@ public abstract class MethodParameterAnnotationSelectorTest extends AbstractJoin
         );
     }
 
+    /**
+     * (@AnyAnnotation @AnyOtherAnnotation) (*), @AnyAnnotation @AnyOtherAnnotation) (*), ..)
+     */
     @Test
-    public void eachPositionbyArgumentAnnotation() throws Exception {
+    public void allParameterAnnotationEachAnnotation() throws Exception {
         // act / when
-        methodParametersSelector.parameterAnnotations(ListOperator.EACH)
-                    .byParameterAnnotations(ListOperator.AT_LEAST_ONE, AnyAnnotation.class, AnyOtherAnnotation.class)
+        methodParametersSelector.parameterAnnotations(Position.FIRST, 0, 1)
+                    .byParameterAnnotations(LogicalOperator.AND, AnyAnnotation.class, AnyOtherAnnotation.class)
                 .endParameterAnnotation();
 
         // assert / then
         assertBuildJoinPointSelector(
+                // "public void org.failearly.ajunit.builder.TestSubject10.method1(int,java.lang.String)",
                 "public void org.failearly.ajunit.builder.TestSubject10.method2(int,java.lang.String)"
         );
     }
 
 
-    @Test
-    public void noneOfPositionbyArgumentAnnotation() throws Exception {
-        // act / when
-        methodParametersSelector.parameterAnnotations(ListOperator.NONE)
-                    .byParameterAnnotations(ListOperator.AT_LEAST_ONE, AnyAnnotation.class, AnyOtherAnnotation.class)
-                .endParameterAnnotation();
 
-        // assert / then
-        assertBuildJoinPointSelector(
-                "public void org.failearly.ajunit.builder.TestSubject10.method3(int,java.lang.String)",
-                "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",
-                "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
-                "public boolean java.lang.Object.equals(java.lang.Object)"
-        );
-    }
 }

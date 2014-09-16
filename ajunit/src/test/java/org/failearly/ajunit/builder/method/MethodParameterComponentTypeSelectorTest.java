@@ -18,7 +18,12 @@
  */
 package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.builder.AbstractBaseClass;
+import org.failearly.ajunit.builder.AbstractJoinPointSelectorTest;
+import org.failearly.ajunit.builder.AnyAnnotation;
+import org.failearly.ajunit.builder.TestSubject9;
+import org.failearly.ajunit.builder.types.ListOperator;
+import org.failearly.ajunit.builder.types.StringMatcher;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
@@ -40,7 +45,7 @@ public abstract class MethodParameterComponentTypeSelectorTest extends AbstractJ
     @Override
     protected void doAdditionalSetup(MethodJoinPointSelector selectorBuilder) {
         this.parameterComponentTypeSelector = selectorBuilder
-                                                    .arguments(LogicalOperator.OR)
+                                                    .parameters()
                                                         .parameterTypes(ListOperator.AT_LEAST_ONE)
                                                             .componentType();
     }

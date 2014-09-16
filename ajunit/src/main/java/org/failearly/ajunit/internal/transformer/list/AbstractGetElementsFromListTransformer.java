@@ -21,6 +21,7 @@ package org.failearly.ajunit.internal.transformer.list;
 import org.failearly.ajunit.internal.util.AjAssert;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -34,7 +35,7 @@ abstract class AbstractGetElementsFromListTransformer extends ListTransformerBas
     AbstractGetElementsFromListTransformer(String name, int... positions) {
         super(name);
         checkPositions(positions);
-        this.positions=positions;
+        this.positions = Arrays.copyOf(positions, positions.length);
         this.maxPosition = max(positions);
     }
 

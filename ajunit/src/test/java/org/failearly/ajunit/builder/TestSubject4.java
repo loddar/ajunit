@@ -106,7 +106,7 @@ public class TestSubject4 {
     }
 
     // Enum Type
-    public LogicalOperator getEnum() {
+    public AnyEnum getEnum() {
         return null;
     }
 

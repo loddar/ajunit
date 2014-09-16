@@ -23,11 +23,20 @@ import org.failearly.ajunit.internal.util.AjAssert;
 import org.failearly.ajunit.internal.util.MessageBuilders;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 
 /**
  * MethodPredicates provides factory methods on {@link java.lang.reflect.Method} object.
  */
 public final class MethodPredicates {
+
+    private static final MethodPredicate IS_VAR_ARGS = new MethodPredicate("IsVarArgs") {
+        @Override
+        protected boolean doTypedTest(Method method) {
+            return method.isVarArgs();
+        }
+    };
+
     private MethodPredicates() {
     }
 
@@ -39,5 +48,9 @@ public final class MethodPredicates {
     public static Predicate isAnnotationPresent(Class<? extends Annotation> annotationClass) {
         AjAssert.assertCondition(annotationClass.isAnnotation(), MessageBuilders.message("Only annotation class expected: ").arg(annotationClass));
         return new IsMethodAnnotationPresentPredicate(annotationClass);
+    }
+
+    public static Predicate isVarArgs() {
+        return IS_VAR_ARGS;
     }
 }

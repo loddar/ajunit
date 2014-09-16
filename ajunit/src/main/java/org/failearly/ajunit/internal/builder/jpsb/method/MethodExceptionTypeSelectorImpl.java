@@ -18,15 +18,15 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb.method;
 
-import org.failearly.ajunit.builder.ListOperator;
-import org.failearly.ajunit.builder.StringMatcher;
 import org.failearly.ajunit.builder.method.MethodExceptionTypeSelector;
 import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
+import org.failearly.ajunit.builder.types.ListOperator;
+import org.failearly.ajunit.builder.types.StringMatcher;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderBase;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
+import org.failearly.ajunit.internal.builder.jpsb.helper.AjUnitTypesPredicateFactory;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
-import org.failearly.ajunit.internal.builder.jpsb.helper.JoinPointSelectorUtils;
 import org.failearly.ajunit.internal.builder.jpsb.helper.SelectorBuilders;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
@@ -72,7 +72,7 @@ final class MethodExceptionTypeSelectorImpl
                         AjpTransformers.method(),
                         MethodTransformers.methodExceptions()
                 ),
-                JoinPointSelectorUtils.createListLogicalOperator(listOperator, compositePredicate)
+                AjUnitTypesPredicateFactory.createListLogicalOperator(listOperator, compositePredicate)
         );
     }
 

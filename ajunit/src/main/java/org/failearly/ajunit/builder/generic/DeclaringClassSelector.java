@@ -16,13 +16,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.generic;
+
+import org.failearly.ajunit.builder.SelectorBuilder;
+import org.failearly.ajunit.builder.types.LogicalOperator;
+import org.failearly.ajunit.builder.types.StringMatcher;
 
 import java.lang.annotation.Annotation;
 
 /**
  * DeclaringClassSelector provides alias for {@link ClassSelector#byClass(Class)} and
- * {@link ClassSelector#byClassName(String, StringMatcher)}
+ * {@link ClassSelector#byClassName(String, org.failearly.ajunit.builder.types.StringMatcher)}
  */
 public interface DeclaringClassSelector<SB extends SelectorBuilder> extends ClassSelector<SB> {
     /**
@@ -42,7 +46,7 @@ public interface DeclaringClassSelector<SB extends SelectorBuilder> extends Clas
 
     /**
      * Select a method by it's declaring class name (pattern).
-     * Alias for {@link ClassSelector#byClassName(String, StringMatcher)}.<br/>
+     * Alias for {@link ClassSelector#byClassName(String, org.failearly.ajunit.builder.types.StringMatcher)}.<br/>
      * </br>
      * AspectJ pointcut definition examples:
      * <ul>

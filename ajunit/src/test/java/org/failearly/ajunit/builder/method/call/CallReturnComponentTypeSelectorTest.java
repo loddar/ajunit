@@ -19,7 +19,6 @@
 package org.failearly.ajunit.builder.method.call;
 
 import org.failearly.ajunit.builder.JoinPointSelector;
-import org.failearly.ajunit.builder.LogicalOperator;
 import org.failearly.ajunit.builder.method.ReturnComponentTypeSelector;
 import org.failearly.ajunit.builder.method.ReturnComponentTypeSelectorTest;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
@@ -35,6 +34,6 @@ public final class CallReturnComponentTypeSelectorTest extends ReturnComponentTy
 
     @Override
     protected ReturnComponentTypeSelector createSelectorBuilderUnderTest(JoinPointSelector joinPointSelector) {
-        return joinPointSelector.methodCall().returnType(LogicalOperator.AND).componentType();
+        return joinPointSelector.methodCall().returnType().componentType();
     }
 }

@@ -18,13 +18,15 @@
  */
 package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.builder.ComponentTypeSelector;
-import org.failearly.ajunit.builder.LogicalSelector;
+import org.failearly.ajunit.builder.SelectorBuilder;
+import org.failearly.ajunit.builder.generic.ComponentTypeSelector;
+import org.failearly.ajunit.builder.generic.LogicalSelector;
 
 /**
  * MethodArgumentComponentTypeSelector provides selectors for {@link Class#getComponentType()} on method arguments.
  */
 public interface MethodParameterComponentTypeSelector
         extends ComponentTypeSelector<MethodParameterTypeSelector,MethodParameterComponentTypeSelector>,
-        LogicalSelector<MethodParameterComponentTypeSelector> {
+        LogicalSelector<MethodParameterComponentTypeSelector>,
+        SelectorBuilder{
 }

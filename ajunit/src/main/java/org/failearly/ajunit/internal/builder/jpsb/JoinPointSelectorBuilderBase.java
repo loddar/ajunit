@@ -19,14 +19,16 @@
 package org.failearly.ajunit.internal.builder.jpsb;
 
 import org.failearly.ajunit.builder.SelectorBuilder;
+import org.failearly.ajunit.builder.types.LogicalOperator;
 import org.failearly.ajunit.internal.builder.Builder;
 import org.failearly.ajunit.internal.builder.BuilderBase;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
+import org.failearly.ajunit.internal.builder.jpsb.helper.AjUnitTypesPredicateFactory;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 
 /**
  * JoinPointBuilderBase is the base class for all Joinpoint Selector builder classes. It already provides implementations for
- * all methods of {@link org.failearly.ajunit.builder.LogicalSelector}.
+ * all methods of {@link org.failearly.ajunit.builder.generic.LogicalSelector}.
  * <p>
  * Only {@link #newInstance(JoinPointSelectorImpl, org.failearly.ajunit.internal.builder.Builder, org.failearly.ajunit.internal.predicate.CompositePredicate)}
  * must be implemented.
@@ -40,6 +42,10 @@ public abstract class JoinPointSelectorBuilderBase<C extends Builder, P extends 
     protected JoinPointSelectorBuilderBase(Class<C> thisClass, Class<P> parentClass) {
         this.thisClass = thisClass;
         this.parentClass = parentClass;
+    }
+
+    public final C logicalExpression(LogicalOperator logicalOperator) {
+        return super.createNewBuilderNode(AjUnitTypesPredicateFactory.createLogicalOperatorPredicate(logicalOperator), createLogicalExpressionBuilderFactory());
     }
 
     public final C or() {
@@ -66,16 +72,7 @@ public abstract class JoinPointSelectorBuilderBase<C extends Builder, P extends 
         return and();
     }
 
-    /**
-     * The default implementation should be overwritten in case to reduce the expected result. This is especially true for classes derived from
-     * {@link org.failearly.ajunit.internal.builder.jpsb.ComponentTypeSelectorBase}
-     * @return result of {@link #createNorExpression()}
-     */
-    public C nor() {
-        return createNorExpression();
-    }
-
-    protected final C createNorExpression() {
+    public final C nor() {
         return super.nor(createLogicalExpressionBuilderFactory());
     }
 

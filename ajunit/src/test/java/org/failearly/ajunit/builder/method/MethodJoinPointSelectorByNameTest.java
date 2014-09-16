@@ -19,14 +19,14 @@
 package org.failearly.ajunit.builder.method;
 
 import org.failearly.ajunit.builder.AbstractJoinPointSelectorTest;
-import org.failearly.ajunit.builder.StringMatcher;
 import org.failearly.ajunit.builder.TestSubject1;
 import org.failearly.ajunit.builder.TestSubject2;
+import org.failearly.ajunit.builder.types.StringMatcher;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
 /**
- * Tests for {@link MethodJoinPointSelector#byName(String, org.failearly.ajunit.builder.StringMatcher)}.
+ * Tests for {@link MethodJoinPointSelector#byName(String, org.failearly.ajunit.builder.types.StringMatcher)}.
  */
 public abstract class MethodJoinPointSelectorByNameTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 

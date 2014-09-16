@@ -19,9 +19,9 @@
 package org.failearly.ajunit.builder.method;
 
 import org.failearly.ajunit.builder.AbstractJoinPointSelectorTest;
-import org.failearly.ajunit.builder.ListOperator;
-import org.failearly.ajunit.builder.StringMatcher;
 import org.failearly.ajunit.builder.TestSubject6;
+import org.failearly.ajunit.builder.types.ListOperator;
+import org.failearly.ajunit.builder.types.StringMatcher;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,11 +34,11 @@ import java.util.List;
 /**
  * Tests for the logical operators on {@link MethodExceptionTypeSelector} and their aliases.
  *
- * @see MethodJoinPointSelector#returnType(org.failearly.ajunit.builder.LogicalOperator)
+ * @see MethodJoinPointSelector#returnType()
  * @see MethodExceptionTypeSelector#or()
  * @see MethodExceptionTypeSelector#and()
  * @see MethodExceptionTypeSelector#nor()
- * @see org.failearly.ajunit.builder.LogicalOperator
+ * @see org.failearly.ajunit.builder.types.LogicalOperator
  */
 @RunWith(Parameterized.class)
 public abstract class MethodExceptionTypeSelectorLogicalOperatorTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {

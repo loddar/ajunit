@@ -18,13 +18,16 @@
  */
 package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.builder.ParameterTypeSelector;
+import org.failearly.ajunit.builder.SelectorBuilder;
+import org.failearly.ajunit.builder.generic.ParameterTypeSelector;
 
 /**
- * MethodArgumentTypeSelector is responsible for selecting argument(s) of methods and constructors by argument type and position(s).
+ * MethodParameterTypeSelector is responsible for selecting parameter(s) of methods and constructors by parameter type and position(s).
  *
- * @see MethodParametersSelector#byArgumentPosition(int)
+ * @see MethodParametersSelector#parameterTypes(org.failearly.ajunit.builder.types.Position, int...)
+ * @see MethodParametersSelector#parameterTypes(org.failearly.ajunit.builder.types.ListOperator)
  */
 public interface MethodParameterTypeSelector
-        extends ParameterTypeSelector<MethodParameterTypeSelector,MethodParameterComponentTypeSelector,MethodParametersSelector> {
+        extends ParameterTypeSelector<MethodParameterTypeSelector,MethodParameterComponentTypeSelector,MethodParametersSelector>,
+        SelectorBuilder {
 }

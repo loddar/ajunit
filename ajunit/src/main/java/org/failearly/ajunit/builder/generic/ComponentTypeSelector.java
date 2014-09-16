@@ -16,15 +16,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.generic;
+
+import org.failearly.ajunit.builder.SelectorBuilder;
 
 /**
- * Used by {@link org.failearly.ajunit.builder.ArrayTypeSelector#byArrayDimension(int, DimensionComparator)}.
+ * ComponentTypeSelector provides methods for selecting the component type of any array.<br/>
+ * This will be possible for:</br></br>
+ *
+ * <ul>
+ *     <li>{@link ArrayTypeSelector#componentType()}</li>
+ *     <li>TODO: specify byComponentType</li>
+ * </ul>
+ *
+ *
+ * @see ArrayTypeSelector
+ * @see org.failearly.ajunit.builder.method.ReturnComponentTypeSelector
+ * @see Class#getComponentType()
  */
-public enum DimensionComparator {
-    EQUALS,
-    MIN,
-    MAX,
-    LESS_THEN,
-    GREATER_THEN
+public interface ComponentTypeSelector<PS extends SelectorBuilder, CS extends SelectorBuilder>  extends ExtendedClassSelector<CS> {
+
+    PS endComponentType();
 }

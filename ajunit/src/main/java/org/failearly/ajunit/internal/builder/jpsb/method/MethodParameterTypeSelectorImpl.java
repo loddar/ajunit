@@ -18,19 +18,19 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb.method;
 
-import org.failearly.ajunit.builder.DimensionComparator;
-import org.failearly.ajunit.builder.ListOperator;
-import org.failearly.ajunit.builder.Position;
-import org.failearly.ajunit.builder.StringMatcher;
 import org.failearly.ajunit.builder.method.MethodParameterComponentTypeSelector;
 import org.failearly.ajunit.builder.method.MethodParameterTypeSelector;
 import org.failearly.ajunit.builder.method.MethodParametersSelector;
+import org.failearly.ajunit.builder.types.DimensionComparator;
+import org.failearly.ajunit.builder.types.ListOperator;
+import org.failearly.ajunit.builder.types.Position;
+import org.failearly.ajunit.builder.types.StringMatcher;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderBase;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
+import org.failearly.ajunit.internal.builder.jpsb.helper.AjUnitTypesPredicateFactory;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ClassSelectorBuilder;
-import org.failearly.ajunit.internal.builder.jpsb.helper.JoinPointSelectorUtils;
 import org.failearly.ajunit.internal.builder.jpsb.helper.SelectorBuilders;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
@@ -45,7 +45,7 @@ import java.lang.annotation.Annotation;
 final class MethodParameterTypeSelectorImpl extends JoinPointSelectorBuilderBase<MethodParameterTypeSelectorImpl,MethodParametersSelector>
         implements MethodParameterTypeSelector {
 
-    private ClassSelectorBuilder<MethodParameterTypeSelectorImpl> methodArgumentTypeSelectorBuilder;
+    private final ClassSelectorBuilder<MethodParameterTypeSelectorImpl> methodArgumentTypeSelectorBuilder;
 
     private MethodParameterTypeSelectorImpl() {
         super(MethodParameterTypeSelectorImpl.class, MethodParametersSelector.class);
@@ -70,9 +70,9 @@ final class MethodParameterTypeSelectorImpl extends JoinPointSelectorBuilderBase
         return StandardPredicates.transformerPredicate(
                 StandardTransformers.compose(
                         MethodTransformers.methodParameters(),
-                        JoinPointSelectorUtils.createArgumentPositionTransformer(relativeTo, positions)
+                        AjUnitTypesPredicateFactory.createArgumentPositionTransformer(relativeTo, positions)
                 ),
-                JoinPointSelectorUtils.createListLogicalOperator(listOperator, compositePredicate)
+                AjUnitTypesPredicateFactory.createListLogicalOperator(listOperator, compositePredicate)
         );
     }
 
@@ -92,7 +92,7 @@ final class MethodParameterTypeSelectorImpl extends JoinPointSelectorBuilderBase
             ListOperator listOperator) {
         return StandardPredicates.transformerPredicate(
                 MethodTransformers.methodParameters(),
-                JoinPointSelectorUtils.createListLogicalOperator(listOperator, compositePredicate)
+                AjUnitTypesPredicateFactory.createListLogicalOperator(listOperator, compositePredicate)
         );
     }
 

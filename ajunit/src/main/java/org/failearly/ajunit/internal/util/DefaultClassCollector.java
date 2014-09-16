@@ -34,11 +34,11 @@ public class DefaultClassCollector implements ClassCollector, Iterable<Class<?>>
      * Creates a (none unique) instance.
      */
     public DefaultClassCollector() {
-        this(new HashSet<Class<?>>());
+        this(new HashSet<>());
     }
 
     public DefaultClassCollector(Collection<Class<?>> classCollection) {
-        this.classCollection = classCollection;
+        this.classCollection = new HashSet<>(classCollection);
     }
 
     @Override

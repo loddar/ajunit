@@ -18,8 +18,6 @@
  */
 package org.failearly.ajunit.internal.predicate.method;
 
-import org.failearly.ajunit.internal.predicate.TypedPredicate;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
@@ -27,11 +25,11 @@ import java.lang.reflect.Method;
  * IsMethodAnnotationPresentPredicate checks if the annotation class is present on a given {@link java.lang.reflect.Method}
  * object.
  */
-final class IsMethodAnnotationPresentPredicate extends TypedPredicate<Method> {
+final class IsMethodAnnotationPresentPredicate extends MethodPredicate {
     private final Class<? extends Annotation> annotationClass;
 
     IsMethodAnnotationPresentPredicate(Class<? extends Annotation> annotationClass) {
-        super(Method.class,"IsMethodAnnotationPresent("+annotationClass.getName()+")");
+        super("IsMethodAnnotationPresent("+annotationClass.getName()+")");
         this.annotationClass = annotationClass;
     }
 

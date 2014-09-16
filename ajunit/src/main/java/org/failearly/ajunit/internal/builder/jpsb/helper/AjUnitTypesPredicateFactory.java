@@ -18,7 +18,7 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb.helper;
 
-import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.builder.types.*;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.predicate.collection.CollectionPredicates;
@@ -30,14 +30,22 @@ import org.failearly.ajunit.internal.transformer.Transformer;
 import org.failearly.ajunit.internal.transformer.list.ListTransformers;
 
 /**
- * JoinPointSelectorUtilities is an utility class for shared functionality.
+ * AjUnitEnumerationTypesPredicateFactory provides predicate factory methods for ajUnit types (enumerations).
+ *
+ * @see org.failearly.ajunit.builder.types.LogicalOperator
+ * @see org.failearly.ajunit.builder.types.ListOperator
+ * @see org.failearly.ajunit.builder.types.NumberComparator
+ * @see org.failearly.ajunit.builder.types.DimensionComparator
+ * @see org.failearly.ajunit.builder.types.StringMatcher
+ * @see org.failearly.ajunit.builder.types.Position
  */
-public final class JoinPointSelectorUtils {
+@SuppressWarnings({"Convert2Lambda", "Anonymous2MethodRef"})
+public final class AjUnitTypesPredicateFactory {
     private static final PredicateFactories<StringMatcher, String> STRING_MATCHER_PREDICATES = new PredicateFactories<>();
     private static final PredicateFactories<LogicalOperator, Void> LOGICAL_OPERATOR_PREDICATES = new PredicateFactories<>();
     private static final PredicateFactories<DimensionComparator, Integer> DIMENSION_COMPARATOR_PREDICATES = new PredicateFactories<>();
     private static final PredicateFactories<NumberComparator, Integer> NUMBER_COMPARATOR_PREDICATES = new PredicateFactories<>();
-    private static final PredicateFactories<ListOperator, CompositePredicate> LIST_LOGICAL_OPERATOR_PREDICATES = new PredicateFactories<>();
+    private static final PredicateFactories<ListOperator, CompositePredicate> LIST_OPERATOR_PREDICATES = new PredicateFactories<>();
 
     static {
         createStringMatcherPredicates();
@@ -81,19 +89,19 @@ public final class JoinPointSelectorUtils {
     }
 
     private static void createListLogicalOperatorPredicates() {
-        LIST_LOGICAL_OPERATOR_PREDICATES.addFactory(ListOperator.AT_LEAST_ONE, new PredicateFactory<CompositePredicate>() {
+        LIST_OPERATOR_PREDICATES.addFactory(ListOperator.AT_LEAST_ONE, new PredicateFactory<CompositePredicate>() {
             @Override
             public Predicate createPredicate(CompositePredicate predicate) {
                 return CollectionPredicates.atLeastOne(predicate);
             }
         });
-        LIST_LOGICAL_OPERATOR_PREDICATES.addFactory(ListOperator.EACH, new PredicateFactory<CompositePredicate>() {
+        LIST_OPERATOR_PREDICATES.addFactory(ListOperator.EACH, new PredicateFactory<CompositePredicate>() {
             @Override
             public Predicate createPredicate(CompositePredicate predicate) {
                 return CollectionPredicates.each(predicate);
             }
         });
-        LIST_LOGICAL_OPERATOR_PREDICATES.addFactory(ListOperator.NONE, new PredicateFactory<CompositePredicate>() {
+        LIST_OPERATOR_PREDICATES.addFactory(ListOperator.NONE, new PredicateFactory<CompositePredicate>() {
             @Override
             public Predicate createPredicate(CompositePredicate predicate) {
                 return CollectionPredicates.none(predicate);
@@ -196,7 +204,7 @@ public final class JoinPointSelectorUtils {
         });
     }
 
-    private JoinPointSelectorUtils() {
+    private AjUnitTypesPredicateFactory() {
     }
 
     /**
@@ -249,7 +257,7 @@ public final class JoinPointSelectorUtils {
      * @return the composite predicate.
      */
     public static CompositePredicate createListLogicalOperator(ListOperator listOperator, CompositePredicate compositePredicate) {
-        return LIST_LOGICAL_OPERATOR_PREDICATES.createCompositePredicate(listOperator, compositePredicate);
+        return LIST_OPERATOR_PREDICATES.createCompositePredicate(listOperator, compositePredicate);
     }
 
     public static Transformer createArgumentPositionTransformer(Position relativeTo, int... positions) {

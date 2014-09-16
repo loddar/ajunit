@@ -18,64 +18,64 @@
  */
 package org.failearly.ajunit;
 
-import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.builder.types.*;
 
 /**
  * Contains shortcuts/aliases for the ajUnit enum types.
  *
- * @see org.failearly.ajunit.builder.LogicalOperator
- * @see org.failearly.ajunit.builder.ListOperator
- * @see org.failearly.ajunit.builder.StringMatcher
- * @see org.failearly.ajunit.builder.NumberComparator
- * @see org.failearly.ajunit.builder.DimensionComparator
- * @see org.failearly.ajunit.builder.Position
+ * @see org.failearly.ajunit.builder.types.LogicalOperator
+ * @see org.failearly.ajunit.builder.types.ListOperator
+ * @see org.failearly.ajunit.builder.types.StringMatcher
+ * @see org.failearly.ajunit.builder.types.NumberComparator
+ * @see org.failearly.ajunit.builder.types.DimensionComparator
+ * @see org.failearly.ajunit.builder.types.Position
  */
 public interface AjUnitConstants {
 
 // Shortcuts/Aliases for LogicalOperator
 
     /**
-     * Shortcut for {@link org.failearly.ajunit.builder.LogicalOperator#AND}.
+     * Shortcut for {@link org.failearly.ajunit.builder.types.LogicalOperator#AND}.
      */
     LogicalOperator AND = LogicalOperator.AND;
 
     /**
-     * Alias for {@link org.failearly.ajunit.builder.LogicalOperator#AND}.
+     * Alias for {@link org.failearly.ajunit.builder.types.LogicalOperator#AND}.
      */
     LogicalOperator ALL_OF = LogicalOperator.AND;
 
     /**
-     * Alias for {@link org.failearly.ajunit.builder.LogicalOperator#AND}.
+     * Alias for {@link org.failearly.ajunit.builder.types.LogicalOperator#AND}.
      */
     LogicalOperator INTERSECT = LogicalOperator.AND;
 
     /**
-     * Shortcut for {@link org.failearly.ajunit.builder.LogicalOperator#OR}.
+     * Shortcut for {@link org.failearly.ajunit.builder.types.LogicalOperator#OR}.
      */
     LogicalOperator OR = LogicalOperator.OR;
 
     /**
-     * Alias for {@link org.failearly.ajunit.builder.LogicalOperator#OR}.
+     * Alias for {@link org.failearly.ajunit.builder.types.LogicalOperator#OR}.
      */
     LogicalOperator ANY_OF = LogicalOperator.OR;
 
     /**
-     * Alias for {@link org.failearly.ajunit.builder.LogicalOperator#OR}.
+     * Alias for {@link org.failearly.ajunit.builder.types.LogicalOperator#OR}.
      */
     LogicalOperator UNION = LogicalOperator.OR;
 
     /**
-     * Shortcut for {@link org.failearly.ajunit.builder.LogicalOperator#NOR}.
+     * Shortcut for {@link org.failearly.ajunit.builder.types.LogicalOperator#NOR}.
      */
     LogicalOperator NOR = LogicalOperator.NOR;
 
     /**
-     * Alias for {@link org.failearly.ajunit.builder.LogicalOperator#NOR}.
+     * Alias for {@link org.failearly.ajunit.builder.types.LogicalOperator#NOR}.
      */
     LogicalOperator NONE_OF = LogicalOperator.NOR;
 
     /**
-     * Alias for {@link org.failearly.ajunit.builder.LogicalOperator#NOR}.
+     * Alias for {@link org.failearly.ajunit.builder.types.LogicalOperator#NOR}.
      */
     LogicalOperator COMPLEMENT = LogicalOperator.NOR;
 
@@ -84,15 +84,15 @@ public interface AjUnitConstants {
 
 
     /**
-     * Shortcut for {@link org.failearly.ajunit.builder.ListOperator#AT_LEAST_ONE}.
+     * Shortcut for {@link org.failearly.ajunit.builder.types.ListOperator#AT_LEAST_ONE}.
      */
     ListOperator AT_LEAST_ONE=ListOperator.AT_LEAST_ONE;
     /**
-     * Shortcut for {@link org.failearly.ajunit.builder.ListOperator#EACH}.
+     * Shortcut for {@link org.failearly.ajunit.builder.types.ListOperator#EACH}.
      */
     ListOperator EACH=ListOperator.EACH;
     /**
-     * Shortcut for {@link org.failearly.ajunit.builder.ListOperator#NONE}.
+     * Shortcut for {@link org.failearly.ajunit.builder.types.ListOperator#NONE}.
      */
     ListOperator NONE=ListOperator.NONE;
 
@@ -102,27 +102,27 @@ public interface AjUnitConstants {
 // Shortcuts/Aliases for StringMatcherType
 
     /**
-     * Alias for {@link org.failearly.ajunit.builder.StringMatcher#EQUALS}.
+     * Alias for {@link org.failearly.ajunit.builder.types.StringMatcher#EQUALS}.
      */
     StringMatcher STR_EQUALS = StringMatcher.EQUALS;
 
     /**
-     * @see {@link org.failearly.ajunit.builder.StringMatcher#STARTS_WITH}.
+     * @see {@link org.failearly.ajunit.builder.types.StringMatcher#STARTS_WITH}.
      */
     StringMatcher STR_STARTS_WITH = StringMatcher.STARTS_WITH;
 
     /**
-     * @see {@link org.failearly.ajunit.builder.StringMatcher#ENDS_WITH}.
+     * @see {@link org.failearly.ajunit.builder.types.StringMatcher#ENDS_WITH}.
      */
     StringMatcher STR_ENDS_WITH = StringMatcher.ENDS_WITH;
 
     /**
-     * @see {@link org.failearly.ajunit.builder.StringMatcher#CONTAINS}.
+     * @see {@link org.failearly.ajunit.builder.types.StringMatcher#CONTAINS}.
      */
     StringMatcher STR_CONTAINS = StringMatcher.CONTAINS;
 
     /**
-     * @see {@link org.failearly.ajunit.builder.StringMatcher#REGEX}.
+     * @see {@link org.failearly.ajunit.builder.types.StringMatcher#REGEX}.
      */
     StringMatcher STR_REGEX = StringMatcher.REGEX;
 
@@ -132,37 +132,37 @@ public interface AjUnitConstants {
 // Shortcuts/Aliases for NumberComparator
 
     /**
-     * Alias for {@link org.failearly.ajunit.builder.NumberComparator#EQUALS}.
+     * Alias for {@link org.failearly.ajunit.builder.types.NumberComparator#EQUALS}.
      */
     NumberComparator NUM_EQUALS=NumberComparator.EQUALS;
 
     /**
-     * Alias for {@link org.failearly.ajunit.builder.NumberComparator#LESS_THEN}.
+     * Alias for {@link org.failearly.ajunit.builder.types.NumberComparator#LESS_THEN}.
      */
     NumberComparator NUM_LESS_THEN=NumberComparator.LESS_THEN;
 
     /**
-     * Alias for {@link org.failearly.ajunit.builder.NumberComparator#LESS_EQUALS_THEN}.
+     * Alias for {@link org.failearly.ajunit.builder.types.NumberComparator#LESS_EQUALS_THEN}.
      */
     NumberComparator NUM_LESS_EQUALS_THEN=NumberComparator.LESS_EQUALS_THEN;
 
     /**
-     * Alias for {@link org.failearly.ajunit.builder.NumberComparator#LESS_EQUALS_THEN}.
+     * Alias for {@link org.failearly.ajunit.builder.types.NumberComparator#LESS_EQUALS_THEN}.
      */
     NumberComparator NUM_MAX=NumberComparator.LESS_EQUALS_THEN;
 
     /**
-     * Alias for {@link org.failearly.ajunit.builder.NumberComparator#GREATER_THEN}.
+     * Alias for {@link org.failearly.ajunit.builder.types.NumberComparator#GREATER_THEN}.
      */
     NumberComparator NUM_GREATER_THEN=NumberComparator.GREATER_THEN;
 
     /**
-     * Alias for {@link org.failearly.ajunit.builder.NumberComparator#GREATER_EQUALS_THEN}.
+     * Alias for {@link org.failearly.ajunit.builder.types.NumberComparator#GREATER_EQUALS_THEN}.
      */
     NumberComparator NUM_GREATER_EQUALS_THEN=NumberComparator.GREATER_EQUALS_THEN;
 
     /**
-     * Alias for {@link org.failearly.ajunit.builder.NumberComparator#GREATER_EQUALS_THEN}.
+     * Alias for {@link org.failearly.ajunit.builder.types.NumberComparator#GREATER_EQUALS_THEN}.
      */
     NumberComparator NUM_MIN=NumberComparator.GREATER_EQUALS_THEN;
 
@@ -172,27 +172,27 @@ public interface AjUnitConstants {
 // Shortcuts/Aliases for DimensionComparator
 
     /**
-     * Alias for {@link org.failearly.ajunit.builder.DimensionComparator#EQUALS}.
+     * Alias for {@link org.failearly.ajunit.builder.types.DimensionComparator#EQUALS}.
      */
     DimensionComparator DIM_EQUALS=DimensionComparator.EQUALS;
 
     /**
-     * Alias for {@link org.failearly.ajunit.builder.DimensionComparator#LESS_THEN}.
+     * Alias for {@link org.failearly.ajunit.builder.types.DimensionComparator#LESS_THEN}.
      */
     DimensionComparator DIM_LESS_THEN=DimensionComparator.LESS_THEN;
 
     /**
-     * Alias for {@link org.failearly.ajunit.builder.DimensionComparator#MIN}.
+     * Alias for {@link org.failearly.ajunit.builder.types.DimensionComparator#MIN}.
      */
     DimensionComparator DIM_MIN=DimensionComparator.MIN;
 
     /**
-     * Alias for {@link org.failearly.ajunit.builder.DimensionComparator#GREATER_THEN}.
+     * Alias for {@link org.failearly.ajunit.builder.types.DimensionComparator#GREATER_THEN}.
      */
     DimensionComparator DIM_GREATER_THEN=DimensionComparator.GREATER_THEN;
 
     /**
-     * Alias for {@link org.failearly.ajunit.builder.DimensionComparator#MAX}.
+     * Alias for {@link org.failearly.ajunit.builder.types.DimensionComparator#MAX}.
      */
     DimensionComparator DIM_MAX=DimensionComparator.MAX;
 
@@ -202,12 +202,12 @@ public interface AjUnitConstants {
 // Shortcuts/Aliases for Position
 
     /**
-     * Shortcut for {@link org.failearly.ajunit.builder.Position#FIRST}.
+     * Shortcut for {@link org.failearly.ajunit.builder.types.Position#FIRST}.
      */
     Position FIRST=Position.FIRST;
 
     /**
-     * Shortcut for {@link org.failearly.ajunit.builder.Position#FIRST}.
+     * Shortcut for {@link org.failearly.ajunit.builder.types.Position#FIRST}.
      */
     Position LAST=Position.LAST;
 }

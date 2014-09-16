@@ -18,7 +18,11 @@
  */
 package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.builder.AbstractJoinPointSelectorTest;
+import org.failearly.ajunit.builder.TestSubject7;
+import org.failearly.ajunit.builder.types.ListOperator;
+import org.failearly.ajunit.builder.types.NumberComparator;
+import org.failearly.ajunit.builder.types.Position;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
@@ -38,7 +42,7 @@ public abstract class MethodParametersSelectorTest extends AbstractJoinPointSele
 
     @Override
     protected void doAdditionalSetup(MethodJoinPointSelector selectorBuilder) {
-        methodParametersSelector = selectorBuilder.arguments(LogicalOperator.OR);
+        methodParametersSelector = selectorBuilder.parameters();
     }
 
     @Test
@@ -79,6 +83,7 @@ public abstract class MethodParametersSelectorTest extends AbstractJoinPointSele
         // assert / then
         assertBuildJoinPointSelector(
                 "public void org.failearly.ajunit.builder.TestSubject7.method1(int)",
+                "public void org.failearly.ajunit.builder.TestSubject7.method4(org.failearly.ajunit.builder.AnyEnum[])",
                 // java.lang.Object
                 "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
                 "public boolean java.lang.Object.equals(java.lang.Object)"
@@ -115,6 +120,7 @@ public abstract class MethodParametersSelectorTest extends AbstractJoinPointSele
         assertBuildJoinPointSelector(
                 "public void org.failearly.ajunit.builder.TestSubject7.method0()",
                 "public void org.failearly.ajunit.builder.TestSubject7.method1(int)",
+                "public void org.failearly.ajunit.builder.TestSubject7.method4(org.failearly.ajunit.builder.AnyEnum[])",
                 // java.lang.Object
                 "public final void java.lang.Object.wait() throws java.lang.InterruptedException",
                 "public java.lang.String java.lang.Object.toString()",
@@ -153,6 +159,7 @@ public abstract class MethodParametersSelectorTest extends AbstractJoinPointSele
                 "public void org.failearly.ajunit.builder.TestSubject7.method1(int)",
                 "public void org.failearly.ajunit.builder.TestSubject7.method2(int,java.lang.String)",
                 "public void org.failearly.ajunit.builder.TestSubject7.method3(java.lang.String,java.lang.String,int)",
+                "public void org.failearly.ajunit.builder.TestSubject7.method4(org.failearly.ajunit.builder.AnyEnum[])",
                 "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
                 "public boolean java.lang.Object.equals(java.lang.Object)",
                 "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException"
@@ -270,8 +277,20 @@ public abstract class MethodParametersSelectorTest extends AbstractJoinPointSele
 
         // assert / then
         assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject7.method4(org.failearly.ajunit.builder.AnyEnum[])",
                 "public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException",
                 "public boolean java.lang.Object.equals(java.lang.Object)"
+        );
+    }
+
+    @Test
+    public void byVariableArguments() throws Exception {
+        // act / when
+        methodParametersSelector.byVariableArguments().endParametersSelector();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                "public void org.failearly.ajunit.builder.TestSubject7.method4(org.failearly.ajunit.builder.AnyEnum[])"
         );
     }
 
@@ -336,6 +355,7 @@ public abstract class MethodParametersSelectorTest extends AbstractJoinPointSele
         // assert / then
         assertBuildJoinPointSelector(
                 "public void org.failearly.ajunit.builder.TestSubject7.method0()",
+                "public void org.failearly.ajunit.builder.TestSubject7.method4(org.failearly.ajunit.builder.AnyEnum[])",
                 // java.lang.Object
                 "public final void java.lang.Object.wait() throws java.lang.InterruptedException",
                 "public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException",

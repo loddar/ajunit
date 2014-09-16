@@ -18,13 +18,14 @@
  */
 package org.failearly.ajunit.builder.method;
 
-import org.failearly.ajunit.builder.ExceptionTypeSelector;
+import org.failearly.ajunit.builder.SelectorBuilder;
+import org.failearly.ajunit.builder.generic.ExceptionTypeSelector;
 
 /**
- * MethodExceptionTypeSelector provides selectors for {@link MethodJoinPointSelector#exceptionTypes(org.failearly.ajunit.builder.ListOperator)}.
+ * MethodExceptionTypeSelector provides selectors for {@link MethodJoinPointSelector#exceptionTypes(org.failearly.ajunit.builder.types.ListOperator)}.
  *
  * @see java.lang.reflect.Method#getExceptionTypes()
  */
 public interface MethodExceptionTypeSelector
-        extends ExceptionTypeSelector<MethodJoinPointSelector, MethodExceptionTypeSelector> {
+        extends ExceptionTypeSelector<MethodJoinPointSelector, MethodExceptionTypeSelector>, SelectorBuilder {
 }

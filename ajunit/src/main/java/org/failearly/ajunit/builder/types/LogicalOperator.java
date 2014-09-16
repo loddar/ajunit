@@ -16,12 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.types;
 
 /**
  * Available logical operators.
  *
- * @see org.failearly.ajunit.builder.method.MethodJoinPointSelector#returnType(LogicalOperator)
+ * @see org.failearly.ajunit.builder.method.MethodJoinPointSelector#returnType()
  */
 public enum LogicalOperator {
     OR,

@@ -19,6 +19,8 @@
 package org.failearly.ajunit.builder.method;
 
 import org.failearly.ajunit.builder.*;
+import org.failearly.ajunit.builder.types.ListOperator;
+import org.failearly.ajunit.builder.types.StringMatcher;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.junit.Test;
 
@@ -28,7 +30,7 @@ import static org.junit.Assert.assertThat;
 /**
  * Tests for {@link MethodExceptionTypeSelector}.
  *
- * @see MethodJoinPointSelector#exceptionTypes(org.failearly.ajunit.builder.ListOperator)
+ * @see MethodJoinPointSelector#exceptionTypes(org.failearly.ajunit.builder.types.ListOperator)
  */
 public abstract class MethodExceptionTypeSelectorTest extends AbstractJoinPointSelectorTest<MethodJoinPointSelector> {
 

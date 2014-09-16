@@ -18,18 +18,21 @@
  */
 package org.failearly.ajunit.internal.builder.jpsb.method;
 
-import org.failearly.ajunit.builder.ListOperator;
 import org.failearly.ajunit.builder.method.MethodParameterAnnotationSelector;
 import org.failearly.ajunit.builder.method.MethodParametersSelector;
+import org.failearly.ajunit.builder.types.ListOperator;
+import org.failearly.ajunit.builder.types.LogicalOperator;
+import org.failearly.ajunit.builder.types.Position;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorBuilderBase;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
-import org.failearly.ajunit.internal.builder.jpsb.helper.JoinPointSelectorUtils;
+import org.failearly.ajunit.internal.builder.jpsb.helper.AjUnitTypesPredicateFactory;
 import org.failearly.ajunit.internal.builder.jpsb.helper.ParameterAnnotationSelectorBuilder;
 import org.failearly.ajunit.internal.builder.jpsb.helper.SelectorBuilders;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.standard.StandardPredicates;
 import org.failearly.ajunit.internal.transformer.method.MethodTransformers;
+import org.failearly.ajunit.internal.transformer.standard.StandardTransformers;
 
 import java.lang.annotation.Annotation;
 
@@ -41,7 +44,7 @@ final class MethodParameterAnnotationSelectorImpl
         implements MethodParameterAnnotationSelector {
 
 
-    private ParameterAnnotationSelectorBuilder<MethodParameterAnnotationSelectorImpl> parameterAnnotationSelectorBuilder;
+    private final ParameterAnnotationSelectorBuilder<MethodParameterAnnotationSelectorImpl> parameterAnnotationSelectorBuilder;
 
 
     private MethodParameterAnnotationSelectorImpl() {
@@ -49,10 +52,31 @@ final class MethodParameterAnnotationSelectorImpl
         parameterAnnotationSelectorBuilder = SelectorBuilders.createParameterAnnotationSelectorBuilder(this);
     }
 
-    MethodParameterAnnotationSelectorImpl(JoinPointSelectorImpl root, MethodParametersSelectorImpl parent, CompositePredicate compositePredicate, ListOperator listOperator) {
+    MethodParameterAnnotationSelectorImpl(
+            JoinPointSelectorImpl root, MethodParametersSelectorImpl parent, CompositePredicate compositePredicate, ListOperator listOperator) {
         this();
         super.init(LogicalStructureBuilder.createBuilder(
                         root, parent, this, createCompositeNode(compositePredicate, listOperator))
+        );
+    }
+
+    public MethodParameterAnnotationSelectorImpl(
+            JoinPointSelectorImpl root, MethodParametersSelectorImpl parent, CompositePredicate compositePredicate, Position relativeTo, int... positions) {
+        this();
+        super.init(LogicalStructureBuilder.createBuilder(
+                        root, parent, this, createCompositeNode(compositePredicate, ListOperator.EACH, relativeTo, positions))
+        );
+    }
+
+    private static CompositePredicate createCompositeNode(
+            CompositePredicate compositePredicate,
+            ListOperator listOperator, Position relativeTo, int... positions) {
+        return StandardPredicates.transformerPredicate(
+                StandardTransformers.compose(
+                        MethodTransformers.methodParameterAnnotationsType(),
+                        AjUnitTypesPredicateFactory.createArgumentPositionTransformer(relativeTo, positions)
+                ),
+                AjUnitTypesPredicateFactory.createListLogicalOperator(listOperator, compositePredicate)
         );
     }
 
@@ -61,7 +85,7 @@ final class MethodParameterAnnotationSelectorImpl
             ListOperator listOperator) {
         return StandardPredicates.transformerPredicate(
                 MethodTransformers.methodParameterAnnotationsType(),
-                JoinPointSelectorUtils.createListLogicalOperator(listOperator, compositePredicate)
+                AjUnitTypesPredicateFactory.createListLogicalOperator(listOperator, compositePredicate)
         );
     }
 
@@ -80,8 +104,18 @@ final class MethodParameterAnnotationSelectorImpl
 
     @Override
     @SafeVarargs
-    public final MethodParameterAnnotationSelector byParameterAnnotations(ListOperator listOperator, Class<? extends Annotation>... annotationClasses) {
-        return parameterAnnotationSelectorBuilder.byParameterAnnotations(listOperator, annotationClasses);
+    public final MethodParameterAnnotationSelector byParameterAnnotations(LogicalOperator logicalOperator, Class<? extends Annotation>... annotationClasses) {
+        return parameterAnnotationSelectorBuilder.byParameterAnnotations(logicalOperator, annotationClasses);
+    }
+
+    @Override
+    public MethodParameterAnnotationSelector byExistingParameterAnnotation() {
+        return parameterAnnotationSelectorBuilder.byAnyExistingParameterAnnotation();
+    }
+
+    @Override
+    public MethodParameterAnnotationSelector byMissingParameterAnnotation() {
+        return parameterAnnotationSelectorBuilder.byNotExistingParameterAnnotations();
     }
 
     @Override

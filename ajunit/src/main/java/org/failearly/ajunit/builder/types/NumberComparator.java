@@ -16,23 +16,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.types;
 
 /**
- * ComponentTypeSelector provides methods for selecting the component type of any array.<br/>
- * This will be possible for:</br></br>
- *
- * <ul>
- *     <li>{@link ArrayTypeSelector#componentType()}</li>
- *     <li>TODO: specify byComponentType</li>
- * </ul>
- *
- *
- * @see ArrayTypeSelector
- * @see org.failearly.ajunit.builder.method.ReturnComponentTypeSelector
- * @see Class#getComponentType()
+ * Used by {@link org.failearly.ajunit.builder.method.MethodParametersSelector#byNumberOfParameters(int, NumberComparator)}.
  */
-public interface ComponentTypeSelector<PS extends SelectorBuilder, CS extends SelectorBuilder>  extends ExtendedClassSelector<CS> {
-
-    PS endComponentType();
+public enum NumberComparator {
+    EQUALS,
+    LESS_THEN,
+    LESS_EQUALS_THEN,
+    GREATER_THEN,
+    GREATER_EQUALS_THEN
 }

@@ -26,7 +26,7 @@ import org.failearly.ajunit.internal.transformer.Transformer;
  * SelectorBuilderBase is responsible for ...
  */
 abstract class SelectorBuilderBase<T extends Builder> {
-    private PredicateAdder<T> predicateAdder;
+    private final PredicateAdder<T> predicateAdder;
 
     SelectorBuilderBase(PredicateAdder<T> predicateAdder) {
         this.predicateAdder = predicateAdder;

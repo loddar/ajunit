@@ -16,14 +16,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.builder;
+package org.failearly.ajunit.builder.types;
 
 /**
  * Available list (logical) operators for lists like method/constructor exceptions or method/constructor parameters.
  *
  * @see org.failearly.ajunit.builder.method.MethodJoinPointSelector#exceptionTypes(ListOperator)
  * @see org.failearly.ajunit.builder.method.MethodParametersSelector#parameterTypes(ListOperator)
- * @see org.failearly.ajunit.builder.method.MethodParametersSelector#parameterAnnotations(ListOperator)
  */
 public enum ListOperator {
     /**

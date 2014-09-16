@@ -21,7 +21,12 @@ package org.failearly.ajunit.builder;
 import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
 
 /**
- * JoinPointSelector is responsible for ...
+ * JoinPointSelector builds join point selectors.
+ * <br/><br>
+ * <b>Remark:</b>The implicit logical operator is {@link org.failearly.ajunit.builder.types.LogicalOperator#OR}, because
+ * a join point can't be of two different kinds. Any subsequent implicit logical operator will be {@link org.failearly.ajunit.builder.types.LogicalOperator#AND}.
+ *
+ * @see org.failearly.ajunit.AjUnitTest#assertPointcut(JoinPointSelector)
  */
 public interface JoinPointSelector extends SelectorBuilder {
     /**
