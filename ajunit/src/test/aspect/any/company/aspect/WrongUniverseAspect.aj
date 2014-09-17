@@ -18,15 +18,24 @@
  */
 package any.company.aspect;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.failearly.ajunit.AjUnitBeforeAspect;
+import org.failearly.ajunit.AjUnitAnnotationAspect;
 import org.failearly.ajunit.AjUniverseName;
 
 @Aspect
 @AjUniverseName("otherUniverseName")
-public class WrongUniverseAspect extends AjUnitBeforeAspect {
+public class WrongUniverseAspect extends AjUnitAnnotationAspect {
 
     @Pointcut("allMethodExecution()")
     protected void pointcutUnderTest() {}
+
+
+    @Before("pointcutDefinition()")
+    public void beforeSelectedJoinPoint(JoinPoint.StaticPart thisJoinPointStaticPart, JoinPoint.EnclosingStaticPart thisEnclosingJoinPointStaticPart) {
+        super.applyJoinPoint(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart);
+    }
+
 }

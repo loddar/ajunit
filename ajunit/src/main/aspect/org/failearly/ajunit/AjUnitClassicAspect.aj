@@ -33,12 +33,11 @@ public abstract aspect AjUnitClassicAspect extends AjUnitAspectBase {
     protected abstract pointcut pointcutUnderTest();
 
     /**
-     * Selects all join points which will be executed below {@link org.failearly.ajunit.internal.runner.AjUnitTestRunner#doExecute()}. The implementation of
-     * {@link AjUnitTest#execute()} will be executed.
+     * Selects all join points which will be executed below {@link AjUnitTest#execute()}.
      *
      * @see AjUnitTest#execute()
      */
-    private pointcut applyBelowTestFixturesExecution() : cflowbelow(execution(private void org.failearly.ajunit.internal.runner.AjUnitTestRunner.doExecute()));
+    private pointcut cflowbelowExecutingAjUnitTestExecute() : cflowbelow(execution(void org.failearly.ajunit.AjUnitTest.execute()));
 
     /**
      * Exclude all join points within ajUnit.
@@ -48,7 +47,7 @@ public abstract aspect AjUnitClassicAspect extends AjUnitAspectBase {
     /**
      * The actually pointcut definition to test.
      */
-    protected pointcut pointcutDefinition() : pointcutUnderTest() && applyBelowTestFixturesExecution() && excludeAjUnit();
+    protected pointcut pointcutDefinition() : pointcutUnderTest() && cflowbelowExecutingAjUnitTestExecute() && excludeAjUnit();
 
     /**
      * This pointcut definition does not select anything, has just a purpose as place holder.

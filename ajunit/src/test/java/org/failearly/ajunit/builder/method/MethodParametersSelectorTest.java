@@ -48,7 +48,7 @@ public abstract class MethodParametersSelectorTest extends AbstractJoinPointSele
     @Test
     public void endParametersSelector() throws Exception {
         // act / when
-        final MethodJoinPointSelector instance = methodParametersSelector.endParametersSelector();
+        final MethodJoinPointSelector instance = methodParametersSelector.endParameters();
 
         // assert / then
         assertThat("endParametersSelector() returns correct selector builder?", instance, sameInstance(selectorBuilder));
@@ -57,7 +57,7 @@ public abstract class MethodParametersSelectorTest extends AbstractJoinPointSele
     @Test
     public void byNoArguments() throws Exception {
         // act / when
-        methodParametersSelector.byNoParameters().endParametersSelector();
+        methodParametersSelector.byNoParameters().endParameters();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -78,7 +78,7 @@ public abstract class MethodParametersSelectorTest extends AbstractJoinPointSele
     @Test
     public void byNumberOfArgumentsEquals() throws Exception {
         // act / when
-        methodParametersSelector.byNumberOfParameters(1, NumberComparator.EQUALS).endParametersSelector();
+        methodParametersSelector.byNumberOfParameters(1, NumberComparator.EQUALS).endParameters();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -93,7 +93,7 @@ public abstract class MethodParametersSelectorTest extends AbstractJoinPointSele
     @Test
     public void byNumberOfArgumentsLessThen() throws Exception {
         // act / when
-        methodParametersSelector.byNumberOfParameters(1, NumberComparator.LESS_THEN).endParametersSelector();
+        methodParametersSelector.byNumberOfParameters(1, NumberComparator.LESS_THEN).endParameters();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -114,7 +114,7 @@ public abstract class MethodParametersSelectorTest extends AbstractJoinPointSele
     @Test
     public void byNumberOfArgumentsLessEqualsThen() throws Exception {
         // act / when
-        methodParametersSelector.byNumberOfParameters(1, NumberComparator.LESS_EQUALS_THEN).endParametersSelector();
+        methodParametersSelector.byNumberOfParameters(1, NumberComparator.LESS_EQUALS_THEN).endParameters();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -139,7 +139,7 @@ public abstract class MethodParametersSelectorTest extends AbstractJoinPointSele
     @Test
     public void byNumberOfArgumentsGreaterThen() throws Exception {
         // act / when
-        methodParametersSelector.byNumberOfParameters(1, NumberComparator.GREATER_THEN).endParametersSelector();
+        methodParametersSelector.byNumberOfParameters(1, NumberComparator.GREATER_THEN).endParameters();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -152,7 +152,7 @@ public abstract class MethodParametersSelectorTest extends AbstractJoinPointSele
     @Test
     public void byNumberOfArgumentsGreaterEqualsThen() throws Exception {
         // act / when
-        methodParametersSelector.byNumberOfParameters(1, NumberComparator.GREATER_EQUALS_THEN).endParametersSelector();
+        methodParametersSelector.byNumberOfParameters(1, NumberComparator.GREATER_EQUALS_THEN).endParameters();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -286,7 +286,7 @@ public abstract class MethodParametersSelectorTest extends AbstractJoinPointSele
     @Test
     public void byVariableArguments() throws Exception {
         // act / when
-        methodParametersSelector.byVariableArguments().endParametersSelector();
+        methodParametersSelector.byVariableArguments().endParameters();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -307,7 +307,7 @@ public abstract class MethodParametersSelectorTest extends AbstractJoinPointSele
                     .byClass(Object.class)
                 .endParameterType()
             .end()
-        .endParametersSelector();
+        .endParameters();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -327,7 +327,7 @@ public abstract class MethodParametersSelectorTest extends AbstractJoinPointSele
                     .byClass(Object.class)
                 .endParameterType()
             .end()
-        .endParametersSelector();
+        .endParameters();
 
         // assert / then
         assertBuildJoinPointSelector(
@@ -350,7 +350,7 @@ public abstract class MethodParametersSelectorTest extends AbstractJoinPointSele
                     .byClass(Object.class)
                 .endParameterType()
             .end()
-        .endParametersSelector();
+        .endParameters();
 
         // assert / then
         assertBuildJoinPointSelector(

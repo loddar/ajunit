@@ -38,7 +38,7 @@ import org.aspectj.lang.annotation.Pointcut;
  *     <li>{@link #allConstructorCall()} ()} for selecting all constructor {@code call} join points.</li>
  * </ul>
  *
- * @see org.failearly.ajunit.AjUnitBeforeAspect
+ * @see AjUnitAroundAspect
  */
 @SuppressWarnings("EmptyMethod")
 @Aspect
@@ -56,8 +56,8 @@ public abstract class AjUnitAnnotationAspect extends AjUnitAspectBase {
      *
      * @see AjUnitTest#execute()
      */
-    @Pointcut("cflowbelow(execution(private void org.failearly.ajunit.internal.runner.AjUnitTestRunner.doExecute()))")
-    private void applyBelowTestFixturesExecution() {}
+    @Pointcut("cflowbelow(execution(void org.failearly.ajunit.AjUnitTest.execute()))")
+    private void cflowbelowExecutingAjUnitTestExecute() {}
 
     /**
      * Exclude all join points within ajUnit packages.
@@ -68,7 +68,7 @@ public abstract class AjUnitAnnotationAspect extends AjUnitAspectBase {
     /**
      * The actually pointcut definition to test.
      */
-    @Pointcut("pointcutUnderTest() && applyBelowTestFixturesExecution() && excludeAjUnit()")
+    @Pointcut("pointcutUnderTest() && cflowbelowExecutingAjUnitTestExecute() && excludeAjUnit()")
     protected void pointcutDefinition() {}
 
 

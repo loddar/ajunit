@@ -42,7 +42,7 @@ public interface AjUnitTest {
      *     <li>Execute also parts of the test fixture classes which should not be selected by your Aspect's pointcut.</li>
      * </ul>
      */
-    void execute();
+    void execute() throws Exception;
 
     /**
      * Assert the pointcut definition - the assert/then part of ajUnit tests. <b>This is the most important function of ajUnit.</b>

@@ -38,7 +38,7 @@ public abstract class AjUnitTestBase implements AjUnitTest, FailureHandler {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws Exception {
         AjAssert.throwSetupError(MessageBuilders.setupError("Missing execute().")
                 .line("Please override execute()."));
     }

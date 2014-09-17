@@ -71,7 +71,7 @@ final class MethodParametersSelectorImpl extends JoinPointSelectorBuilderBase<Me
     }
 
     @Override
-    public MethodJoinPointSelector endParametersSelector() {
+    public MethodJoinPointSelector endParameters() {
         return terminateSubSelector();
     }
 

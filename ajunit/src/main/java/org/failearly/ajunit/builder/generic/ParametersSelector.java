@@ -118,5 +118,5 @@ public interface ParametersSelector<
      *
      * @return the parent selector ({@link ParametersSelector}).
      */
-    RT endParametersSelector();
+    RT endParameters();
 }

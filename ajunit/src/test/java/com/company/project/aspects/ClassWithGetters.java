@@ -16,19 +16,41 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit;
+package com.company.project.aspects;
 
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import java.util.Collection;
+import java.util.List;
 
 /**
- * AjUnitBeforeAspect applies an before advice on pointcut {@link #pointcutUnderTest}.
+ * ClassWithGetters is provides invalid getters for {@link com.company.project.aspects.InvalidGetterAspectTest}.
  */
-@Aspect
-public abstract class AjUnitBeforeAspect  extends AjUnitAnnotationAspect {
-    @Before("pointcutDefinition()")
-    public void beforeSelectedJoinPoint(JoinPoint.StaticPart thisJoinPointStaticPart, JoinPoint.EnclosingStaticPart thisEnclosingJoinPointStaticPart) {
-        super.applyJoinPoint(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart);
+public class ClassWithGetters {
+    public int getValue() {
+        return 0;
+    }
+
+    public int getValueWithException() throws Exception {
+        return 0;
+    }
+
+    public void getReturningVoid() {}
+
+    public int getWithParameter(int val) {
+        return val;
+    }
+
+    public int[] getAnyArray() {
+        return null;
+    }
+    public String[][] getAnyArray2Dim() {
+        return null;
+    }
+
+    public Collection<String> getAnyCollection() {
+        return null;
+    }
+
+    public List<String> getAnyList() {
+        return null;
     }
 }

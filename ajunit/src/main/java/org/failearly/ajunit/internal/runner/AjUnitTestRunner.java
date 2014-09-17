@@ -26,6 +26,8 @@ import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.failearly.ajunit.internal.universe.AjUniverse;
 import org.failearly.ajunit.internal.universe.impl.AjUniversesHolder;
 import org.failearly.ajunit.internal.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -40,6 +42,8 @@ import java.util.Set;
  * @see org.failearly.ajunit.AjUnitTestBase
  */
 public final class AjUnitTestRunner {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AjUnitTestRunner.class);
 
     private final AjUnitTest ajUnitTest;
     private final FailureHandler failureHandler;
@@ -69,6 +73,7 @@ public final class AjUnitTestRunner {
             final AjUniverse universe = setupAjUnitTest(universeName, enabledJoinPoints);
             final Set<AjJoinPointType> joinPointTypes = new HashSet<>();
             final Predicate joinPointSelector = buildJoinPointSelector(joinPointTypes);
+            LOGGER.info("Created join point selector: \n{}", joinPointSelector);
 
             // act / when
             doExecute();
@@ -84,7 +89,12 @@ public final class AjUnitTestRunner {
     }
 
     private void doExecute() {
-        this.ajUnitTest.execute();
+        LOGGER.info("Executing the test classes");
+        try {
+            this.ajUnitTest.execute();
+        } catch (Exception ex) {
+           LOGGER.warn("Caught exception from " + this.ajUnitTest.getClass() + ".execute()", ex);
+        }
     }
 
     private void assertPointcutDefinition(
