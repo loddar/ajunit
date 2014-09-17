@@ -24,10 +24,11 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
 /**
- * Use {@link org.aspectj.lang.annotation.Around} advice.
+ * AjUnitAroundAspect is responsible for ...
  */
 @Aspect
-public abstract aspect AjUnitAroundAspect extends AjUnitAspect {
+public abstract aspect AjUnitAroundAspect extends AjUnitAnnotationAspect {
+
     @Around("pointcutDefinition()")
     public Object afterSelectedJoinPoint(ProceedingJoinPoint thisJoinPoint, JoinPoint.EnclosingStaticPart thisEnclosingJoinPointStaticPart) throws Throwable {
         super.applyJoinPoint(thisJoinPoint.getStaticPart(), thisEnclosingJoinPointStaticPart);

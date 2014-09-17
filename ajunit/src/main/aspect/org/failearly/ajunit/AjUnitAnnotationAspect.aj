@@ -42,7 +42,7 @@ import org.aspectj.lang.annotation.Pointcut;
  */
 @SuppressWarnings("EmptyMethod")
 @Aspect
-public abstract class AjUnitAspect extends AjUnitAspectBase {
+public abstract class AjUnitAnnotationAspect extends AjUnitAspectBase {
 
     /**
      * The pointcut definition to be tested by ajUnit.

@@ -18,14 +18,15 @@
  */
 package any.company.aspect;
 
-import org.failearly.ajunit.AjUnitBeforeClassicAspect;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.failearly.ajunit.AjUnitBeforeAspect;
 import org.failearly.ajunit.AjUniverseName;
 
-/**
- * MissingBaseAspectAspect is responsible for ...
- */
+@Aspect
 @AjUniverseName("otherUniverseName")
-public aspect WrongUniverseAspect extends AjUnitBeforeClassicAspect {
+public class WrongUniverseAspect extends AjUnitBeforeAspect {
 
-    protected pointcut pointcutUnderTest() : notYetSpecified();
+    @Pointcut("allMethodExecution()")
+    protected void pointcutUnderTest() {}
 }

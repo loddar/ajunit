@@ -136,12 +136,13 @@ public abstract class AjUnitAspectBase {
      * @param thisEnclosingJoinPointStaticPart the enclosing join point.
      */
     protected final void applyJoinPoint(final JoinPoint.StaticPart thisJoinPointStaticPart, final JoinPoint.StaticPart thisEnclosingJoinPointStaticPart) {
-        this.applyJoinPoint(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart, NULL_CONTEXT_BUILDER);
+        this.applyJoinPoint(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart, context());
     }
 
     /**
      * <i>Apply the join point</i>, means to find the associated ajUnit join point and then mark it as applied.
-     * @param thisJoinPointStaticPart the AspectJ join point ({@code thisJoinPoint}).
+     *
+     * @param thisJoinPointStaticPart
      * @param thisEnclosingJoinPointStaticPart the enclosing join point ({@code thisEnclosingJoinPointStaticPart})
      * @param contextBuilder context builder.
      *
@@ -153,6 +154,9 @@ public abstract class AjUnitAspectBase {
             final JoinPoint.StaticPart thisJoinPointStaticPart,
             final JoinPoint.StaticPart thisEnclosingJoinPointStaticPart,
             final ContextBuilder contextBuilder) {
+        // final JoinPoint.StaticPart thisJoinPointStaticPart= thisJoinPointStaticPart.getStaticPart();
+        // storeStandardContext(thisJoinPointStaticPart, contextBuilder);
+
         final String universeName = AjUnitUtils.resolveUniverseName(this);
         LOGGER.info("ajUnit - {}: Apply AspectJ join point {} (calling join point is {})",
                         universeName,
@@ -164,6 +168,15 @@ public abstract class AjUnitAspectBase {
         contextBuilder.storeNamedContextValues(ajUnitJoinPoint);
         ajUnitJoinPoint.applyJoinPoint(ajJoinPointType.chooseContext(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart));
         LOGGER.debug("ajUnit - {}: Applied ajUnit join point {}", universeName, ajUnitJoinPoint);
+    }
+
+    private void storeStandardContext(JoinPoint thisJoinPoint, ContextBuilder contextBuilder) {
+        final Object thisObject = thisJoinPoint.getThis();
+        final Object targetObject = thisJoinPoint.getTarget();
+        final Object[] args = thisJoinPoint.getArgs();
+        contextBuilder.addContext("_this", thisObject);
+        contextBuilder.addContext("_target", targetObject);
+        contextBuilder.addContext("_args", Arrays.asList(args));
     }
 
     private AjJoinPoint resolveAjJoinPoint(

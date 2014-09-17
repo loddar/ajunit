@@ -23,10 +23,10 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 
 /**
- * Use {@link org.aspectj.lang.annotation.Before} advice.
+ * AjUnitBeforeAspect applies an before advice on pointcut {@link #pointcutUnderTest}.
  */
 @Aspect
-public abstract class AjUnitBeforeAspect extends AjUnitAspect {
+public abstract class AjUnitBeforeAspect extends AjUnitAnnotationAspect {
 
     @Before("pointcutDefinition()")
     public void beforeSelectedJoinPoint(JoinPoint.StaticPart thisJoinPointStaticPart, JoinPoint.EnclosingStaticPart thisEnclosingJoinPointStaticPart) {
