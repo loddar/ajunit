@@ -50,7 +50,7 @@ public interface AjUnitSetup {
 
     /**
      * Assign the aspect. Only one Aspect is permitted.
-     * <br/></br>
+     * <br><br>
      * The associated aspect should comply with following conditions:
      * <ul>
      * <li>The aspect must be inherit from {@code org.failearly.ajunit.AjUnitAspect} or one of

@@ -35,7 +35,7 @@ public interface ReturnTypeSelector
     /**
      * Selects method joinpoints the method's return type is {@code void}.
      *
-     * Examples:<br/>
+     * Examples:<br>
      * <ul>
      *     <li>{@code void setValue(int)}</li>
      *     <li>{@code void run()}</li>

@@ -32,15 +32,15 @@ import java.util.List;
 
 /**
  * ApplyJoinPointSelector is responsible for applying the {@link #joinPointSelector} on current {@link org.failearly.ajunit.internal.universe.AjUniverse}.
- * <br/><br/>
- * The result sets:<br/>
+ * <br><br>
+ * The result sets:<br>
  * <ul>
  *     <li>the selected join points (selected by {@link #joinPointSelector})</li>
  *     <li>the none selected join points (NOT selected by {@link #joinPointSelector})</li>
  *     <li>the suppressed join points, not enabled by
  *     {@link org.failearly.ajunit.AjUnitSetup#enableSuppressedJoinPoints(org.failearly.ajunit.SuppressedJoinPoint)}</li>
  * </ul>
- * <br/>
+ * <br>
  * These result will evaluated by {@link org.failearly.ajunit.internal.runner.TestResultEvaluator} for validity.
  *
  * @see org.failearly.ajunit.internal.universe.AjUniverse#visitJoinPoints(org.failearly.ajunit.internal.universe.AjJoinPointVisitor)

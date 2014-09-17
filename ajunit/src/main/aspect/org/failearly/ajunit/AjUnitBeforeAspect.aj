@@ -23,7 +23,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 
 /**
- * AjUnitBeforeAspect applies an before advice on pointcut {@link #pointcutUnderTest}.
+ * Use {@link org.aspectj.lang.annotation.Before} advice.
  */
 @Aspect
 public abstract class AjUnitBeforeAspect extends AjUnitAspect {

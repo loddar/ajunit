@@ -27,8 +27,8 @@ public interface ExtendedClassSelector<SB extends SelectorBuilder> extends Class
     /**
      * Selects method, field or constructor joinpoints the method's return type, the field's type or the parameter's type
      * is a primitive type (excluding {@code void}).
-     * <p/>
-     * Examples:<br/>
+     * <br>
+     * Examples:<br>
      * <ul>
      * <li>{@code int getValue()}</li>
      * <li>{@code void setValue(int)}</li>
@@ -44,8 +44,8 @@ public interface ExtendedClassSelector<SB extends SelectorBuilder> extends Class
     /**
      * Selects method, field or constructor joinpoints the method's return type, the field's type or the parameter's type
      * is an enum type.
-     * <p/>
-     * Examples:<br/>
+     * <br>
+     * Examples:<br>
      * <ul>
      * <li>{@code MyEnum getValue()}</li>
      * <li>{@code void setValue(MyEnum)}</li>
@@ -62,8 +62,8 @@ public interface ExtendedClassSelector<SB extends SelectorBuilder> extends Class
     /**
      * Selects method, field or constructor joinpoints the method's return type, the field's type or the parameter's type
      * is an annotation type.
-     * <p/>
-     * Examples:<br/>
+     * <br>
+     * Examples:<br>
      * <ul>
      * <li>{@code MyAnnotation getValue()}</li>
      * <li>{@code void setValue(MyAnnotation)}</li>
@@ -81,8 +81,8 @@ public interface ExtendedClassSelector<SB extends SelectorBuilder> extends Class
     /**
      * Selects method, field or constructor joinpoints the method's return type, the field's type or the parameter's type
      * is an {@code interface} which includes annotation types.
-     * <p/>
-     * Examples:<br/>
+     * <br>
+     * Examples:<br>
      * <ul>
      * <li>{@code MyAnnotation getValue()}</li>
      * <li>{@code void setValue(Serializable)}</li>
@@ -99,7 +99,7 @@ public interface ExtendedClassSelector<SB extends SelectorBuilder> extends Class
     /**
      * Selects method, field or constructor joinpoints the method's return type, the field's type or the parameter's type
      * is a wrapper type.
-     * <p/>
+     * <br>
      * <ul>
      * <li>extending {@link java.lang.Number} and is part of package {@code java.lang}</li>
      * <li>or is {@link java.lang.Boolean}</li>
@@ -114,8 +114,8 @@ public interface ExtendedClassSelector<SB extends SelectorBuilder> extends Class
     /**
      * Selects method, field or constructor joinpoints the method's return type, the field's type or the parameter's type
      * is a {@link java.util.Collection}.
-     * <p/>
-     * Examples:<br/>
+     * <br>
+     * Examples:<br>
      * <ul>
      * <li>{@code List getList()}</li>
      * <li>{@code void addAll(Set set)}</li>
@@ -130,8 +130,8 @@ public interface ExtendedClassSelector<SB extends SelectorBuilder> extends Class
     /**
      * Selects method, field or constructor joinpoints the method's return type, the field's type or the parameter's type
      * is a {@link java.util.Map}.
-     * <p/>
-     * Examples:<br/>
+     * <br>
+     * Examples:<br>
      * <ul>
      * <li>{@code Map getMap()}</li>
      * <li>{@code void addAll(Map set)}</li>

@@ -22,7 +22,7 @@ import org.failearly.ajunit.internal.util.AjAssert;
 
 /**
  * PredicateBase is the base implementation for almost all predicate implementation.
- * <br/><br/>
+ * <br><br>
  * Testing on {@code null} is supported by
  * <ul>
  *     <li>{@link org.failearly.ajunit.internal.predicate.standard.StandardPredicates#isNull()} or </li>

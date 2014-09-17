@@ -30,6 +30,7 @@ import org.failearly.ajunit.builder.types.*;
  * @see org.failearly.ajunit.builder.types.DimensionComparator
  * @see org.failearly.ajunit.builder.types.Position
  */
+@SuppressWarnings("UnusedDeclaration")
 public interface AjUnitConstants {
 
 // Shortcuts/Aliases for LogicalOperator
@@ -107,22 +108,22 @@ public interface AjUnitConstants {
     StringMatcher STR_EQUALS = StringMatcher.EQUALS;
 
     /**
-     * @see {@link org.failearly.ajunit.builder.types.StringMatcher#STARTS_WITH}.
+     * Alias for {@link org.failearly.ajunit.builder.types.StringMatcher#STARTS_WITH}.
      */
     StringMatcher STR_STARTS_WITH = StringMatcher.STARTS_WITH;
 
     /**
-     * @see {@link org.failearly.ajunit.builder.types.StringMatcher#ENDS_WITH}.
+     * Alias for {@link org.failearly.ajunit.builder.types.StringMatcher#ENDS_WITH}.
      */
     StringMatcher STR_ENDS_WITH = StringMatcher.ENDS_WITH;
 
     /**
-     * @see {@link org.failearly.ajunit.builder.types.StringMatcher#CONTAINS}.
+     * Alias for {@link org.failearly.ajunit.builder.types.StringMatcher#CONTAINS}.
      */
     StringMatcher STR_CONTAINS = StringMatcher.CONTAINS;
 
     /**
-     * @see {@link org.failearly.ajunit.builder.types.StringMatcher#REGEX}.
+     * Alias for {@link org.failearly.ajunit.builder.types.StringMatcher#REGEX}.
      */
     StringMatcher STR_REGEX = StringMatcher.REGEX;
 

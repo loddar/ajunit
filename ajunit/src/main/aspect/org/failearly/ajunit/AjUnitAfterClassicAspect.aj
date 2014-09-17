@@ -23,7 +23,7 @@ package org.failearly.ajunit;
  */
 public abstract aspect AjUnitAfterClassicAspect extends AjUnitClassicAspect {
 
-    after() : pointcutDefinition() {
+    after(): pointcutDefinition() {
         super.applyJoinPoint(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart);
     }
 }

@@ -26,8 +26,8 @@ import org.failearly.ajunit.modifier.AccessModifier;
  */
 public interface MemberSelector<SB extends SelectorBuilder> {
     /**
-     * Select a method by any of {@link org.failearly.ajunit.modifier.AccessModifier}.<br/>
-     * </br>
+     * Select a method by any of {@link org.failearly.ajunit.modifier.AccessModifier}.<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(public * *.*(..))</code></li>
@@ -40,8 +40,8 @@ public interface MemberSelector<SB extends SelectorBuilder> {
     SB byAnyOfAccessModifiers(AccessModifier... accessModifiers);
 
     /**
-     * Select a method by none of {@link org.failearly.ajunit.modifier.AccessModifier}.<br/>
-     * </br>
+     * Select a method by none of {@link org.failearly.ajunit.modifier.AccessModifier}.<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(!public * *.*(..))</code></li>

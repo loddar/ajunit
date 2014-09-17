@@ -37,9 +37,9 @@ Roadmap
 Version | Planned | Content
 ------- | ------- | -------------------------------------------------
 0.1     | Q3/2014 | Initial version. Method execution and call pointcut.
-0.2     | Q3/2014 | Field get and set pointcut. 
-0.3     | Q4/2014 | Constructor execution and call pointcut.  
-0.4     | Q4/2014 | Initializer pointcuts.  
+0.2     | Q4/2014 | Constructor execution and call pointcut.  
+0.3     | Q4/2014 | Initializer pointcuts.  
+0.4     | Q4/2014 | Field get and set pointcut. 
 0.5     | Q4/2014 | Exception handler pointcuts.  
 
 

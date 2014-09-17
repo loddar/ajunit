@@ -21,10 +21,12 @@ package org.failearly.ajunit;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
 
 /**
- * AjUnitAroundAspect is responsible for ...
+ * Use {@link org.aspectj.lang.annotation.Around} advice.
  */
+@Aspect
 public abstract aspect AjUnitAroundAspect extends AjUnitAspect {
     @Around("pointcutDefinition()")
     public Object afterSelectedJoinPoint(ProceedingJoinPoint thisJoinPoint, JoinPoint.EnclosingStaticPart thisEnclosingJoinPointStaticPart) throws Throwable {

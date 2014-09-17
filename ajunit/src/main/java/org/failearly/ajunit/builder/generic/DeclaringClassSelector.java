@@ -31,8 +31,8 @@ import java.lang.annotation.Annotation;
 public interface DeclaringClassSelector<SB extends SelectorBuilder> extends ClassSelector<SB> {
     /**
      * Selects a joinpoint by it's declaring class.
-     * Alias for {@link ClassSelector#byClass(Class)}.<br/>
-     * </br>
+     * Alias for {@link ClassSelector#byClass(Class)}.<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(* com.company.MyClass.*(..))</code></li>
@@ -46,8 +46,8 @@ public interface DeclaringClassSelector<SB extends SelectorBuilder> extends Clas
 
     /**
      * Select a method by it's declaring class name (pattern).
-     * Alias for {@link ClassSelector#byClassName(String, org.failearly.ajunit.builder.types.StringMatcher)}.<br/>
-     * </br>
+     * Alias for {@link ClassSelector#byClassName(String, org.failearly.ajunit.builder.types.StringMatcher)}.<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(* **.My*.*(..))</code></li>

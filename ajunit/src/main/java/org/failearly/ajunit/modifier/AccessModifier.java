@@ -22,7 +22,7 @@ import org.failearly.ajunit.internal.predicate.modifier.AjModifier;
 
 /**
  * AccessModifier defines the available access modifiers.
- * <br/>
+ * <br>
  * Remark: It also include a explicit PACKAGE modifier, even though no keyword is defined.
  *
  * @see java.lang.reflect.Modifier

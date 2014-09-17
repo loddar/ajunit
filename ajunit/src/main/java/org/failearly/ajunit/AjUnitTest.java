@@ -34,8 +34,8 @@ public interface AjUnitTest {
 
     /**
      * Within this method the test fixture classes should be called, so that the aspect could be applied - the act/when part of ajUnit tests.
-     * <br/></br>
-     * Important notes:<br/></br>
+     * <br><br>
+     * Important notes:<br><br>
      * <ul>
      *     <li>Execute methods/constructors only on classes which has been added to the ajUnit universe.
      *              (see {@link org.failearly.ajunit.AjUnitSetup#addTestFixtureClass(Class)}</li>
@@ -46,9 +46,9 @@ public interface AjUnitTest {
 
     /**
      * Assert the pointcut definition - the assert/then part of ajUnit tests. <b>This is the most important function of ajUnit.</b>
-     * <br/></br>
+     * <br><br>
      * The {@code joinPointSelector} is responsible to build the <i>join point selector</i>. A join point selector
-     * is the counterpart of an Aspect's pointcut. It separates the ajUnit Universe in two halves:<br/></br>
+     * is the counterpart of an Aspect's pointcut. It separates the ajUnit Universe in two halves:<br><br>
      * <ul>
      *     <li>The join points which should be applied (or touched) by your specified Aspect.</li>
      *     <li>And the join points which shouldn't be touched at all.</li>

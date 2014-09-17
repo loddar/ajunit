@@ -32,7 +32,7 @@ import java.lang.annotation.Annotation;
 
 /**
  * MethodJoinPointSelector is the builder for method join point selector expression.
- * <br/><br/>
+ * <br><br>
  * AspectJ pointcut definitions:
  * <code>
  * call(method signature)
@@ -43,8 +43,8 @@ public interface MethodJoinPointSelector
         extends MemberSelector<MethodJoinPointSelector>, DeclaringClassSelector<MethodJoinPointSelector>, LogicalSelector<MethodJoinPointSelector>, SelectorBuilder {
 
     /**
-     * Select a method by method name (pattern).<br/>
-     * </br>
+     * Select a method by method name (pattern).<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(* *.get*(..))</code></li>
@@ -58,8 +58,8 @@ public interface MethodJoinPointSelector
     MethodJoinPointSelector byName(String methodNamePattern, StringMatcher matcherType);
 
     /**
-     * Select a method by any of {@link org.failearly.ajunit.modifier.MethodModifier}.<br/>
-     * </br>
+     * Select a method by any of {@link org.failearly.ajunit.modifier.MethodModifier}.<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(final * *.*(..))</code></li>
@@ -71,8 +71,8 @@ public interface MethodJoinPointSelector
     MethodJoinPointSelector byAnyOfMethodModifiers(MethodModifier... methodModifiers);
 
     /**
-     * Select a method by none of {@link org.failearly.ajunit.modifier.MethodModifier}.<br/>
-     * </br>
+     * Select a method by none of {@link org.failearly.ajunit.modifier.MethodModifier}.<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(!final * *.*(..))</code></li>
@@ -84,8 +84,8 @@ public interface MethodJoinPointSelector
     MethodJoinPointSelector byNoneOfMethodModifiers(MethodModifier... methodModifiers);
 
     /**
-     * Select methods annotated by the {@code annotationClass}..<br/>
-     * </br>
+     * Select methods annotated by the {@code annotationClass}..<br>
+     * <br>
      * AspectJ pointcut definition examples: (TODO: examples)
      * <ul>
      * <li><code>execution(* *.*(..))</code></li>
@@ -119,8 +119,8 @@ public interface MethodJoinPointSelector
 
 
     /**
-     * Select methods by their return type.<br/>
-     * </br>
+     * Select methods by their return type.<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(void *.*(..))</code></li>
@@ -172,7 +172,7 @@ public interface MethodJoinPointSelector
 
     /**
      * Convenient selector builder for methods the return type is any array type.
-     * Examples:<br/>
+     * Examples:<br>
      * <ul>
      *     <li>{@code int[] getArray()}</li>
      *     <li>{@code int[][] getMatrix}</li>
@@ -184,8 +184,8 @@ public interface MethodJoinPointSelector
     MethodJoinPointSelector byReturningArray();
 
     /**
-     * Select methods based by their declared exception types. The predefined inner logical operator is {@link MethodExceptionTypeSelector#or()}.<br/>
-     * </br>
+     * Select methods based by their declared exception types. The predefined inner logical operator is {@link MethodExceptionTypeSelector#or()}.<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(*.*(..) throws java.sql.SQLException)</code></li>
@@ -200,8 +200,8 @@ public interface MethodJoinPointSelector
     MethodExceptionTypeSelector exceptionTypes(ListOperator listOperator);
 
     /**
-     * Select methods based by their parameter signature.<br/>
-     * </br>
+     * Select methods based by their parameter signature.<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(*.*())</code>: no arguments</li>

@@ -21,8 +21,8 @@ package org.failearly.ajunit.builder.generic;
 import org.failearly.ajunit.builder.SelectorBuilder;
 
 /**
- * ComponentTypeSelector provides methods for selecting the component type of any array.<br/>
- * This will be possible for:</br></br>
+ * ComponentTypeSelector provides methods for selecting the component type of any array.<br>
+ * This will be possible for:<br><br>
  *
  * <ul>
  *     <li>{@link ArrayTypeSelector#componentType()}</li>

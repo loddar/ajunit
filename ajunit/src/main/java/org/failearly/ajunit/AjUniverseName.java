@@ -22,7 +22,7 @@ import java.lang.annotation.*;
 
 /**
  * AjUniverseName names a universe and all participants of a ajUnit test should be annotated with the same name.
- * <br/><br/>
+ * <br><br>
  * There are two possibilities:
  * <ul>
  *     <li>Using AjUniverseName() directly or </li>

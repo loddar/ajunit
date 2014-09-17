@@ -16,9 +16,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit.junit4;
+package org.failearly.ajunit;
 
-import org.failearly.ajunit.AjUnitTestBase;
 import org.junit.Test;
 
 import static org.junit.Assert.fail;
@@ -26,6 +25,7 @@ import static org.junit.Assert.fail;
 
 /**
  * AjUnit4Test is the base class for JUnit4 based test of ajUnit tests.
+ * <br>
  */
 public abstract class AjUnit4Test extends AjUnitTestBase {
 

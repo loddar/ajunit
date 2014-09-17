@@ -20,11 +20,13 @@ package org.failearly.ajunit;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Aspect;
 
 /**
- * AfterAspect is responsible for ...
+ * Use {@link org.aspectj.lang.annotation.After} advice.
  */
-public abstract aspect AjUnitAfterAspect extends AjUnitAspect {
+@Aspect
+public abstract class AjUnitAfterAspect extends AjUnitAspect {
     @After("pointcutDefinition()")
     public void afterSelectedJoinPoint(JoinPoint.StaticPart thisJoinPointStaticPart, JoinPoint.EnclosingStaticPart thisEnclosingJoinPointStaticPart) {
         super.applyJoinPoint(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart);

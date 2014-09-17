@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 
 /**
  * AjJoinPointStringBuilders contains {@link org.failearly.ajunit.internal.universe.AjJoinPointStringBuilder} implementations for
- * {@link AjJoinPoint#toString()} and {@link AjJoinPoint#toShortString()}.
+ * {@link Object#toString()} and {@link AjJoinPoint#toShortString()}.
  */
 public final class AjJoinPointStringBuilders {
 

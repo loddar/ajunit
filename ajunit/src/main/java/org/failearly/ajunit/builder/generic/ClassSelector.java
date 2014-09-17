@@ -28,8 +28,8 @@ import java.lang.annotation.Annotation;
  */
 public interface ClassSelector<SB extends SelectorBuilder> {
     /**
-     * Select joinpoints by it's class type.<br/>
-     * </br>
+     * Select joinpoints by it's class type.<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(* com.company.MyClass.*(..))</code></li>
@@ -42,8 +42,8 @@ public interface ClassSelector<SB extends SelectorBuilder> {
     SB byClass(Class<?> classType);
 
     /**
-     * Select joinpoints by it's class name (pattern).<br/>
-     * </br>
+     * Select joinpoints by it's class name (pattern).<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(* **.My*.*(..))</code></li>
@@ -57,8 +57,8 @@ public interface ClassSelector<SB extends SelectorBuilder> {
     SB byClassName(String classNamePattern, StringMatcher matcherType);
 
     /**
-     * Select joinpoints by class inheritance (extending the specified baseClass).<br/>
-     * </br>
+     * Select joinpoints by class inheritance (extending the specified baseClass).<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(* com.company.MyClass+.*(..))</code></li>
@@ -71,8 +71,8 @@ public interface ClassSelector<SB extends SelectorBuilder> {
     SB byExtending(Class<?> baseClass);
 
     /**
-     * Select joinpoints by class inheritance (<i>not</i> extending the specified baseClass).<br/>
-     * </br>
+     * Select joinpoints by class inheritance (<i>not</i> extending the specified baseClass).<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(* !(com.company.MyClass+).*(..))</code></li>
@@ -85,8 +85,8 @@ public interface ClassSelector<SB extends SelectorBuilder> {
     SB byNotExtending(Class<?> baseClass);
 
     /**
-     * Select joinpoints by classes implementations (any of the specified interfaces).<br/>
-     * </br>
+     * Select joinpoints by classes implementations (any of the specified interfaces).<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(* com.company.MyInterface+.*(..)) || execution(* com.company.OtherInterface+.*(..))</code></li>
@@ -99,8 +99,8 @@ public interface ClassSelector<SB extends SelectorBuilder> {
     SB byImplementingAnyOf(Class<?>... interfaces);
 
     /**
-     * Select joinpoints by classes implementations (all of the specified interfaces).<br/>
-     * </br>
+     * Select joinpoints by classes implementations (all of the specified interfaces).<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(* com.company.MyInterface+.*(..)) && execution(* com.company.OtherInterface+.*(..))</code></li>
@@ -113,8 +113,8 @@ public interface ClassSelector<SB extends SelectorBuilder> {
     SB byImplementingAllOf(Class<?>... interfaces);
 
     /**
-     * Select joinpoints by classes implementations (none of the specified interfaces).<br/>
-     * </br>
+     * Select joinpoints by classes implementations (none of the specified interfaces).<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>! execution(* com.company.MyInterface+.*(..)) && ! execution(* com.company.OtherInterface+.*(..))</code></li>
@@ -127,8 +127,8 @@ public interface ClassSelector<SB extends SelectorBuilder> {
     SB byImplementingNoneOf(Class<?>... interfaces);
 
     /**
-     * Select joinpoints by package name (pattern).<br/>
-     * </br>
+     * Select joinpoints by package name (pattern).<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(* com.my.company..*(..))</code></li>

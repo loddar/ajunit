@@ -29,8 +29,8 @@ import org.failearly.ajunit.builder.types.Position;
 public interface ParametersSelector<
             SB extends ParametersSelector, TSB extends SelectorBuilder, ASB extends ParameterAnnotationSelector, RT extends DeclaringClassSelector> {
     /**
-     * Select constructor or method join points without any parameter.<br/>
-     * </br>
+     * Select constructor or method join points without any parameter.<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(*.*())</code>: any method without parameters</li>
@@ -42,8 +42,8 @@ public interface ParametersSelector<
     SB byNoParameters();
 
     /**
-     * Select constructor or method join points with variable arguments.<br/>
-     * </br>
+     * Select constructor or method join points with variable arguments.<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(*.*(.., Object...))</code>: any method with var args</li>
@@ -54,8 +54,8 @@ public interface ParametersSelector<
     SB byVariableArguments();
 
     /**
-     * Select constructor or method join points with expected number of parameters using the {@code numberComparator}.<br/>
-     * <br/>
+     * Select constructor or method join points with expected number of parameters using the {@code numberComparator}.<br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(*.*(*))</code>: any method with one parameter</li>
@@ -101,8 +101,8 @@ public interface ParametersSelector<
 
     /**
      * Select methods/constructors based on the declared parameter annotations. The exact position in the parameter list is not important.
-     * <br/>
-     * </br>
+     * <br>
+     * <br>
      * AspectJ pointcut definition examples:
      * <ul>
      * <li><code>execution(*.*(..,@AnyAnnotation (*),..))</code>: any method with at least one parameter annotation (in this case @AnyAnnotation)</li>

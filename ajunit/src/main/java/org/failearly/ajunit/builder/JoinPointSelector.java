@@ -22,7 +22,7 @@ import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
 
 /**
  * JoinPointSelector builds join point selectors.
- * <br/><br>
+ * <br><br>
  * <b>Remark:</b>The implicit logical operator is {@link org.failearly.ajunit.builder.types.LogicalOperator#OR}, because
  * a join point can't be of two different kinds. Any subsequent implicit logical operator will be {@link org.failearly.ajunit.builder.types.LogicalOperator#AND}.
  *
@@ -30,11 +30,11 @@ import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
  */
 public interface JoinPointSelector extends SelectorBuilder {
     /**
-     * Select join points of type method execution.<br/>
-     * </br>
+     * Select join points of type method execution.<br>
+     * <br>
      * AspectJ pointcut definitions:
      * <ul>
-     *     <li><code>execution(<method signature>)</code></li>
+     *     <li><code>execution(&lt;method signature&gt;)</code></li>
      * </ul>
      *
      * @return the method join point selector builder.
@@ -42,11 +42,11 @@ public interface JoinPointSelector extends SelectorBuilder {
     MethodJoinPointSelector methodExecute();
 
     /**
-     * Select join points of type method execution.<br/>
-     * </br>
+     * Select join points of type method execution.<br>
+     * <br>
      * AspectJ pointcut definitions:
      * <ul>
-     *     <li><code>call(<method signature>)</code></li>
+     *     <li><code>call(&lt;method signature&gt;)</code></li>
      * </ul>
      *
      * @return the method join point selector builder.

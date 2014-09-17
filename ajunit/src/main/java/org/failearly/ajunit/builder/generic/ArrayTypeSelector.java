@@ -30,7 +30,7 @@ public interface ArrayTypeSelector<SB extends SelectorBuilder, RT extends Extend
     /**
      * Selects method, field or constructor joinpoints the method's return type, the field's type or the parameter's type
      * is an array.
-     * Examples:<br/>
+     * Examples:<br>
      * <ul>
      * <li>{@code String[] getArray()}</li>
      * <li>{@code int[][] myIntMatrix;}</li>
@@ -43,7 +43,7 @@ public interface ArrayTypeSelector<SB extends SelectorBuilder, RT extends Extend
 
     /**
      * Selector builder for methods the return type or parameter type or the field is an array type of {@code value}.
-     * Examples:<br/>
+     * Examples:<br>
      * <ul>
      *     <li>{@code int[] getArray()}: value=1</li>
      *     <li>{@code String[] myStringArray;}: value=1</li>
