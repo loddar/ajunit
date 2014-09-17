@@ -26,7 +26,7 @@ import org.aspectj.lang.annotation.Aspect;
  * AfterAspect is responsible for ...
  */
 @Aspect
-public abstract aspect AjUnitAfterAspect extends AjUnitAnnotationAspect {
+public abstract class AjUnitAfterAspect extends AjUnitAnnotationAspect {
 
     @After("pointcutDefinition()")
     public void afterSelectedJoinPoint(JoinPoint.StaticPart thisJoinPointStaticPart, JoinPoint.EnclosingStaticPart thisEnclosingJoinPointStaticPart) {
