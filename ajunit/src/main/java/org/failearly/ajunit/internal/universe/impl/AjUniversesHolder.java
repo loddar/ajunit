@@ -30,9 +30,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * AjUniversesHolder is responsible for holding all (named) universes.
+ * AjUniversesHolder is responsible for holding all universes.
  *
- * @see org.failearly.ajunit.AjUniverseName
  * @see org.failearly.ajunit.internal.universe.AjUniverse
  */
 public final class AjUniversesHolder {
@@ -46,8 +45,7 @@ public final class AjUniversesHolder {
     }
 
     /**
-     * Creates the universe associated with current ajUnitObject which must be marked also with {@link
-     * org.failearly.ajunit.AjUniverseName}.
+     * Creates the universe associated with current ajUnitObject.
      *
      * @param universeName       the universe name.
      * @param testFixtureClasses the test fixture classes the aspect will be apply on.
@@ -58,8 +56,7 @@ public final class AjUniversesHolder {
     }
 
     /**
-     * Creates the universe associated with current ajUnitObject which must be marked also with {@link
-     * org.failearly.ajunit.AjUniverseName}.
+     * Creates the universe associated with current ajUnitObject.
      *
      * @param universeName       the universe name.
      * @param testFixtureClassNames the test fixture class names the aspect will be apply on.

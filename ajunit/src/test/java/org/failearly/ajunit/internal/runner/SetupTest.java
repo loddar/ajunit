@@ -19,7 +19,6 @@
 package org.failearly.ajunit.internal.runner;
 
 import any.company.aspect.MyTestFixture;
-import any.company.aspect.PointcutTestWithoutUniverseName;
 import any.company.aspect.PointcutUnitTest;
 import org.failearly.ajunit.AjUnitSetup;
 import org.failearly.ajunit.builder.JoinPointSelector;
@@ -29,12 +28,6 @@ import org.junit.Test;
  * AjUnitSetupTest tests the setup errors.
  */
 public class SetupTest extends AbstractTestRunnerTest {
-
-    @Test
-    public void missingAjUniverseNameOnTestClass() throws Exception {
-        assertAjUnitSetupError(new PointcutTestWithoutUniverseName(),
-                "ajUnit - Setup Error: Missing annotation @AjUniverseName for class/aspect 'PointcutTestWithoutUniverseName'");
-    }
 
     @Test
     public void missingSetup() throws Exception {
@@ -78,26 +71,11 @@ public class SetupTest extends AbstractTestRunnerTest {
                 ajUnitSetup.assignAspect("any.company.aspect.MissingBaseAspectAspect");
             }
         },
-                "ajUnit - Setup Error: Test aspect 'any.company.aspect.MissingBaseAspectAspect' does not extend AjUnitAspectBase!\n" +
-                        "- Please extend your aspect from one of the provided base aspects:\n" +
-                        "\t* AjUnitAspect or AjUnitClassicAspect\n" +
-                        "\t* AjUnitBeforeAspect or AjUnitBeforeClassicAspect\n" +
-                        "\t* AjUnitAfterAspect or AjUnitAfterClassicAspect\n" +
-                        "\t* AjUnitAroundAspect or AjUnitAroundClassicAspect"
+                "ajUnit - Setup Error: Test aspect 'any.company.aspect.MissingBaseAspectAspect' is not an ajUnit based aspect!" +
+                        "\n- Please extend your aspect from one of the provided base aspects:" +
+                        "\n\t* AjUnitAnnotationAspect or AjUnitClassicAspect" +
+                        "\n\t* AjUnitBeforeAnnotationAspect or AjUnitBeforeClassicAspect"
 
-        );
-    }
-
-    @Test
-    public void aspectHasWrongUniverseName() throws Exception {
-        assertAjUnitSetupError(new PointcutUnitTest() {
-            @Override
-            public void setup(AjUnitSetup ajUnitSetup) {
-                ajUnitSetup.assignAspect("any.company.aspect.WrongUniverseAspect");
-            }
-        },
-                "ajUnit - Setup Error: Aspect 'any.company.aspect.WrongUniverseAspect' has wrong universe name: 'otherUniverseName'.\n" +
-                        "- Please use universe name: 'testUniverse'."
         );
     }
 

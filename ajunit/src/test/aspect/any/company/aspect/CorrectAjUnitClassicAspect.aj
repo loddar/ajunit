@@ -22,14 +22,12 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.failearly.ajunit.AjUnitAnnotationAspect;
-import org.failearly.ajunit.AjUniverseName;
+import org.failearly.ajunit.aspect.annotation.AjUnitAnnotationAspect;
 
 /**
  * MissingBaseAspectAspect is responsible for ...
  */
 @Aspect
-@AjUniverseName("testUniverse")
 public class CorrectAjUnitClassicAspect extends AjUnitAnnotationAspect {
 
     @Pointcut("allMethodExecution()")

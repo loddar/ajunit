@@ -35,17 +35,15 @@ import java.util.Arrays;
  */
 public class AjUnitAspectTest {
 
-    private static final String UNIVERSE_NAME_1 = "Universe$1";
-    private static final String UNIVERSE_NAME_2 = "Universe$2";
+    private static final String UNIVERSE_NAME_1 = AjUnitAspect1.class.getName();
+    private static final String UNIVERSE_NAME_2 = AjUnitAspect2.class.getName();
 
-    @AjUniverseName(UNIVERSE_NAME_1)
     private static class AjUnitAspect1 extends AjUnitAspectBase {
         void simulateAdvice(JoinPoint.StaticPart jointPoint) {
             applyJoinPoint(jointPoint, null);
         }
     }
 
-    @AjUniverseName(UNIVERSE_NAME_2)
     private static class AjUnitAspect2 extends AjUnitAspectBase {
         void simulateAdvice(JoinPoint.StaticPart jointPoint) {
             applyJoinPoint(jointPoint, null);

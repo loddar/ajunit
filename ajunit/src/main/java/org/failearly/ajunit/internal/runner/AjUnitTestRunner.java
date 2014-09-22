@@ -25,7 +25,10 @@ import org.failearly.ajunit.internal.predicate.Predicate;
 import org.failearly.ajunit.internal.universe.AjJoinPointType;
 import org.failearly.ajunit.internal.universe.AjUniverse;
 import org.failearly.ajunit.internal.universe.impl.AjUniversesHolder;
-import org.failearly.ajunit.internal.util.*;
+import org.failearly.ajunit.internal.util.AjAssert;
+import org.failearly.ajunit.internal.util.ClassUtils;
+import org.failearly.ajunit.internal.util.MessageBuilder;
+import org.failearly.ajunit.internal.util.MessageBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,9 +71,10 @@ public final class AjUnitTestRunner {
         String universeName = null;
         try {
             // arrange / given
-            universeName = resolveUniverseName();
             final List<Predicate> enabledJoinPoints=new LinkedList<>();
-            final AjUniverse universe = setupAjUnitTest(universeName, enabledJoinPoints);
+            final AjUniverse universe = setupAjUnitTest(enabledJoinPoints);
+            universeName = universe.getUniverseName();
+
             final Set<AjJoinPointType> joinPointTypes = new HashSet<>();
             final Predicate joinPointSelector = buildJoinPointSelector(joinPointTypes);
             LOGGER.info("Created join point selector: \n{}", joinPointSelector);
@@ -112,12 +116,11 @@ public final class AjUnitTestRunner {
         testResultCollector.onFailure(this.failureHandler);
     }
 
-    private void assertAssociatedAspect(String universeName, AjUnitSetupImpl ajUnitTestSetup) {
+    private void assertAssociatedAspect(AjUnitSetupImpl ajUnitTestSetup) {
         final String aspectClassName = ajUnitTestSetup.getAspectName();
         doAssertAspectClassName(aspectClassName);
         final Class<?> aspectClass = ClassUtils.loadClass(aspectClassName, false);
         doAssertAspectExtendsBaseAspectClass(aspectClass);
-        doAssertAspectsUniverse(aspectClass, universeName);
     }
 
     private void doAssertAspectClassName(String aspectClassName) {
@@ -128,43 +131,31 @@ public final class AjUnitTestRunner {
         }
     }
 
-    private void doAssertAspectsUniverse(Class<?> aspectClass, String universeName) {
-        final String aspectsUniverseName = AjUnitUtils.resolveUniverseName(aspectClass);
-        if (!universeName.equals(aspectsUniverseName)) {
-            throwSetupError(
-                    MessageBuilders.setupError("Aspect").arg(aspectClass.getCanonicalName()).part("has wrong universe name:").arg(aspectsUniverseName).fullStop()
-                            .line("Please use universe name:").arg(universeName).fullStop()
-            );
-        }
-    }
-
     private void doAssertAspectExtendsBaseAspectClass(Class<?> aspectClass) {
         if (!AjUnitAspectBase.class.isAssignableFrom(aspectClass)) {
             throwSetupError(MessageBuilders.setupError("Test aspect")
                     .arg(aspectClass.getCanonicalName())
-                    .part("does not extend AjUnitAspectBase!")
+                    .part("is not an ajUnit based aspect!")
                     .line("Please extend your aspect from one of the provided base aspects:")
-                    .subLine("AjUnitAspect or AjUnitClassicAspect")
-                    .subLine("AjUnitBeforeAspect or AjUnitBeforeClassicAspect")
-                    .subLine("AjUnitAfterAspect or AjUnitAfterClassicAspect")
-                    .subLine("AjUnitAroundAspect or AjUnitAroundClassicAspect")
+                    .subLine("AjUnitAnnotationAspect or AjUnitClassicAspect")
+                    .subLine("AjUnitBeforeAnnotationAspect or AjUnitBeforeClassicAspect")
+                    // .subLine("AjUnitAfterAnnotationAspect or AjUnitAfterClassicAspect")
+                    // .subLine("AjUnitAroundAnnotationAspect or AjUnitAroundClassicAspect")
             );
         }
     }
 
-    private AjUniverse setupAjUnitTest(String universeName, List<Predicate> enabledJoinPoints) {
+    private AjUniverse setupAjUnitTest(List<Predicate> enabledJoinPoints) {
         final AjUnitSetupImpl ajUnitTestSetup = new AjUnitSetupImpl();
         ajUnitTest.setup(ajUnitTestSetup);
         enabledJoinPoints.addAll(ajUnitTestSetup.getEnabledJoinPoints());
 
-        assertAssociatedAspect(universeName, ajUnitTestSetup);
+        assertAssociatedAspect(ajUnitTestSetup);
         assertUniverseSetup(ajUnitTestSetup);
 
-        return AjUniversesHolder.createUniverseByClasses(universeName, ajUnitTestSetup.getTestFixtureClasses());
-    }
+        final String universeName = ajUnitTestSetup.getAspectName();
 
-    private String resolveUniverseName() {
-        return AjUnitUtils.resolveUniverseName(this.ajUnitTest);
+        return AjUniversesHolder.createUniverseByClasses(universeName, ajUnitTestSetup.getTestFixtureClasses());
     }
 
     private void assertUniverseSetup(AjUnitSetupImpl ajUnitTestSetup) {

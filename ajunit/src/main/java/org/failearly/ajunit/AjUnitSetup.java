@@ -55,7 +55,6 @@ public interface AjUnitSetup {
      * <ul>
      * <li>The aspect must be inherit from {@code org.failearly.ajunit.annotation.AjUnitAspect} or one of
      * the provided sub aspects.</li>
-     * <li>The aspect must be annotated with {@link org.failearly.ajunit.AjUniverseName}.</li>
      * </ul>
      *
      * @param fullQualifiedAspectName the aspect's full qualified class name.

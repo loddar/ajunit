@@ -16,17 +16,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit;
+package org.failearly.ajunit.aspect.annotation;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 
 /**
- * AjUnitBeforeAspect applies an before advice on pointcut {@link #pointcutUnderTest}.
+ * AjUnitBeforeAnnotation applies an before advice on pointcut {@link #pointcutUnderTest}.
  */
 @Aspect
-public abstract class AjUnitBeforeAspect  extends AjUnitAnnotationAspect {
+public abstract class AjUnitBeforeAnnotationAspect extends AjUnitAnnotationAspect {
     @Before("pointcutDefinition()")
     public void beforeSelectedJoinPoint(JoinPoint.StaticPart thisJoinPointStaticPart, JoinPoint.EnclosingStaticPart thisEnclosingJoinPointStaticPart) {
         super.applyJoinPoint(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart);

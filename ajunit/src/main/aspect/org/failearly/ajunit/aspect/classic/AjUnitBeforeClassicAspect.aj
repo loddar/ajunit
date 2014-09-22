@@ -16,26 +16,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit;
-
-import java.lang.annotation.*;
+package org.failearly.ajunit.aspect.classic;
 
 /**
- * AjUniverseName names a universe and all participants of a ajUnit test should be annotated with the same name.
- * <br><br>
- * There are two possibilities:
- * <ul>
- *     <li>Using AjUniverseName() directly or </li>
- *     <li>creating a custom annotation which uses AjUniverseName.</li>
- * </ul>
- *
+ * AjUnitBeforeClassicAspect applies an before advice on pointcut {@code pointcutUnderTest}.
  */
-@Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
-@Retention(RetentionPolicy.RUNTIME)
-@Documented @Inherited
-public @interface AjUniverseName {
-    /**
-     * The universe name.
-     */
-    String value();
+public abstract aspect AjUnitBeforeClassicAspect extends AjUnitClassicAspect {
+
+    before() : pointcutDefinition() {
+        super.applyJoinPoint(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart);
+    }
 }

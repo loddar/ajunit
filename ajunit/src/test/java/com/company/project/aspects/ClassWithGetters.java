@@ -19,10 +19,11 @@
 package com.company.project.aspects;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 /**
- * ClassWithGetters is provides invalid getters for {@link com.company.project.aspects.InvalidGetterAspectTest}.
+ * ClassWithGetters is provides invalid getters for {@link InvalidGetterAnnotationAspectTest}.
  */
 public class ClassWithGetters {
     public int getValue() {
@@ -51,6 +52,12 @@ public class ClassWithGetters {
     }
 
     public List<String> getAnyList() {
+        return null;
+    }
+
+    protected void getAnyThing(int p) throws Exception {}
+
+    public HashMap<String, String> getMap() {
         return null;
     }
 }

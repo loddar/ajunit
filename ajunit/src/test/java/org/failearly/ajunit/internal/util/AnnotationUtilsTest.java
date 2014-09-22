@@ -18,13 +18,9 @@
  */
 package org.failearly.ajunit.internal.util;
 
-import org.failearly.ajunit.AjUniverseName;
 import org.junit.Test;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
@@ -34,12 +30,12 @@ import static org.junit.Assert.assertThat;
  * Tests for {@link AnnotationUtils}.
  */
 public class AnnotationUtilsTest {
-    @AjUniverseName("MyUniverse")
+    @AjName("MyUniverse")
     private static class MyClass {}
 
     @Target({ElementType.TYPE})
     @Retention(RetentionPolicy.RUNTIME)
-    @AjUniverseName("MyCustomUniverseAnnotation")
+    @AjName("MyCustomUniverseAnnotation")
     @interface CustomUniverseAnnotation{}
 
     @CustomUniverseAnnotation
@@ -49,27 +45,38 @@ public class AnnotationUtilsTest {
     @Test
     public void findClassAnnotation() throws Exception {
         // act / when
-        final AjUniverseName universeName= AnnotationUtils.findClassAnnotation(MyClass.class, AjUniverseName.class);
+        final AjName ajName= AnnotationUtils.findClassAnnotation(MyClass.class, AjName.class);
 
         // assert / then
-        assertThat(universeName.value(), is("MyUniverse"));
+        assertThat(ajName.value(), is("MyUniverse"));
     }
 
     @Test
     public void findClassAnnotationMeta() throws Exception {
         // act / when
-        final AjUniverseName universeName=AnnotationUtils.findClassAnnotation(OtherClass.class, AjUniverseName.class);
+        final AjName ajName=AnnotationUtils.findClassAnnotation(OtherClass.class, AjName.class);
 
         // assert / then
-        assertThat(universeName.value(), is("MyCustomUniverseAnnotation"));
+        assertThat(ajName.value(), is("MyCustomUniverseAnnotation"));
     }
 
     @Test
     public void noneExistingClassAnnotation() throws Exception {
         // act / when
-        final AjUniverseName universeName=AnnotationUtils.findClassAnnotation(AnnotationUtilsTest.class, AjUniverseName.class);
+        final AjName ajName=AnnotationUtils.findClassAnnotation(AnnotationUtilsTest.class, AjName.class);
 
         // assert / then
-        assertThat(universeName, nullValue());
+        assertThat(ajName, nullValue());
+    }
+
+    @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
+    @Retention(RetentionPolicy.RUNTIME)
+    @Documented
+    @Inherited
+    public static @interface AjName {
+        /**
+         * The universe name.
+         */
+        String value();
     }
 }

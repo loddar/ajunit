@@ -22,7 +22,6 @@ import org.aspectj.lang.JoinPoint;
 import org.failearly.ajunit.internal.universe.*;
 import org.failearly.ajunit.internal.universe.impl.AjUniversesHolder;
 import org.failearly.ajunit.internal.util.AjAssert;
-import org.failearly.ajunit.internal.util.AjUnitUtils;
 import org.failearly.ajunit.internal.util.MessageBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -142,7 +141,7 @@ public abstract class AjUnitAspectBase {
     /**
      * <i>Apply the join point</i>, means to find the associated ajUnit join point and then mark it as applied.
      *
-     * @param thisJoinPointStaticPart
+     * @param thisJoinPointStaticPart  the current join point.
      * @param thisEnclosingJoinPointStaticPart the enclosing join point ({@code thisEnclosingJoinPointStaticPart})
      * @param contextBuilder context builder.
      *
@@ -157,7 +156,7 @@ public abstract class AjUnitAspectBase {
         // final JoinPoint.StaticPart thisJoinPointStaticPart= thisJoinPointStaticPart.getStaticPart();
         // storeStandardContext(thisJoinPointStaticPart, contextBuilder);
 
-        final String universeName = AjUnitUtils.resolveUniverseName(this);
+        final String universeName = this.getClass().getName();
         LOGGER.info("ajUnit - {}: Apply AspectJ join point {} (calling join point is {})",
                         universeName,
                         thisJoinPointStaticPart,

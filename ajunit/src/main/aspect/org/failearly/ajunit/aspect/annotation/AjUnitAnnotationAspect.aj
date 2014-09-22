@@ -16,17 +16,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit;
+package org.failearly.ajunit.aspect.annotation;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.failearly.ajunit.AjUnitAspectBase;
 
 /**
- * AjUnitAspect is the base aspect for all {@link @AspectJ} based aspects.
+ * AjUnitAnnotationAspect is the base aspect for all annotation based aspects - a class using {@link @AspectJ} annotation.
  * <br/></br>The actually aspect must
  * <ul>
- *     <li>implement pointcut definition {@link #pointcutUnderTest()} and ...</li>
- *     <li>annotated the aspect with {@link org.failearly.ajunit.AjUniverseName}.</li>
+ *     <li>implement pointcut definition {@link #pointcutUnderTest()}</li>
+ *     <li>and define an (before, after or around) advice which calls
+ *          {@link org.failearly.ajunit.AjUnitAspectBase#applyJoinPoint(org.aspectj.lang.JoinPoint.StaticPart, org.aspectj.lang.JoinPoint.StaticPart)}</li>
  * </ul>
  *
  * <br/></br>It contains also some predefined pointcut definitions, as starting points for defining your specific pointcut:
@@ -38,7 +40,7 @@ import org.aspectj.lang.annotation.Pointcut;
  *     <li>{@link #allConstructorCall()} ()} for selecting all constructor {@code call} join points.</li>
  * </ul>
  *
- * @see AjUnitAroundAspect
+ * @see org.failearly.ajunit.aspect.annotation.AjUnitBeforeAnnotationAspect
  */
 @SuppressWarnings("EmptyMethod")
 @Aspect
@@ -52,9 +54,9 @@ public abstract class AjUnitAnnotationAspect extends AjUnitAspectBase {
 
     /**
      * Selects all join points which will be executed below {@link org.failearly.ajunit.internal.runner.AjUnitTestRunner#doExecute()}. The implementation of
-     * {@link AjUnitTest#execute()} will be executed.
+     * {@link org.failearly.ajunit.AjUnitTest#execute()} will be executed.
      *
-     * @see AjUnitTest#execute()
+     * @see org.failearly.ajunit.AjUnitTest#execute()
      */
     @Pointcut("cflowbelow(execution(void org.failearly.ajunit.AjUnitTest.execute()))")
     private void cflowbelowExecutingAjUnitTestExecute() {}

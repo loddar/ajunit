@@ -16,20 +16,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit;
+package com.company.project.aspects;
 
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.failearly.ajunit.aspect.annotation.AjUnitBeforeAnnotationAspect;
 
 /**
- * AfterAspect is responsible for ...
+ * InvalidGetterAnnotationAspect provides the pointcut under test.
  */
 @Aspect
-public abstract aspect AjUnitAfterAspect extends AjUnitAnnotationAspect {
-
-    @After("pointcutDefinition()")
-    public void afterSelectedJoinPoint(JoinPoint.StaticPart thisJoinPointStaticPart, JoinPoint.EnclosingStaticPart thisEnclosingJoinPointStaticPart) {
-        super.applyJoinPoint(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart);
-    }
+public class InvalidGetterAnnotationAspect extends AjUnitBeforeAnnotationAspect {
+    @Pointcut("call(public (void || *[] || *[][] || java.util.Collection+ || java.util.Map+) get*()) || call(public * get*(*,..)) || call(public * get*() throws java.lang.Throwable+)" )
+    protected void pointcutUnderTest() {}
 }

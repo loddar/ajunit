@@ -20,7 +20,6 @@ package com.company.project.aspects;
 
 import org.failearly.ajunit.AjUnit4Test;
 import org.failearly.ajunit.AjUnitSetup;
-import org.failearly.ajunit.AjUniverseName;
 import org.failearly.ajunit.builder.JoinPointSelector;
 import org.failearly.ajunit.builder.types.ListOperator;
 import org.failearly.ajunit.builder.types.NumberComparator;
@@ -29,11 +28,10 @@ import org.failearly.ajunit.modifier.AccessModifier;
 /**
  * MyAspectTest contains tests for MyAspect.
  */
-@AjUniverseName("InvalidGetterAspect")
-public class InvalidGetterAspectTest extends AjUnit4Test {
+public class InvalidGetterAnnotationAspectTest extends AjUnit4Test {
     @Override
     public void setup(AjUnitSetup ajUnitSetup) {
-        ajUnitSetup.assignAspect("com.company.project.aspects.InvalidGetterAspect");
+        ajUnitSetup.assignAspect("com.company.project.aspects.InvalidGetterAnnotationAspect");
         ajUnitSetup.addTestFixtureClass(ClassWithGetters.class);
     }
 
@@ -42,6 +40,7 @@ public class InvalidGetterAspectTest extends AjUnit4Test {
         final ClassWithGetters classWithGetters = new ClassWithGetters();
         // Valid
         classWithGetters.getValue();
+        classWithGetters.getAnyThing(0);
 
         // Not valid getters
         classWithGetters.getReturningVoid();
@@ -51,6 +50,7 @@ public class InvalidGetterAspectTest extends AjUnit4Test {
         classWithGetters.getAnyList();
         classWithGetters.getWithParameter(0);
         classWithGetters.getValueWithException();
+        classWithGetters.getMap();
     }
 
     @Override
@@ -58,9 +58,14 @@ public class InvalidGetterAspectTest extends AjUnit4Test {
         joinPointSelector.methodCall()
                             .byAnyOfAccessModifiers(AccessModifier.PUBLIC)
                             .anyOf()
-                                .byReturningVoid()
-                                .byReturningArray()
-                                .byReturningCollection()
+                                .returnType()
+                                    .anyOf()
+                                        .byVoid()
+                                        .byArray()
+                                        .byCollection()
+                                        .byMap()
+                                    .end()
+                                .endReturnType()
                                 .parameters()
                                     .byNumberOfParameters(0, NumberComparator.GREATER_THEN)
                                 .endParameters()

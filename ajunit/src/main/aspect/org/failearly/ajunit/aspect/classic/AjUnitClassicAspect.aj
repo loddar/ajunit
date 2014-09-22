@@ -16,7 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit;
+package org.failearly.ajunit.aspect.classic;
+
+import org.failearly.ajunit.AjUnitAspectBase;
 
 /**
  * AjUnitClassicAspect is THE base aspect for ajUnit aspects.
@@ -33,9 +35,9 @@ public abstract aspect AjUnitClassicAspect extends AjUnitAspectBase {
     protected abstract pointcut pointcutUnderTest();
 
     /**
-     * Selects all join points which will be executed below {@link AjUnitTest#execute()}.
+     * Selects all join points which will be executed below {@link org.failearly.ajunit.AjUnitTest#execute()}.
      *
-     * @see AjUnitTest#execute()
+     * @see org.failearly.ajunit.AjUnitTest#execute()
      */
     private pointcut cflowbelowExecutingAjUnitTestExecute() : cflowbelow(execution(void org.failearly.ajunit.AjUnitTest.execute()));
 

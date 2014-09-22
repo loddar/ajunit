@@ -16,12 +16,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package any.company.aspect;
+package com.company.project.aspects;
 
-import org.failearly.ajunit.internal.runner.PointcutUnitTestBase;
+import org.aspectj.lang.annotation.Pointcut;
+import org.failearly.ajunit.aspect.classic.AjUnitBeforeClassicAspect;
 
 /**
-* AbstractAjUnitTest is responsible for ...
-*/
-public final class PointcutTestWithoutUniverseName extends PointcutUnitTestBase {
+ * InvalidGetterAnnotationAspect provides the pointcut under test.
+ */
+public aspect InvalidGetterClassicAspect extends AjUnitBeforeClassicAspect {
+    @Pointcut("call(public void get*())")
+    protected void pointcutUnderTest() {}
 }

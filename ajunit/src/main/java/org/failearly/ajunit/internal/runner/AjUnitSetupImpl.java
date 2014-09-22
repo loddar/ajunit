@@ -21,7 +21,9 @@ package org.failearly.ajunit.internal.runner;
 import org.failearly.ajunit.AjUnitSetup;
 import org.failearly.ajunit.SuppressedJoinPoint;
 import org.failearly.ajunit.internal.predicate.Predicate;
+import org.failearly.ajunit.internal.util.AjAssert;
 import org.failearly.ajunit.internal.util.ClassUtils;
+import org.failearly.ajunit.internal.util.MessageBuilders;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -72,6 +74,7 @@ final class AjUnitSetupImpl implements AjUnitSetup {
 
     @Override
     public void assignAspect(String fullQualifiedAspectName) {
+        AjAssert.assertCondition(aspectName == null, MessageBuilders.setupError("Only one aspect must be assigned."));
         this.aspectName = fullQualifiedAspectName;
     }
 
