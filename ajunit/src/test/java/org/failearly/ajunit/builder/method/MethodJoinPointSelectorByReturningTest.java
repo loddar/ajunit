@@ -93,7 +93,21 @@ public abstract class MethodJoinPointSelectorByReturningTest extends AbstractJoi
                 "public java.util.LinkedList org.failearly.ajunit.builder.TestSubject4.getList()",
                 "public java.util.HashSet org.failearly.ajunit.builder.TestSubject4.getSet()",
                 "public java.util.Vector org.failearly.ajunit.builder.TestSubject4.getVector()"
-                // java.lang.Object
+
+        );
+    }
+
+    @Test
+    public void byReturningMap() throws Exception {
+        // act / when
+        selectorBuilder.byReturningMap();
+
+        // assert / then
+        assertBuildJoinPointSelector(
+                // TestSubject4
+                "public java.util.Map org.failearly.ajunit.builder.TestSubject4.getMap()",
+                "public java.util.HashMap org.failearly.ajunit.builder.TestSubject4.getHashMap()",
+                "public java.util.Hashtable org.failearly.ajunit.builder.TestSubject4.getHashTable()"
 
         );
     }

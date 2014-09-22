@@ -157,11 +157,18 @@ public interface MethodJoinPointSelector
     MethodJoinPointSelector byReturningPrimitive();
 
     /**
-     * Convenient selector builder for methods the return type implements {@link java.util.Collection} or {@link java.util.Map}.
+     * Convenient selector builder for methods the return type implements {@link java.util.Collection}.
      * @return  itself
      * @see ReturnTypeSelector#byCollection()
      */
     MethodJoinPointSelector byReturningCollection();
+
+    /**
+     * Convenient selector builder for methods the return type implements {@link java.util.Map}.
+     * @return  itself
+     * @see ReturnTypeSelector#byMap()
+     */
+    MethodJoinPointSelector byReturningMap();
 
     /**
      * Convenient selector builder for methods the return type extends {@link java.lang.Enum}, thus <code>enum MyEnum</code>.
