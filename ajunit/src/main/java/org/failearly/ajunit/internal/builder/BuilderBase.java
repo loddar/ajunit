@@ -27,10 +27,14 @@ import org.failearly.ajunit.internal.util.MessageBuilders;
 /**
  * The base class for all {@link Builder}.
  */
-public abstract class BuilderBase<R extends RootBuilder, C extends Builder> implements Builder {
+public abstract class BuilderBase<R extends RootBuilder, C extends Builder, P> implements Builder {
     private LogicalStructureBuilder<R, C> logicalStructureBuilder;
+    private final Class<P> parentClass;
+    private final Class<C> thisClass;
 
-    protected BuilderBase() {
+    protected BuilderBase(Class<C> thisClass, Class<P> parentClass) {
+        this.thisClass = thisClass;
+        this.parentClass = parentClass;
     }
 
     protected final void init(LogicalStructureBuilder<R, C> logicalStructureBuilder) {
@@ -78,6 +82,79 @@ public abstract class BuilderBase<R extends RootBuilder, C extends Builder> impl
     protected final <N extends Builder> N createNewBuilderNode(CompositePredicate compositePredicate, final BuilderFactory<R, C, N> builderFactory) {
         return logicalStructureBuilder.createNewBuilderNode(compositePredicate, builderFactory);
     }
+
+    public final C or() {
+        return or(createLogicalExpressionBuilderFactory());
+    }
+
+    public final C union() {
+        return or();
+    }
+
+    public final C anyOf() {
+        return or();
+    }
+
+    public final C and() {
+        return and(createLogicalExpressionBuilderFactory());
+    }
+
+    public final C intersect() {
+        return and();
+    }
+
+    public final C allOf() {
+        return and();
+    }
+
+    public final C nor() {
+        return nor(createLogicalExpressionBuilderFactory());
+    }
+
+    public final C noneOf() {
+        return nor();
+    }
+
+    public final C neitherNor() {
+        return nor();
+    }
+
+    public final C complement() {
+        return nor();
+    }
+
+    public final C end() {
+        return doEndLogicalExpression(this.thisClass, false);
+    }
+
+    protected BuilderFactory<R, C, C> createLogicalExpressionBuilderFactory() {
+        return new BuilderFactory<R, C, C>() {
+            @Override
+            public C createBuilder(R root, C parent, CompositePredicate compositePredicate) {
+                return newInstance(root, parent, compositePredicate);
+            }
+        };
+    }
+
+    /**
+     * Create a new instance of C (for logical expressions).
+     *
+     * @param root               the root instance.
+     * @param parent             the parent of current class.
+     * @param compositePredicate the composite predicate.
+     * @return a new instance.
+     */
+    protected abstract C newInstance(R root, C parent, CompositePredicate compositePredicate);
+
+    /**
+     * Terminates the sub selector expression.
+     *
+     * @return the parent selector builder.
+     */
+    protected final P terminateSubSelector() {
+        return doEndLogicalExpression(parentClass, true);
+    }
+
 
     @SuppressWarnings("unchecked")
     protected C alwaysTrue() {

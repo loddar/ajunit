@@ -18,6 +18,7 @@
  */
 package org.failearly.ajunit.builder;
 
+import org.failearly.ajunit.builder.generic.LogicalSelector;
 import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
 
 /**
@@ -28,7 +29,7 @@ import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
  *
  * @see org.failearly.ajunit.AjUnitTest#assertPointcut(JoinPointSelector)
  */
-public interface JoinPointSelector extends SelectorBuilder {
+public interface JoinPointSelector extends SelectorBuilder, LogicalSelector<JoinPointSelector> {
     /**
      * Select join points of type method execution.<br>
      * <br>

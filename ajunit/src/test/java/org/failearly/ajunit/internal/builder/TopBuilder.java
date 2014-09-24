@@ -65,24 +65,8 @@ public final class TopBuilder extends RootBuilderBase<TopBuilder> {
         };
     }
 
-    public TopBuilder and() {
-        return super.and(getRootBuilderFactory());
-    }
-
-    public TopBuilder or() {
-        return super.or(getRootBuilderFactory());
-    }
-
-    private BuilderFactory<TopBuilder, TopBuilder, TopBuilder> getRootBuilderFactory() {
-        return new BuilderFactory<TopBuilder, TopBuilder, TopBuilder>() {
-            @Override
-            public TopBuilder createBuilder(TopBuilder root, TopBuilder parent, CompositePredicate compositePredicate) {
-                return new TopBuilder(root, parent, compositePredicate);
-            }
-        };
-    }
-
-    public TopBuilder end() {
-        return super.doEndLogicalExpression(TopBuilder.class, false);
+    @Override
+    protected TopBuilder newInstance(TopBuilder root, TopBuilder parent, CompositePredicate compositePredicate) {
+        return new TopBuilder(root, parent, compositePredicate);
     }
 }

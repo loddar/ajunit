@@ -22,101 +22,25 @@ import org.failearly.ajunit.builder.SelectorBuilder;
 import org.failearly.ajunit.builder.types.LogicalOperator;
 import org.failearly.ajunit.internal.builder.Builder;
 import org.failearly.ajunit.internal.builder.BuilderBase;
-import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.jpsb.helper.AjUnitTypesPredicateFactory;
-import org.failearly.ajunit.internal.predicate.CompositePredicate;
 
 /**
  * JoinPointBuilderBase is the base class for all Joinpoint Selector builder classes. It already provides implementations for
  * all methods of {@link org.failearly.ajunit.builder.generic.LogicalSelector}.
  * <p>
- * Only {@link #newInstance(JoinPointSelectorImpl, org.failearly.ajunit.internal.builder.Builder, org.failearly.ajunit.internal.predicate.CompositePredicate)}
- * must be implemented.
+ * Only {@code newInstance(JoinPointSelectorImpl, C, CompositePredicate)} must be implemented.
  */
 @SuppressWarnings("unused")
 public abstract class JoinPointSelectorBuilderBase<C extends Builder, P extends SelectorBuilder>
-        extends BuilderBase<JoinPointSelectorImpl, C> {
-    protected final Class<P> parentClass;
-    private final Class<C> thisClass;
-
+        extends BuilderBase<JoinPointSelectorImpl, C, P> {
     protected JoinPointSelectorBuilderBase(Class<C> thisClass, Class<P> parentClass) {
-        this.thisClass = thisClass;
-        this.parentClass = parentClass;
+        super(thisClass, parentClass);
     }
 
     public final C logicalExpression(LogicalOperator logicalOperator) {
-        return super.createNewBuilderNode(AjUnitTypesPredicateFactory.createLogicalOperatorPredicate(logicalOperator), createLogicalExpressionBuilderFactory());
-    }
-
-    public final C or() {
-        return super.or(createLogicalExpressionBuilderFactory());
-    }
-
-    public final C union() {
-        return or();
-    }
-
-    public final C anyOf() {
-        return or();
-    }
-
-    public final C and() {
-        return super.and(createLogicalExpressionBuilderFactory());
-    }
-
-    public final C intersect() {
-        return and();
-    }
-
-    public final C allOf() {
-        return and();
-    }
-
-    public final C nor() {
-        return super.nor(createLogicalExpressionBuilderFactory());
-    }
-
-    public final C noneOf() {
-        return nor();
-    }
-
-    public final C neitherNor() {
-        return nor();
-    }
-
-    public final C complement() {
-        return nor();
-    }
-
-    public final C end() {
-        return super.doEndLogicalExpression(this.thisClass, false);
-    }
-
-    private BuilderFactory<JoinPointSelectorImpl, C, C> createLogicalExpressionBuilderFactory() {
-        return new BuilderFactory<JoinPointSelectorImpl, C, C>() {
-            @Override
-            public C createBuilder(JoinPointSelectorImpl root, C parent, CompositePredicate compositePredicate) {
-                return newInstance(root, parent, compositePredicate);
-            }
-        };
-    }
-
-    /**
-     * Create a new instance of C (for logical expressions).
-     *
-     * @param root               the root instance.
-     * @param parent             the parent of current class.
-     * @param compositePredicate the composite predicate.
-     * @return a new instance.
-     */
-    protected abstract C newInstance(JoinPointSelectorImpl root, C parent, CompositePredicate compositePredicate);
-
-    /**
-     * Terminates the sub selector expression.
-     *
-     * @return the parent selector builder.
-     */
-    protected final P terminateSubSelector() {
-        return doEndLogicalExpression(parentClass, true);
+        return super.createNewBuilderNode(
+                AjUnitTypesPredicateFactory.createLogicalOperatorPredicate(logicalOperator),
+                super.createLogicalExpressionBuilderFactory()
+        );
     }
 }

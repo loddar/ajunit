@@ -23,7 +23,7 @@ import org.failearly.ajunit.internal.predicate.Predicate;
 /**
  * RootBuilder extends the Builder with the build method.
  */
-interface RootBuilder extends Builder {
+public interface RootBuilder extends Builder {
 
     /**
      * Adds a new builder (to the builder stack).

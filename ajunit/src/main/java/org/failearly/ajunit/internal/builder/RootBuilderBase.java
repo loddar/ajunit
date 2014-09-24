@@ -27,10 +27,10 @@ import java.util.List;
 /**
  * RootBuilderBase is the base class for ROOT builder nodes.
  */
-public abstract class RootBuilderBase<R extends RootBuilder> extends BuilderBase<R,R> implements RootBuilder {
+public abstract class RootBuilderBase<R extends RootBuilder> extends BuilderBase<R,R,R> implements RootBuilder {
     private final List<Builder> builderStack=new LinkedList<>();
-    protected RootBuilderBase(Class<R> clazz) {
-        super();
+    protected RootBuilderBase(Class<R> rootBuilderClass) {
+        super(rootBuilderClass, rootBuilderClass);
     }
 
     @Override

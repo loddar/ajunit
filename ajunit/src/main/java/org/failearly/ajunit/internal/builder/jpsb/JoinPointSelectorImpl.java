@@ -20,9 +20,11 @@ package org.failearly.ajunit.internal.builder.jpsb;
 
 import org.failearly.ajunit.builder.JoinPointSelector;
 import org.failearly.ajunit.builder.method.MethodJoinPointSelector;
+import org.failearly.ajunit.builder.types.LogicalOperator;
 import org.failearly.ajunit.internal.builder.BuilderFactory;
 import org.failearly.ajunit.internal.builder.LogicalStructureBuilder;
 import org.failearly.ajunit.internal.builder.RootBuilderBase;
+import org.failearly.ajunit.internal.builder.jpsb.helper.AjUnitTypesPredicateFactory;
 import org.failearly.ajunit.internal.builder.jpsb.method.MethodJoinPointSelectorImpl;
 import org.failearly.ajunit.internal.predicate.CompositePredicate;
 import org.failearly.ajunit.internal.predicate.standard.LogicalPredicates;
@@ -43,6 +45,12 @@ public final class JoinPointSelectorImpl extends RootBuilderBase<JoinPointSelect
         super(JoinPointSelectorImpl.class);
         init(LogicalStructureBuilder.createRootBuilder(this, LogicalPredicates.or()));
         this.joinPointTypes = joinPointTypes;
+    }
+
+    private JoinPointSelectorImpl(JoinPointSelectorImpl root, JoinPointSelectorImpl parent, CompositePredicate compositePredicate) {
+        super(JoinPointSelectorImpl.class);
+        init(LogicalStructureBuilder.createBuilder(root,parent,this, compositePredicate));
+        this.joinPointTypes = root.joinPointTypes;
     }
 
     @Override
@@ -79,6 +87,19 @@ public final class JoinPointSelectorImpl extends RootBuilderBase<JoinPointSelect
         return StandardPredicates.transformerPredicate(
                 AjpTransformers.ajpJoinPointFilter(joinPointType),
                 logicalPredicate
+        );
+    }
+
+    @Override
+    protected JoinPointSelectorImpl newInstance(JoinPointSelectorImpl root, JoinPointSelectorImpl parent, CompositePredicate compositePredicate) {
+        return new JoinPointSelectorImpl(root, parent, compositePredicate);
+    }
+
+    @Override
+    public JoinPointSelector logicalExpression(LogicalOperator logicalOperator) {
+        return super.createNewBuilderNode(
+                AjUnitTypesPredicateFactory.createLogicalOperatorPredicate(logicalOperator),
+                super.createLogicalExpressionBuilderFactory()
         );
     }
 }

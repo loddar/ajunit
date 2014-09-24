@@ -23,28 +23,11 @@ import org.failearly.ajunit.internal.predicate.CompositePredicate;
 /**
  * YBuilder is responsible for ...
  */
-public class XBuilder extends BuilderBase<TopBuilder,XBuilder> {
+public class XBuilder extends BuilderBase<TopBuilder,XBuilder, Builder> {
 
     XBuilder(TopBuilder root, Builder parent, CompositePredicate compositePredicate) {
-        super();
+        super(XBuilder.class, Builder.class);
         init(LogicalStructureBuilder.createBuilder(root, parent, this, compositePredicate));
-    }
-
-    public XBuilder or() {
-        return super.or(getXBuilderFactory());
-    }
-
-    private BuilderFactory<TopBuilder, XBuilder, XBuilder> getXBuilderFactory() {
-        return new BuilderFactory<TopBuilder, XBuilder, XBuilder>() {
-            @Override
-            public XBuilder createBuilder(TopBuilder root, XBuilder parent, CompositePredicate compositePredicate) {
-                return new XBuilder(root, parent, compositePredicate);
-            }
-        };
-    }
-
-    public XBuilder end() {
-        return super.doEndLogicalExpression(XBuilder.class, false);
     }
 
     public YBuilder endY() {
@@ -53,5 +36,10 @@ public class XBuilder extends BuilderBase<TopBuilder,XBuilder> {
 
     public TopBuilder endTop() {
         return super.doEndLogicalExpression(TopBuilder.class, true);
+    }
+
+    @Override
+    protected XBuilder newInstance(TopBuilder root, XBuilder parent, CompositePredicate compositePredicate) {
+        return new XBuilder(root, parent, compositePredicate);
     }
 }
