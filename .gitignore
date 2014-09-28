@@ -13,3 +13,6 @@ coverage/
 # Package Files #
 *.war
 *.ear
+
+# Maven Versions Plugin
+pom.xml.versionsBackup
