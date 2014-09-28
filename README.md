@@ -47,6 +47,29 @@ I suggest also to play a little bit with the ajUnit examples ...
 6. Execute _mvn test_ on the parent project ajunit-examples 
 
 
+TDD with ajUnit
+===============
+
+After the setup, your actually work starts. I recommend following steps:
+
+1. Extend your test fixture class. 
+For example define a method which should be weaved by the aspect and one which should not. This could be done by using your IDE quickly, 
+if you call it in _execute()_ and leave the work to your IDE creating the method/constructor.
+   
+2. Call the new code within _execute()_. 
+
+3. Define the join point selector.
+
+4. Execute the test class. This should fail.
+
+5. Extend the pointcut: _pointcutUnderTest()_.
+
+6. Execute the test class again. If the test gets green you're done. If the test fails, correct the pointcut until it gets green.
+
+7. If the your pointcut definition is not yet complete, start again with 1.
+
+8. If your pointcut definition is not nice, you can start make it more concise/beautiful by extracting it into sub pointcuts, ... .
+
 Glossary
 ========
 
@@ -100,30 +123,7 @@ them by reflection. The ajUnit Universe is an artificial codebase.
 
 4. An ajUnit Universe has a identifier (the aspect's full qualified class name), so it's possible to use the same test fixture classes for two or more tests.
     **But be careful: Doing this means that your tests are not independent.** 
-    
-
-TDD with ajUnit
-===============
-
-After the setup, your actually work starts. I recommend following steps:
-
-1. Extend your test fixture class. 
-For example define a method which should be weaved by the aspect and one which should not. This could be done by using your IDE quickly, 
-if you call it in _execute()_ and leave the work to your IDE creating the method/constructor.
-   
-2. Call the new code within _execute()_. 
-
-3. Define the join point selector.
-
-4. Execute the test class. This should fail.
-
-5. Extend the pointcut.
-
-6. Execute the test class again. If the test gets green you're done. If the test fails, correct the pointcut until it gets green.
-
-7. If the your pointcut definition is not yet complete, start again with 1.
-
-8. If your pointcut definition is not nice, you can start make it more concise/beautiful by extracting it into sub pointcuts, ... .
+ 
 
 
 Dependencies
@@ -150,7 +150,8 @@ Version | Planned | Content
 Social
 ======
 
-Follow me on [Twitter](https://twitter.com/failearly)
+[Twitter](https://twitter.com/failearly)  
+[LinkedIn](https://www.linkedin.com/in/markoumek)
 
 
 Training Video
