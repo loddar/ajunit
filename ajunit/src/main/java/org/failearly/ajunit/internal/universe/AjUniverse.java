@@ -58,4 +58,15 @@ public interface AjUniverse {
      *
      */
     void visitJoinPoints(AjJoinPointVisitor joinPointVisitor);
+
+    /**
+     * Increment the number of Aspect instances.
+     */
+    void incrementNumberOfAspectInstances();
+
+    /**
+     *  @return the number of the aspect instances.
+     */
+    int getNumberOfAspectInstances();
+
 }

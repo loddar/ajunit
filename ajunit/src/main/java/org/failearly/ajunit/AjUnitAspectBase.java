@@ -37,16 +37,6 @@ import java.util.*;
  */
 public abstract class AjUnitAspectBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(AjUnitAspectBase.class);
-    private static final ContextBuilder NULL_CONTEXT_BUILDER =new ContextBuilder() {
-        @Override
-        public ContextBuilder addContext(String name, Object value) {
-            return this;
-        }
-
-        @Override
-        public void storeNamedContextValues(AjJoinPoint ajJoinPoint) {
-        }
-    };
     private static final AjJoinPoint NULL_AJ_JOIN_POINT = new AjJoinPoint() {
         @Override
         public AjJoinPointType getJoinPointType() {
@@ -103,6 +93,8 @@ public abstract class AjUnitAspectBase {
     };
 
     protected AjUnitAspectBase() {
+        final AjUniverse universe = AjUniversesHolder.findOrCreateUniverse(currentUniverseName());
+        universe.incrementNumberOfAspectInstances();
     }
 
     /**
@@ -156,7 +148,7 @@ public abstract class AjUnitAspectBase {
         // final JoinPoint.StaticPart thisJoinPointStaticPart= thisJoinPointStaticPart.getStaticPart();
         // storeStandardContext(thisJoinPointStaticPart, contextBuilder);
 
-        final String universeName = this.getClass().getName();
+        final String universeName = currentUniverseName();
         LOGGER.info("ajUnit - {}: Apply AspectJ join point {} (calling join point is {})",
                         universeName,
                         thisJoinPointStaticPart,
@@ -167,6 +159,10 @@ public abstract class AjUnitAspectBase {
         contextBuilder.storeNamedContextValues(ajUnitJoinPoint);
         ajUnitJoinPoint.applyJoinPoint(ajJoinPointType.chooseContext(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart));
         LOGGER.debug("ajUnit - {}: Applied ajUnit join point {}", universeName, ajUnitJoinPoint);
+    }
+
+    private String currentUniverseName() {
+        return this.getClass().getName();
     }
 
     private void storeStandardContext(JoinPoint thisJoinPoint, ContextBuilder contextBuilder) {
@@ -193,7 +189,7 @@ public abstract class AjUnitAspectBase {
             final JoinPoint.StaticPart thisJoinPointStaticPart,
             final JoinPoint.StaticPart thisEnclosingJoinPointStaticPart,
             String universeName) {
-        final AjUniverse universe = AjUniversesHolder.findUniverse(universeName);
+        final AjUniverse universe = AjUniversesHolder.findOrCreateUniverse(universeName);
         return doSelectJoinPointsOfCurrentUniverse(ajJoinPointType, thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart, universe);
     }
 
@@ -202,7 +198,7 @@ public abstract class AjUnitAspectBase {
             final JoinPoint.StaticPart thisJoinPointStaticPart,
             final JoinPoint.StaticPart thisEnclosingJoinPointStaticPart,
             final AjUniverse universe) {
-        if( universe !=null ) {
+        if( universe.isInitialized() ) {
             final AjJoinPointMatcher ajJoinPointMatcher=ajJoinPointType.getJoinPointMatcher();
             final List<AjJoinPoint> joinPoints=new ArrayList<>();
             universe.visitJoinPoints(new AjJoinPointVisitor() {

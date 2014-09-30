@@ -155,7 +155,7 @@ public final class AjUnitTestRunner {
 
         final String universeName = ajUnitTestSetup.getAspectName();
 
-        return AjUniversesHolder.createUniverseByClasses(universeName, ajUnitTestSetup.getTestFixtureClasses());
+        return AjUniversesHolder.buildUniverseByClasses(universeName, ajUnitTestSetup.getTestFixtureClasses());
     }
 
     private void assertUniverseSetup(AjUnitSetupImpl ajUnitTestSetup) {

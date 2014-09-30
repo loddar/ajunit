@@ -20,12 +20,10 @@ package org.failearly.ajunit.internal.universe.impl;
 
 import org.failearly.ajunit.internal.universe.AjUniverse;
 import org.failearly.ajunit.internal.util.AjAssert;
-import org.failearly.ajunit.internal.util.ClassUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -51,31 +49,15 @@ public final class AjUniversesHolder {
      * @param testFixtureClasses the test fixture classes the aspect will be apply on.
      * @return the universe associated.
      */
-    public static AjUniverse createUniverseByClasses(final String universeName, final Collection<Class<?>> testFixtureClasses) {
-        return INSTANCE.doCreateUniverse(universeName, testFixtureClasses);
+    public static AjUniverse buildUniverseByClasses(final String universeName, final Collection<Class<?>> testFixtureClasses) {
+        return INSTANCE.doFindOrCreateUniverse(universeName, testFixtureClasses);
     }
 
     /**
-     * Creates the universe associated with current ajUnitObject.
-     *
-     * @param universeName       the universe name.
-     * @param testFixtureClassNames the test fixture class names the aspect will be apply on.
-     * @return the universe associated.
-     *
-     * @throws java.lang.ClassNotFoundException
+     * Find or create the (current) universe by universe name.
      */
-    public static AjUniverse createUniverseByClassNames(final String universeName, final Collection<String> testFixtureClassNames)
-            throws ClassNotFoundException {
-        AjAssert.parameterNotEmpty(testFixtureClassNames, "testFixturesClassNames");
-        final Collection<Class<?>> testFixtureClasses=loadClassesWithoutInit(testFixtureClassNames);
-        return INSTANCE.doCreateUniverse(universeName, testFixtureClasses);
-    }
-
-    /**
-     * Fetch the universe by universe name.
-     */
-    public static AjUniverse findUniverse(String universeName) {
-        return INSTANCE.doFindUniverse(universeName);
+    public static AjUniverse findOrCreateUniverse(String universeName) {
+        return INSTANCE.doFindOrCreateUniverse(universeName);
     }
 
     /**
@@ -89,41 +71,29 @@ public final class AjUniversesHolder {
         universes.remove(universeName);
     }
 
-    private static Collection<Class<?>> loadClassesWithoutInit(Collection<String> testFixtureClassNames) throws ClassNotFoundException {
-        final Collection<Class<?>> classes=new HashSet<>();
-        for (String className : testFixtureClassNames) {
-            classes.add(ClassUtils.loadClass(className, false));
+    private AjUniverseImpl doFindOrCreateUniverse(final String universeName) {
+        final AjUniverseImpl newUniverse = new AjUniverseImpl(universeName);
+        if( null==universes.putIfAbsent(universeName, newUniverse) ) {
+            LOGGER.info("Universe {} has been created.", universeName);
         }
-        return classes;
+        return universes.get(universeName);
     }
 
-    private AjUniverse doCreateUniverse(final String universeName, final Collection<Class<?>> testFixtureClasses) {
+    private AjUniverse doFindOrCreateUniverse(final String universeName, final Collection<Class<?>> testFixtureClasses) {
         AjAssert.parameterNotEmpty(testFixtureClasses, "testFixturesClasses");
-        final AjUniverseImpl newUniverse = new AjUniverseImpl(universeName);
-        final AjUniverseImpl existingUniverse=universes.putIfAbsent(universeName, newUniverse);
-        if( existingUniverse==null ) {
-            return initializeUniverse(newUniverse, testFixtureClasses);
-        }
-
-        return existingUniverse;
+        final AjUniverseImpl universe=doFindOrCreateUniverse(universeName);
+        return initializeUniverse(universe, testFixtureClasses);
     }
 
     private AjUniverse initializeUniverse(final AjUniverseImpl universe, final Collection<Class<?>> testFixtureClasses) {
-        AjAssert.state(! universe.isInitialized(), "Universe " + universe.getUniverseName() +" has already been initialized.");
-        final AjUniverseInitializer universeInitializer = new AjUniverseInitializer(universe);
-        universeInitializer.initialize(testFixtureClasses);
+        if( ! universe.isInitialized() ) {
+            final AjUniverseInitializer universeInitializer = new AjUniverseInitializer(universe);
+            universeInitializer.initialize(testFixtureClasses);
+        }
 
         AjAssert.state(universe.isInitialized(), "Universe " + universe.getUniverseName() +" must be in state initialized.");
 
         return universe;
-    }
-
-    private AjUniverse doFindUniverse(String universeName) {
-        final AjUniverse ajUniverse = universes.get(universeName);
-        if( ajUniverse==null ) {
-            LOGGER.info("No universe instance found for '{}'", universeName);
-        }
-        return ajUniverse;
     }
 
     /**
@@ -131,5 +101,13 @@ public final class AjUniversesHolder {
      */
     static void dropUniverses() {
         INSTANCE.universes.clear();
+    }
+
+    /**
+     * Returns an existing universe or {@code null}.
+     * @param universeName the universe name.
+     */
+    public static AjUniverse findUniverse(String universeName) {
+        return INSTANCE.universes.get(universeName);
     }
 }

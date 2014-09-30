@@ -60,6 +60,12 @@ final class AjUniverseInitializer {
 
     private ClassVisitor createClassVisitor() {
         return new AbstractClassVisitor() {
+
+            @Override
+            public void visit(Class<?> declaringClass) {
+                // TODO: staticinitialisation.
+            }
+
             @Override
             public void visit(final Method method) {
                 initMethodJoinPoints(method);

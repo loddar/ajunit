@@ -44,7 +44,7 @@ public class SuppressedJoinPointFactoryTest {
 
     @Before
     public void setUp() throws Exception {
-        this.ajUniverse= AjUniversesHolder.createUniverseByClassNames(ANY_UNIVERSE, Arrays.asList(java.lang.Object.class.getName(), AnyWeavedClass.class.getName()));
+        this.ajUniverse= AjUniversesHolder.buildUniverseByClasses(ANY_UNIVERSE, Arrays.asList(Object.class, AnyWeavedClass.class));
     }
 
     @After

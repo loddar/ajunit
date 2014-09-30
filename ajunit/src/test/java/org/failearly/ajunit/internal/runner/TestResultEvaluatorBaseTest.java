@@ -78,7 +78,7 @@ public class TestResultEvaluatorBaseTest<T extends TestResultCollector> {
 
     @Before
     public final void setUpUniverse() throws Exception {
-        ajUniverse = AjUniversesHolder.createUniverseByClasses(UNIVERSE_NAME, Arrays.<Class<?>>asList(AnyClass.class));
+        ajUniverse = AjUniversesHolder.buildUniverseByClasses(UNIVERSE_NAME, Arrays.<Class<?>>asList(AnyClass.class));
     }
 
     @After

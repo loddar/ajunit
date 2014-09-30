@@ -43,23 +43,7 @@ public class AjUniverseHolderTest {
         final String universeName = "universe-1";
 
         // act / when
-        final AjUniverse universe = AjUniversesHolder.createUniverseByClasses(universeName, toClassList(AjUniverseHolderTest.class));
-
-        // assert / then
-        assertThat("Universe created?", universe, notNullValue());
-        assertThat("Universe initialized?", universe.isInitialized(), is(true));
-        assertThat("Universe name?", universe.getUniverseName(), is(universeName));
-    }
-
-    @Test
-    public void createAjUniverseByClassNames() throws Exception {
-        // arrange / given
-        final String universeName = "universe-2";
-
-        // act / when
-        final AjUniverse universe = AjUniversesHolder.createUniverseByClassNames(
-                universeName,
-                Arrays.asList("org.failearly.ajunit.internal.universe.impl.AjUniverseHolderTest"));
+        final AjUniverse universe = AjUniversesHolder.buildUniverseByClasses(universeName, toClassList(AjUniverseHolderTest.class));
 
         // assert / then
         assertThat("Universe created?", universe, notNullValue());
@@ -71,10 +55,10 @@ public class AjUniverseHolderTest {
     public void createTwiceReturnsSameInstance() throws Exception {
         // arrange / given
         final String universeName = "universe-3";
-        final AjUniverse initialUniverse = AjUniversesHolder.createUniverseByClasses(universeName, toClassList(AjUniverseHolderTest.class));
+        final AjUniverse initialUniverse = AjUniversesHolder.buildUniverseByClasses(universeName, toClassList(AjUniverseHolderTest.class));
 
         // act / when
-        final AjUniverse universe = AjUniversesHolder.createUniverseByClasses(universeName, toClassList(Object.class));
+        final AjUniverse universe = AjUniversesHolder.buildUniverseByClasses(universeName, toClassList(Object.class));
 
         // assert / then
         assertThat("Universe same instances?", universe, sameInstance(initialUniverse));
@@ -84,33 +68,20 @@ public class AjUniverseHolderTest {
     public void findKnownUniverse() throws Exception {
         // arrange / given
         final String universeName = "universe-4";
-        final AjUniverse initialUniverse = AjUniversesHolder.createUniverseByClasses(universeName, toClassList(AjUniverseHolderTest.class));
+        final AjUniverse initialUniverse = AjUniversesHolder.buildUniverseByClasses(universeName, toClassList(AjUniverseHolderTest.class));
 
         // act / when
-        final AjUniverse universe = AjUniversesHolder.findUniverse(universeName);
+        final AjUniverse universe = AjUniversesHolder.findOrCreateUniverse(universeName);
 
         // assert / then
         assertThat("Universe same instances?", universe, sameInstance(initialUniverse));
     }
 
     @Test
-    public void findUnknownUniverse() throws Exception {
-        // arrange / given
-        final String universeName = "universe-5";
-        AjUniversesHolder.createUniverseByClasses(universeName, toClassList(AjUniverseHolderTest.class));
-
-        // act / when
-        final AjUniverse universe = AjUniversesHolder.findUniverse("any unknown instance name");
-
-        // assert / then
-        assertThat("None existing universe?", universe, nullValue());
-    }
-
-    @Test
     public void dropUniverse() throws Exception {
         // arrange / given
         final String universeName = "universe-6";
-        AjUniversesHolder.createUniverseByClasses(universeName, toClassList(AjUniverseHolderTest.class));
+        AjUniversesHolder.buildUniverseByClasses(universeName, toClassList(AjUniverseHolderTest.class));
 
         // act / when
         AjUniversesHolder.dropUniverse(universeName);

@@ -52,7 +52,7 @@ public class AjUnitAspectTest {
 
     @Before
     public void setUp() throws Exception {
-        AjUniversesHolder.createUniverseByClasses(UNIVERSE_NAME_1, Arrays.<Class<?>>asList(AnyClass.class));
+        AjUniversesHolder.buildUniverseByClasses(UNIVERSE_NAME_1, Arrays.asList(AnyClass.class));
     }
 
     @After
@@ -75,7 +75,7 @@ public class AjUnitAspectTest {
     @Test
     public void twoActiveUniverse() throws Exception {
         // arrange / given
-        AjUniversesHolder.createUniverseByClasses(UNIVERSE_NAME_2, Arrays.<Class<?>>asList(AnyClass.class));
+        AjUniversesHolder.buildUniverseByClasses(UNIVERSE_NAME_2, Arrays.asList(AnyClass.class));
         final JoinPoint.StaticPart joinPoint1=joinpoint();
         final JoinPoint.StaticPart joinPoint2=joinpoint();
 

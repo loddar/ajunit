@@ -41,6 +41,7 @@ final class AjUniverseImpl implements AjUniverse {
     private final String universeName;
     private final List<AjJoinPoint> joinPoints;
     private boolean initialized = false;
+    private int numberOfAspectInstances=0;
 
     AjUniverseImpl(final String universeName) {
         this(universeName, new LinkedList<>());
@@ -93,5 +94,15 @@ final class AjUniverseImpl implements AjUniverse {
         for (AjJoinPoint joinPoint : joinPoints) {
             joinPointVisitor.visit(joinPoint);
         }
+    }
+
+    @Override
+    public void incrementNumberOfAspectInstances() {
+        this.numberOfAspectInstances+=1;
+    }
+
+    @Override
+    public int getNumberOfAspectInstances() {
+        return this.numberOfAspectInstances;
     }
 }
