@@ -30,6 +30,9 @@ import org.mockito.internal.verification.VerificationModeFactory;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
 /**
  * Tests for ajUnit aspect tests.
  */
@@ -102,6 +105,19 @@ public class AjUnitAspectTest {
         // assert / then
         verifyJoinPointInteractions(joinPoint1);
         verifyJoinPointInteractions(joinPoint2);
+    }
+
+    @Test
+    public void twoAspectInstance() throws Exception {
+        // arrange / given
+        final JoinPoint.StaticPart joinPoint=joinpoint();
+
+        // act / when
+        new AjUnitAspect1().simulateAdvice(joinPoint);
+        new AjUnitAspect1().simulateAdvice(joinPoint);
+
+        // assert / then
+        assertThat("#Aspect instances?", AjUniversesHolder.findUniverse(UNIVERSE_NAME_1).getNumberOfAspectInstances(), is(2));
     }
 
     private static void verifyJoinPointInteractions(JoinPoint.StaticPart joinPoint) {

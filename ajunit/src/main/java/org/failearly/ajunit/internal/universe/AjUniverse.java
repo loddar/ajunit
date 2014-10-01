@@ -32,6 +32,11 @@ public interface AjUniverse {
     String getUniverseName();
 
     /**
+     * The Aspect's name.
+     */
+    String getAspectName();
+
+    /**
      * @return {@code true} if the universe has been initialized.
      */
     boolean isInitialized();

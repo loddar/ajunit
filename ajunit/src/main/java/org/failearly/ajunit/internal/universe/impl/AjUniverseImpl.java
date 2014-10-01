@@ -56,7 +56,13 @@ final class AjUniverseImpl implements AjUniverse {
         this.joinPoints = joinPoints;
     }
 
+    @Override
     public String getUniverseName() {
+        return universeName;
+    }
+
+    @Override
+    public String getAspectName() {
         return universeName;
     }
 

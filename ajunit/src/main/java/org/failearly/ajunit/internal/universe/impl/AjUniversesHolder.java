@@ -97,17 +97,21 @@ public final class AjUniversesHolder {
     }
 
     /**
-     * Drop all universes. Currently used only for test class.
+     * Drop all universes. Currently used only for tests.
      */
     static void dropUniverses() {
         INSTANCE.universes.clear();
     }
 
     /**
-     * Returns an existing universe or {@code null}.
+     * Returns an existing universe or {@code null}. Currently used only for tests.
      * @param universeName the universe name.
      */
     public static AjUniverse findUniverse(String universeName) {
-        return INSTANCE.universes.get(universeName);
+        final AjUniverseImpl ajUniverse = INSTANCE.universes.get(universeName);
+        if(ajUniverse==null) {
+            LOGGER.warn("Can't find Universe with name {}", universeName);
+        }
+        return ajUniverse;
     }
 }

@@ -50,6 +50,11 @@ public abstract class AjUnitTestBase implements AjUnitTest, FailureHandler {
 
     }
 
+    @Override
+    public int assertNumberOfExpectedAspectInstances() {
+        return 1;
+    }
+
     protected final void doPointcutTest() {
         testRunner.doPointcutTest();
     }

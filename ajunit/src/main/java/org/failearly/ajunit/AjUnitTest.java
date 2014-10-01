@@ -58,4 +58,19 @@ public interface AjUnitTest {
      */
     void assertPointcut(JoinPointSelector joinPointSelector);
 
+    /**
+     * Returns the number of expected Aspect instances.<br>
+     * This assertion should be overloaded, if your Aspect uses other association type then
+     * singleton.<br><br>
+     * Known Aspect association types:
+     * <ul>
+     *     <li>Singleton (default): Only one instance of your aspect will be created.</li>
+     *     <li>Per object: For every object created and associated to the your aspect there will be an Aspect instance.</li>
+     *     <li>Per type: For every type/class associated to the your aspect there will be an Aspect instance.</li>
+     *     <li>Per control-flow: For every matching control flow an aspect will be created.</li>
+     * </ul>
+     * @return default value is {@code 1}.
+     */
+    int assertNumberOfExpectedAspectInstances();
+
 }

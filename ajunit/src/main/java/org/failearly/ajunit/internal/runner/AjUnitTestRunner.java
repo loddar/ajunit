@@ -84,12 +84,35 @@ public final class AjUnitTestRunner {
 
             // assert / then
             assertPointcutDefinition(universe, joinPointTypes, joinPointSelector, enabledJoinPoints);
+            assertAspectAssociationType(universe);
         } finally {
             // Cleanup
             if (universeName != null) {
                 AjUniversesHolder.dropUniverse(universeName);
             }
         }
+    }
+
+    private void assertAspectAssociationType(AjUniverse universe) {
+        final int numberOfExpectedAspects = this.ajUnitTest.assertNumberOfExpectedAspectInstances();
+        final int currentNumberOfAspects = universe.getNumberOfAspectInstances();
+        if( currentNumberOfAspects != numberOfExpectedAspects) {
+            failureHandler.doFail(
+                                createMessageForFailedAspectAssociation(universe, numberOfExpectedAspects, currentNumberOfAspects)
+                        );
+        }
+    }
+
+    private String createMessageForFailedAspectAssociation(AjUniverse universe, int numberOfExpectedAspects, int currentNumberOfAspects) {
+        return MessageBuilders.message("Aspect association type test failed:")
+                .newline("#Expected instance is").arg(numberOfExpectedAspects).part("but was").arg(currentNumberOfAspects)
+                .newline().newline("Possible reasons:")
+                .line("Your aspect").arg(universe.getAspectName())
+                    .part("uses other aspect association then singleton. For example per object.")
+                    .part("Please override assertNumberOfExpectedAspectInstances() accordingly.")
+                .line("The returned value (=").arg(numberOfExpectedAspects).part(") of assertNumberOfExpectedAspectInstances() is wrong.")
+                .line("You change execute() without adapting assertNumberOfExpectedAspectInstances() accordingly.")
+                .build();
     }
 
     private void doExecute() {
