@@ -31,6 +31,14 @@ public abstract class AjUnitTestBase implements AjUnitTest, FailureHandler {
 
     private final AjUnitTestRunner testRunner = AjUnitTestRunner.createTestRunner(this, this);
 
+    protected final void doSetup() {
+        testRunner.setup();
+    }
+
+    protected final void doTearDown() {
+        testRunner.tearDown();
+    }
+
     @Override
     public void setup(AjUnitSetup ajUnitSetup) {
         AjAssert.throwSetupError(MessageBuilders.setupError("Missing setup.")
@@ -51,12 +59,16 @@ public abstract class AjUnitTestBase implements AjUnitTest, FailureHandler {
     }
 
     @Override
-    public int assertNumberOfExpectedAspectInstances() {
+    public int expectedNumberOfAspectInstances() {
         return 1;
     }
 
     protected final void doPointcutTest() {
-        testRunner.doPointcutTest();
+        testRunner.pointcutTest();
+    }
+
+    protected final void doAspectAssociationTest() {
+        testRunner.aspectAssociationTest();
     }
 
     @Override

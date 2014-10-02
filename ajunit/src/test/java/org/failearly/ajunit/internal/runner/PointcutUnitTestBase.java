@@ -21,10 +21,18 @@ package org.failearly.ajunit.internal.runner;
 import org.failearly.ajunit.AjUnitTestBase;
 
 /**
-* AbstractAjUnitTest is responsible for ...
-*/
+ * AbstractAjUnitTest is responsible for ...
+ */
 public abstract class PointcutUnitTestBase extends AjUnitTestBase {
     protected PointcutUnitTestBase() {
+    }
+
+    public final void setup() {
+        doSetup();
+    }
+
+    public final void tearDown() {
+        doTearDown();
     }
 
     public final void testPointcut() {

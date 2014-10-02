@@ -18,7 +18,6 @@
  */
 package org.failearly.ajunit.internal.runner;
 
-import org.failearly.ajunit.AjUnitAspectBase;
 import org.failearly.ajunit.AjUnitTest;
 import org.failearly.ajunit.internal.builder.jpsb.JoinPointSelectorImpl;
 import org.failearly.ajunit.internal.predicate.Predicate;
@@ -50,6 +49,9 @@ public final class AjUnitTestRunner {
 
     private final AjUnitTest ajUnitTest;
     private final FailureHandler failureHandler;
+    private final List<Predicate> enabledJoinPoints = new LinkedList<>();
+    private AjUniverse universe;
+    private int setupCounter = 0;
 
     private AjUnitTestRunner(AjUnitTest ajUnitTest, FailureHandler failureHandler) {
         this.ajUnitTest = ajUnitTest;
@@ -58,134 +60,124 @@ public final class AjUnitTestRunner {
 
     /**
      * The factory method.
+     *
      * @return an AjUnitTestRunner instance.
      */
     public static AjUnitTestRunner createTestRunner(AjUnitTest ajUnitTest, FailureHandler failureHandler) {
         return new AjUnitTestRunner(ajUnitTest, failureHandler);
     }
 
+    public void setup() {
+        if (setupCounter == 0) {
+            universe = doSetup(enabledJoinPoints);
+            applyTestAspect();
+        }
+        setupCounter++;
+    }
+
+    public void tearDown() {
+        setupCounter--;
+        if (setupCounter == 0) {
+            dropUniverse();
+        }
+    }
+
+    private void dropUniverse() {
+        if (this.universe != null) {
+            AjUniversesHolder.dropUniverse(universe.getUniverseName());
+            this.universe = null;
+        }
+    }
+
     /**
      * Executes the entire pointcut test.
      */
-    public final void doPointcutTest() {
-        String universeName = null;
-        try {
-            // arrange / given
-            final List<Predicate> enabledJoinPoints=new LinkedList<>();
-            final AjUniverse universe = setupAjUnitTest(enabledJoinPoints);
-            universeName = universe.getUniverseName();
+    public final void pointcutTest() {
+        // arrange / given
+        final Set<AjJoinPointType> joinPointTypes = new HashSet<>();
+        final Predicate joinPointSelector = buildJoinPointSelector(joinPointTypes);
+        LOGGER.info("Created join point selector: \n{}", joinPointSelector);
 
-            final Set<AjJoinPointType> joinPointTypes = new HashSet<>();
-            final Predicate joinPointSelector = buildJoinPointSelector(joinPointTypes);
-            LOGGER.info("Created join point selector: \n{}", joinPointSelector);
-
-            // act / when
-            doExecute();
-
-            // assert / then
-            assertPointcutDefinition(universe, joinPointTypes, joinPointSelector, enabledJoinPoints);
-            assertAspectAssociationType(universe);
-        } finally {
-            // Cleanup
-            if (universeName != null) {
-                AjUniversesHolder.dropUniverse(universeName);
-            }
-        }
+        // assert / then
+        assertPointcutDefinition(joinPointTypes, joinPointSelector);
     }
 
-    private void assertAspectAssociationType(AjUniverse universe) {
-        final int numberOfExpectedAspects = this.ajUnitTest.assertNumberOfExpectedAspectInstances();
+    public final void aspectAssociationTest() {
+        assertAspectAssociationType();
+    }
+
+    private void assertAspectAssociationType() {
+        final int numberOfExpectedAspects = ajUnitTest.expectedNumberOfAspectInstances();
         final int currentNumberOfAspects = universe.getNumberOfAspectInstances();
-        if( currentNumberOfAspects != numberOfExpectedAspects) {
+        if (currentNumberOfAspects != numberOfExpectedAspects) {
             failureHandler.doFail(
-                                createMessageForFailedAspectAssociation(universe, numberOfExpectedAspects, currentNumberOfAspects)
-                        );
+                    createMessageForFailedAspectAssociation(universe, numberOfExpectedAspects, currentNumberOfAspects)
+            );
         }
     }
 
-    private String createMessageForFailedAspectAssociation(AjUniverse universe, int numberOfExpectedAspects, int currentNumberOfAspects) {
+    private String createMessageForFailedAspectAssociation(AjUniverse universe, int expectedNumberOfAspects, int currentNumberOfAspects) {
         return MessageBuilders.message("Aspect association type test failed:")
-                .newline("#Expected instance is").arg(numberOfExpectedAspects).part("but was").arg(currentNumberOfAspects)
+                .newline("#Expected instance(s) is/are").arg(expectedNumberOfAspects).part("but was").arg(currentNumberOfAspects)
                 .newline().newline("Possible reasons:")
                 .line("Your aspect").arg(universe.getAspectName())
-                    .part("uses other aspect association then singleton. For example per object.")
-                    .part("Please override assertNumberOfExpectedAspectInstances() accordingly.")
-                .line("The returned value (=").arg(numberOfExpectedAspects).part(") of assertNumberOfExpectedAspectInstances() is wrong.")
-                .line("You change execute() without adapting assertNumberOfExpectedAspectInstances() accordingly.")
+                .part("uses other aspect association then singleton. For example per object.")
+                .part("Please override expectedNumberOfAspectInstances() accordingly.")
+                .line("The returned value (=" + expectedNumberOfAspects + ") of expectedNumberOfAspectInstances() is wrong.")
+                .line("You change execute() without adapting expectedNumberOfAspectInstances() accordingly.")
                 .build();
     }
 
-    private void doExecute() {
+    private void applyTestAspect() {
         LOGGER.info("Executing the test classes");
         try {
             this.ajUnitTest.execute();
         } catch (Exception ex) {
-           LOGGER.warn("Caught exception from " + this.ajUnitTest.getClass() + ".execute()", ex);
+            LOGGER.warn("Caught exception from " + this.ajUnitTest.getClass() + ".execute()", ex);
         }
     }
 
     private void assertPointcutDefinition(
-                        final AjUniverse universe,
-                        final Set<AjJoinPointType> joinPointTypes,
-                        final Predicate joinPointSelector,
-                        final List<Predicate> enabledJoinPoints)
-    {
+            final Set<AjJoinPointType> joinPointTypes,
+            final Predicate joinPointSelector) {
         final ApplyJoinPointSelector joinPointVisitor = new ApplyJoinPointSelector(enabledJoinPoints, joinPointSelector);
         universe.visitJoinPoints(joinPointVisitor);
-        final TestResultCollectorImpl testResultCollector=new TestResultCollectorImpl();
-        final TestResultEvaluator testResultEvaluator=new TestResultEvaluator();
-        testResultEvaluator.init(joinPointVisitor, joinPointTypes)
-                           .evaluateTestResult(testResultCollector);
+        final TestResultCollectorImpl testResultCollector = new TestResultCollectorImpl();
+        final TestResultEvaluator testResultEvaluator = new TestResultEvaluator();
+        testResultEvaluator.init(joinPointVisitor, joinPointTypes).evaluateTestResult(testResultCollector);
         testResultCollector.onFailure(this.failureHandler);
     }
 
-    private void assertAssociatedAspect(AjUnitSetupImpl ajUnitTestSetup) {
+    private void checkForAssociatedAspect(AjUnitSetupImpl ajUnitTestSetup) {
         final String aspectClassName = ajUnitTestSetup.getAspectName();
         doAssertAspectClassName(aspectClassName);
-        final Class<?> aspectClass = ClassUtils.loadClass(aspectClassName, false);
-        doAssertAspectExtendsBaseAspectClass(aspectClass);
+        ClassUtils.loadClass(aspectClassName, false);
     }
 
     private void doAssertAspectClassName(String aspectClassName) {
-        if( aspectClassName==null ) {
+        if (aspectClassName == null) {
             throwSetupError(MessageBuilders.setupError("Missing aspect or not yet assigned.")
                     .line("Create an aspect and ...")
                     .line("assign it by calling AjUnitSetup.assignAspect(\"full.path.MyAspect\") in setup(AjUnitSetup)."));
         }
     }
 
-    private void doAssertAspectExtendsBaseAspectClass(Class<?> aspectClass) {
-        if (!AjUnitAspectBase.class.isAssignableFrom(aspectClass)) {
-            throwSetupError(MessageBuilders.setupError("Test aspect")
-                    .arg(aspectClass.getCanonicalName())
-                    .part("is not an ajUnit based aspect!")
-                    .line("Please extend your aspect from one of the provided base aspects:")
-                    .subLine("AjUnitAnnotationAspect or AjUnitClassicAspect")
-                    .subLine("AjUnitBeforeAnnotationAspect or AjUnitBeforeClassicAspect")
-                    // .subLine("AjUnitAfterAnnotationAspect or AjUnitAfterClassicAspect")
-                    // .subLine("AjUnitAroundAnnotationAspect or AjUnitAroundClassicAspect")
-            );
-        }
-    }
-
-    private AjUniverse setupAjUnitTest(List<Predicate> enabledJoinPoints) {
+    private AjUniverse doSetup(List<Predicate> enabledJoinPoints) {
         final AjUnitSetupImpl ajUnitTestSetup = new AjUnitSetupImpl();
         ajUnitTest.setup(ajUnitTestSetup);
         enabledJoinPoints.addAll(ajUnitTestSetup.getEnabledJoinPoints());
 
-        assertAssociatedAspect(ajUnitTestSetup);
-        assertUniverseSetup(ajUnitTestSetup);
+        checkForAssociatedAspect(ajUnitTestSetup);
+        checkUniverseSetup(ajUnitTestSetup);
 
-        final String universeName = ajUnitTestSetup.getAspectName();
-
-        return AjUniversesHolder.buildUniverseByClasses(universeName, ajUnitTestSetup.getTestFixtureClasses());
+        return AjUniversesHolder.buildUniverseByClasses(ajUnitTestSetup.getAspectName(), ajUnitTestSetup.getTestFixtureClasses());
     }
 
-    private void assertUniverseSetup(AjUnitSetupImpl ajUnitTestSetup) {
+    private void checkUniverseSetup(AjUnitSetupImpl ajUnitTestSetup) {
         final List<Class<?>> testFixtureClasses = ajUnitTestSetup.getTestFixtureClasses();
         if (testFixtureClasses.isEmpty()) {
             throwSetupError(MessageBuilders.setupError("Missing test fixture class(es).")
-                    .line("Apply addTestFixtureClass(<class> or <class name>) for every test fixture class.")
+                            .line("Apply addTestFixtureClass(<class> or <class name>) for every test fixture class.")
             );
         }
     }

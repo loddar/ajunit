@@ -18,6 +18,8 @@
  */
 package org.failearly.ajunit;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.fail;
@@ -32,9 +34,24 @@ public abstract class AjUnit4Test extends AjUnitTestBase {
     protected AjUnit4Test() {
     }
 
+    @Before
+    public void setup() {
+        super.doSetup();
+    }
+
     @Test
     public final void pointcutTest() {
         super.doPointcutTest();
+    }
+
+    @Test
+    public final void aspectAssociationTest() {
+        super.doAspectAssociationTest();
+    }
+
+    @After
+    public void dropUniverse() {
+        super.doTearDown();
     }
 
     @Override

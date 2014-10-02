@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.ajunit;
+package org.failearly.ajunit.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.failearly.ajunit.internal.universe.*;
@@ -29,14 +29,16 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
- * AjUnitAspectBase is THE base class for all ajUnit based aspects.
+ * AjJoinpointCollector is THE base class for all ajUnit based aspects.
  * This method should be called by the aspect's {@code advice}.
  */
-public abstract class AjUnitAspectBase {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AjUnitAspectBase.class);
+public final class AjJoinpointCollector {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AjJoinpointCollector.class);
     private static final AjJoinPoint NULL_AJ_JOIN_POINT = new AjJoinPoint() {
         @Override
         public AjJoinPointType getJoinPointType() {
@@ -92,61 +94,21 @@ public abstract class AjUnitAspectBase {
         }
     };
 
-    protected AjUnitAspectBase() {
+    private final Class<?> aspectClass;
+
+    public AjJoinpointCollector(Class<?> aspectClass) {
+        this.aspectClass = aspectClass;
         final AjUniverse universe = AjUniversesHolder.findOrCreateUniverse(currentUniverseName());
         universe.incrementNumberOfAspectInstances();
     }
 
-    /**
-     * Factory method for {@link org.failearly.ajunit.AjUnitAspectBase.ContextBuilder}.
-     * @return new ContextBuilder.
-     */
-    protected static ContextBuilder context() {
-        return new ContextBuilderImpl();
-    }
 
-    /**
-     * Convenient factory method for {@link org.failearly.ajunit.AjUnitAspectBase.ContextBuilder} with one named context.
-     * @return new ContextBuilder.
-     */
-    protected static ContextBuilder context(String name1, Object val1) {
-        return context().addContext(name1, val1);
-    }
-
-    /**
-     * Convenient factory method for {@link org.failearly.ajunit.AjUnitAspectBase.ContextBuilder} with two named context.
-     * @return new ContextBuilder.
-     */
-    protected static ContextBuilder context(String name1, Object val1, String name2, Object val2) {
-        return context().addContext(name1, val1).addContext(name2, val2);
-    }
-
-    /**
-     * <i>Apply the join point</i>, means to find the associated ajUnit join point and then mark it as applied.
-     * @param thisJoinPointStaticPart the AspectJ join point.
-     * @param thisEnclosingJoinPointStaticPart the enclosing join point.
-     */
-    protected final void applyJoinPoint(final JoinPoint.StaticPart thisJoinPointStaticPart, final JoinPoint.StaticPart thisEnclosingJoinPointStaticPart) {
-        this.applyJoinPoint(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart, context());
-    }
-
-    /**
-     * <i>Apply the join point</i>, means to find the associated ajUnit join point and then mark it as applied.
-     *
-     * @param thisJoinPointStaticPart  the current join point.
-     * @param thisEnclosingJoinPointStaticPart the enclosing join point ({@code thisEnclosingJoinPointStaticPart})
-     * @param contextBuilder context builder.
-     *
-     * @see #context()
-     * @see #context(String, Object)
-     * @see #context(String, Object, String, Object)
-     */
-    protected final void applyJoinPoint(
+    public final void applyJoinPoint(
             final JoinPoint.StaticPart thisJoinPointStaticPart,
             final JoinPoint.StaticPart thisEnclosingJoinPointStaticPart,
-            final ContextBuilder contextBuilder) {
+            final AjUnitAspect.Context context) {
         // final JoinPoint.StaticPart thisJoinPointStaticPart= thisJoinPointStaticPart.getStaticPart();
-        // storeStandardContext(thisJoinPointStaticPart, contextBuilder);
+        // storeStandardContext(thisJoinPointStaticPart, context);
 
         final String universeName = currentUniverseName();
         LOGGER.info("ajUnit - {}: Apply AspectJ join point {} (calling join point is {})",
@@ -156,22 +118,23 @@ public abstract class AjUnitAspectBase {
                 );
         final AjJoinPointType ajJoinPointType = AjJoinPointType.resolveFromJoinPoint(thisJoinPointStaticPart);
         final AjJoinPoint ajUnitJoinPoint=resolveAjJoinPoint(ajJoinPointType, thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart, universeName);
-        contextBuilder.storeNamedContextValues(ajUnitJoinPoint);
+        AjContexts.storeNamedContextValues(context, ajUnitJoinPoint);
         ajUnitJoinPoint.applyJoinPoint(ajJoinPointType.chooseContext(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart));
         LOGGER.debug("ajUnit - {}: Applied ajUnit join point {}", universeName, ajUnitJoinPoint);
     }
 
     private String currentUniverseName() {
-        return this.getClass().getName();
+        return aspectClass.getName();
     }
 
-    private void storeStandardContext(JoinPoint thisJoinPoint, ContextBuilder contextBuilder) {
+    @SuppressWarnings("UnusedDeclaration")
+    private void storeStandardContext(JoinPoint thisJoinPoint, AjUnitAspect.Context context) {
         final Object thisObject = thisJoinPoint.getThis();
         final Object targetObject = thisJoinPoint.getTarget();
         final Object[] args = thisJoinPoint.getArgs();
-        contextBuilder.addContext("_this", thisObject);
-        contextBuilder.addContext("_target", targetObject);
-        contextBuilder.addContext("_args", Arrays.asList(args));
+        context.addValue("_this", thisObject);
+        context.addValue("_target", targetObject);
+        context.addValue("_args", Arrays.asList(args));
     }
 
     private AjJoinPoint resolveAjJoinPoint(
@@ -232,44 +195,9 @@ public abstract class AjUnitAspectBase {
 
     }
 
+    @SuppressWarnings("UnusedDeclaration")
     private AjJoinPointMatcher resolveJoinPointMatcher(JoinPoint.StaticPart joinPoint) {
         final AjJoinPointType ajJoinPointType=AjJoinPointType.resolveFromJoinPoint(joinPoint);
         return ajJoinPointType.getJoinPointMatcher();
-    }
-
-    /**
-     * ContextBuilder is responsible for collecting (named) context values associated with current joint point.
-     */
-    protected interface ContextBuilder {
-        /**
-         * Add a (named) context value.
-         * @param name the context name.
-         * @param value the context value.
-         * @return itself.
-         */
-        ContextBuilder addContext(String name, Object value);
-
-        /**
-         * Internal use.
-         */
-        void storeNamedContextValues(AjJoinPoint ajJoinPoint);
-    }
-
-    private static final class ContextBuilderImpl implements ContextBuilder {
-        private final Map<String, Object> contextMap=new HashMap<>();
-        private ContextBuilderImpl() {}
-
-        @Override
-        public ContextBuilder addContext(final String name, Object value) {
-            this.contextMap.put(name, value);
-            return this;
-        }
-
-        @Override
-        public void storeNamedContextValues(final AjJoinPoint ajJoinPoint) {
-            for (Map.Entry<String, Object> context : contextMap.entrySet()) {
-                ajJoinPoint.addContext(context.getKey(), context.getValue());
-            }
-        }
     }
 }

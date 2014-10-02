@@ -31,6 +31,7 @@ import static org.junit.Assert.fail;
 public abstract class AbstractTestRunnerTest {
     static void assertException(PointcutUnitTestBase testClass, Class<? extends Throwable> expectedException, String expectedMessage) {
         try {
+            testClass.setup();
             testClass.testPointcut();
         } catch (Throwable ex) {
             ex.printStackTrace();

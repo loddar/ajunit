@@ -35,6 +35,7 @@ public class InvalidGetterClassicAspectTest extends AjUnit4Test {
 
     @Override
     public void execute() {
+        new ClassWithGetters();
         final ClassWithGetters classWithGetters = new ClassWithGetters();
         classWithGetters.getValue();
         classWithGetters.getReturningVoid();

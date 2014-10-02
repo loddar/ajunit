@@ -53,7 +53,7 @@ public interface AjUnitSetup {
      * <br><br>
      * The associated aspect should comply with following conditions:
      * <ul>
-     * <li>The aspect must be inherit from {@code org.failearly.ajunit.annotation.AjUnitAspect} or one of
+     * <li>The aspect must be inherit from {@code org.failearly.ajunit.annotation.AjJoinpointCollector} or one of
      * the provided sub aspects.</li>
      * </ul>
      *

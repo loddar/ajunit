@@ -20,6 +20,7 @@ package org.failearly.ajunit;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.failearly.ajunit.aspect.AjUnitAspectBase;
 import org.failearly.ajunit.internal.universe.impl.AjUniversesHolder;
 import org.junit.After;
 import org.junit.Before;

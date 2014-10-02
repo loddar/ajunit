@@ -20,7 +20,7 @@ package org.failearly.ajunit.aspect.annotation;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.failearly.ajunit.AjUnitAspectBase;
+import org.failearly.ajunit.aspect.AjUnitAspectBase;
 
 /**
  * AjUnitAnnotationAspect is the base aspect for all annotation based aspects - a class using {@link @AspectJ} annotation.
@@ -28,7 +28,7 @@ import org.failearly.ajunit.AjUnitAspectBase;
  * <ul>
  *     <li>implement pointcut definition {@link #pointcutUnderTest()}</li>
  *     <li>and define an (before, after or around) advice which calls
- *          {@link org.failearly.ajunit.AjUnitAspectBase#applyJoinPoint(org.aspectj.lang.JoinPoint.StaticPart, org.aspectj.lang.JoinPoint.StaticPart)}</li>
+ *          {@link #applyJoinPoint(org.aspectj.lang.JoinPoint.StaticPart, org.aspectj.lang.JoinPoint.StaticPart)}</li>
  * </ul>
  *
  * <br/></br>It contains also some predefined pointcut definitions, as starting points for defining your specific pointcut:
@@ -103,4 +103,5 @@ public abstract class AjUnitAnnotationAspect extends AjUnitAspectBase {
      */
     @Pointcut("call(*.new(..))")
     protected void allConstructorCall() {}
+
 }

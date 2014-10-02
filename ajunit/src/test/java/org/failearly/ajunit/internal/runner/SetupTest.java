@@ -55,27 +55,11 @@ public class SetupTest extends AbstractTestRunnerTest {
         assertAjUnitSetupError(new PointcutUnitTest() {
             @Override
             public void setup(AjUnitSetup ajUnitSetup) {
-                ajUnitSetup.assignAspect("MissingBaseAspectAspect");
+                ajUnitSetup.assignAspect("MissingBaseAspect");
             }
         },
-                "ajUnit - Setup Error: Class 'MissingBaseAspectAspect' could not be found.\n" +
+                "ajUnit - Setup Error: Class 'MissingBaseAspect' could not be found.\n" +
                         "- The class name must be full qualified."
-        );
-    }
-
-    @Test
-    public void aspectDoesNotExtendBaseAspect() throws Exception {
-        assertAjUnitSetupError(new PointcutUnitTest() {
-            @Override
-            public void setup(AjUnitSetup ajUnitSetup) {
-                ajUnitSetup.assignAspect("any.company.aspect.MissingBaseAspectAspect");
-            }
-        },
-                "ajUnit - Setup Error: Test aspect 'any.company.aspect.MissingBaseAspectAspect' is not an ajUnit based aspect!" +
-                        "\n- Please extend your aspect from one of the provided base aspects:" +
-                        "\n\t* AjUnitAnnotationAspect or AjUnitClassicAspect" +
-                        "\n\t* AjUnitBeforeAnnotationAspect or AjUnitBeforeClassicAspect"
-
         );
     }
 

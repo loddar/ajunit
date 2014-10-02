@@ -71,6 +71,6 @@ public interface AjUnitTest {
      * </ul>
      * @return default value is {@code 1}.
      */
-    int assertNumberOfExpectedAspectInstances();
+    int expectedNumberOfAspectInstances();
 
 }

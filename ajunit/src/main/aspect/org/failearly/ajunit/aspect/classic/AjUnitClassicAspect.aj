@@ -18,7 +18,7 @@
  */
 package org.failearly.ajunit.aspect.classic;
 
-import org.failearly.ajunit.AjUnitAspectBase;
+import org.failearly.ajunit.aspect.AjUnitAspectBase;
 
 /**
  * AjUnitClassicAspect is THE base aspect for ajUnit aspects.
